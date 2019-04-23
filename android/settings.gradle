@@ -1,0 +1,3 @@
+rootProject.name = 'Serto'
+
+include ':app'

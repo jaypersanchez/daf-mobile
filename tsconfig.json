@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2015", 
+    "module": "es2015",
+    "importHelpers": true,
+    "lib": ["es2017"],
+    "jsx": "react-native",
+    "noEmit": true,
+    "strict": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+        "Serto/*": ["./*"],
+    }
+  },
+  "types": ["jest"],
+  "include": ["./src/**/*"],
+  "exclude": [
+    "node_modules",
+  ],
+}

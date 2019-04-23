@@ -1,0 +1,73 @@
+{
+  "name": "Serto",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status"
+  },
+  "dependencies": {
+    "react": "16.8.3",
+    "react-native": "0.59.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.13",
+    "@types/react-native": "^0.57.46",
+    "@types/react-test-renderer": "^16.8.1",
+    "babel-jest": "^24.7.1",
+    "husky": "^1.3.1",
+    "jest": "^24.7.1",
+    "jest-static-stubs": "^0.0.1",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "react-dom": "^16.8.6",
+    "react-native-typescript-transformer": "^1.2.12",
+    "react-test-renderer": "16.8.3",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "android.js",
+      "ios.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js|jsx)"
+    ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.jest.json"
+      }
+    },
+    "testEnvironment": "node",
+    "collectCoverage": false
+  }
+}
