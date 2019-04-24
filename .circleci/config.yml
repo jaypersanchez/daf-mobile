@@ -22,6 +22,11 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      # Persist data
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - node_modules
       # Run unit tests and codecoverage
       - run:
           name: test
@@ -37,6 +42,8 @@ jobs:
     docker:
       - image: circleci/node:8.10
     steps:
+      - checkout:
+          path: ~/repo
       - run:
           name: package react-native android bundle independently
           command: npm run package-android --max-workers=3
