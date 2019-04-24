@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  node:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
@@ -13,26 +13,25 @@ jobs:
             - dependencies-cache-{{ checksum "package.json" }}
 
       - run:
-          name: install codecov &&  dependencies
+          name: install-dependencies
           command: |
             sudo npm i -g codecov
             npm i
-
-      - run:
-          name: test
-          command: npm test && codecov
-
-      - run:
-          name: code-coverage
-          command: bash <(curl -s https://codecov.io/bash)
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      - run:
+          name: test
+          command: npm test && codecov
+      - run:
+          name: code-coverage
+          command: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      #  Only run tests for now
+      - node
