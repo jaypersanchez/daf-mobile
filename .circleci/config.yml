@@ -47,5 +47,5 @@ workflows:
     jobs:
       - setup-and-unit-test
       - build-android:
-        requires:
-          - setup-and-unit-test
+          requires:
+            - setup-and-unit-test
