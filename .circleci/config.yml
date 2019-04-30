@@ -45,8 +45,15 @@ jobs:
       - run:
           name: code-coverage
           command: bash <(curl -s https://codecov.io/bash)
+      # Store test results for the "Test Summary" tab
       - store_test_results:
           path: test-results
+      # Store test results in the "Artifacts" tab
+      - store_artifacts:
+          path: test-results
+      # Store coverage in the "Artifacts" tab
+      - store_artifacts:
+          path: coverage
 
   #Run android buils
   android-build:
