@@ -82,15 +82,8 @@ jobs:
           name: get android dependencies
           command: cd ~/repo/android && ./gradlew androidDependencies
 
-      # Run ??
-      - run: cd ~/repo/android && ./gradlew :app:deliverArchives -x bundleReleaseJsAndAssets
-
-      # Persist generated data to workspace
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - android/app/build/jsbundle/assets
-            - android/app/build/jsbundle/res
+      # Run bundleReleaseJsAndAssets
+      - run: cd ~/repo/android && ./gradlew bundleReleaseJsAndAssets
 
 workflows:
   version: 2
