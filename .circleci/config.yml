@@ -26,7 +26,7 @@ jobs:
       - persist_to_workspace:
           root: ~/repo
           paths:
-            - node_modules
+            - ./
 
   #Run unit tests
   unit-tests:
@@ -44,7 +44,8 @@ jobs:
       - run:
           name: code-coverage
           command: bash <(curl -s https://codecov.io/bash)
-
+      - store_test_results:
+          path: test-results
   #Run android buils
   android-build:
     working_directory: ~/repo

@@ -10,6 +10,7 @@
     "package-android": "mkdir -p android/app/build/jsbundle/assets/ && mkdir -p android/app/build/jsbundle/res && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/jsbundle/assets/index.android.bundle --assets-dest android/app/build/jsbundle/res"
   },
   "dependencies": {
+    "jest-junit": "^6.3.0",
     "react": "16.8.3",
     "react-native": "^0.59.6"
   },
@@ -71,6 +72,14 @@
     },
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results/jest/",
+    "outputName": "results.xml"
   }
 }
