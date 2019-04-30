@@ -1,7 +1,7 @@
 version: 2
 jobs:
-  #First job, checkouts code and node deps and run unit tests
-  setup-and-unit-test:
+  #First job, checkouts code and node deps
+  checkout-setup:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
@@ -27,6 +27,15 @@ jobs:
           root: ~/repo
           paths:
             - node_modules
+
+  #Run unit tests
+  unit-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
       # Run unit tests and codecoverage
       - run:
           name: test
@@ -36,23 +45,33 @@ jobs:
           name: code-coverage
           command: bash <(curl -s https://codecov.io/bash)
 
-  #Build android version
-  build-android:
+  #Run android buils
+  android-build:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
     steps:
-      - checkout:
-          path: ~/repo
+      - attach_workspace:
+          at: ~/repo
+      # Run package-android
       - run:
-          name: package react-native android bundle independently
+          name: package-android
           command: npm run package-android --max-workers=3
+      # Persist generated data to workspace
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - android/app/build/jsbundle/assets
+            - android/app/build/jsbundle/res
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - setup-and-unit-test
-      - build-android:
+      - checkout-setup
+      - unit-tests:
           requires:
-            - setup-and-unit-test
+            - checkout-setup
+      - android-build:
+          requires:
+            - checkout-setup
