@@ -60,3 +60,5 @@ coverage/
 
 #Test results
 test-results/
+#Test reports
+test-reports/

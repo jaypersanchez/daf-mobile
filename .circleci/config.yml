@@ -51,6 +51,9 @@ jobs:
       # Store test results in the "Artifacts" tab
       - store_artifacts:
           path: test-results
+      # Store test reports in the "Artifacts" tab
+      - store_artifacts:
+          path: test-reports
       # Store coverage in the "Artifacts" tab
       - store_artifacts:
           path: coverage
