@@ -93,7 +93,7 @@ jobs:
       # Save dependencies cache
       - save_cache:
           paths:
-            - ~/.gradle
+            - ~/android/.gradle
           key: gradle-repo-v1-{{ .Branch }}-{{ checksum "android/build.gradle" }}
 
       # Run assemble
@@ -108,6 +108,34 @@ jobs:
       # Store build report
       - store_artifacts:
           path: android/app/build/reports
+
+  ios:
+    working_directory: ~/repo
+    environment:
+      FL_OUTPUT_DIR: ~/repoo/ios
+      TERM: dumb
+      REACT_NATIVE_MAX_WORKERS: 2
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+    macos:
+      xcode: "10.1.0"
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: xcrun
+          command: |
+            cd ~/repo/ios && xcrun instruments -w "iPhone 8 (11.2) [" || true
+      - run:
+          name: Fastlane
+          command: cd ~/repo/ios && bundle exec fastlane buildTheApp
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ios/gym
+      - store_artifacts:
+          path: ~/ios/gym
 
 workflows:
   version: 2
