@@ -77,13 +77,37 @@ jobs:
           name: package-android
           command: npm run package-android --max-workers=3
 
+      # Restore gradle cache (from https://circleci.com/docs/2.0/caching/)
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - gradle-repo-v1-{{ .Branch }}-{{ checksum "dependencies.lockfile" }}
+            - gradle-repo-v1-{{ .Branch }}-
+            - gradle-repo-v1-
+
       #Run androidDependncies
       - run:
           name: get android dependencies
           command: cd ~/repo/android && ./gradlew androidDependencies
 
-      # Run bundleReleaseJsAndAssets
-      - run: cd ~/repo/android && ./gradlew bundleReleaseJsAndAssets
+      # Save dependencies cache
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-repo-v1-{{ .Branch }}-{{ checksum "dependencies.lockfile" }}
+
+      # Run assemble
+      - run: cd ~/repo/android && ./gradlew assemble
+
+      # Persist for deploy
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - android/app/build/outputs
+
+      # Store build report
+      - store_artifacts:
+          path: android/app/build/reports
 
 workflows:
   version: 2
