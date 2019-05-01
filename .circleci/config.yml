@@ -109,7 +109,7 @@ jobs:
       - store_artifacts:
           path: android/app/build/reports
 
-  ios:
+  ios-build:
     working_directory: ~/repo
     environment:
       FL_OUTPUT_DIR: ~/repoo/ios
@@ -146,5 +146,8 @@ workflows:
           requires:
             - checkout-setup
       - android-build:
+          requires:
+            - checkout-setup
+      - ios-build:
           requires:
             - checkout-setup
