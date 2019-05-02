@@ -36,5 +36,61 @@ exports[`renders correctly 1`] = `
     Environment = 
     dev
   </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#FF0000",
+          "fontSize": 20,
+          "margin": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Press here to crash the app
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#FF0000",
+          "fontSize": 20,
+          "margin": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Press here to trigger sample event
+    </Text>
+  </View>
 </View>
 `;

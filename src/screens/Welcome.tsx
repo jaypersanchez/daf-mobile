@@ -4,13 +4,11 @@
  */
 
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Config from "react-native-config";
 import Analytics from "appcenter-analytics";
 
 Analytics.setEnabled(true);
-
-Analytics.trackEvent("Sample event");
 
 interface Props {}
 
@@ -20,6 +18,20 @@ export default class App extends React.Component<Props> {
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Serto!</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            throw new Error("Sample error");
+          }}
+        >
+          <Text style={styles.welcome}>Press here to crash the app</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            Analytics.trackEvent("Sample event");
+          }}
+        >
+          <Text style={styles.welcome}>Press here to trigger sample event</Text>
+        </TouchableOpacity>
       </View>
     );
   }
