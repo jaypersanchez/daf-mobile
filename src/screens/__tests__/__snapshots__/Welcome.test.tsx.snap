@@ -14,6 +14,7 @@ exports[`renders correctly 1`] = `
   <Text
     style={
       Object {
+        "color": "#FF0000",
         "fontSize": 20,
         "margin": 10,
         "textAlign": "center",
@@ -21,6 +22,19 @@ exports[`renders correctly 1`] = `
     }
   >
     Welcome to Serto!
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#FF0000",
+        "fontSize": 20,
+        "margin": 10,
+        "textAlign": "center",
+      }
+    }
+  >
+    Environment = 
+    dev
   </Text>
 </View>
 `;
