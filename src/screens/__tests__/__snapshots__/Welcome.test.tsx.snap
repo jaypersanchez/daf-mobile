@@ -21,7 +21,7 @@ exports[`renders correctly 1`] = `
       }
     }
   >
-    Welcome to Serto!
+    Welcome to binary Serto!
   </Text>
   <Text
     style={
