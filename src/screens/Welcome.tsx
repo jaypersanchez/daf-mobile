@@ -26,7 +26,7 @@ export default class App extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Serto!</Text>
+        <Text style={styles.welcome}>Welcome to binary Serto!</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
         <TouchableOpacity
           onPress={() => {
