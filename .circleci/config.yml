@@ -123,23 +123,10 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
-      - restore_cache:
-          keys:
-            - bundle-{{ arch }}-v4-ios-{{ checksum "ios/Gemfile.lock" }}
-            - bundle-{{ arch }}-v4-ios
-      - run: cd ~/repo/ios && bundle install
-      - save_cache:
-          key: bundle-{{ arch }}-v4-ios-{{ checksum "ios/Gemfile.lock" }}
-          paths:
-            - ~/ios/vendor/bundle
-            - ~/ios/.bundle
       - run:
           name: xcrun
           command: |
             cd ~/repo/ios && xcrun instruments -w "iPhone 8 (11.2) [" || true
-      - run:
-          name: Fastlane
-          command: cd ~/repo/ios && bundle exec fastlane buildTheApp
       - persist_to_workspace:
           root: ~/repo
           paths:
