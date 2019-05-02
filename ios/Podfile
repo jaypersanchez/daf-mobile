@@ -13,7 +13,6 @@ target 'Serto' do
   
 
   platform :ios, '9.0'
-  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
   target 'SertoTests' do
     inherit! :search_paths

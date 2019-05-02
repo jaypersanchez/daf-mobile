@@ -7,12 +7,22 @@ import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Config from "react-native-config";
 import Analytics from "appcenter-analytics";
+import codePush from "react-native-code-push";
 
 Analytics.setEnabled(true);
 
 interface Props {}
 
 export default class App extends React.Component<Props> {
+  onButtonPress() {
+    codePush.sync({
+      updateDialog: {
+        appendReleaseDescription: true
+      },
+      installMode: codePush.InstallMode.IMMEDIATE
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -31,6 +41,9 @@ export default class App extends React.Component<Props> {
           }}
         >
           <Text style={styles.welcome}>Press here to trigger sample event</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.onButtonPress}>
+          <Text>Check for updates</Text>
         </TouchableOpacity>
       </View>
     );
