@@ -110,7 +110,7 @@ jobs:
           path: android/app/build/reports
 
   # Deploy android version to testing channels
-  andoid-deploy:
+  android-deploy:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
@@ -125,7 +125,7 @@ jobs:
           command: echo "TODO deliver story in PT"
 
   # Run test automation on android devices
-  andoid-tests:
+  android-tests:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
@@ -140,7 +140,7 @@ jobs:
           command: echo "TODO reject story in PT if test failed"
 
   # Release android version to PlayStore
-  andoid-release:
+  android-release:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.10
