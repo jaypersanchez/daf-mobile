@@ -8,6 +8,9 @@
     "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status"
   },
   "dependencies": {
+    "appcenter": "^1.13.0",
+    "appcenter-analytics": "^1.13.0",
+    "appcenter-crashes": "^1.13.0",
     "react": "16.8.3",
     "react-native": "^0.59.6",
     "react-native-config": "^0.11.7"

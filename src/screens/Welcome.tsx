@@ -6,6 +6,11 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Config from "react-native-config";
+import Analytics from "appcenter-analytics";
+
+Analytics.setEnabled(true);
+
+Analytics.trackEvent("Sample event");
 
 interface Props {}
 
