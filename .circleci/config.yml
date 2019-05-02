@@ -139,6 +139,21 @@ jobs:
           name: reject-story
           command: echo "TODO reject story in PT if test failed"
 
+  # Release android version to PlayStore
+  andoid-release:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: release
+          command: echo "TODO Release android to PlayStore"
+      - run:
+          name: accept-story
+          command: echo "TODO accept story in PT"
+
   #IOS build
   ios-build:
     working_directory: ~/repo
@@ -194,6 +209,21 @@ jobs:
       - run:
           name: reject-story
           command: echo "TODO reject story in PT if test failed"
+
+  # Release IOS version to AppStore
+  ios-release:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: release
+          command: echo "TODO Release ios to AppStore"
+      - run:
+          name: accept-story
+          command: echo "TODO accept story in PT"
 
 workflows:
   version: 2
