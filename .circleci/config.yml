@@ -109,6 +109,37 @@ jobs:
       - store_artifacts:
           path: android/app/build/reports
 
+  # Deploy android version to testing channels
+  andoid-deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-deploy
+          command: echo "TODO deploy android version to testing channels"
+      - run:
+          name: deliver-story
+          command: echo "TODO deliver story in PT"
+
+  # Run test automation on android devices
+  andoid-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-tests-automation
+          command: echo "TODO Run test automation on android devices"
+      - run:
+          name: reject-story
+          command: echo "TODO reject story in PT if test failed"
+
+  #IOS build
   ios-build:
     working_directory: ~/repo
     environment:
@@ -127,12 +158,42 @@ jobs:
           name: xcrun
           command: |
             cd ~/repo/ios && xcrun instruments -w "iPhone 8 (11.2) [" || true
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - ios/gym
+      #TODO - persist_to_workspace:
+      #    root: ~/repo
+      #    paths:
+      #      - ios/gym??
       - store_artifacts:
-          path: ~/ios/gym
+          path: ~repo/ios/gym
+
+  # Deploy ios version to testing channels
+  ios-deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: ios-deploy
+          command: echo "TODO deploy ios version to testing channels"
+      - run:
+          name: deliver-story
+          command: echo "TODO deliver story in PT"
+
+  # Run test automation on ios devices
+  ios-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-tests-automation
+          command: echo "TODO Run test automation on ios devices"
+      - run:
+          name: reject-story
+          command: echo "TODO reject story in PT if test failed"
 
 workflows:
   version: 2
@@ -145,6 +206,30 @@ workflows:
       - android-build:
           requires:
             - checkout-setup
+      - android-deploy:
+          requires:
+            - android-build
+      - android-tests:
+          requires:
+            - android-deploy
+      - android-release:
+          requires:
+            - android-tests
+          filters:
+            branches:
+              only: master
       - ios-build:
           requires:
             - checkout-setup
+      - ios-deploy:
+          requires:
+            - ios-build
+      - ios-tests:
+          requires:
+            - ios-deploy
+      - ios-release:
+          requires:
+            - ios-tests
+          filters:
+            branches:
+              only: master
