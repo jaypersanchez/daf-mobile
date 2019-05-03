@@ -5,7 +5,13 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status"
+    "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status",
+    "codepush-production": "npm run codepush-ios-production && npm run codepush-android-production",
+    "codepush-ios-production": "appcenter codepush release-react -a Serto/Serto -d Production",
+    "codepush-android-production": "appcenter codepush release-react -a Serto/Serto-Android -d Production",
+    "codepush-staging": "npm run codepush-ios-staging && npm run codepush-android-staging",
+    "codepush-ios-staging": "appcenter codepush release-react -a Serto/Serto -d Staging",
+    "codepush-android-staging": "appcenter codepush release-react -a Serto/Serto-Android -d Staging"
   },
   "dependencies": {
     "appcenter": "^1.13.0",

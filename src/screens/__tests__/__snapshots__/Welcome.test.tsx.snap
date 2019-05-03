@@ -21,7 +21,7 @@ exports[`renders correctly 1`] = `
       }
     }
   >
-    Welcome to binary Serto!
+    Welcome to updated2 Serto!
   </Text>
   <Text
     style={
@@ -111,5 +111,9 @@ exports[`renders correctly 1`] = `
       Check for updates
     </Text>
   </View>
+  <Text>
+    Update: 
+    
+  </Text>
 </View>
 `;

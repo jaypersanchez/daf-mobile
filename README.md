@@ -1,6 +1,47 @@
-# serto-mobile
+# Serto mobile
 
-Serto Mobile App
+Serto React Native Mobile App
+
+## Setup
+
+```
+yarn
+```
+
+## Running locally
+
+```
+yarn start
+```
+
+in another terminal
+
+```
+react-native run-android
+```
+
+## Codepush
+
+Releases that do not involve changes to the native code, can be pushed to mobile devices using [codepush](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/)
+
+### Initial setup
+
+```
+npm install -g appcenter-cli
+appcenter login
+```
+
+### Releasing hot-fix to production
+
+```
+yarn codepush-production
+```
+
+### Releasing hot-fix to staging
+
+```
+yarn codepush-staging
+```
 
 ## Environment variables
 
