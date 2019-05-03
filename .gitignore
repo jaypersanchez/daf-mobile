@@ -54,3 +54,11 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+#Codecoverage
+coverage/
+
+#Test results
+test-results/
+#Test reports
+test-reports/

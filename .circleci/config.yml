@@ -1,0 +1,265 @@
+version: 2
+jobs:
+  #First job, checkouts code and node deps
+  checkout-setup:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      # Restore dependencies cache
+      - restore_cache:
+          keys:
+            - dependencies-cache-{{ checksum "package.json" }}
+      # Install dependencies and
+      - run:
+          name: install-dependencies
+          command: |
+            npm i
+      # Save dependencies cache
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      # Persist data
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./
+
+  # Run unit tests and codecoverage
+  unit-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: install-dependencies
+          command: sudo npm i -g codecov
+      - run:
+          name: test
+          command: npm test && codecov
+      # Send codecoverage report to codecov.io (Needs the CODECOV_TOKEN env for private repo)
+      - run:
+          name: code-coverage
+          command: bash <(curl -s https://codecov.io/bash)
+      # Store test results for the "Test Summary" tab
+      - store_test_results:
+          path: test-results
+      # Store test results in the "Artifacts" tab
+      - store_artifacts:
+          path: test-results
+      # Store test reports in the "Artifacts" tab
+      - store_artifacts:
+          path: test-reports
+      # Store coverage in the "Artifacts" tab
+      - store_artifacts:
+          path: coverage
+
+  #Run android buils
+  android-build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/android:api-28-node
+        environment:
+          ANDROID_HOME: /opt/android/sdk
+          GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xms256m -Xmx3072m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true'
+          TERM: dumb
+          LC_ALL: en_US.UTF-8
+          LANG: en_US.UTF-8
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      # Run package-android
+      - run:
+          name: package-android
+          command: npm run package-android --max-workers=3
+
+      # Restore gradle cache (from https://circleci.com/docs/2.0/caching/)
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - gradle-repo-v1-{{ .Branch }}-{{ checksum "android/build.gradle" }}
+            - gradle-repo-v1-{{ .Branch }}-
+            - gradle-repo-v1-
+
+      #Run androidDependncies
+      - run:
+          name: get android dependencies
+          command: cd ~/repo/android && ./gradlew androidDependencies
+
+      # Save dependencies cache
+      - save_cache:
+          paths:
+            - ~/android/.gradle
+          key: gradle-repo-v1-{{ .Branch }}-{{ checksum "android/build.gradle" }}
+
+      # Run assemble
+      - run: cd ~/repo/android && ./gradlew assemble
+
+      # Persist for deploy
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - android/app/build/outputs
+
+      # Store build report
+      - store_artifacts:
+          path: android/app/build/reports
+
+  # Deploy android version to testing channels
+  android-deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-deploy
+          command: echo "TODO deploy android version to testing channels"
+      - run:
+          name: deliver-story
+          command: echo "TODO deliver story in PT"
+
+  # Run test automation on android devices
+  android-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-tests-automation
+          command: echo "TODO Run test automation on android devices"
+      - run:
+          name: reject-story
+          command: echo "TODO reject story in PT if test failed"
+
+  # Release android version to PlayStore
+  android-release:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: release
+          command: echo "TODO Release android to PlayStore"
+      - run:
+          name: accept-story
+          command: echo "TODO accept story in PT"
+
+  #IOS build
+  ios-build:
+    working_directory: ~/repo
+    environment:
+      FL_OUTPUT_DIR: ~/repo/ios
+      TERM: dumb
+      REACT_NATIVE_MAX_WORKERS: 2
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+    macos:
+      xcode: "10.1.0"
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: xcrun
+          command: |
+            cd ~/repo/ios && xcrun instruments -w "iPhone 8 (11.2) [" || true
+      #TODO - persist_to_workspace:
+      #    root: ~/repo
+      #    paths:
+      #      - ios/gym??
+      - store_artifacts:
+          path: ~repo/ios/gym
+
+  # Deploy ios version to testing channels
+  ios-deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: ios-deploy
+          command: echo "TODO deploy ios version to testing channels"
+      - run:
+          name: deliver-story
+          command: echo "TODO deliver story in PT"
+
+  # Run test automation on ios devices
+  ios-tests:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: todo-tests-automation
+          command: echo "TODO Run test automation on ios devices"
+      - run:
+          name: reject-story
+          command: echo "TODO reject story in PT if test failed"
+
+  # Release IOS version to AppStore
+  ios-release:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: release
+          command: echo "TODO Release ios to AppStore"
+      - run:
+          name: accept-story
+          command: echo "TODO accept story in PT"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - checkout-setup
+      - unit-tests:
+          requires:
+            - checkout-setup
+      - android-build:
+          requires:
+            - checkout-setup
+      - android-deploy:
+          requires:
+            - android-build
+      - android-tests:
+          requires:
+            - android-deploy
+      - android-release:
+          requires:
+            - android-tests
+          filters:
+            branches:
+              only: master
+      - ios-build:
+          requires:
+            - checkout-setup
+      - ios-deploy:
+          requires:
+            - ios-build
+      - ios-tests:
+          requires:
+            - ios-deploy
+      - ios-release:
+          requires:
+            - ios-tests
+          filters:
+            branches:
+              only: master
