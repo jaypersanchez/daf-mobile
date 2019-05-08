@@ -21,7 +21,7 @@ exports[`renders correctly 1`] = `
       }
     }
   >
-    Welcome to updated2 Serto!
+    Welcome to updated3 Serto!
   </Text>
   <Text
     style={
