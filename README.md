@@ -31,6 +31,8 @@ npm install -g appcenter-cli
 appcenter login
 ```
 
+Download `./codepush-privatekey.pem` from 1Password.
+
 ### Releasing hot-fix to production
 
 ```
