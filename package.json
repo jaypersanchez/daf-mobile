@@ -10,11 +10,11 @@
     "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status",
     "package-android": "mkdir -p android/app/build/jsbundle/assets/ && mkdir -p android/app/build/jsbundle/res && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/jsbundle/assets/index.android.bundle --assets-dest android/app/build/jsbundle/res",
     "codepush-production": "npm run codepush-ios-production && npm run codepush-android-production",
-    "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Production -k ./codepush-privatekey.pem",
-    "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production -k ./codepush-privatekey.pem",
+    "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist",
+    "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production --private-key-path ./codepush-privatekey.pem",
     "codepush-staging": "npm run codepush-ios-staging && npm run codepush-android-staging",
-    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging -k ./codepush-privatekey.pem",
-    "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging -k ./codepush-privatekey.pem"
+    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem",
+    "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem"
   },
   "dependencies": {
     "appcenter": "^1.13.0",

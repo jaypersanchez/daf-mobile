@@ -24,6 +24,7 @@ export default class App extends React.Component<Props, State> {
     };
   }
   onButtonPress() {
+    console.log(Config.CODEPUSH_PUBLIC_KEY);
     codePush.sync({
       updateDialog: {
         appendReleaseDescription: true
@@ -41,7 +42,7 @@ export default class App extends React.Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to updated3 Serto!</Text>
+        <Text style={styles.welcome}>Welcome to updated 12 Serto!</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
         <TouchableOpacity
           onPress={() => {
