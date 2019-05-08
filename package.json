@@ -7,7 +7,6 @@
     "test": "jest",
     "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status",
     "coverage": "jest --coverage",
-    "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status",
     "package-android": "mkdir -p android/app/build/jsbundle/assets/ && mkdir -p android/app/build/jsbundle/res && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/jsbundle/assets/index.android.bundle --assets-dest android/app/build/jsbundle/res",
     "codepush-production": "npm run codepush-ios-production && npm run codepush-android-production",
     "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist",
@@ -24,7 +23,9 @@
     "react": "16.8.3",
     "react-native": "^0.59.6",
     "react-native-code-push": "^5.6.0",
-    "react-native-config": "^0.11.7"
+    "react-native-config": "^0.11.7",
+    "react-native-gesture-handler": "^1.2.1",
+    "react-navigation": "^3.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
