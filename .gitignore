@@ -62,3 +62,5 @@ coverage/
 test-results/
 #Test reports
 test-reports/
+
+codepush-privatekey.pem

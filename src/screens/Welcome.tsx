@@ -41,7 +41,7 @@ export default class App extends React.Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to updated2 Serto!</Text>
+        <Text style={styles.welcome}>Welcome to updated3 Serto!</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
         <TouchableOpacity
           onPress={() => {

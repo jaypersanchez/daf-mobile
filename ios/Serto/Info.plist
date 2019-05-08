@@ -55,5 +55,7 @@
     <false/>
     <key>CodePushDeploymentKey</key>
     <string>Qew6u_A32QCcd3PLV9Yo3Psbcvs7By3RmD_o4</string>
+    <key>CodePushPublicKey</key>
+      <string>__RN_CONFIG_CODEPUSH_PUBLIC_KEY</string>
   </dict>
 </plist>
