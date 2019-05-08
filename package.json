@@ -13,7 +13,7 @@
     "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist",
     "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production --private-key-path ./codepush-privatekey.pem",
     "codepush-staging": "npm run codepush-ios-staging && npm run codepush-android-staging",
-    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem",
+    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem --plist-file ios/Serto/Info.plist",
     "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem"
   },
   "dependencies": {
