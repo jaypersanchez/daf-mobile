@@ -1,6 +1,49 @@
-# serto-mobile
+# Serto mobile
 
-Serto Mobile App
+Serto React Native Mobile App
+
+## Setup
+
+```
+yarn
+```
+
+## Running locally
+
+```
+yarn start
+```
+
+in another terminal
+
+```
+react-native run-android
+```
+
+## Codepush
+
+Releases that do not involve changes to the native code, can be pushed to mobile devices using [codepush](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/)
+
+### Initial setup
+
+```
+npm install -g appcenter-cli
+appcenter login
+```
+
+Download `./codepush-privatekey.pem` from 1Password.
+
+### Releasing hot-fix to production
+
+```
+yarn codepush-production
+```
+
+### Releasing hot-fix to staging
+
+```
+yarn codepush-staging
+```
 
 [![CircleCI](https://circleci.com/gh/uport-project/serto-mobile/tree/master.svg?style=svg&circle-token=20f8c7ddb44368e4eaa3cf5219a605c431384831)](https://circleci.com/gh/uport-project/serto-mobile/tree/master)
 [![codecov](https://codecov.io/gh/uport-project/serto-mobile/branch/master/graph/badge.svg?token=ClBiPSu9Wu)](https://codecov.io/gh/uport-project/serto-mobile)
