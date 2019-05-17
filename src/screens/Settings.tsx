@@ -9,6 +9,8 @@ import Config from "react-native-config";
 import Analytics from "appcenter-analytics";
 import codePush from "react-native-code-push";
 
+import Log from "../lib/Log";
+
 Analytics.setEnabled(true);
 
 interface Props {}
@@ -44,6 +46,21 @@ export default class App extends React.Component<Props, State> {
       <View style={styles.container}>
         <Text style={styles.welcome}>Settings</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
+        <TouchableOpacity
+          onPress={() => Log.info("Sample info string", "Settings")}
+        >
+          <Text style={styles.welcome}>Log info</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Log.warning("Sample warning string", "Settings")}
+        >
+          <Text style={styles.welcome}>Log warning</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Log.error("Sample error string", "Settings")}
+        >
+          <Text style={styles.welcome}>Log error</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             throw new Error("Sample error nr2");
