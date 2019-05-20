@@ -85,10 +85,14 @@
       "android.js",
       "ios.js"
     ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation/.*))"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],
     "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
@@ -102,6 +106,9 @@
         "tsConfig": "tsconfig.jest.json"
       }
     },
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,

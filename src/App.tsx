@@ -3,6 +3,9 @@ import { ApolloProvider } from 'react-apollo'
 import Navigation from './screens/Navigation'
 import { client } from './lib/GraphQL'
 import Log from './lib/Log'
+import Analytics from 'appcenter-analytics'
+
+Analytics.setEnabled(true)
 
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()

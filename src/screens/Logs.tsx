@@ -4,13 +4,7 @@
  */
 
 import React, { useState } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { Query } from 'react-apollo'
 import { LogMessage, LogMessageType, getLogsQuery } from '../lib/Log'
 import moment from 'moment'
@@ -64,6 +58,7 @@ const ListItem = ({ logItem }: { logItem: LogMessage }) => {
 
 const styles = StyleSheet.create({
   item: {
+    marginLeft: 3,
     marginTop: 1,
     marginBottom: 1,
     borderLeftWidth: 3,

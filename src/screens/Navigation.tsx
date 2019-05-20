@@ -7,9 +7,6 @@ import {
 import Settings from './Settings'
 import Welcome from './Welcome'
 import Logs from './Logs'
-import Analytics from 'appcenter-analytics'
-
-Analytics.setEnabled(true)
 
 const LogsNavigator = createStackNavigator({
   LogsScreen: {
