@@ -1,26 +1,12 @@
-import { ApolloClient, Resolvers } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { from } from "apollo-link";
-import apolloLogger from "apollo-link-logger";
-import { onError } from "apollo-link-error";
-import { HttpLink } from "apollo-link-http";
-import gql from "graphql-tag";
+import { ApolloClient, Resolvers } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { from } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import gql from 'graphql-tag';
 
 // const httpLink = new HttpLink({uri: '/graphql'})
 
-const ErrorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL Error] Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-  if (networkError) console.log(`[Network error] ${networkError}`);
-});
-
 const link = from([
-  ErrorLink,
-  apolloLogger
   // httpLink,
 ]);
 
@@ -48,17 +34,16 @@ const resolvers: Resolvers = {
         type,
         message,
         category,
-        __typename: "LogMessage"
+        __typename: 'LogMessage',
       };
       const data = {
-        logs: [logItemitem, ...previous.logs]
+        logs: [logItemitem, ...previous.logs],
       };
 
-      console.log(data);
       cache.writeQuery({ query, data });
       return logItemitem;
-    }
-  }
+    },
+  },
 };
 
 export const cache = new InMemoryCache();
@@ -78,11 +63,11 @@ export const client = new ApolloClient({
   `,
   cache,
   link,
-  resolvers
+  resolvers,
 });
 
 cache.writeData({
   data: {
-    logs: []
-  }
+    logs: [],
+  },
 });

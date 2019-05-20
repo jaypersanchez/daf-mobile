@@ -1,10 +1,10 @@
-import gql from "graphql-tag";
-import { cache, client } from "./GraphQL";
+import gql from 'graphql-tag';
+import { cache, client } from './GraphQL';
 
 export enum LogMessageType {
   Info,
   Warning,
-  Error
+  Error,
 }
 
 export interface LogMessage {
@@ -37,19 +37,19 @@ const newLogItemMutation = gql`
 const writeLogItemToCache = (
   message: string,
   type: LogMessageType,
-  category?: string
+  category?: string,
 ) => {
   client.mutate({
     mutation: newLogItemMutation,
     variables: {
       message,
       type,
-      category
+      category,
     },
-    refetchQueries: ["getLogs"]
+    refetchQueries: ['getLogs'],
   });
 };
-
+/* tslint:disable:no-console */
 export default {
   info: (message: string, category?: string) => {
     console.log(category && `[${category}]`, message);
@@ -57,12 +57,12 @@ export default {
   },
 
   warning: (message: string, category?: string) => {
-    console.log(category && `[${category}]`, "⚠️ Warning:", message);
+    console.log(category && `[${category}]`, '⚠️ Warning:', message);
     writeLogItemToCache(message, LogMessageType.Warning, category);
   },
 
   error: (message: string, category?: string) => {
-    console.log(category && `[${category}]`, "🛑 Error:", message);
+    console.log(category && `[${category}]`, '🛑 Error:', message);
     writeLogItemToCache(message, LogMessageType.Error, category);
-  }
+  },
 };

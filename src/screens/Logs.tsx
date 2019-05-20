@@ -3,28 +3,27 @@
  *
  */
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  FlatList
-} from "react-native";
-import { Query } from "react-apollo";
-import { LogMessage, LogMessageType, getLogsQuery } from "../lib/Log";
-import moment from "moment";
+  FlatList,
+} from 'react-native';
+import { Query } from 'react-apollo';
+import { LogMessage, LogMessageType, getLogsQuery } from '../lib/Log';
+import moment from 'moment';
 
 interface Props {}
 
 export default (props: Props) => {
-  console.log("Logs, render");
   return (
     <Query query={getLogsQuery}>
       {({
         data,
         loading,
-        refetch
+        refetch,
       }: {
         data: { logs: LogMessage[] };
         loading: boolean;
@@ -49,7 +48,7 @@ const ListItem = ({ logItem }: { logItem: LogMessage }) => {
         styles.item,
         logItem.type === LogMessageType.Info && styles.info,
         logItem.type === LogMessageType.Warning && styles.warning,
-        logItem.type === LogMessageType.Error && styles.error
+        logItem.type === LogMessageType.Error && styles.error,
       ]}
     >
       <View style={styles.header}>
@@ -68,32 +67,32 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 1,
     borderLeftWidth: 3,
-    padding: 10
+    padding: 10,
   },
   info: {
-    borderColor: "gray"
+    borderColor: 'gray',
   },
   warning: {
-    borderColor: "orange"
+    borderColor: 'orange',
   },
   error: {
-    borderColor: "red"
+    borderColor: 'red',
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   category: {
     fontSize: 12,
-    color: "gray",
-    fontWeight: "bold"
+    color: 'gray',
+    fontWeight: 'bold',
   },
   message: {
-    fontSize: 15
+    fontSize: 15,
   },
   date: {
     fontSize: 12,
     marginBottom: 5,
-    color: "gray"
-  }
+    color: 'gray',
+  },
 });

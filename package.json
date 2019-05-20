@@ -67,6 +67,14 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "prettier": {
+    "jsxBracketSameLine": false,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "printWidth": 80,
+    "singleQuote": true,
+    "semicolons": false
+  },
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [

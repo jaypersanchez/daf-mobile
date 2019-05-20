@@ -3,13 +3,13 @@
  *
  */
 
-import * as React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import Config from "react-native-config";
-import Analytics from "appcenter-analytics";
-import codePush from "react-native-code-push";
+import * as React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Config from 'react-native-config';
+import Analytics from 'appcenter-analytics';
+import codePush from 'react-native-code-push';
 
-import Log from "../lib/Log";
+import Log from '../lib/Log';
 
 Analytics.setEnabled(true);
 
@@ -22,16 +22,15 @@ export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      updateMetadata: ""
+      updateMetadata: '',
     };
   }
   onButtonPress() {
-    console.log(Config.CODEPUSH_PUBLIC_KEY);
     codePush.sync({
       updateDialog: {
-        appendReleaseDescription: true
+        appendReleaseDescription: true,
       },
-      installMode: codePush.InstallMode.IMMEDIATE
+      installMode: codePush.InstallMode.IMMEDIATE,
     });
   }
 
@@ -47,30 +46,30 @@ export default class App extends React.Component<Props, State> {
         <Text style={styles.welcome}>Settings</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
         <TouchableOpacity
-          onPress={() => Log.info("Sample info string", "Settings")}
+          onPress={() => Log.info('Sample info string', 'Settings')}
         >
           <Text style={styles.welcome}>Log info</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Log.warning("Sample warning string", "Settings")}
+          onPress={() => Log.warning('Sample warning string', 'Settings')}
         >
           <Text style={styles.welcome}>Log warning</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Log.error("Sample error string", "Settings")}
+          onPress={() => Log.error('Sample error string', 'Settings')}
         >
           <Text style={styles.welcome}>Log error</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            throw new Error("Sample error nr2");
+            throw new Error('Sample error nr2');
           }}
         >
           <Text style={styles.welcome}>Press here to crash the app</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            Analytics.trackEvent("Sample event");
+            Analytics.trackEvent('Sample event');
           }}
         >
           <Text style={styles.welcome}>Press here to trigger sample event</Text>
@@ -87,14 +86,14 @@ export default class App extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
-    textAlign: "center",
+    textAlign: 'center',
     margin: 10,
-    color: Config.BRAND_COLOR
-  }
+    color: Config.BRAND_COLOR,
+  },
 });
