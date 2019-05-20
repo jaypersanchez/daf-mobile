@@ -3,17 +3,17 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   FlatList,
-} from 'react-native';
-import { Query } from 'react-apollo';
-import { LogMessage, LogMessageType, getLogsQuery } from '../lib/Log';
-import moment from 'moment';
+} from 'react-native'
+import { Query } from 'react-apollo'
+import { LogMessage, LogMessageType, getLogsQuery } from '../lib/Log'
+import moment from 'moment'
 
 interface Props {}
 
@@ -25,9 +25,9 @@ export default (props: Props) => {
         loading,
         refetch,
       }: {
-        data: { logs: LogMessage[] };
-        loading: boolean;
-        refetch: () => void;
+        data: { logs: LogMessage[] }
+        loading: boolean
+        refetch: () => void
       }) => (
         <FlatList
           data={data.logs}
@@ -38,8 +38,8 @@ export default (props: Props) => {
         />
       )}
     </Query>
-  );
-};
+  )
+}
 
 const ListItem = ({ logItem }: { logItem: LogMessage }) => {
   return (
@@ -59,8 +59,8 @@ const ListItem = ({ logItem }: { logItem: LogMessage }) => {
       </View>
       <Text style={styles.message}>{logItem.message}</Text>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   item: {
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: 'gray',
   },
-});
+})

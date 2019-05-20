@@ -3,27 +3,27 @@
  *
  */
 
-import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import Config from 'react-native-config';
-import Analytics from 'appcenter-analytics';
-import codePush from 'react-native-code-push';
+import * as React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import Config from 'react-native-config'
+import Analytics from 'appcenter-analytics'
+import codePush from 'react-native-code-push'
 
-import Log from '../lib/Log';
+import Log from '../lib/Log'
 
-Analytics.setEnabled(true);
+Analytics.setEnabled(true)
 
 interface Props {}
 interface State {
-  updateMetadata: string | null;
+  updateMetadata: string | null
 }
 
 export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
-    super(props);
+    super(props)
     this.state = {
       updateMetadata: '',
-    };
+    }
   }
   onButtonPress() {
     codePush.sync({
@@ -31,13 +31,13 @@ export default class App extends React.Component<Props, State> {
         appendReleaseDescription: true,
       },
       installMode: codePush.InstallMode.IMMEDIATE,
-    });
+    })
   }
 
   componentDidMount() {
     codePush.getUpdateMetadata().then(updateMetadata => {
-      this.setState({ updateMetadata: updateMetadata && updateMetadata.label });
-    });
+      this.setState({ updateMetadata: updateMetadata && updateMetadata.label })
+    })
   }
 
   render() {
@@ -62,14 +62,14 @@ export default class App extends React.Component<Props, State> {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            throw new Error('Sample error nr2');
+            throw new Error('Sample error nr2')
           }}
         >
           <Text style={styles.welcome}>Press here to crash the app</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            Analytics.trackEvent('Sample event');
+            Analytics.trackEvent('Sample event')
           }}
         >
           <Text style={styles.welcome}>Press here to trigger sample event</Text>
@@ -79,7 +79,7 @@ export default class App extends React.Component<Props, State> {
         </TouchableOpacity>
         <Text>Update: {this.state.updateMetadata}</Text>
       </View>
-    );
+    )
   }
 }
 
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
     margin: 10,
     color: Config.BRAND_COLOR,
   },
-});
+})

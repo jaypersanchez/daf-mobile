@@ -1,5 +1,5 @@
-import gql from 'graphql-tag';
-import { cache, client } from './GraphQL';
+import gql from 'graphql-tag'
+import { cache, client } from './GraphQL'
 
 export enum LogMessageType {
   Info,
@@ -8,12 +8,12 @@ export enum LogMessageType {
 }
 
 export interface LogMessage {
-  id: string;
-  type: LogMessageType;
-  category?: string;
-  message: string;
-  timestamp: number;
-  __typename?: string;
+  id: string
+  type: LogMessageType
+  category?: string
+  message: string
+  timestamp: number
+  __typename?: string
 }
 
 export const getLogsQuery = gql`
@@ -26,13 +26,13 @@ export const getLogsQuery = gql`
       message
     }
   }
-`;
+`
 
 const newLogItemMutation = gql`
   mutation newLogItem($message: String!, $type: Int!, $category: String) {
     log(message: $message, type: $type, category: $category) @client
   }
-`;
+`
 
 const writeLogItemToCache = (
   message: string,
@@ -47,22 +47,22 @@ const writeLogItemToCache = (
       category,
     },
     refetchQueries: ['getLogs'],
-  });
-};
+  })
+}
 /* tslint:disable:no-console */
 export default {
   info: (message: string, category?: string) => {
-    console.log(category && `[${category}]`, message);
-    writeLogItemToCache(message, LogMessageType.Info, category);
+    console.log(category && `[${category}]`, message)
+    writeLogItemToCache(message, LogMessageType.Info, category)
   },
 
   warning: (message: string, category?: string) => {
-    console.log(category && `[${category}]`, '⚠️ Warning:', message);
-    writeLogItemToCache(message, LogMessageType.Warning, category);
+    console.log(category && `[${category}]`, '⚠️ Warning:', message)
+    writeLogItemToCache(message, LogMessageType.Warning, category)
   },
 
   error: (message: string, category?: string) => {
-    console.log(category && `[${category}]`, '🛑 Error:', message);
-    writeLogItemToCache(message, LogMessageType.Error, category);
+    console.log(category && `[${category}]`, '🛑 Error:', message)
+    writeLogItemToCache(message, LogMessageType.Error, category)
   },
-};
+}

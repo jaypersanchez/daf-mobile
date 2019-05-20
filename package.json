@@ -73,7 +73,7 @@
     "tabWidth": 2,
     "printWidth": 80,
     "singleQuote": true,
-    "semicolons": false
+    "semi": false
   },
   "jest": {
     "preset": "react-native",

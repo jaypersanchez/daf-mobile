@@ -1,19 +1,19 @@
-import { ApolloClient, Resolvers } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { from } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import gql from 'graphql-tag';
+import { ApolloClient, Resolvers } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { from } from 'apollo-link'
+import { HttpLink } from 'apollo-link-http'
+import gql from 'graphql-tag'
 
 // const httpLink = new HttpLink({uri: '/graphql'})
 
 const link = from([
   // httpLink,
-]);
+])
 
 const resolvers: Resolvers = {
   Query: {},
   Mutation: {
-    log: (_, { type, message, category }, { cache }) => {
+    log: (_, { type, message, category }, context) => {
       const query = gql`
         query getLogs {
           logs @client {
@@ -24,10 +24,10 @@ const resolvers: Resolvers = {
             message
           }
         }
-      `;
+      `
 
-      const previous = cache.readQuery({ query });
-      const timestamp = new Date().getTime() / 1000;
+      const previous = context.cache.readQuery({ query })
+      const timestamp = new Date().getTime() / 1000
       const logItemitem = {
         id: `LogMessage:${timestamp}`,
         timestamp,
@@ -35,18 +35,18 @@ const resolvers: Resolvers = {
         message,
         category,
         __typename: 'LogMessage',
-      };
+      }
       const data = {
         logs: [logItemitem, ...previous.logs],
-      };
+      }
 
-      cache.writeQuery({ query, data });
-      return logItemitem;
+      context.cache.writeQuery({ query, data })
+      return logItemitem
     },
   },
-};
+}
 
-export const cache = new InMemoryCache();
+export const cache = new InMemoryCache()
 export const client = new ApolloClient({
   connectToDevTools: true,
   typeDefs: gql`
@@ -64,10 +64,10 @@ export const client = new ApolloClient({
   cache,
   link,
   resolvers,
-});
+})
 
 cache.writeData({
   data: {
     logs: [],
   },
-});
+})
