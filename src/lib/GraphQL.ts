@@ -28,7 +28,7 @@ const resolvers: Resolvers = {
 
       const previous = context.cache.readQuery({ query })
       const timestamp = new Date().getTime() / 1000
-      const logItemitem = {
+      const logItem = {
         id: `LogMessage:${timestamp}`,
         timestamp,
         type,
@@ -37,11 +37,11 @@ const resolvers: Resolvers = {
         __typename: 'LogMessage',
       }
       const data = {
-        logs: [logItemitem, ...previous.logs],
+        logs: [logItem, ...previous.logs],
       }
 
       context.cache.writeQuery({ query, data })
-      return logItemitem
+      return logItem
     },
   },
 }
