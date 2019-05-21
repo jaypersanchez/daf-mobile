@@ -1,22 +1,26 @@
-import React from "react";
-import { YellowBox } from "react-native";
-import { createDrawerNavigator, createAppContainer } from "react-navigation";
-import Settings from "./Settings";
-import Welcome from "./Welcome";
-import Analytics from "appcenter-analytics";
+import React from 'react'
+import {
+  createDrawerNavigator,
+  createAppContainer,
+  createStackNavigator,
+} from 'react-navigation'
+import Settings from './Settings'
+import Welcome from './Welcome'
+import Logs from './Logs'
 
-import {} from "react-native";
+const LogsNavigator = createStackNavigator({
+  LogsScreen: {
+    screen: Logs,
+    navigationOptions: {
+      title: 'Logs',
+    },
+  },
+})
 
-YellowBox.ignoreWarnings([
-  "Warning: componentWillUpdate is deprecated",
-  "Warning: componentWillReceiveProps is deprecated"
-]);
-
-Analytics.setEnabled(true);
-
-const TabNavigator = createDrawerNavigator({
+const DrawerNavigator = createDrawerNavigator({
   Home: Welcome,
-  Settings: Settings
-});
+  Logs: LogsNavigator,
+  Settings,
+})
 
-export default createAppContainer(TabNavigator);
+export default createAppContainer(DrawerNavigator)

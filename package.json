@@ -16,11 +16,21 @@
     "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link": "^1.2.11",
+    "apollo-link-error": "^1.1.10",
+    "apollo-link-http": "^1.5.14",
+    "apollo-link-logger": "^1.2.3",
     "appcenter": "^1.13.0",
     "appcenter-analytics": "^1.13.0",
     "appcenter-crashes": "^1.13.0",
+    "graphql": "^14.3.0",
+    "graphql-tag": "^2.10.1",
     "jest-junit": "^6.3.0",
+    "moment": "^2.24.0",
     "react": "16.8.3",
+    "react-apollo": "^2.5.5",
     "react-native": "^0.59.6",
     "react-native-code-push": "^5.6.0",
     "react-native-config": "^0.11.7",
@@ -57,6 +67,14 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "prettier": {
+    "jsxBracketSameLine": false,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "printWidth": 80,
+    "singleQuote": true,
+    "semi": false
+  },
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [
@@ -67,10 +85,14 @@
       "android.js",
       "ios.js"
     ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation/.*))"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],
     "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
@@ -84,6 +106,9 @@
         "tsConfig": "tsconfig.jest.json"
       }
     },
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
