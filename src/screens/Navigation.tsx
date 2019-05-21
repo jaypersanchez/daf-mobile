@@ -17,10 +17,10 @@ const LogsNavigator = createStackNavigator({
   },
 })
 
-const TabNavigator = createDrawerNavigator({
+const DrawerNavigator = createDrawerNavigator({
   Home: Welcome,
   Logs: LogsNavigator,
   Settings,
 })
 
-export default createAppContainer(TabNavigator)
+export default createAppContainer(DrawerNavigator)

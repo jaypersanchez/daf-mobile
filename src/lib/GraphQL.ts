@@ -10,60 +10,25 @@ const link = from([
   // httpLink,
 ])
 
-const resolvers: Resolvers = {
-  Query: {},
-  Mutation: {
-    log: (_, { type, message, category }, context) => {
-      const query = gql`
-        query getLogs {
-          logs @client {
-            id
-            timestamp
-            type
-            category
-            message
-          }
-        }
-      `
-
-      const previous = context.cache.readQuery({ query })
-      const timestamp = new Date().getTime() / 1000
-      const logItem = {
-        id: `LogMessage:${timestamp}`,
-        timestamp,
-        type,
-        message,
-        category,
-        __typename: 'LogMessage',
-      }
-      const data = {
-        logs: [logItem, ...previous.logs],
-      }
-
-      context.cache.writeQuery({ query, data })
-      return logItem
-    },
-  },
-}
+const typeDefs = gql`
+  type LogMessage {
+    id: ID!
+    timestamp: Int
+    type: Int
+    message: String
+    category: String
+  }
+  extend type Query {
+    logs: [LogMessage!]
+  }
+`
 
 export const cache = new InMemoryCache()
 export const client = new ApolloClient({
   connectToDevTools: true,
-  typeDefs: gql`
-    type LogMessage {
-      id: ID!
-      timestamp: Int
-      type: Int
-      message: String
-      category: String
-    }
-    extend type Query {
-      logs: [LogMessage!]
-    }
-  `,
+  typeDefs,
   cache,
   link,
-  resolvers,
 })
 
 cache.writeData({

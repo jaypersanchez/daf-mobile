@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer'
 import { MockedProvider } from 'react-apollo/test-utils'
 import Logs from '../Logs'
 import { LogMessage, LogMessageType, getLogsQuery } from '../../lib/Log'
+jest.useFakeTimers()
 
 const mockLogItem: LogMessage = {
   message: 'Sample info',

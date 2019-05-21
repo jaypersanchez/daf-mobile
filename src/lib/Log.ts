@@ -1,5 +1,6 @@
+import { Resolvers } from 'apollo-client'
 import gql from 'graphql-tag'
-import { cache, client } from './GraphQL'
+import { client } from './GraphQL'
 
 export enum LogMessageType {
   Info,
@@ -27,6 +28,32 @@ export const getLogsQuery = gql`
     }
   }
 `
+
+export const resolvers: Resolvers = {
+  Query: {},
+  Mutation: {
+    log: (_, { type, message, category }, context) => {
+      const previous = context.cache.readQuery({ query: getLogsQuery })
+      const timestamp = new Date().getTime() / 1000
+      const logItem = {
+        id: `${timestamp}`,
+        timestamp,
+        type,
+        message,
+        category,
+        __typename: 'LogMessage',
+      }
+      const data = {
+        logs: [logItem].concat(previous.logs),
+      }
+
+      context.cache.writeQuery({ query: getLogsQuery, data })
+      return logItem
+    },
+  },
+}
+
+client.addResolvers(resolvers)
 
 const newLogItemMutation = gql`
   mutation newLogItem($message: String!, $type: Int!, $category: String) {
