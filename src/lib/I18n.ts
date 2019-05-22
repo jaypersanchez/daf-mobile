@@ -5,7 +5,7 @@ import resources from '../locale'
 
 const options = {
   fallbackLng: 'en',
-  debug: true,
+  debug: false,
   resources,
   interpolation: {
     escapeValue: false,
