@@ -4,7 +4,13 @@
  */
 
 import * as React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native'
 import Config from 'react-native-config'
 import Analytics from 'appcenter-analytics'
 import codePush from 'react-native-code-push'
@@ -42,9 +48,10 @@ export default class App extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.welcome}>Settings</Text>
         <Text style={styles.welcome}>Environment = {Config.ENV}</Text>
+
         <TouchableOpacity
           onPress={() => Log.info('Sample info string', 'Settings')}
         >
@@ -78,7 +85,7 @@ export default class App extends React.Component<Props, State> {
           <Text>Check for updates</Text>
         </TouchableOpacity>
         <Text>Update: {this.state.updateMetadata}</Text>
-      </View>
+      </ScrollView>
     )
   }
 }

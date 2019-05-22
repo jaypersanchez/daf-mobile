@@ -5,23 +5,26 @@
 
 import * as React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import Config from 'react-native-config'
 
 interface Props {}
 interface State {}
 
-export default class App extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Serto!</Text>
-      </View>
-    )
-  }
+export default () => {
+  const { t, i18n } = useTranslation()
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>{t('Welcome to Serto')}!</Text>
+      <TouchableOpacity
+        onPress={() =>
+          i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
+        }
+      >
+        <Text>{t('change')}</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
