@@ -1,5 +1,6 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
+import './lib/I18n'
 import Navigation from './screens/Navigation'
 import { client } from './lib/GraphQL'
 import Log from './lib/Log'

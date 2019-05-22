@@ -21,7 +21,27 @@ exports[`renders correctly 1`] = `
       }
     }
   >
-    Welcome to Serto!
+    Welcome to Serto
+    !
   </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text>
+      change
+    </Text>
+  </View>
 </View>
 `;

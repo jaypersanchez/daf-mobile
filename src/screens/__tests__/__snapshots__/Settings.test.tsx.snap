@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<View
-  style={
+<RCTScrollView
+  contentContainerStyle={
     Object {
       "alignItems": "center",
       "backgroundColor": "#F5FCFF",
@@ -11,46 +11,7 @@ exports[`renders correctly 1`] = `
     }
   }
 >
-  <Text
-    style={
-      Object {
-        "color": "#FF0000",
-        "fontSize": 20,
-        "margin": 10,
-        "textAlign": "center",
-      }
-    }
-  >
-    Settings
-  </Text>
-  <Text
-    style={
-      Object {
-        "color": "#FF0000",
-        "fontSize": 20,
-        "margin": 10,
-        "textAlign": "center",
-      }
-    }
-  >
-    Environment = 
-    dev
-  </Text>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
+  <View>
     <Text
       style={
         Object {
@@ -61,24 +22,8 @@ exports[`renders correctly 1`] = `
         }
       }
     >
-      Log info
+      Settings
     </Text>
-  </View>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
     <Text
       style={
         Object {
@@ -89,115 +34,172 @@ exports[`renders correctly 1`] = `
         }
       }
     >
-      Log warning
+      Environment = 
+      dev
     </Text>
-  </View>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "color": "#FF0000",
-          "fontSize": 20,
-          "margin": 10,
-          "textAlign": "center",
+          "opacity": 1,
         }
       }
     >
-      Log error
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
+      <Text
+        style={
+          Object {
+            "color": "#FF0000",
+            "fontSize": 20,
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      >
+        Log info
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "color": "#FF0000",
-          "fontSize": 20,
-          "margin": 10,
-          "textAlign": "center",
+          "opacity": 1,
         }
       }
     >
-      Press here to crash the app
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
+      <Text
+        style={
+          Object {
+            "color": "#FF0000",
+            "fontSize": 20,
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      >
+        Log warning
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "color": "#FF0000",
-          "fontSize": 20,
-          "margin": 10,
-          "textAlign": "center",
+          "opacity": 1,
         }
       }
     >
-      Press here to trigger sample event
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
+      <Text
+        style={
+          Object {
+            "color": "#FF0000",
+            "fontSize": 20,
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      >
+        Log error
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
       }
-    }
-  >
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FF0000",
+            "fontSize": 20,
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      >
+        Press here to crash the app
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FF0000",
+            "fontSize": 20,
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      >
+        Press here to trigger sample event
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text>
+        Check for updates
+      </Text>
+    </View>
     <Text>
-      Check for updates
+      Update: 
+      
     </Text>
   </View>
-  <Text>
-    Update: 
-    
-  </Text>
-</View>
+</RCTScrollView>
 `;
