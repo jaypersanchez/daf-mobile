@@ -65,28 +65,67 @@ exports[`renders correctly 1`] = `
           }
         >
           <View
+            pointerEvents="auto"
             style={
               Object {
                 "alignItems": "center",
                 "backgroundColor": "#F5FCFF",
+                "borderRadius": undefined,
                 "flex": 1,
+                "flexDirection": undefined,
+                "height": undefined,
                 "justifyContent": "center",
+                "marginBottom": undefined,
+                "marginLeft": undefined,
+                "marginRight": undefined,
+                "marginTop": undefined,
+                "padding": undefined,
+                "paddingBottom": undefined,
+                "paddingHorizontal": undefined,
+                "paddingLeft": undefined,
+                "paddingRight": undefined,
+                "paddingTop": undefined,
+                "width": undefined,
               }
             }
           >
-            <Text
+            <View
+              pointerEvents="auto"
               style={
                 Object {
-                  "color": "#FF0000",
-                  "fontSize": 20,
-                  "margin": 10,
-                  "textAlign": "center",
+                  "alignItems": undefined,
+                  "backgroundColor": undefined,
+                  "borderRadius": undefined,
+                  "flex": undefined,
+                  "flexDirection": undefined,
+                  "height": undefined,
+                  "justifyContent": undefined,
+                  "marginBottom": undefined,
+                  "marginLeft": undefined,
+                  "marginRight": undefined,
+                  "marginTop": undefined,
+                  "padding": undefined,
+                  "paddingBottom": 15,
+                  "paddingHorizontal": undefined,
+                  "paddingLeft": undefined,
+                  "paddingRight": undefined,
+                  "paddingTop": undefined,
+                  "width": undefined,
                 }
               }
             >
-              Welcome to Serto
-              !
-            </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 24,
+                  }
+                }
+              >
+                Welcome to Serto
+                !
+              </Text>
+            </View>
             <View
               accessible={true}
               isTVSelectable={true}
@@ -98,13 +137,50 @@ exports[`renders correctly 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "opacity": 1,
+                  "alignItems": "center",
+                  "backgroundColor": "#0078ff",
+                  "borderRadius": 8,
+                  "maxWidth": 300,
+                  "padding": 15,
                 }
               }
             >
-              <Text>
-                Toggle language
-              </Text>
+              <View
+                pointerEvents="auto"
+                style={
+                  Object {
+                    "alignItems": undefined,
+                    "backgroundColor": undefined,
+                    "borderRadius": undefined,
+                    "flex": undefined,
+                    "flexDirection": "row",
+                    "height": undefined,
+                    "justifyContent": undefined,
+                    "marginBottom": undefined,
+                    "marginLeft": undefined,
+                    "marginRight": undefined,
+                    "marginTop": undefined,
+                    "padding": undefined,
+                    "paddingBottom": undefined,
+                    "paddingHorizontal": undefined,
+                    "paddingLeft": undefined,
+                    "paddingRight": undefined,
+                    "paddingTop": undefined,
+                    "width": undefined,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "#FFFFFF",
+                      "fontSize": 18,
+                    }
+                  }
+                >
+                  Toggle language
+                </Text>
+              </View>
             </View>
           </View>
         </View>

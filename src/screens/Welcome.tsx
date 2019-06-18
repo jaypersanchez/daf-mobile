@@ -4,40 +4,29 @@
  */
 
 import * as React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import Config from 'react-native-config'
-
-interface Props {}
-interface State {}
+import { Container, Text, Button, Constants } from '@kancha/kancha-ui'
 
 export default () => {
   const { t, i18n } = useTranslation()
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>{t('Welcome to Serto')}!</Text>
-      <TouchableOpacity
+    <Container
+      flex={1}
+      justifyContent={'center'}
+      alignItems={'center'}
+      backgroundColor={'#F5FCFF'}
+    >
+      <Container paddingBottom>
+        <Text type={Constants.TextTypes.H2}>{t('Welcome to Serto')}!</Text>
+      </Container>
+      <Button
+        type={Constants.BrandOptions.Primary}
+        block={Constants.ButtonBlocks.Filled}
+        buttonText={t('change')}
         onPress={() =>
           i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
         }
-      >
-        <Text>{t('change')}</Text>
-      </TouchableOpacity>
-    </View>
+      />
+    </Container>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: Config.BRAND_COLOR,
-  },
-})
