@@ -1,11 +1,11 @@
 import 'react-native'
 import React from 'react'
 import App from '../App'
-import renderer from 'react-test-renderer'
+import { render } from 'react-native-testing-library'
 
 jest.useFakeTimers()
 
 it('renders correctly', () => {
-  const tree = renderer.create(<App />).toJSON()
+  const tree = render(<App />).toJSON()
   expect(tree).toMatchSnapshot()
 })
