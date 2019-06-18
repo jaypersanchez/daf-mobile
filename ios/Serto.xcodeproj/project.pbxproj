@@ -1707,7 +1707,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.uport.Serto;
+				PRODUCT_BUNDLE_IDENTIFIER = co.serto.wallet;
 				PRODUCT_NAME = Serto;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1740,7 +1740,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.uport.Serto;
+				PRODUCT_BUNDLE_IDENTIFIER = co.serto.wallet;
 				PRODUCT_NAME = Serto;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
