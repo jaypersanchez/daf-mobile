@@ -1,0 +1,58 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Make a build for TestFlight"
+  lane :buildTheApp do
+    match(type: "appstore")
+    gym(
+      export_method: "app-store",
+      workspace: "Serto.xcworkspace",
+      scheme: "Serto",
+      include_bitcode: true,
+      include_symbols: true
+    )
+  end
+
+  desc "Upload to Testflight"
+  lane :uploadToTestflight do
+       match(type: "appstore")
+       pilot(
+         ipa: "./Serto.ipa",
+         skip_submission: true,
+         skip_waiting_for_build_processing: true
+       )
+  end
+
+  desc "Build & Upload to Testflight"
+  lane :buildAndUploadToTestflight do
+    match(type: "appstore")
+    gym(
+      export_method: "app-store",
+      workspace: "Serto.xcworkspace",
+      scheme: "Serto",
+      include_bitcode: true,
+      include_symbols: true
+    )
+    pilot(
+      ipa: "./Serto.ipa",
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+    )
+  end  
+end
