@@ -51,6 +51,7 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+*/fastlane/README.md
 
 # Bundle artifact
 *.jsbundle
@@ -64,3 +65,4 @@ test-results/
 test-reports/
 
 codepush-privatekey.pem
+Serto.app.dSYM.zip
