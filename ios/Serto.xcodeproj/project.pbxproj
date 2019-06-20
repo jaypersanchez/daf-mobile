@@ -357,6 +357,41 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNUportSigner;
 		};
+		707703D522BB7C96002885B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A760859C13EFCAF993249BDCFFF5613C;
+			remoteInfo = EthCore;
+		};
+		707703D722BB7C96002885B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C5A3D5C0B4BB2745B39B2A36816D456C;
+			remoteInfo = ISO8601DateFormatter;
+		};
+		707703D922BB7C96002885B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B09657591501C4E055C15D3CF47673A8;
+			remoteInfo = "Pods-RNUportSigner";
+		};
+		707703DB22BB7C96002885B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B7A67456861DD0BC2B1B7EFD14037BE3;
+			remoteInfo = UPTEthereumSigner;
+		};
+		707703DD22BB7C96002885B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F5C74C5C619AB9B96E535A7DF629F07;
+			remoteInfo = Valet;
+		};
 		7092AFCD22956A4100DD30B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */;
@@ -436,6 +471,7 @@
 		7010C9EC227B270200642EEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		701B7A912282F9170062041C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		7077030522B8FF8E002885B6 /* Serto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Serto.entitlements; path = Serto/Serto.entitlements; sourceTree = "<group>"; };
+		707703CD22BB7C96002885B6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-uport-signer/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocalize.xcodeproj; path = "../node_modules/react-native-localize/ios/RNLocalize.xcodeproj"; sourceTree = "<group>"; };
 		73E990D91790244676FD2B2C /* Pods-Serto-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Serto-tvOS/Pods-Serto-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -712,6 +748,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		707703CE22BB7C96002885B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				707703D622BB7C96002885B6 /* libEthCore.a */,
+				707703D822BB7C96002885B6 /* libISO8601DateFormatter.a */,
+				707703DA22BB7C96002885B6 /* libPods-RNUportSigner.a */,
+				707703DC22BB7C96002885B6 /* libUPTEthereumSigner.a */,
+				707703DE22BB7C96002885B6 /* libValet.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7092AF9B22956A4100DD30B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +789,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				707703CD22BB7C96002885B6 /* Pods.xcodeproj */,
 				7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */,
 				701B7A912282F9170062041C /* RNGestureHandler.xcodeproj */,
 				7010C9B8227B26BF00642EEA /* CodePush.xcodeproj */,
@@ -961,6 +1010,10 @@
 				{
 					ProductGroup = 7010C9B9227B26BF00642EEA /* Products */;
 					ProjectRef = 7010C9B8227B26BF00642EEA /* CodePush.xcodeproj */;
+				},
+				{
+					ProductGroup = 707703CE22BB7C96002885B6 /* Products */;
+					ProjectRef = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1323,6 +1376,41 @@
 			fileType = archive.ar;
 			path = libRNUportSigner.a;
 			remoteRef = 707703CB22BB7AAA002885B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		707703D622BB7C96002885B6 /* libEthCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libEthCore.a;
+			remoteRef = 707703D522BB7C96002885B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		707703D822BB7C96002885B6 /* libISO8601DateFormatter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libISO8601DateFormatter.a;
+			remoteRef = 707703D722BB7C96002885B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		707703DA22BB7C96002885B6 /* libPods-RNUportSigner.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-RNUportSigner.a";
+			remoteRef = 707703D922BB7C96002885B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		707703DC22BB7C96002885B6 /* libUPTEthereumSigner.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUPTEthereumSigner.a;
+			remoteRef = 707703DB22BB7C96002885B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		707703DE22BB7C96002885B6 /* libValet.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libValet.a;
+			remoteRef = 707703DD22BB7C96002885B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7092AFCE22956A4100DD30B4 /* libRNLocalize.a */ = {
