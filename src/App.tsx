@@ -1,10 +1,11 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
+import codePush, { DownloadProgress } from 'react-native-code-push'
 import './lib/I18n'
 import Navigation from './screens/Navigation'
 import { client } from './lib/GraphQL'
 import Log from './lib/Log'
-import codePush, { DownloadProgress } from 'react-native-code-push'
+import { handleCodePushStatusChange } from './lib/CodepushHelpers'
 
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
@@ -17,23 +18,7 @@ if (defaultHandler) {
 
 class App extends React.Component {
   codePushStatusDidChange(status: codePush.SyncStatus) {
-    switch (status) {
-      case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-        Log.info('Checking for updates.', 'Codepush')
-        break
-      case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-        Log.info('Downloading package.', 'Codepush')
-        break
-      case codePush.SyncStatus.INSTALLING_UPDATE:
-        Log.info('Installing update.', 'Codepush')
-        break
-      case codePush.SyncStatus.UP_TO_DATE:
-        Log.info('Up-to-date.', 'Codepush')
-        break
-      case codePush.SyncStatus.UPDATE_INSTALLED:
-        Log.info('Update installed.', 'Codepush')
-        break
-    }
+    handleCodePushStatusChange(status)
   }
 
   codePushDownloadDidProgress(progress: DownloadProgress) {

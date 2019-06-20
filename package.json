@@ -16,7 +16,7 @@
     "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem"
   },
   "dependencies": {
-    "@kancha/kancha-ui": "^1.0.0-beta.2",
+    "@kancha/kancha-ui": "^1.0.0-beta.3",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",

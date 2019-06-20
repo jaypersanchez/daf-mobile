@@ -909,13 +909,14 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.2":
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.2.tgz#8215c9c70bc19b771c5f2607b67b8be7f2bbb7ab"
-  integrity sha512-a4XG6Lxc0Qi4PIKbxoO/PiuZYqleUeDwhv1df+IF9kUpw0/npu0F7qj9S4QZJfb8uL+wPZEZkB3Vpt7+XyYdfg==
+"@kancha/kancha-ui@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.3.tgz#f64d3509c31edd51bd74e53ad7e788373f338951"
+  integrity sha512-HOaUSYrVWM8g5h6815P02OPf4H6BF4rTXpymylKugktcsDpIAyhXdHF8go4bC4vKR9jCv9JqlM/9rNLOt6Jjig==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
+    react-native-keyboard-aware-scrollview "^2.0.0"
 
 "@react-native-community/cli@^1.2.1":
   version "1.9.1"
@@ -5942,6 +5943,11 @@ react-native-gesture-handler@^1.2.1:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
+
+react-native-keyboard-aware-scrollview@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-2.0.0.tgz#a7e2cc31b7230893db5dc05eb6fed3f358500a55"
+  integrity sha512-VAkwrmNl00bjTLXcvB3EMxuJ06kEBVRfpUq61X0Wl6Gdy1iSQpv04dVbZZ3KIflA9VhAlE0HFPltLLXIGjf2Ug==
 
 react-native-localize@^1.1.2:
   version "1.1.2"
