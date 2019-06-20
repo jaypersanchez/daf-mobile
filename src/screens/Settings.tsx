@@ -12,12 +12,9 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Config from 'react-native-config'
-import Analytics from 'appcenter-analytics'
 import codePush from 'react-native-code-push'
 
 import Log from '../lib/Log'
-
-Analytics.setEnabled(true)
 
 interface Props {}
 interface State {

@@ -1333,20 +1333,6 @@ apollo-utilities@1.2.1, apollo-utilities@^1.2.1:
     ts-invariant "^0.2.1"
     tslib "^1.9.3"
 
-appcenter-analytics@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/appcenter-analytics/-/appcenter-analytics-1.13.0.tgz#c9ffd6cb103c418425ab6967086a4d085069e4cd"
-  integrity sha512-FTfNXiT/CnXGHqCcqPmP97zmXVq0o+zvTIlpJjFeIJB2N6Cufk3RYohJATjJ40Hc2x1DoBxJ59K3vu4vAtViIA==
-  dependencies:
-    appcenter "1.13.0"
-
-appcenter-crashes@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/appcenter-crashes/-/appcenter-crashes-1.13.0.tgz#c9a5257f71e9c8055494322d4b514e28715debfc"
-  integrity sha512-HlKPbFUgHgWtHjhpZjAKOJnOdLWTzCXKKQ1dWPGlB6M/QA+ssL5gKap1cymPBBwvaL1FwOvWlKW0egVRn6cBTQ==
-  dependencies:
-    appcenter "1.13.0"
-
 appcenter-link-scripts@1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/appcenter-link-scripts/-/appcenter-link-scripts-1.13.0.tgz#5ddd2143df97c055d1d04d97cd59facec367f368"
@@ -1360,7 +1346,7 @@ appcenter-link-scripts@1.13.0:
     which "^1.2.11"
     xcode "^2.0.0"
 
-appcenter@1.13.0, appcenter@^1.13.0:
+appcenter@^1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/appcenter/-/appcenter-1.13.0.tgz#b4bfc38bcdb9d69f20086ad69198d8993d6edb94"
   integrity sha512-YHWrLPlA7ZBH5Tz8vN6Eux0wjdA8nNRfwGL7IANjx0yv7OvIMftn9SC0/g2CWdVV752dL6a8Rt/rWXN8yeOfdQ==
@@ -5999,6 +5985,11 @@ react-native-typescript-transformer@^1.2.12:
     jju "^1.3.0"
     semver "^5.4.1"
     source-map "^0.5.6"
+
+react-native-uport-signer@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-uport-signer/-/react-native-uport-signer-1.3.4.tgz#d44db426bb24b0883b6648ee31fe067db046e968"
+  integrity sha512-nT1a8WOWFXOk1Pab1RLYyG0wnrA7YXycmVW4y4hfEortnEX+eKgJDXqmUKlfx0l3O5VjneQGb4qI5TUxoy0F8Q==
 
 react-native@^0.59.9:
   version "0.59.9"
