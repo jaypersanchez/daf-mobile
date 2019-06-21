@@ -9,6 +9,8 @@ import { Query } from 'react-apollo'
 import { LogMessage, LogMessageType, getLogsQuery } from '../lib/Log'
 import moment from 'moment'
 
+import { LogItem } from '@kancha/kancha-ui'
+
 interface Props {}
 
 export default (props: Props) => {
@@ -25,7 +27,14 @@ export default (props: Props) => {
       }) => (
         <FlatList
           data={data.logs}
-          renderItem={({ item }) => <ListItem logItem={item} />}
+          renderItem={({ item }) => (
+            <LogItem
+              type={item.type}
+              category={item.category}
+              time={moment.unix(item.timestamp).calendar()}
+              message={item.message}
+            />
+          )}
           keyExtractor={(item, index) => item.id}
           onRefresh={refetch}
           refreshing={loading}
