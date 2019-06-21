@@ -1,11 +1,16 @@
 import 'react-native'
 import React from 'react'
-import App from '../App'
+import Developer from '../Developer'
 import { render } from 'react-native-testing-library'
 
 jest.useFakeTimers()
 
+const navigation = {
+  navigate: jest.fn(),
+}
+
 it('renders correctly', () => {
-  const tree = render(<App />).toJSON()
+  // @ts-ignore
+  const tree = render(<Developer navigation={navigation} />).toJSON()
   expect(tree).toMatchSnapshot()
 })
