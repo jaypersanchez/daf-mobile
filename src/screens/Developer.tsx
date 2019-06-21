@@ -3,10 +3,13 @@
  *
  */
 
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
 import { NavigationScreenProps } from 'react-navigation'
+
+import { Colors } from '../theme'
+
 import Config from 'react-native-config'
 
 export default ({ navigation }: NavigationScreenProps) => {
