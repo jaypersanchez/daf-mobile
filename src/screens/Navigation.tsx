@@ -9,9 +9,9 @@ import Settings from './Settings'
 import Welcome from './Welcome'
 import Logs from './Logs'
 import Codepush from './Codepush'
-import NativeSigner from './NativeSigner'
+import Signer from './Signer'
 
-const SettingsNavigator = createStackNavigator({
+const DebugNavigator = createStackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: {
@@ -30,17 +30,17 @@ const SettingsNavigator = createStackNavigator({
       title: i18n.t('Codepush'),
     },
   },
-  NativeSigner: {
-    screen: NativeSigner,
+  Signer: {
+    screen: Signer,
     navigationOptions: {
-      title: i18n.t('Native Signer'),
+      title: i18n.t('Signer'),
     },
   },
 })
 
 const DrawerNavigator = createDrawerNavigator({
   Home: Welcome,
-  Settings: SettingsNavigator,
+  Debug: DebugNavigator,
 })
 
 export default createAppContainer(DrawerNavigator)
