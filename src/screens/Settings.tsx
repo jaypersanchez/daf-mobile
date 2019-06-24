@@ -25,6 +25,14 @@ export default ({ navigation }: NavigationScreenProps) => {
         <Button
           type={Constants.BrandOptions.Primary}
           block={Constants.ButtonBlocks.Filled}
+          buttonText={t('Native Signer')}
+          onPress={() => navigation.navigate('NativeSigner')}
+          navButton
+        />
+
+        <Button
+          type={Constants.BrandOptions.Primary}
+          block={Constants.ButtonBlocks.Filled}
           buttonText={t('CodePush')}
           onPress={() => navigation.navigate('Codepush')}
           navButton

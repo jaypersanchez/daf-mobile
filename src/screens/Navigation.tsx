@@ -9,6 +9,7 @@ import Settings from './Settings'
 import Welcome from './Welcome'
 import Logs from './Logs'
 import Codepush from './Codepush'
+import NativeSigner from './NativeSigner'
 
 const SettingsNavigator = createStackNavigator({
   Settings: {
@@ -27,6 +28,12 @@ const SettingsNavigator = createStackNavigator({
     screen: Codepush,
     navigationOptions: {
       title: i18n.t('Codepush'),
+    },
+  },
+  NativeSigner: {
+    screen: NativeSigner,
+    navigationOptions: {
+      title: i18n.t('Native Signer'),
     },
   },
 })
