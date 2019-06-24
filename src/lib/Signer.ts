@@ -12,6 +12,7 @@ import Log from './Log'
 // `cloud`        - Backed up in some cloud storage
 
 export const DEFAULT_LEVEL = 'simple'
+export const SHOW_SEED_PROMPT = 'Do you want to reveal seed phrase?'
 
 export interface Did {
   did: string
@@ -32,7 +33,7 @@ export const getDidsQuery = gql`
 export const resolvers: Resolvers = {
   Did: {
     seed: async (did: Did, args, context) => {
-      return await RNUportHDSigner.showSeed(did.address, 'Prompt')
+      return await RNUportHDSigner.showSeed(did.address, SHOW_SEED_PROMPT)
     },
   },
   Query: {

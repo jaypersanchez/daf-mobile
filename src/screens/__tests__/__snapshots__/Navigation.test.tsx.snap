@@ -126,62 +126,6 @@ exports[`renders correctly 1`] = `
                 !
               </Text>
             </View>
-            <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#0078ff",
-                  "borderRadius": 8,
-                  "maxWidth": 300,
-                  "padding": 15,
-                }
-              }
-            >
-              <View
-                pointerEvents="auto"
-                style={
-                  Object {
-                    "alignItems": undefined,
-                    "backgroundColor": undefined,
-                    "borderRadius": undefined,
-                    "flex": undefined,
-                    "flexDirection": "row",
-                    "height": undefined,
-                    "justifyContent": undefined,
-                    "marginBottom": undefined,
-                    "marginLeft": undefined,
-                    "marginRight": undefined,
-                    "marginTop": undefined,
-                    "padding": undefined,
-                    "paddingBottom": undefined,
-                    "paddingHorizontal": undefined,
-                    "paddingLeft": undefined,
-                    "paddingRight": undefined,
-                    "paddingTop": undefined,
-                    "width": undefined,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#FFFFFF",
-                      "fontSize": 18,
-                    }
-                  }
-                >
-                  change
-                </Text>
-              </View>
-            </View>
           </View>
         </View>
       </View>
@@ -320,7 +264,7 @@ exports[`renders correctly 1`] = `
                   </View>
                 </View>
                 <View
-                  accessibilityLabel="Logs"
+                  accessibilityLabel="Debug"
                   accessible={true}
                   isTVSelectable={true}
                   onResponderGrant={[Function]}
@@ -365,57 +309,7 @@ exports[`renders correctly 1`] = `
                         ]
                       }
                     >
-                      Logs
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  accessibilityLabel="Settings"
-                  accessible={true}
-                  isTVSelectable={true}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                >
-                  <View
-                    onLayout={[Function]}
-                    pointerEvents="box-none"
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "backgroundColor": "transparent",
-                        "flexDirection": "row",
-                        "paddingBottom": 0,
-                        "paddingLeft": 0,
-                        "paddingRight": 0,
-                        "paddingTop": 0,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontWeight": "bold",
-                            "margin": 16,
-                          },
-                          Object {
-                            "color": "rgba(0, 0, 0, .87)",
-                          },
-                          undefined,
-                          undefined,
-                        ]
-                      }
-                    >
-                      Settings
+                      Debug
                     </Text>
                   </View>
                 </View>
