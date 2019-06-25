@@ -1,4 +1,6 @@
 rootProject.name = 'Serto'
+include ':react-native-sentry'
+project(':react-native-sentry').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sentry/android')
 include ':react-native-uport-signer'
 project(':react-native-uport-signer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-uport-signer/android')
 include ':react-native-localize'
