@@ -16,7 +16,7 @@ import Codepush from '../screens/Codepush'
 import Signer from '../screens/Signer'
 
 export const Screens = {
-  Welcome: { screen: 'Welcome', title: 'Welcome' },
+  Home: { screen: 'Home', title: 'Serto' },
   Developer: { screen: 'Developer', title: 'Developer' },
   Logs: { screen: 'Logs', title: 'Logs' },
   Codepush: { screen: 'Codepush', title: 'Codepush' },

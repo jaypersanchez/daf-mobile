@@ -16,40 +16,13 @@ export default ({ navigation }: NavigationScreenProps) => {
   const { t, i18n } = useTranslation()
   return (
     <Screen scrollEnabled={true} safeArea={true}>
-      <Container flex={1}>
-        <Button
-          type={Constants.BrandOptions.Primary}
-          block={Constants.ButtonBlocks.Filled}
-          buttonText={t('Logs')}
-          onPress={() => navigation.navigate('Logs')}
-          navButton
-        />
+      <Container backgroundColor={Colors.BRAND} padding alignItems={'center'}>
+        <Text textColor={Colors.WHITE}>
+          {t('Environment')}: {Config.ENV}
+        </Text>
+      </Container>
 
-        <Button
-          type={Constants.BrandOptions.Primary}
-          block={Constants.ButtonBlocks.Filled}
-          buttonText={t('Signer')}
-          onPress={() => navigation.navigate('Signer')}
-          navButton
-        />
-
-        <Button
-          type={Constants.BrandOptions.Primary}
-          block={Constants.ButtonBlocks.Filled}
-          buttonText={t('CodePush')}
-          onPress={() => navigation.navigate('Codepush')}
-          navButton
-        />
-
-        <Button
-          type={Constants.BrandOptions.Primary}
-          block={Constants.ButtonBlocks.Filled}
-          buttonText={t('change')}
-          onPress={() =>
-            i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
-          }
-        />
-
+<<<<<<< HEAD
         <Container padding>
           <Button
             block={Constants.ButtonBlocks.Outlined}
@@ -62,6 +35,47 @@ export default ({ navigation }: NavigationScreenProps) => {
 
         <Text type={Constants.TextTypes.H2}>{t('Configuration')}</Text>
         <Text type={Constants.TextTypes.Body}>{JSON.stringify(Config)}</Text>
+=======
+      <Container flex={1} padding>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Logs')}
+            onPress={() => navigation.navigate('Logs')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Signer')}
+            onPress={() => navigation.navigate('Signer')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('CodePush')}
+            onPress={() => navigation.navigate('Codepush')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('change')}
+            onPress={() =>
+              i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
+            }
+          />
+        </Container>
+>>>>>>> Cleanup screens
       </Container>
     </Screen>
   )

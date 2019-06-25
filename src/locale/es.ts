@@ -7,5 +7,6 @@ export default {
     Logs: 'Troncos',
     Codepush: 'Codepush',
     Configuration: 'Configuración',
+    Environment: 'Entorno',
   },
 }

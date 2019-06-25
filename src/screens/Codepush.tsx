@@ -55,12 +55,15 @@ export default ({ navigation }: NavigationScreenProps) => {
           </Container>
         )}
 
-        <Button
-          type={Constants.BrandOptions.Primary}
-          block={Constants.ButtonBlocks.Filled}
-          buttonText={t('Sync')}
-          onPress={codePushSync}
-        />
+        <Container padding>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Sync')}
+            onPress={codePushSync}
+          />
+        </Container>
       </Container>
     </Screen>
   )

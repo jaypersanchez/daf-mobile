@@ -7,5 +7,6 @@ export default {
     Logs: 'Logs',
     Codepush: 'Codepush',
     Configuration: 'Configuration',
+    Environment: 'Environment',
   },
 }

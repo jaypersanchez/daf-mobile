@@ -27,6 +27,7 @@ export default (props: Props) => {
         <Mutation
           mutation={importSeedMutation}
           refetchQueries={['getDids']}
+          // tslint:disable-next-line:no-console
           onError={(e: any) => console.log('Error: ', e)}
         >
           {(mutate: any, state: MutationState) => {
