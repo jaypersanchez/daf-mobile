@@ -3,6 +3,7 @@ package com.serto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.sentry.RNSentryPackage;
 import com.reactlibrary.RNUportSignerPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -35,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSentryPackage(),
             new RNUportSignerPackage(),
             new RNLocalizePackage(),
             new RNGestureHandlerPackage(),

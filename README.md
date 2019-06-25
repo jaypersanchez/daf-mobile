@@ -72,3 +72,13 @@ To use a different env file set `ENVFILE` variable:
 ```
 $ ENVFILE=.env.production react-native run-android
 ```
+
+## Sentry
+
+If you are using `nvm` you may need to run this command to enable iOS builds. Use correct `VERSION`
+
+```
+ln -s $HOME/.nvm/versions/node/{VERSION}/bin/node /usr/local/bin/node
+```
+
+`SENTRY_DSN` needs to be in `.env` and `.env.production` files.

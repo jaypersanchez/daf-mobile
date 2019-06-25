@@ -9,11 +9,16 @@
     "coverage": "jest --coverage",
     "package-android": "mkdir -p android/app/build/jsbundle/assets/ && mkdir -p android/app/build/jsbundle/res && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/jsbundle/assets/index.android.bundle --assets-dest android/app/build/jsbundle/res",
     "codepush-production": "npm run codepush-ios-production && npm run codepush-android-production",
-    "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist",
-    "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production --private-key-path ./codepush-privatekey.pem",
+    "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist --output-dir ./build/ios && npm run sentry-ios-codepush-production",
+    "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production --private-key-path ./codepush-privatekey.pem --output-dir ./build/android && npm run sentry-android-codepush-production",
     "codepush-staging": "npm run codepush-ios-staging && npm run codepush-android-staging",
-    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem --plist-file ios/Serto/Info.plist",
-    "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem"
+    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem --plist-file ios/Serto/Info.plist --output-dir ./build/ios/CodePush && npm run sentry-ios-codepush-staging",
+    "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem --output-dir ./build/android && npm run sentry-android-codepush-staging",
+    "sentry-ios-codepush-production": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto ios ./build/ios/CodePush --deployment Production",
+    "sentry-android-codepush-production": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Production",
+    "sentry-ios-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto ios ./build/ios/CodePush --deployment Staging",
+    "sentry-android-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Staging",
+    "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight"
   },
   "dependencies": {
     "@kancha/kancha-ui": "^1.0.0-beta.3",
@@ -37,6 +42,7 @@
     "react-native-config": "^0.11.7",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-localize": "^1.1.2",
+    "react-native-sentry": "^0.43.2",
     "react-native-uport-signer": "^1.3.4",
     "react-navigation": "^3.9.1"
   },
