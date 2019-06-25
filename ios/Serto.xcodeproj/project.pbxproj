@@ -472,6 +472,13 @@
 			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
 			remoteInfo = "RNVectorIcons-tvOS";
 		};
+		96C8014922C2272400333084 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85219DD9E2CC44B29CB6A75B /* RNUportSigner.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNUportSigner;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -540,7 +547,6 @@
 		9685348F22BD26A300EED8BB /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		9685349022BD26A300EED8BB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		968534A022BD26D500EED8BB /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../../uport-mobile/node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
-		989239D2BD694E28B4658E63 /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B05D133E096838EE3BF3CFED /* Pods-Serto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.release.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.release.xcconfig"; sourceTree = "<group>"; };
 		B9B96F6989EA25C454A6DCBA /* libPods-Serto-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -957,6 +963,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		96C8011322C2272400333084 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96C8014A22C2272400333084 /* libRNUportSigner.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1191,7 +1205,10 @@
 				},
 				{
 					ProductGroup = 707703C822BB7AAA002885B6 /* Products */;
+					ProductGroup = 96C8011322C2272400333084 /* Products */;
 					ProjectRef = 85219DD9E2CC44B29CB6A75B /* RNUportSigner.xcodeproj */;
+				},
+				{
 					ProductGroup = 968534A122BD26D500EED8BB /* Products */;
 					ProjectRef = 968534A022BD26D500EED8BB /* RNVectorIcons.xcodeproj */;
 				},
@@ -1590,6 +1607,13 @@
 			fileType = archive.ar;
 			path = "libRNVectorIcons-tvOS.a";
 			remoteRef = 968534A722BD26D500EED8BB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96C8014A22C2272400333084 /* libRNUportSigner.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNUportSigner.a;
+			remoteRef = 96C8014922C2272400333084 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
