@@ -22,20 +22,6 @@ export default ({ navigation }: NavigationScreenProps) => {
         </Text>
       </Container>
 
-<<<<<<< HEAD
-        <Container padding>
-          <Button
-            block={Constants.ButtonBlocks.Outlined}
-            buttonText={'Crash App 6'}
-            onPress={() => {
-              throw new Error('Sample error from JS 6')
-            }}
-          />
-        </Container>
-
-        <Text type={Constants.TextTypes.H2}>{t('Configuration')}</Text>
-        <Text type={Constants.TextTypes.Body}>{JSON.stringify(Config)}</Text>
-=======
       <Container flex={1} padding>
         <Container marginBottom>
           <Button
@@ -75,7 +61,16 @@ export default ({ navigation }: NavigationScreenProps) => {
             }
           />
         </Container>
->>>>>>> Cleanup screens
+        <Container marginBottom>
+          <Button
+            fullWidth
+            block={Constants.ButtonBlocks.Outlined}
+            buttonText={'Crash App 6'}
+            onPress={() => {
+              throw new Error('Sample error from JS 6')
+            }}
+          />
+        </Container>
       </Container>
     </Screen>
   )
