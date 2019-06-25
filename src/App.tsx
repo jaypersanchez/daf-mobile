@@ -1,11 +1,14 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import codePush, { DownloadProgress } from 'react-native-code-push'
-import './lib/I18n'
-import Navigation from './screens/Navigation'
+import { handleCodePushStatusChange } from './lib/CodepushHelpers'
+import Navigation from './navigators'
 import { client } from './lib/GraphQL'
 import Log from './lib/Log'
-import { handleCodePushStatusChange } from './lib/CodepushHelpers'
+import './lib/I18n'
+
+import { ThemeProvider } from '@kancha/kancha-ui'
+import { Theme } from './theme'
 
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
@@ -28,7 +31,9 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <Navigation />
+        <ThemeProvider theme={Theme}>
+          <Navigation />
+        </ThemeProvider>
       </ApolloProvider>
     )
   }

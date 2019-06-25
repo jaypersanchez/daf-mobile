@@ -222,7 +222,7 @@ exports[`renders correctly 1`] = `
                           style={
                             Object {
                               "alignItems": "center",
-                              "backgroundColor": "#1EA17A",
+                              "backgroundColor": "#0078ff",
                               "borderRadius": 8,
                               "maxWidth": 300,
                               "padding": 15,
