@@ -44,7 +44,6 @@
 		7010C9EB227B26DC00642EEA /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9C1227B26BF00642EEA /* libCodePush.a */; };
 		7010C9ED227B270200642EEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9EC227B270200642EEA /* libz.tbd */; };
 		701B7AC62282F9F00062041C /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 701B7AC32282F9170062041C /* libRNGestureHandler.a */; };
-		704C750122C20158003C1B1A /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 704C74FD22C1FFAD003C1B1A /* libRNSentry.a */; };
 		7092AFD122956A5200DD30B4 /* libRNLocalize.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092AFCE22956A4100DD30B4 /* libRNLocalize.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E95C71482281CD60FAE2B51 /* libPods-Serto-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B96F6989EA25C454A6DCBA /* libPods-Serto-tvOS.a */; };
@@ -64,6 +63,7 @@
 		9685349E22BD26A300EED8BB /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348F22BD26A300EED8BB /* Zocial.ttf */; };
 		9685349F22BD26A300EED8BB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685349022BD26A300EED8BB /* Entypo.ttf */; };
 		968534A922BD26E500EED8BB /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 968534A622BD26D500EED8BB /* libRNVectorIcons.a */; };
+		96E7240F22C26D530037E843 /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7240922C26D320037E843 /* libRNSentry.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B539769F4BB14DB89C1B3F3F /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E239F5FC32547B2B894550C /* libAppCenterReactNative.a */; };
 		D833D557FB274CE8ABBDA520 /* libRNUportSigner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D77231876FD7434582D4DEC9 /* libRNUportSigner.a */; };
@@ -367,27 +367,6 @@
 			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
 			remoteInfo = "RNGestureHandler-tvOS";
 		};
-		704C74FC22C1FFAD003C1B1A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 704C74C322C1FFAC003C1B1A /* RNSentry.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNSentry;
-		};
-		704C74FE22C1FFAD003C1B1A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 704C74C322C1FFAC003C1B1A /* RNSentry.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 274692C321B4414400BF91A8;
-			remoteInfo = "RNSentry-tvOS";
-		};
-		707703CB22BB7AAA002885B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 85219DD9E2CC44B29CB6A75B /* RNUportSigner.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNUportSigner;
-		};
 		707703D522BB7C96002885B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 707703CD22BB7C96002885B6 /* Pods.xcodeproj */;
@@ -479,6 +458,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNUportSigner;
 		};
+		96E7240822C26D320037E843 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96E723CF22C26D320037E843 /* RNSentry.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNSentry;
+		};
+		96E7240A22C26D320037E843 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96E723CF22C26D320037E843 /* RNSentry.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 274692C321B4414400BF91A8;
+			remoteInfo = "RNSentry-tvOS";
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -522,7 +515,6 @@
 		7010C9B8227B26BF00642EEA /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		7010C9EC227B270200642EEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		701B7A912282F9170062041C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		704C74C322C1FFAC003C1B1A /* RNSentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		7077030522B8FF8E002885B6 /* Serto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Serto.entitlements; path = Serto/Serto.entitlements; sourceTree = "<group>"; };
 		707703CD22BB7C96002885B6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-uport-signer/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocalize.xcodeproj; path = "../node_modules/react-native-localize/ios/RNLocalize.xcodeproj"; sourceTree = "<group>"; };
@@ -547,6 +539,7 @@
 		9685348F22BD26A300EED8BB /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		9685349022BD26A300EED8BB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		968534A022BD26D500EED8BB /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../../uport-mobile/node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		96E723CF22C26D320037E843 /* RNSentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B05D133E096838EE3BF3CFED /* Pods-Serto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.release.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.release.xcconfig"; sourceTree = "<group>"; };
 		B9B96F6989EA25C454A6DCBA /* libPods-Serto-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -576,7 +569,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				704C750122C20158003C1B1A /* libRNSentry.a in Frameworks */,
+				96E7240F22C26D530037E843 /* libRNSentry.a in Frameworks */,
 				968534A922BD26E500EED8BB /* libRNVectorIcons.a in Frameworks */,
 				7092AFD122956A5200DD30B4 /* libRNLocalize.a in Frameworks */,
 				701B7AC62282F9F00062041C /* libRNGestureHandler.a in Frameworks */,
@@ -811,23 +804,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		704C74C422C1FFAC003C1B1A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				704C74FD22C1FFAD003C1B1A /* libRNSentry.a */,
-				704C74FF22C1FFAD003C1B1A /* libRNSentry-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		707703C822BB7AAA002885B6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				707703CC22BB7AAA002885B6 /* libRNUportSigner.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		707703CE22BB7C96002885B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,7 +845,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				704C74C322C1FFAC003C1B1A /* RNSentry.xcodeproj */,
+				96E723CF22C26D320037E843 /* RNSentry.xcodeproj */,
 				707703CD22BB7C96002885B6 /* Pods.xcodeproj */,
 				968534A022BD26D500EED8BB /* RNVectorIcons.xcodeproj */,
 				7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */,
@@ -967,6 +943,15 @@
 			isa = PBXGroup;
 			children = (
 				96C8014A22C2272400333084 /* libRNUportSigner.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96E723D022C26D320037E843 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96E7240922C26D320037E843 /* libRNSentry.a */,
+				96E7240B22C26D320037E843 /* libRNSentry-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1199,12 +1184,10 @@
 					ProjectRef = 7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */;
 				},
 				{
-
-					ProductGroup = 704C74C422C1FFAC003C1B1A /* Products */;
-					ProjectRef = 704C74C322C1FFAC003C1B1A /* RNSentry.xcodeproj */;
+					ProductGroup = 96E723D022C26D320037E843 /* Products */;
+					ProjectRef = 96E723CF22C26D320037E843 /* RNSentry.xcodeproj */;
 				},
 				{
-					ProductGroup = 707703C822BB7AAA002885B6 /* Products */;
 					ProductGroup = 96C8011322C2272400333084 /* Products */;
 					ProjectRef = 85219DD9E2CC44B29CB6A75B /* RNUportSigner.xcodeproj */;
 				},
@@ -1504,27 +1487,6 @@
 			remoteRef = 701B7AC42282F9170062041C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		704C74FD22C1FFAD003C1B1A /* libRNSentry.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSentry.a;
-			remoteRef = 704C74FC22C1FFAD003C1B1A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		704C74FF22C1FFAD003C1B1A /* libRNSentry-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNSentry-tvOS.a";
-			remoteRef = 704C74FE22C1FFAD003C1B1A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		707703CC22BB7AAA002885B6 /* libRNUportSigner.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNUportSigner.a;
-			remoteRef = 707703CB22BB7AAA002885B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		707703D622BB7C96002885B6 /* libEthCore.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1616,6 +1578,20 @@
 			remoteRef = 96C8014922C2272400333084 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		96E7240922C26D320037E843 /* libRNSentry.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSentry.a;
+			remoteRef = 96E7240822C26D320037E843 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96E7240B22C26D320037E843 /* libRNSentry-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNSentry-tvOS.a";
+			remoteRef = 96E7240A22C26D320037E843 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1688,8 +1664,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=../sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "# First set the path to sentry.properties\nexport SENTRY_PROPERTIES=sentry.properties\n\n# Setup nvm and set node\n[ -z \"$NVM_DIR\" ] && export NVM_DIR=\"$HOME/.nvm\"\n\nif [[ -s \"$HOME/.nvm/nvm.sh\" ]]; then\n. \"$HOME/.nvm/nvm.sh\"\nelif [[ -x \"$(command -v brew)\" && -s \"$(brew --prefix nvm)/nvm.sh\" ]]; then\n. \"$(brew --prefix nvm)/nvm.sh\"\nfi\n\n# Set up the nodenv node version manager if present\nif [[ -x \"$HOME/.nodenv/bin/nodenv\" ]]; then\neval \"$(\"$HOME/.nodenv/bin/nodenv\" init -)\"\nfi\n\n# Trying notion\nif [ -z \"$NODE_BINARY\" ]; then\nif [[ -s \"$HOME/.notion/bin/node\" ]]; then\nexport NODE_BINARY=\"$HOME/.notion/bin/node\"\nfi\nfi\n\n[ -z \"$NODE_BINARY\" ] && export NODE_BINARY=\"node\"\n\n$NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli react-native xcode \\\n../node_modules/react-native/scripts/react-native-xcode.sh\n\n";
 		};
 		0A8EAEEB2EBC31B373BF0265 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1725,7 +1700,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=../sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym\n";
+			shellScript = "# First set the path to sentry.properties\nexport SENTRY_PROPERTIES=sentry.properties\n\n# Setup nvm and set node\n[ -z \"$NVM_DIR\" ] && export NVM_DIR=\"$HOME/.nvm\"\n\nif [[ -s \"$HOME/.nvm/nvm.sh\" ]]; then\n. \"$HOME/.nvm/nvm.sh\"\nelif [[ -x \"$(command -v brew)\" && -s \"$(brew --prefix nvm)/nvm.sh\" ]]; then\n. \"$(brew --prefix nvm)/nvm.sh\"\nfi\n\n# Set up the nodenv node version manager if present\nif [[ -x \"$HOME/.nodenv/bin/nodenv\" ]]; then\neval \"$(\"$HOME/.nodenv/bin/nodenv\" init -)\"\nfi\n\n# Trying notion\nif [ -z \"$NODE_BINARY\" ]; then\nif [[ -s \"$HOME/.notion/bin/node\" ]]; then\nexport NODE_BINARY=\"$HOME/.notion/bin/node\"\nfi\nfi\n\n[ -z \"$NODE_BINARY\" ] && export NODE_BINARY=\"node\"\n\n# Run sentry cli script to upload debug symbols\n$NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\"\n\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
