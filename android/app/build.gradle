@@ -145,11 +145,10 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-uport-signer')
     implementation project(':react-native-localize')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-code-push')
-    implementation project(':appcenter-crashes')
-    implementation project(':appcenter-analytics')
     implementation project(':appcenter')
     implementation project(':react-native-config')
     implementation fileTree(dir: "libs", include: ["*.jar"])

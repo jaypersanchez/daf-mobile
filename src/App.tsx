@@ -1,12 +1,11 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
+import codePush, { DownloadProgress } from 'react-native-code-push'
 import './lib/I18n'
 import Navigation from './screens/Navigation'
 import { client } from './lib/GraphQL'
 import Log from './lib/Log'
-import Analytics from 'appcenter-analytics'
-
-Analytics.setEnabled(true)
+import { handleCodePushStatusChange } from './lib/CodepushHelpers'
 
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
@@ -17,10 +16,22 @@ if (defaultHandler) {
   })
 }
 
-const App = () => (
-  <ApolloProvider client={client}>
-    <Navigation />
-  </ApolloProvider>
-)
+class App extends React.Component {
+  codePushStatusDidChange(status: codePush.SyncStatus) {
+    handleCodePushStatusChange(status)
+  }
+
+  codePushDownloadDidProgress(progress: DownloadProgress) {
+    // console.log(progress.receivedBytes + ' of ' + progress.totalBytes + ' received.');
+  }
+
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <Navigation />
+      </ApolloProvider>
+    )
+  }
+}
 
 export default App
