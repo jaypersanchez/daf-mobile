@@ -2,6 +2,7 @@ import { Resolvers, ApolloError } from 'apollo-client'
 import gql from 'graphql-tag'
 import { client } from './GraphQL'
 import { RNUportHDSigner } from 'react-native-uport-signer'
+import analytics from '@segment/analytics-react-native'
 import Log from './Log'
 
 // ANDROID OPTIONS
@@ -51,6 +52,7 @@ export const resolvers: Resolvers = {
       const { address } = await RNUportHDSigner.createSeed(DEFAULT_LEVEL)
       const did = 'did:ethr:' + address
       Log.info('Created: ' + did, 'Signer')
+      analytics.track('Identity created', { type: 'did:ethr' })
       return {
         did,
         address,
@@ -60,7 +62,8 @@ export const resolvers: Resolvers = {
     importSeed: async (_, { seed }, context) => {
       const { address } = await RNUportHDSigner.importSeed(seed, DEFAULT_LEVEL)
       const did = 'did:ethr:' + address
-      Log.info('Imported: ' + did, 'Signer')
+      Log.info('Seed imported: ' + did, 'Signer')
+      analytics.track('Seed imported')
       return {
         did,
         address,
@@ -71,6 +74,7 @@ export const resolvers: Resolvers = {
       const result = await RNUportHDSigner.deleteSeed(address)
       const did = 'did:ethr:' + address
       Log.info('Deleted: ' + did, 'Signer')
+      analytics.track('Identity deleted', { type: 'did:ethr' })
       return result
     },
   },

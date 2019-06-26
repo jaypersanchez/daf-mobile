@@ -69,3 +69,5 @@ Serto.app.dSYM.zip
 
 sentry.properties
 .env.production
+
+ios/Pods

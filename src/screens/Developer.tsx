@@ -37,6 +37,15 @@ export default ({ navigation }: NavigationScreenProps) => {
             fullWidth
             type={Constants.BrandOptions.Primary}
             block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Configuration')}
+            onPress={() => navigation.navigate('Config')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
             buttonText={t('Signer')}
             onPress={() => navigation.navigate('Signer')}
           />
@@ -64,6 +73,7 @@ export default ({ navigation }: NavigationScreenProps) => {
         <Container marginBottom>
           <Button
             fullWidth
+            type={Constants.BrandOptions.Warning}
             block={Constants.ButtonBlocks.Outlined}
             buttonText={'Crash App 6'}
             onPress={() => {
