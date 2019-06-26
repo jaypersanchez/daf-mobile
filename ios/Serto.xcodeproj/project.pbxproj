@@ -45,6 +45,9 @@
 		7010C9ED227B270200642EEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9EC227B270200642EEA /* libz.tbd */; };
 		701B7AC62282F9F00062041C /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 701B7AC32282F9170062041C /* libRNGestureHandler.a */; };
 		7092AFD122956A5200DD30B4 /* libRNLocalize.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7092AFCE22956A4100DD30B4 /* libRNLocalize.a */; };
+		70CC860322C372A200929CFF /* libRNAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70CC85F922C3728F00929CFF /* libRNAnalytics.a */; };
+		70CC860522C3747700929CFF /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70CC860422C3747700929CFF /* Analytics.framework */; };
+		70CC860622C3747700929CFF /* Analytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 70CC860422C3747700929CFF /* Analytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E95C71482281CD60FAE2B51 /* libPods-Serto-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B96F6989EA25C454A6DCBA /* libPods-Serto-tvOS.a */; };
 		9685349122BD26A300EED8BB /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348222BD26A300EED8BB /* AntDesign.ttf */; };
@@ -423,6 +426,13 @@
 			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
 			remoteInfo = AppCenterReactNative;
 		};
+		70CC85F822C3728F00929CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70CC85C422C3728F00929CFF /* RNAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNAnalytics;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -481,6 +491,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		70CC860722C3747700929CFF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				70CC860622C3747700929CFF /* Analytics.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -518,6 +542,9 @@
 		7077030522B8FF8E002885B6 /* Serto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Serto.entitlements; path = Serto/Serto.entitlements; sourceTree = "<group>"; };
 		707703CD22BB7C96002885B6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-uport-signer/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		7092AF9A22956A4100DD30B4 /* RNLocalize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocalize.xcodeproj; path = "../node_modules/react-native-localize/ios/RNLocalize.xcodeproj"; sourceTree = "<group>"; };
+		70CC85C422C3728F00929CFF /* RNAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAnalytics.xcodeproj; path = "../node_modules/@segment/analytics-react-native/ios/RNAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		70CC860422C3747700929CFF /* Analytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Analytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70CC860822C3748000929CFF /* Analytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Analytics.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Serto-clggqxourwlliweuuixmytavpfzn/Build/Products/Debug-iphoneos/Analytics.framework"; sourceTree = "<group>"; };
 		73E990D91790244676FD2B2C /* Pods-Serto-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Serto-tvOS/Pods-Serto-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7E239F5FC32547B2B894550C /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
@@ -569,6 +596,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70CC860322C372A200929CFF /* libRNAnalytics.a in Frameworks */,
 				96E7240F22C26D530037E843 /* libRNSentry.a in Frameworks */,
 				968534A922BD26E500EED8BB /* libRNVectorIcons.a in Frameworks */,
 				7092AFD122956A5200DD30B4 /* libRNLocalize.a in Frameworks */,
@@ -588,6 +616,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				70CC860522C3747700929CFF /* Analytics.framework in Frameworks */,
 				3E447C92F19C4D118E8D1B2E /* libReactNativeConfig.a in Frameworks */,
 				B539769F4BB14DB89C1B3F3F /* libAppCenterReactNative.a in Frameworks */,
 				46550E729AF5415432A78870 /* libPods-Serto.a in Frameworks */,
@@ -745,6 +774,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				70CC860822C3748000929CFF /* Analytics.framework */,
 				7010C9EC227B270200642EEA /* libz.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
@@ -833,6 +863,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		70CC85C522C3728F00929CFF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70CC85F922C3728F00929CFF /* libRNAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,6 +883,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				70CC85C422C3728F00929CFF /* RNAnalytics.xcodeproj */,
 				96E723CF22C26D320037E843 /* RNSentry.xcodeproj */,
 				707703CD22BB7C96002885B6 /* Pods.xcodeproj */,
 				968534A022BD26D500EED8BB /* RNVectorIcons.xcodeproj */,
@@ -882,6 +921,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				70CC860422C3747700929CFF /* Analytics.framework */,
 				9685348122BD25DD00EED8BB /* Icons */,
 				13B07FAE1A68108700A75B9A /* Serto */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1012,6 +1052,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				12C69C7C11C74F4C9CB8851B /* Upload Debug Symbols to Sentry */,
+				70CC860722C3747700929CFF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1174,6 +1215,10 @@
 				{
 					ProductGroup = 7019807E2278611200372518 /* Products */;
 					ProjectRef = 1F4AF110BAF84EE7BE428A92 /* ReactNativeConfig.xcodeproj */;
+				},
+				{
+					ProductGroup = 70CC85C522C3728F00929CFF /* Products */;
+					ProjectRef = 70CC85C422C3728F00929CFF /* RNAnalytics.xcodeproj */;
 				},
 				{
 					ProductGroup = 701B7A922282F9170062041C /* Products */;
@@ -1541,6 +1586,13 @@
 			fileType = archive.ar;
 			path = libAppCenterReactNative.a;
 			remoteRef = 70CB64BF227AFD0C00593AF5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		70CC85F922C3728F00929CFF /* libRNAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAnalytics.a;
+			remoteRef = 70CC85F822C3728F00929CFF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
