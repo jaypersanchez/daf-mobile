@@ -23,7 +23,7 @@ export default (props: Props) => {
   const [seed, setSeed] = useState('')
   return (
     <Screen safeArea={true}>
-      <Container padding>
+      <Container>
         <Mutation
           mutation={importSeedMutation}
           refetchQueries={['getDids']}
@@ -32,7 +32,7 @@ export default (props: Props) => {
         >
           {(mutate: any, state: MutationState) => {
             return (
-              <Container paddingBottom>
+              <Container>
                 <TextInput
                   style={styles.textInput}
                   placeholder={'Enter seed phrase'}
@@ -41,7 +41,6 @@ export default (props: Props) => {
                 />
 
                 <Button
-                  fullWidth
                   type={Constants.BrandOptions.Primary}
                   block={Constants.ButtonBlocks.Filled}
                   buttonText={t('Import Seed')}
@@ -65,7 +64,6 @@ export default (props: Props) => {
         <Mutation mutation={createDidMutation} refetchQueries={['getDids']}>
           {(mutate: any) => (
             <Button
-              fullWidth
               type={Constants.BrandOptions.Primary}
               block={Constants.ButtonBlocks.Filled}
               buttonText={t('Create New Identity')}
@@ -111,7 +109,6 @@ const ListItem = ({ item }: { item: Did }) => {
       <Mutation mutation={deleteSeedMutation} refetchQueries={['getDids']}>
         {(mutate: any) => (
           <Button
-            fullWidth
             type={Constants.BrandOptions.Warning}
             block={Constants.ButtonBlocks.Outlined}
             buttonText={'Delete Seed'}

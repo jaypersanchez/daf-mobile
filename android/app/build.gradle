@@ -146,7 +146,6 @@ android {
 }
 
 dependencies {
-    implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-sentry')
     implementation project(':react-native-uport-signer')
     implementation project(':react-native-localize')

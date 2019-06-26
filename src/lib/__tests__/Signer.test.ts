@@ -8,7 +8,6 @@ import {
   SHOW_SEED_PROMPT,
 } from '../Signer'
 
-import analytics from '@segment/analytics-react-native'
 import { RNUportHDSigner } from 'react-native-uport-signer'
 jest.mock('../GraphQL')
 jest.mock('../Log')
@@ -24,7 +23,6 @@ it('dids query returns valid result', async () => {
 it('createSeed mutation returns new did', async () => {
   const result = await resolvers.Mutation.createDid(null, null, null)
   expect(RNUportHDSigner.createSeed).toBeCalledWith(DEFAULT_LEVEL)
-  expect(analytics.track).toBeCalled()
   expect(result).toEqual({
     did: 'did:ethr:0x12345',
     address: '0x12345',
@@ -36,7 +34,6 @@ it('importSeed mutation returns new did', async () => {
   const args = { seed: 'test' }
   const result = await resolvers.Mutation.importSeed(null, args, null)
   expect(RNUportHDSigner.importSeed).toBeCalledWith(args.seed, DEFAULT_LEVEL)
-  expect(analytics.track).toBeCalled()
   expect(result).toEqual({
     did: 'did:ethr:0x12345',
     address: '0x12345',
@@ -48,7 +45,6 @@ it('deleteSeed mutation returns bool', async () => {
   const args = { address: '0x12345' }
   const result = await resolvers.Mutation.deleteSeed(null, args, null)
   expect(RNUportHDSigner.deleteSeed).toBeCalledWith(args.address)
-  expect(analytics.track).toBeCalled()
   expect(result).toEqual(true)
 })
 
