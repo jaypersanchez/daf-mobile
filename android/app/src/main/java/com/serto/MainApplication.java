@@ -3,6 +3,7 @@ package com.serto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import io.sentry.RNSentryPackage;
 import com.reactlibrary.RNUportSignerPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNAnalyticsPackage(),
             new RNSentryPackage(),
             new RNUportSignerPackage(),
             new RNLocalizePackage(),

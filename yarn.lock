@@ -978,6 +978,11 @@
     react-native-safe-area-view "^0.13.0"
     react-native-screens "^1.0.0 || ^1.0.0-alpha"
 
+"@segment/analytics-react-native@^1.1.0-beta.0":
+  version "1.1.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@segment/analytics-react-native/-/analytics-react-native-1.1.0-beta.0.tgz#7a4d4222986661e5c7a43f960f5334613ff62aec"
+  integrity sha512-JGvs7Q+CaY8lih7NBxeUDkbDzTkNv1YPFm4gZ+FePDcZnKlWZ+JvKBebr87hM57yxuKO641ibZJyXT1zfZ/eiQ==
+
 "@sentry/cli@^1.43.0":
   version "1.45.0"
   resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.45.0.tgz#a330ce2c6877ab7a61ead7cd22456a2e22a8062c"
