@@ -9,21 +9,13 @@ import i18n from '../lib/I18n'
 import { Container, Icon, Button, Constants } from '@kancha/kancha-ui'
 import { Icons, Colors } from '../theme'
 
-import Developer from '../screens/Developer'
 import Welcome from '../screens/Welcome'
+import Developer from '../screens/Developer'
 import Logs from '../screens/Logs'
 import Codepush from '../screens/Codepush'
 import Signer from '../screens/Signer'
 import Config from '../screens/Config'
-
-export const Screens = {
-  Home: { screen: 'Home', title: 'Serto' },
-  Developer: { screen: 'Developer', title: 'Developer' },
-  Logs: { screen: 'Logs', title: 'Logs' },
-  Codepush: { screen: 'Codepush', title: 'Codepush' },
-  Signer: { screen: 'Signer', title: 'Signer' },
-  Config: { screen: 'Config', title: 'Config' },
-}
+import Crash from '../screens/Crash'
 
 const DrawerMenuButton = (navigation: any) => (
   <Container paddingLeft>
@@ -37,11 +29,11 @@ const DrawerMenuButton = (navigation: any) => (
 )
 
 const DeveloperNavigator = createStackNavigator({
-  Developer: {
+  DeveloperRootScreen: {
     screen: Developer,
     navigationOptions: ({ navigation }: any) => {
       return {
-        title: 'Developer',
+        title: i18n.t('Developer'),
         headerLeft: DrawerMenuButton(navigation),
       }
     },
@@ -70,6 +62,12 @@ const DeveloperNavigator = createStackNavigator({
       title: i18n.t('Configuration'),
     },
   },
+  Crash: {
+    screen: Crash,
+    navigationOptions: {
+      title: i18n.t('CrashReporting'),
+    },
+  },
 })
 
 const HomeNavigator = createStackNavigator({
@@ -88,5 +86,15 @@ const DrawerNavigator = createDrawerNavigator({
   Home: HomeNavigator,
   Developer: DeveloperNavigator,
 })
+
+// export const Screens = {
+//   Home: { screen: 'Home', title: 'Serto' },
+//   Developer: { screen: 'Developer', title: 'Developer' },
+//   Logs: { screen: 'Logs', title: 'Logs' },
+//   Codepush: { screen: 'Codepush', title: 'Codepush' },
+//   Signer: { screen: 'Signer', title: 'Signer' },
+//   Config: { screen: 'Config', title: 'Config' },
+//   Crash: { screen: 'Crash', title: 'Crash Reporting' },
+// }
 
 export default createAppContainer(DrawerNavigator)
