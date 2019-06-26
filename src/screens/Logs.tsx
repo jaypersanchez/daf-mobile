@@ -8,37 +8,41 @@ import { Query } from 'react-apollo'
 import { LogMessage, getLogsQuery } from '../lib/Log'
 import moment from 'moment'
 
-import { LogItem } from '@kancha/kancha-ui'
+import { Screen, LogItem, Container } from '@kancha/kancha-ui'
+import { Colors } from '../theme'
 
-interface Props {}
-
-export default (props: Props) => {
+export default () => {
   return (
-    <Query query={getLogsQuery}>
-      {({
-        data,
-        loading,
-        refetch,
-      }: {
-        data: { logs: LogMessage[] }
-        loading: boolean
-        refetch: () => void
-      }) => (
-        <FlatList
-          data={data.logs}
-          renderItem={({ item }) => (
-            <LogItem
-              type={item.type}
-              category={item.category}
-              time={moment.unix(item.timestamp).calendar()}
-              message={item.message}
+    <Screen>
+      <Container flex={1}>
+        <Query query={getLogsQuery}>
+          {({
+            data,
+            loading,
+            refetch,
+          }: {
+            data: { logs: LogMessage[] }
+            loading: boolean
+            refetch: () => void
+          }) => (
+            <FlatList
+              style={{ backgroundColor: Colors.LIGHTEST_GREY }}
+              data={data.logs}
+              renderItem={({ item }) => (
+                <LogItem
+                  type={item.type}
+                  category={item.category}
+                  time={moment.unix(item.timestamp).calendar()}
+                  message={item.message}
+                />
+              )}
+              keyExtractor={item => item.id}
+              onRefresh={refetch}
+              refreshing={loading}
             />
           )}
-          keyExtractor={(item, index) => item.id}
-          onRefresh={refetch}
-          refreshing={loading}
-        />
-      )}
-    </Query>
+        </Query>
+      </Container>
+    </Screen>
   )
 }
