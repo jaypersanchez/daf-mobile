@@ -14,7 +14,6 @@ import Welcome from '../screens/Welcome'
 import Logs from '../screens/Logs'
 import Codepush from '../screens/Codepush'
 import Signer from '../screens/Signer'
-import Config from '../screens/Config'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -22,7 +21,6 @@ export const Screens = {
   Logs: { screen: 'Logs', title: 'Logs' },
   Codepush: { screen: 'Codepush', title: 'Codepush' },
   Signer: { screen: 'Signer', title: 'Signer' },
-  Config: { screen: 'Config', title: 'Config' },
 }
 
 const DrawerMenuButton = (navigation: any) => (
@@ -62,12 +60,6 @@ const DeveloperNavigator = createStackNavigator({
     screen: Signer,
     navigationOptions: {
       title: i18n.t('Signer'),
-    },
-  },
-  Config: {
-    screen: Config,
-    navigationOptions: {
-      title: i18n.t('Configuration'),
     },
   },
 })

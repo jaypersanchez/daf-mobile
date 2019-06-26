@@ -22,8 +22,6 @@
   },
   "dependencies": {
     "@kancha/kancha-ui": "^1.0.0-beta.5",
-    "@segment/analytics-ios": "github:segmentio/analytics-ios",
-    "@segment/analytics-react-native": "^1.1.0-beta.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
@@ -119,8 +117,7 @@
       }
     },
     "setupFiles": [
-      "./node_modules/react-native-gesture-handler/jestSetup.js",
-      "./jestSetup.js"
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
