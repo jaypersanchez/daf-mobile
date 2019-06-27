@@ -10,15 +10,6 @@ import './lib/I18n'
 import { ThemeProvider } from '@kancha/kancha-ui'
 import { Theme } from './theme'
 
-const defaultHandler =
-  ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
-if (defaultHandler) {
-  ErrorUtils.setGlobalHandler((error, isFatal) => {
-    Log.error(error.stack ? error.stack : error.message, 'System')
-    defaultHandler && defaultHandler(error, isFatal)
-  })
-}
-
 class App extends React.Component {
   codePushStatusDidChange(status: codePush.SyncStatus) {
     handleCodePushStatusChange(status)
