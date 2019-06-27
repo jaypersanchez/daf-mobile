@@ -30,6 +30,8 @@ target 'Serto' do
 
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
 
+  pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
+
   target 'SertoTests' do
     inherit! :search_paths
     # Pods for testing
