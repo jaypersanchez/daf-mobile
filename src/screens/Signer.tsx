@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, TextInput } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TextInput } from 'react-native'
 import { Query, Mutation, MutationState } from 'react-apollo'
 import {
   Did,
@@ -14,114 +14,153 @@ import {
   importSeedMutation,
   deleteSeedMutation,
 } from '../lib/Signer'
-import {
-  Container,
-  Button,
-  Constants,
-  Screen,
-  ListItem,
-  Text,
-  Section,
-} from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Container, Button, Constants, Screen } from '@kancha/kancha-ui'
 
-export default () => {
+interface Props {}
+
+export default (props: Props) => {
   const { t } = useTranslation()
   const [seed, setSeed] = useState('')
   return (
-    <Screen
-      safeArea={true}
-      footerComponent={
-        <Container padding>
-          <Mutation
-            mutation={importSeedMutation}
-            refetchQueries={['getDids']}
-            // tslint:disable-next-line:no-console
-            onError={(e: any) => console.log('Error: ', e)}
-          >
-            {(mutate: any, state: MutationState) => {
-              return (
-                <Container paddingBottom>
-                  <Button
-                    fullWidth
-                    disabled={!seed}
-                    type={Constants.BrandOptions.Primary}
-                    block={Constants.ButtonBlocks.Filled}
-                    buttonText={t('Import Seed')}
-                    onPress={() => {
-                      mutate({
-                        variables: {
-                          seed,
-                        },
-                      })
-                    }}
-                    navButton
-                  />
-                  {state.error !== undefined && (
-                    <Text>{state.error.message}</Text>
-                  )}
-                </Container>
-              )
-            }}
-          </Mutation>
-          <Mutation mutation={createDidMutation} refetchQueries={['getDids']}>
-            {(mutate: any) => (
-              <Button
-                fullWidth
-                type={Constants.BrandOptions.Primary}
-                block={Constants.ButtonBlocks.Filled}
-                buttonText={t('Create New Identity')}
-                onPress={() => {
-                  mutate()
-                }}
-                navButton
-              />
-            )}
-          </Mutation>
-        </Container>
-      }
-    >
-      <Container flex={1}>
-        <Query query={getDidsQuery}>
-          {({
-            data,
-            loading,
-            refetch,
-          }: {
-            data: { dids: Did[] }
-            loading: boolean
-            refetch: () => void
-          }) => (
-            <FlatList
-              style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-              data={data.dids}
-              renderItem={({ item, index }) => (
-                <ListItem last={index === data.dids.length - 1}>
-                  {item.did.substring(0, 25) + '...'}
-                </ListItem>
-              )}
-              keyExtractor={item => item.did}
-              onRefresh={refetch}
-              refreshing={loading}
-              ListFooterComponent={
-                <Container background={Constants.BrandOptions.Primary}>
-                  <TextInput
-                    style={{
-                      borderWidth: 1,
-                      padding: 15,
-                      height: 100,
-                      borderColor: Colors.LIGHT_GREY,
-                    }}
-                    placeholder={'Enter seed phrase'}
-                    value={seed}
-                    onChangeText={setSeed}
-                  />
-                </Container>
-              }
+    <Screen safeArea={true}>
+      <Container padding>
+        <Mutation
+          mutation={importSeedMutation}
+          refetchQueries={['getDids']}
+          // tslint:disable-next-line:no-console
+          onError={(e: any) => console.log('Error: ', e)}
+        >
+          {(mutate: any, state: MutationState) => {
+            return (
+              <Container paddingBottom>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder={'Enter seed phrase'}
+                  value={seed}
+                  onChangeText={setSeed}
+                />
+
+                <Button
+                  fullWidth
+                  type={Constants.BrandOptions.Primary}
+                  block={Constants.ButtonBlocks.Filled}
+                  buttonText={t('Import Seed')}
+                  onPress={() => {
+                    mutate({
+                      variables: {
+                        seed,
+                      },
+                    })
+                  }}
+                  navButton
+                />
+                {state.error !== undefined && (
+                  <Text>{state.error.message}</Text>
+                )}
+              </Container>
+            )
+          }}
+        </Mutation>
+
+        <Mutation mutation={createDidMutation} refetchQueries={['getDids']}>
+          {(mutate: any) => (
+            <Button
+              fullWidth
+              type={Constants.BrandOptions.Primary}
+              block={Constants.ButtonBlocks.Filled}
+              buttonText={t('Create New Identity')}
+              onPress={() => {
+                mutate()
+              }}
+              navButton
             />
           )}
-        </Query>
+        </Mutation>
       </Container>
+
+      <Query query={getDidsQuery}>
+        {({
+          data,
+          loading,
+          refetch,
+        }: {
+          data: { dids: Did[] }
+          loading: boolean
+          refetch: () => void
+        }) => (
+          <FlatList
+            data={data.dids}
+            renderItem={({ item }) => <ListItem item={item} />}
+            keyExtractor={(item, index) => item.did}
+            onRefresh={refetch}
+            refreshing={loading}
+          />
+        )}
+      </Query>
     </Screen>
   )
 }
+
+const ListItem = ({ item }: { item: Did }) => {
+  return (
+    <View style={[styles.item]}>
+      <View style={styles.header}>
+        <Text style={styles.category}>{item.did}</Text>
+      </View>
+      <Text style={styles.message}>{item.seed}</Text>
+      <Mutation mutation={deleteSeedMutation} refetchQueries={['getDids']}>
+        {(mutate: any) => (
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Warning}
+            block={Constants.ButtonBlocks.Outlined}
+            buttonText={'Delete Seed'}
+            onPress={() => {
+              mutate({
+                variables: {
+                  address: item.address,
+                },
+              })
+            }}
+            navButton
+          />
+        )}
+      </Mutation>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  item: {
+    marginLeft: 3,
+    marginTop: 1,
+    marginBottom: 1,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+    padding: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  category: {
+    fontSize: 12,
+    color: 'gray',
+    fontWeight: 'bold',
+  },
+  message: {
+    fontSize: 15,
+  },
+  date: {
+    fontSize: 12,
+    marginBottom: 5,
+    color: 'gray',
+  },
+  textInput: {
+    margin: 15,
+    borderWidth: 1,
+    fontSize: 14,
+    borderColor: 'gray',
+    padding: 10,
+  },
+})

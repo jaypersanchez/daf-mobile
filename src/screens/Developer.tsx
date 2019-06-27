@@ -2,60 +2,86 @@
  * Serto Mobile App
  *
  */
-import * as React from 'react'
-import { NavigationScreenProps } from 'react-navigation'
+
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Switch } from 'react-native'
-import { Container, Text, Screen, ListItem, Section } from '@kancha/kancha-ui'
+import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
+import { NavigationScreenProps } from 'react-navigation'
+
 import { Colors } from '../theme'
+
 import Config from 'react-native-config'
 
-const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
+export default ({ navigation }: NavigationScreenProps) => {
   const { t, i18n } = useTranslation()
   return (
-    <Screen scrollEnabled={true}>
+    <Screen scrollEnabled={true} safeArea={true}>
       <Container backgroundColor={Colors.BRAND} padding alignItems={'center'}>
-        <Text bold textColor={Colors.WHITE}>
+        <Text textColor={Colors.WHITE}>
           {t('Environment')}: {Config.ENV}
         </Text>
       </Container>
-      <Container>
-        <Section title={'Developer tooling'}>
-          <ListItem onPress={() => navigation.navigate('Logs')}>
-            {t('Logs')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('Config')}>
-            {t('Configuration')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('Signer')}>
-            {t('Signer')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('Codepush')}>
-            {t('CodePush')}
-          </ListItem>
-          <ListItem last onPress={() => navigation.navigate('Crash')}>
-            {t('CrashReporting')}
-          </ListItem>
-        </Section>
-        <Section title={'Language'}>
-          <ListItem
-            last
-            iconLeft={
-              <Switch
-                testID={'language_switch'}
-                value={i18n.language === 'es'}
-                onValueChange={() =>
-                  i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
-                }
-              />
+
+      <Container flex={1} padding>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Logs')}
+            onPress={() => navigation.navigate('Logs')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Configuration')}
+            onPress={() => navigation.navigate('Config')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Signer')}
+            onPress={() => navigation.navigate('Signer')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('CodePush')}
+            onPress={() => navigation.navigate('Codepush')}
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('change')}
+            onPress={() =>
+              i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
             }
-          >
-            {i18n.language === 'en' ? t('English') : t('Spanish')}
-          </ListItem>
-        </Section>
+          />
+        </Container>
+        <Container marginBottom>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Warning}
+            block={Constants.ButtonBlocks.Outlined}
+            buttonText={'Crash App 6'}
+            onPress={() => {
+              throw new Error('Sample error from JS 6')
+            }}
+          />
+        </Container>
       </Container>
     </Screen>
   )
 }
-
-export default Developer
