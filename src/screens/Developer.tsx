@@ -2,14 +2,21 @@
  * Serto Mobile App
  *
  */
-
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
+import * as React from 'react'
 import { NavigationScreenProps } from 'react-navigation'
-
+import { useTranslation } from 'react-i18next'
+import { Switch } from 'react-native'
+import {
+  Container,
+  Text,
+  Button,
+  Constants,
+  Screen,
+  ListItem,
+  Section,
+} from '@kancha/kancha-ui'
 import { Colors } from '../theme'
-
+import { Screens } from '../navigators'
 import Config from 'react-native-config'
 
 export default ({ navigation }: NavigationScreenProps) => {
@@ -17,13 +24,55 @@ export default ({ navigation }: NavigationScreenProps) => {
   return (
     <Screen scrollEnabled={true} safeArea={true}>
       <Container backgroundColor={Colors.BRAND} padding alignItems={'center'}>
-        <Text textColor={Colors.WHITE}>
+        <Text bold textColor={Colors.WHITE}>
           {t('Environment')}: {Config.ENV}
         </Text>
       </Container>
 
+      <Container>
+        <Section title={'Developer tooling'}>
+          <ListItem onPress={() => navigation.navigate(Screens.Logs.screen)}>
+            {t('Logs')}
+          </ListItem>
+          <ListItem onPress={() => navigation.navigate(Screens.Config.screen)}>
+            {t('Configuration')}
+          </ListItem>
+          <ListItem onPress={() => navigation.navigate(Screens.Signer.screen)}>
+            {t('Signer')}
+          </ListItem>
+          <ListItem
+            onPress={() => navigation.navigate(Screens.Codepush.screen)}
+          >
+            {t('CodePush')}
+          </ListItem>
+          <ListItem
+            last
+            onPress={() => navigation.navigate(Screens.Crash.screen)}
+          >
+            {t('CrashReporting')}
+          </ListItem>
+          {/* <ListItem onPress={() => navigation.navigate(Screens.Locale.screen)}>{t('Localisation')}</ListItem> */}
+        </Section>
+
+        <Section title={'Language'}>
+          <ListItem
+            last
+            iconLeft={
+              <Switch
+                value={i18n.language === 'es'}
+                onValueChange={() =>
+                  i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
+                }
+              />
+            }
+          >
+            {i18n.language === 'en' ? t('English') : t('Spanish')}
+          </ListItem>
+        </Section>
+      </Container>
+
       <Container flex={1} padding>
-        <Container marginBottom>
+        {/* <Container marginBottom>
           <Button
             fullWidth
             type={Constants.BrandOptions.Primary}
@@ -80,7 +129,7 @@ export default ({ navigation }: NavigationScreenProps) => {
               throw new Error('Sample error from JS 6')
             }}
           />
-        </Container>
+        </Container> */}
       </Container>
     </Screen>
   )
