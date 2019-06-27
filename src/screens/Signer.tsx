@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, TextInput, KeyboardAvoidingView } from 'react-native'
+import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation, MutationState } from 'react-apollo'
 import {
   Did,
