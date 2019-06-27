@@ -8,9 +8,5 @@ export default {
     Codepush: 'Codepush',
     Configuration: 'Configuration',
     Environment: 'Environment',
-    Signer: 'Signer',
-    English: 'English',
-    Spanish: 'Spanish',
-    CrashReporting: 'Crash Reporting',
   },
 }

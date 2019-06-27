@@ -5,18 +5,12 @@
 
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Container,
-  Button,
-  Constants,
-  Screen,
-  ListItem,
-  Section,
-} from '@kancha/kancha-ui'
+import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
+import { NavigationScreenProps } from 'react-navigation'
 import codePush, { LocalPackage } from 'react-native-code-push'
 import { handleCodePushStatusChange } from './../lib/CodepushHelpers'
 
-export default () => {
+export default ({ navigation }: NavigationScreenProps) => {
   const { t } = useTranslation()
   const [metadata, setMetadata] = useState<LocalPackage | null>(null)
 
@@ -45,22 +39,22 @@ export default () => {
       <Container flex={1}>
         {metadata !== null && (
           <Container paddingBottom>
-            <Section>
-              <ListItem subTitle={'App Version'}>
-                {metadata.appVersion}
-              </ListItem>
-              <ListItem subTitle={'First time run'}>
-                {metadata.isFirstRun ? 'Yes' : 'No'}
-              </ListItem>
-              <ListItem subTitle={'Is mandatory'}>
-                {metadata.isMandatory ? 'Yes' : 'No'}
-              </ListItem>
-              <ListItem subTitle={'Is pending'}>
-                {metadata.isPending ? 'Yes' : 'No'}
-              </ListItem>
-            </Section>
+            <Text type={Constants.TextTypes.Body}>
+              App Version: {metadata.appVersion}
+            </Text>
+            <Text type={Constants.TextTypes.Body}>Label: {metadata.label}</Text>
+            <Text type={Constants.TextTypes.Body}>
+              Is first run: {metadata.isFirstRun ? 'true' : 'false'}
+            </Text>
+            <Text type={Constants.TextTypes.Body}>
+              Is mandatory: {metadata.isMandatory ? 'true' : 'false'}
+            </Text>
+            <Text type={Constants.TextTypes.Body}>
+              Is pending: {metadata.isPending ? 'true' : 'false'}
+            </Text>
           </Container>
         )}
+
         <Container padding>
           <Button
             fullWidth
