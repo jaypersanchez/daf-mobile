@@ -9,6 +9,9 @@ import codePush from 'react-native-code-push'
 import { Sentry } from 'react-native-sentry'
 import Config from 'react-native-config'
 import analytics from '@segment/analytics-react-native'
+import { useScreens } from 'react-native-screens'
+
+useScreens()
 
 Sentry.config(Config.SENTRY_DSN).install()
 
