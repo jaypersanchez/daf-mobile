@@ -21,6 +21,9 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
       </Container>
       <Container>
         <Section title={'Developer tooling'}>
+          <ListItem onPress={() => navigation.navigate('Messages')}>
+            {t('Messages')}
+          </ListItem>
           <ListItem onPress={() => navigation.navigate('Logs')}>
             {t('Logs')}
           </ListItem>

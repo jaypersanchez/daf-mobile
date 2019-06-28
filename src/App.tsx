@@ -1,9 +1,8 @@
 import React from 'react'
-import { ApolloProvider } from 'react-apollo'
 import codePush, { DownloadProgress } from 'react-native-code-push'
 import { handleCodePushStatusChange } from './lib/CodepushHelpers'
 import Navigation from './navigators'
-import { client } from './lib/GraphQL'
+import Provider from './lib/GraphQL'
 import Log from './lib/Log'
 import './lib/I18n'
 
@@ -21,11 +20,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <ApolloProvider client={client}>
+      <Provider>
         <ThemeProvider theme={Theme}>
           <Navigation />
         </ThemeProvider>
-      </ApolloProvider>
+      </Provider>
     )
   }
 }

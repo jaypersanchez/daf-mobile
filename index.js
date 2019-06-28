@@ -1,7 +1,7 @@
 /**
  * @format
  */
-
+global.Buffer = global.Buffer || require('buffer/').Buffer
 import { AppRegistry, YellowBox, Platform } from 'react-native'
 import App from './src/App'
 import { name as appName } from './app.json'

@@ -16,6 +16,7 @@ import Codepush from '../screens/Codepush'
 import Signer from '../screens/Signer'
 import Config from '../screens/Config'
 import Crash from '../screens/Crash'
+import Messages from '../screens/Messages'
 
 const DrawerMenuButton = (navigation: any) => (
   <Container paddingLeft>
@@ -36,6 +37,12 @@ const DeveloperNavigator = createStackNavigator({
         title: i18n.t('Developer'),
         headerLeft: DrawerMenuButton(navigation),
       }
+    },
+  },
+  Messages: {
+    screen: Messages,
+    navigationOptions: {
+      title: i18n.t('Messages'),
     },
   },
   Logs: {
@@ -83,6 +90,7 @@ const HomeNavigator = createStackNavigator({
 })
 
 const DrawerNavigator = createDrawerNavigator({
+  Messages,
   Home: HomeNavigator,
   Developer: DeveloperNavigator,
 })
