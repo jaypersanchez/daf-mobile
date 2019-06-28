@@ -7,8 +7,16 @@ import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { NavigationScreen } from '../navigators'
 import { Colors, Icons } from '../theme'
+import { Alert } from 'react-native'
 
 export default (props: NavigationScreen) => {
+  const onBarCodeRead = (e: any) => {
+    // tslint:disable-next-line:no-console
+    console.log('Barcode value is ' + e.data, 'Barcode type is ' + e.type)
+
+    props.navigation.goBack()
+  }
+
   return (
     <Screen
       fabButton={
@@ -22,7 +30,11 @@ export default (props: NavigationScreen) => {
       }
     >
       <Container flex={1} backgroundColor={Colors.BLACK}>
-        <RNCamera captureAudio={false} style={{ flex: 1 }} />
+        <RNCamera
+          captureAudio={false}
+          style={{ flex: 1 }}
+          onBarCodeRead={onBarCodeRead}
+        />
       </Container>
     </Screen>
   )
