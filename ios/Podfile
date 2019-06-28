@@ -26,11 +26,13 @@ target 'Serto' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  # Packages
   pod 'SentryReactNative', :path => '../node_modules/react-native-sentry/SentryReactNative.podspec'
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'SertoTests' do
     inherit! :search_paths
