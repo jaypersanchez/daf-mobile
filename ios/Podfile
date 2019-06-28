@@ -33,6 +33,7 @@ target 'Serto' do
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'SertoTests' do
     inherit! :search_paths
