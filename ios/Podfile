@@ -27,8 +27,8 @@ target 'Serto' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'SentryReactNative', :path => '../node_modules/react-native-sentry/SentryReactNative.podspec'
-
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
   target 'SertoTests' do
     inherit! :search_paths
