@@ -32,13 +32,13 @@ Array [
       pointerEvents="auto"
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#F5FCFF",
+          "alignItems": undefined,
+          "backgroundColor": "#000000",
           "borderRadius": undefined,
           "flex": 1,
           "flexDirection": undefined,
           "height": undefined,
-          "justifyContent": "center",
+          "justifyContent": undefined,
           "margin": undefined,
           "marginBottom": undefined,
           "marginLeft": undefined,
@@ -55,42 +55,20 @@ Array [
       }
     >
       <View
-        pointerEvents="auto"
         style={
           Object {
-            "alignItems": undefined,
-            "backgroundColor": undefined,
-            "borderRadius": undefined,
-            "flex": undefined,
-            "flexDirection": undefined,
-            "height": undefined,
-            "justifyContent": undefined,
-            "margin": undefined,
-            "marginBottom": undefined,
-            "marginLeft": undefined,
-            "marginRight": undefined,
-            "marginTop": undefined,
-            "padding": undefined,
-            "paddingBottom": 15,
-            "paddingHorizontal": undefined,
-            "paddingLeft": undefined,
-            "paddingRight": undefined,
-            "paddingTop": undefined,
-            "width": undefined,
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "color": "#333333",
-              "fontSize": 24,
-            }
-          }
-        >
-          Welcome to Serto
-          !
-        </Text>
+        <ActivityIndicator
+          animating={true}
+          color="#999999"
+          hidesWhenStopped={true}
+          size="small"
+        />
       </View>
     </View>
   </View>,
@@ -126,13 +104,13 @@ Array [
       pointerEvents="auto"
       style={
         Object {
-          "alignItems": undefined,
+          "alignItems": "center",
           "backgroundColor": undefined,
           "borderRadius": undefined,
           "flex": undefined,
           "flexDirection": undefined,
           "height": undefined,
-          "justifyContent": undefined,
+          "justifyContent": "flex-end",
           "margin": undefined,
           "marginBottom": undefined,
           "marginLeft": undefined,
@@ -160,7 +138,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#0078ff",
+            "backgroundColor": "#333333",
             "borderRadius": 50,
             "height": 70,
             "justifyContent": "center",
@@ -187,7 +165,7 @@ Array [
             ]
           }
         >
-          
+          
         </Text>
       </View>
     </View>
