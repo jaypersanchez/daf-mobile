@@ -32,13 +32,13 @@ Array [
       pointerEvents="auto"
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#F5FCFF",
+          "alignItems": undefined,
+          "backgroundColor": "#000000",
           "borderRadius": undefined,
           "flex": 1,
           "flexDirection": undefined,
           "height": undefined,
-          "justifyContent": "center",
+          "justifyContent": undefined,
           "margin": undefined,
           "marginBottom": undefined,
           "marginLeft": undefined,
@@ -79,19 +79,7 @@ Array [
             "width": undefined,
           }
         }
-      >
-        <Text
-          style={
-            Object {
-              "color": "#333333",
-              "fontSize": 24,
-            }
-          }
-        >
-          Welcome to Serto
-          !
-        </Text>
-      </View>
+      />
     </View>
   </View>,
   <View
@@ -126,13 +114,13 @@ Array [
       pointerEvents="auto"
       style={
         Object {
-          "alignItems": undefined,
+          "alignItems": "center",
           "backgroundColor": undefined,
           "borderRadius": undefined,
           "flex": undefined,
           "flexDirection": undefined,
           "height": undefined,
-          "justifyContent": undefined,
+          "justifyContent": "flex-end",
           "margin": undefined,
           "marginBottom": undefined,
           "marginLeft": undefined,
@@ -160,7 +148,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#0078ff",
+            "backgroundColor": "#333333",
             "borderRadius": 50,
             "height": 70,
             "justifyContent": "center",
@@ -187,7 +175,7 @@ Array [
             ]
           }
         >
-          
+          
         </Text>
       </View>
     </View>

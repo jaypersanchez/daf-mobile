@@ -2,24 +2,27 @@
  * Serto Mobile App
  *
  */
-
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Container, Text, Constants, Screen } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Container, FabButton, Screen } from '@kancha/kancha-ui'
+import { NavigationScreen } from '../navigators'
+import { Colors, Icons } from '../theme'
 
-const Scanner = () => {
-  const { t } = useTranslation()
+export default (props: NavigationScreen) => {
   return (
-    <Screen>
+    <Screen
+      fabButton={
+        <Container alignItems={'center'} justifyContent={'flex-end'}>
+          <FabButton
+            color={Colors.CHARCOAL}
+            onPress={() => props.navigation.goBack()}
+            icon={Icons.CLOSE}
+          />
+        </Container>
+      }
+    >
       <Container flex={1} backgroundColor={Colors.BLACK}>
         <Container paddingBottom />
       </Container>
     </Screen>
   )
 }
-
-Scanner.navigationOptions = {
-  headerMode: 'none',
-}
-export default Scanner

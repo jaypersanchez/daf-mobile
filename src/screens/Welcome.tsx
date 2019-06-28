@@ -3,14 +3,30 @@
  *
  */
 import * as React from 'react'
-import { useTranslation, composeInitialProps } from 'react-i18next'
-import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
-import { NavigationScreen, Screens } from '../navigators'
+import { useTranslation } from 'react-i18next'
+import {
+  Container,
+  Text,
+  FabButton,
+  Constants,
+  Screen,
+} from '@kancha/kancha-ui'
+import { NavigationScreen } from '../navigators'
+import { Icons } from '../theme'
 
 export default (props: NavigationScreen) => {
   const { t } = useTranslation()
   return (
-    <Screen>
+    <Screen
+      fabButton={
+        <Container>
+          <FabButton
+            onPress={() => props.navigation.push('Scanner')}
+            icon={Icons.SCAN}
+          />
+        </Container>
+      }
+    >
       <Container
         flex={1}
         justifyContent={'center'}
