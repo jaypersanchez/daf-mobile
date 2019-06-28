@@ -2,12 +2,12 @@
  * Serto Mobile App
  *
  */
-
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, composeInitialProps } from 'react-i18next'
 import { Container, Text, Button, Constants, Screen } from '@kancha/kancha-ui'
+import { NavigationScreen, Screens } from '../navigators'
 
-export default () => {
+export default (props: NavigationScreen) => {
   const { t } = useTranslation()
   return (
     <Screen>
