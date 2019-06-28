@@ -30,6 +30,8 @@ target 'Serto' do
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
   target 'SertoTests' do
     inherit! :search_paths
     # Pods for testing
