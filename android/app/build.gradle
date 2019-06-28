@@ -147,6 +147,8 @@ android {
 
 dependencies {
     implementation project(':react-native-sqlite-storage')
+    implementation project(':react-native-screens')
+    implementation project(':react-native-camera')
     implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-sentry')
     implementation project(':react-native-uport-signer')

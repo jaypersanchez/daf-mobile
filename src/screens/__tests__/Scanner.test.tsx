@@ -1,9 +1,7 @@
 import 'react-native'
 import React from 'react'
-import Welcome from '../Welcome'
+import Scanner from '../Scanner'
 import { render } from 'react-native-testing-library'
-
-jest.useFakeTimers()
 
 const navigation = {
   navigate: jest.fn(),
@@ -11,7 +9,7 @@ const navigation = {
 
 it('renders correctly', () => {
   //@ts-ignore
-  const tree = render(<Welcome navigation={navigation} />).toJSON()
+  const tree = render(<Scanner navigation={navigation} />).toJSON()
 
   expect(tree).toMatchSnapshot()
 })

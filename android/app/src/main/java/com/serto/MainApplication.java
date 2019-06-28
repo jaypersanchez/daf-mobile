@@ -3,6 +3,8 @@ package com.serto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.rnscreens.RNScreensPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import io.sentry.RNSentryPackage;
 import com.reactlibrary.RNUportSignerPackage;
@@ -39,6 +41,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new SQLitePluginPackage(),
+            new RNScreensPackage(),
+            new RNCameraPackage(),
             new RNAnalyticsPackage(),
             new RNSentryPackage(),
             new RNUportSignerPackage(),

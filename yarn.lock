@@ -909,10 +909,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.6.tgz#8dd28d4ee891e186ded75b0054b30d6456bdddc0"
-  integrity sha512-LLZSe/cRk2dCBUVggg+eGLvAngjoq5G3G23/vAy9wp5wdDN80pz9OjEd3TEXOw1mebEFSInyBys2T1OFx0FyaA==
+"@kancha/kancha-ui@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.7.tgz#a6b7f4650a1ec1ee5b2f6525925b3805aa0233c8"
+  integrity sha512-VwGZYkpBO8WxJB5wH4P49UKkGemBG5bVmk8Jw7nVqYHc1ZpD6JHkJdeNDnPF3HV0oEG/iN81++9u5iVosmxhsg==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -6236,6 +6236,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-camera@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-2.11.0.tgz#480de13f0ac192e950c406d8ca0157cf4bb5f41a"
+  integrity sha512-ay8te4nvL5mGzRjb2QMTOyJX+JfaIW/9oFjFVIkXOB9DzFipfeVTPMdwNx9GMpdmQ0muSXkuF16pa7K/1QLHlQ==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-code-push@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-5.6.0.tgz#e905d32d188c5f7bcff446d813271d03a69543fd"
@@ -6280,7 +6287,7 @@ react-native-safe-area-view@^0.13.0:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-"react-native-screens@^1.0.0 || ^1.0.0-alpha":
+"react-native-screens@^1.0.0 || ^1.0.0-alpha", react-native-screens@^1.0.0-alpha.22:
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==

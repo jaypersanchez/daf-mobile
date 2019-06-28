@@ -1,8 +1,11 @@
 import React from 'react'
 import {
   createDrawerNavigator,
-  createAppContainer,
   createStackNavigator,
+  createAppContainer,
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
 } from 'react-navigation'
 import i18n from '../lib/I18n'
 
@@ -17,6 +20,23 @@ import Signer from '../screens/Signer'
 import Config from '../screens/Config'
 import Crash from '../screens/Crash'
 import Messages from '../screens/Messages'
+import Scanner from '../screens/Scanner'
+
+export const Screens = {
+  Home: { screen: 'Home', title: 'Serto' },
+  Developer: { screen: 'Developer', title: 'Developer' },
+  Logs: { screen: 'Logs', title: 'Logs' },
+  Codepush: { screen: 'Codepush', title: 'Codepush' },
+  Signer: { screen: 'Signer', title: 'Signer' },
+  Config: { screen: 'Config', title: 'Config' },
+  Crash: { screen: 'Crash', title: 'Crash Reporting' },
+  Scanner: { screen: 'Scanner', title: 'Scanner' },
+  Messages: { screen: 'Messages', title: 'Messages' },
+}
+
+export interface NavigationScreen {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
 
 const DrawerMenuButton = (navigation: any) => (
   <Container paddingLeft>
@@ -30,7 +50,7 @@ const DrawerMenuButton = (navigation: any) => (
 )
 
 const DeveloperNavigator = createStackNavigator({
-  DeveloperRootScreen: {
+  [Screens.Developer.screen]: {
     screen: Developer,
     navigationOptions: ({ navigation }: any) => {
       return {
@@ -39,37 +59,37 @@ const DeveloperNavigator = createStackNavigator({
       }
     },
   },
-  Messages: {
+  [Screens.Messages.screen]: {
     screen: Messages,
     navigationOptions: {
       title: i18n.t('Messages'),
     },
   },
-  Logs: {
+  [Screens.Logs.screen]: {
     screen: Logs,
     navigationOptions: {
       title: i18n.t('Logs'),
     },
   },
-  Codepush: {
+  [Screens.Codepush.screen]: {
     screen: Codepush,
     navigationOptions: {
       title: i18n.t('Codepush'),
     },
   },
-  Signer: {
+  [Screens.Signer.screen]: {
     screen: Signer,
     navigationOptions: {
       title: i18n.t('Signer'),
     },
   },
-  Config: {
+  [Screens.Config.screen]: {
     screen: Config,
     navigationOptions: {
       title: i18n.t('Configuration'),
     },
   },
-  Crash: {
+  [Screens.Crash.screen]: {
     screen: Crash,
     navigationOptions: {
       title: i18n.t('CrashReporting'),
@@ -78,7 +98,7 @@ const DeveloperNavigator = createStackNavigator({
 })
 
 const HomeNavigator = createStackNavigator({
-  HomeScreen: {
+  [Screens.Home.screen]: {
     screen: Welcome,
     navigationOptions: ({ navigation }: any) => {
       return {
@@ -90,19 +110,26 @@ const HomeNavigator = createStackNavigator({
 })
 
 const DrawerNavigator = createDrawerNavigator({
-  Messages,
-  Home: HomeNavigator,
+  [Screens.Home.screen]: HomeNavigator,
   Developer: DeveloperNavigator,
 })
 
-// export const Screens = {
-//   Home: { screen: 'Home', title: 'Serto' },
-//   Developer: { screen: 'Developer', title: 'Developer' },
-//   Logs: { screen: 'Logs', title: 'Logs' },
-//   Codepush: { screen: 'Codepush', title: 'Codepush' },
-//   Signer: { screen: 'Signer', title: 'Signer' },
-//   Config: { screen: 'Config', title: 'Config' },
-//   Crash: { screen: 'Crash', title: 'Crash Reporting' },
-// }
+const RootNavigator = createStackNavigator(
+  {
+    Drawer: DrawerNavigator,
+    [Screens.Scanner.screen]: {
+      screen: Scanner,
+    },
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal',
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      },
+    }),
+  },
+)
 
-export default createAppContainer(DrawerNavigator)
+export default createAppContainer(RootNavigator)
