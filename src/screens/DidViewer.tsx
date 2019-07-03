@@ -13,10 +13,7 @@ import { deleteSeedMutation } from '../lib/Signer'
 
 interface DidViewerProps extends NavigationScreenProps {}
 
-const DidViewer: React.FC<DidViewerProps> = props => {
-  // tslint:disable-next-line:no-console
-  console.log(props)
-
+export const DidViewer: React.FC<DidViewerProps> = props => {
   const { navigation } = props
   const did = navigation.getParam('did', 'Did does not exist anymore')
   const address = navigation.getParam(
