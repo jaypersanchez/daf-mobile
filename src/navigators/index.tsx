@@ -20,6 +20,7 @@ import Signer from '../screens/Signer'
 import Config from '../screens/Config'
 import Crash from '../screens/Crash'
 import Messages from '../screens/Messages'
+import Connections from '../screens/Connections'
 import Scanner from '../screens/Scanner'
 
 export const Screens = {
@@ -32,6 +33,7 @@ export const Screens = {
   Crash: { screen: 'Crash', title: 'Crash Reporting' },
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   Messages: { screen: 'Messages', title: 'Messages' },
+  Connections: { screen: 'Connections', title: 'Connections' },
 }
 
 export interface NavigationScreen {
@@ -63,6 +65,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: Messages,
     navigationOptions: {
       title: i18n.t('Messages'),
+    },
+  },
+  [Screens.Connections.screen]: {
+    screen: Connections,
+    navigationOptions: {
+      title: i18n.t('Connections'),
     },
   },
   [Screens.Logs.screen]: {

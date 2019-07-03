@@ -2,19 +2,30 @@
  * Serto Mobile App
  *
  */
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { NavigationScreen } from '../navigators'
 import { Colors, Icons } from '../theme'
 import { Alert } from 'react-native'
+import { messageFromURL } from '../lib/serto-credentials'
+import { saveMessage } from '../lib/Messages'
+import Log from '../lib/Log'
 
 export default (props: NavigationScreen) => {
-  const onBarCodeRead = (e: any) => {
-    // tslint:disable-next-line:no-console
-    console.log('Barcode value is ' + e.data, 'Barcode type is ' + e.type)
+  const [firstDetection, setFirstDetection] = useState(true)
 
-    props.navigation.goBack()
+  const onBarCodeRead = async (e: any) => {
+    // tslint:disable-next-line:no-console
+    if (firstDetection) {
+      setFirstDetection(false)
+      Log.info('Detected QR Code: ' + e.data, 'Scanner')
+      const message = await messageFromURL(e.data)
+      if (message) {
+        const messageId = await saveMessage(message)
+      }
+      props.navigation.navigate('Messages')
+    }
   }
 
   return (

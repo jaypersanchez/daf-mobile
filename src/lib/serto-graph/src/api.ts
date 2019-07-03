@@ -3,6 +3,7 @@ import * as blake from 'blakejs'
 import { DbDriver, Viewer, Logger } from './types'
 import runMigrations from './migrations'
 import * as messages from './messages'
+import { SertoMessage } from '../../serto-credentials'
 
 class Api {
   private db: DbDriver
@@ -120,17 +121,19 @@ class Api {
     let params = null
     let sql = null
     if (viewer.isAdmin) {
-      sql = 'SELECT * FROM messages order by iat desc'
+      sql = 'SELECT "rowid" as rowid,* FROM messages order by iat desc'
       if (iss && !sub) {
         params = { $iss: iss }
-        sql = 'SELECT * FROM messages where iss=$iss order by iat desc'
+        sql =
+          'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by iat desc'
       } else if (!iss && sub) {
         params = { $sub: sub }
-        sql = 'SELECT * FROM messages where sub=$sub order by iat desc'
+        sql =
+          'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by iat desc'
       } else if (iss && sub) {
         params = { $iss: iss, $sub: sub }
         sql =
-          'SELECT * FROM messages where iss=$iss or sub=$sub order by iat desc'
+          'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by iat desc'
       }
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
@@ -138,22 +141,22 @@ class Api {
       const accessControlSql = `(iss in (${ownership.sql}) or sub in (${
         ownership.sql
       }))`
-      sql = `SELECT * FROM messages where ${accessControlSql} order by iat desc`
+      sql = `SELECT "rowid" as rowid,* FROM messages where ${accessControlSql} order by iat desc`
       if (iss && !sub) {
         params[`$iss`] = iss
-        sql = `SELECT * FROM messages where iss=$iss and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where iss=$iss and ${accessControlSql} order by iat desc`
       } else if (!iss && sub) {
         params[`$sub`] = sub
-        sql = `SELECT * FROM messages where sub=$sub and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where sub=$sub and ${accessControlSql} order by iat desc`
       } else if (iss && sub) {
         params[`$iss`] = iss
         params[`$sub`] = sub
-        sql = `SELECT * FROM messages where (iss=$iss or sub=$sub) and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where (iss=$iss or sub=$sub) and ${accessControlSql} order by iat desc`
       }
     }
     return this.db.rows(sql, params).then(rows =>
       rows.map(row => ({
-        hash: row.id,
+        hash: row.rowid,
         iss: { did: row.iss },
         sub: { did: row.sub },
         type: row.type,
@@ -203,7 +206,7 @@ class Api {
       null,
     )
     const messageSubjects = await this.db.rows(
-      'select distinct sub as did from messages',
+      'select distinct sub as did from messages where sub is not null',
       null,
     )
     const messageIssuers = await this.db.rows(
@@ -246,6 +249,10 @@ class Api {
   }
 
   async shortId(did: string) {
+    const name = await this.popularClaimForDid(did, 'name')
+    if (name) {
+      return name
+    }
     const firstName = await this.popularClaimForDid(did, 'firstName')
     const lastName = await this.popularClaimForDid(did, 'lastName')
     let shortId = firstName
@@ -254,13 +261,12 @@ class Api {
     return shortId
   }
 
-  async saveMessage(jwt: string) {
-    const decoded = await didJWT.decodeJWT(jwt) // todo change to verifyJWT
-    const message = decoded.payload
+  async saveMessage(msg: SertoMessage) {
+    const message = msg.payload
     if (!messages.isValidMessage(message)) {
       throw Error('Invalid message')
     }
-    const hash = blake.blake2bHex(jwt)
+    const hash = blake.blake2bHex(msg.jwt)
 
     // Do we need to save _value? It can be derived from `raw` when needed.id
     await this.db.run(
@@ -272,7 +278,7 @@ class Api {
         message.iat,
         message.type,
         JSON.stringify(message),
-        jwt,
+        msg.jwt,
         'JWT',
       ],
     )
@@ -286,7 +292,7 @@ class Api {
       }
     }
 
-    return { jwt, hash }
+    return { jwt: msg.jwt, hash }
   }
 
   async saveVerifiableClaim(input: string, messageHash: string) {

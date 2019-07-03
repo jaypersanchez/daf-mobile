@@ -13,8 +13,9 @@ export const typeDefs = `
 
   type Mutation {
     deleteMessage(hash: ID!): Boolean
-    newMessage(jwt: String!): Message
+    newMessage(json: String!): Message
   }
+
   
   enum EdgeType {
     ISSUER
@@ -92,8 +93,16 @@ export const resolvers = {
       api.popularClaimForDid(identity.did, 'firstName'),
     lastName: async (identity: any, {}, { api }: Context) =>
       api.popularClaimForDid(identity.did, 'lastName'),
-    profileImage: async (identity: any, {}, { api }: Context) =>
-      api.popularClaimForDid(identity.did, 'profileImage'),
+    profileImage: async (identity: any, {}, { api }: Context) => {
+      let url = await api.popularClaimForDid(identity.did, 'profileImage')
+      try {
+        const ipfs = JSON.parse(url)
+        if (ipfs['/']) {
+          url = 'https://cloudflare-ipfs.com' + ipfs['/']
+        }
+      } catch (e) {}
+      return url
+    },
     url: async (identity: any, {}, { api }: Context) =>
       api.popularClaimForDid(identity.did, 'url'),
     description: async (identity: any, {}, { api }: Context) =>
@@ -152,8 +161,8 @@ export const resolvers = {
     ) => api.findClaims(iss, sub, viewer),
   },
   Mutation: {
-    newMessage: async (_: any, { jwt }, { api }: Context) =>
-      api.saveMessage(jwt),
+    newMessage: async (_: any, { json }, { api }: Context) =>
+      api.saveMessage(JSON.parse(json)),
     deleteMessage: async (_: any, { hash }, { api, viewer }: Context) =>
       api.deleteMessage(hash, viewer),
   },

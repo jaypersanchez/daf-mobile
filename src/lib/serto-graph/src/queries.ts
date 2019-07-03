@@ -10,9 +10,21 @@ export const GET_MY_IDENTITIES = gql`
   }
 `
 
+export const getAllIdentities = gql`
+  query GetAllIdentities {
+    identities {
+      did
+      shortId
+      firstName
+      lastName
+      profileImage
+    }
+  }
+`
+
 export const newMessage = gql`
-  mutation newMessage($jwt: String!) {
-    newMessage(jwt: $jwt) {
+  mutation newMessage($json: String!) {
+    newMessage(json: $json) {
       hash
     }
   }

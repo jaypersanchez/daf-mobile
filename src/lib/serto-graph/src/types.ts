@@ -60,6 +60,7 @@ export interface VerifiableClaimField {
 
 export interface Message {
   hash: string
+  type: string
   parent?: Message // hash - string
   raw?: string
   iss: Identity // did - string
