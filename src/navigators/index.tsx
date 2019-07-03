@@ -22,6 +22,7 @@ import Crash from '../screens/Crash'
 import Scanner from '../screens/Scanner'
 import DrawerRight from './DrawerRight'
 import DrawerLeft from './DrawerLeft'
+import DidViewer from '../screens/DidViewer'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -32,6 +33,7 @@ export const Screens = {
   Config: { screen: 'Config', title: 'Config' },
   Crash: { screen: 'Crash', title: 'Crash Reporting' },
   Scanner: { screen: 'Scanner', title: 'Scanner' },
+  DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
 }
 
 export interface NavigationScreen {
@@ -89,6 +91,18 @@ const DeveloperNavigator = createStackNavigator({
     screen: Crash,
     navigationOptions: {
       title: i18n.t('CrashReporting'),
+    },
+  },
+  [Screens.Config.screen]: {
+    screen: Config,
+    navigationOptions: {
+      title: i18n.t('Configuration'),
+    },
+  },
+  [Screens.DidViewer.screen]: {
+    screen: DidViewer,
+    navigationOptions: {
+      title: i18n.t('Did Viewer'),
     },
   },
 })
