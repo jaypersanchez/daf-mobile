@@ -20,6 +20,8 @@ import Signer from '../screens/Signer'
 import Config from '../screens/Config'
 import Crash from '../screens/Crash'
 import Scanner from '../screens/Scanner'
+import DrawerRight from './DrawerRight'
+import DrawerLeft from './DrawerLeft'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -36,8 +38,10 @@ export interface NavigationScreen {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
+// Use MORE for slack style example and import drawer right
+// Use MENU for material design example and import drawer left
 const DrawerMenuButton = (navigation: any) => (
-  <Container paddingLeft>
+  <Container paddingLeft paddingRight>
     <Button
       onPress={() => navigation.openDrawer()}
       block={Constants.ButtonBlocks.Clear}
@@ -101,10 +105,22 @@ const HomeNavigator = createStackNavigator({
   },
 })
 
-const DrawerNavigator = createDrawerNavigator({
-  [Screens.Home.screen]: HomeNavigator,
-  Developer: DeveloperNavigator,
-})
+const DrawerNavigator = createDrawerNavigator(
+  {
+    [Screens.Home.screen]: HomeNavigator,
+    Developer: DeveloperNavigator,
+  },
+  {
+    // Use for slack style example and import drawer right
+    // drawerPosition: 'right',
+    contentComponent: props => (
+      <DrawerLeft
+        activeItemkey={props.activeItemKey}
+        onItemPress={props.onItemPress}
+      />
+    ),
+  },
+)
 
 const RootNavigator = createStackNavigator(
   {
