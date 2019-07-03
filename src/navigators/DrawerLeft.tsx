@@ -43,7 +43,7 @@ const Drawer: React.FC<DrawerProps> = props => {
         </Container>
       </Container>
       <ScrollView>
-        <Container paddingTop>
+        <Container paddingTop paddingBottom>
           <Section noTopMargin={true} noTopBorder>
             <MenuItem
               active={props.activeItemkey === 'Home'}
@@ -82,20 +82,22 @@ const Drawer: React.FC<DrawerProps> = props => {
               Settings
             </MenuItem>
           </Section>
-          <Section noTopMargin={true} noTopBorder>
-            <MenuItem
-              active={props.activeItemkey === 'Developer'}
-              onPress={() =>
-                props.onItemPress({
-                  route: { routeName: 'Developer', key: 'Developer' },
-                  focused: false,
-                })
-              }
-              icon={{ name: 'codesquareo', iconFamily: 'AntDesign' }}
-            >
-              Developer Tools
-            </MenuItem>
-          </Section>
+          <Container paddingTop>
+            <Section noTopMargin={true} noTopBorder>
+              <MenuItem
+                active={props.activeItemkey === 'Developer'}
+                onPress={() =>
+                  props.onItemPress({
+                    route: { routeName: 'Developer', key: 'Developer' },
+                    focused: false,
+                  })
+                }
+                icon={{ name: 'codesquareo', iconFamily: 'AntDesign' }}
+              >
+                Developer Tools
+              </MenuItem>
+            </Section>
+          </Container>
         </Container>
       </ScrollView>
     </Container>
