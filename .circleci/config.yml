@@ -97,7 +97,7 @@ jobs:
           key: gradle-repo-v2-{{ .Branch }}-{{ checksum "android/build.gradle" }}
 
       # Run assemble
-      - run: cd ~/repo/android && ./gradlew assembleRelease
+      - run: cd ~/repo/android && ./gradlew assembleRelease --no-parallel --max-workers 3
 
       # Persist for deploy
       - persist_to_workspace:
