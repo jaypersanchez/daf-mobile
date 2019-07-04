@@ -67,6 +67,7 @@ jobs:
           ANDROID_HOME: /opt/android/sdk
           GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xms256m -Xmx3072m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true'
           TERM: dumb
+          _JAVA_OPTIONS: '-Xmx1500m'
           LC_ALL: en_US.UTF-8
           LANG: en_US.UTF-8
     steps:
@@ -75,7 +76,7 @@ jobs:
       # Run package-android
       - run:
           name: package-android
-          command: npm run package-android --max-workers=3
+          command: cd ~/repo/android && ./gradlew bundleReleaseJsAndAssets
 
       # Restore gradle cache (from https://circleci.com/docs/2.0/caching/)
       - restore_cache:
@@ -97,7 +98,7 @@ jobs:
           key: gradle-repo-v2-{{ .Branch }}-{{ checksum "android/build.gradle" }}
 
       # Run assemble
-      - run: cd ~/repo/android && ./gradlew assembleRelease --no-parallel --max-workers 3
+      - run: cd ~/repo/android && ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 
       # Persist for deploy
       - persist_to_workspace:
