@@ -22,6 +22,9 @@ import Crash from '../screens/Crash'
 import Messages from '../screens/Messages'
 import Connections from '../screens/Connections'
 import Scanner from '../screens/Scanner'
+import DrawerRight from './DrawerRight'
+import DrawerLeft from './DrawerLeft'
+import DidViewer from '../screens/DidViewer'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -34,14 +37,17 @@ export const Screens = {
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   Messages: { screen: 'Messages', title: 'Messages' },
   Connections: { screen: 'Connections', title: 'Connections' },
+  DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
 }
 
 export interface NavigationScreen {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
+// Use MORE for slack style example and import drawer right
+// Use MENU for material design example and import drawer left
 const DrawerMenuButton = (navigation: any) => (
-  <Container paddingLeft>
+  <Container paddingLeft paddingRight>
     <Button
       onPress={() => navigation.openDrawer()}
       block={Constants.ButtonBlocks.Clear}
@@ -103,6 +109,18 @@ const DeveloperNavigator = createStackNavigator({
       title: i18n.t('CrashReporting'),
     },
   },
+  [Screens.Config.screen]: {
+    screen: Config,
+    navigationOptions: {
+      title: i18n.t('Configuration'),
+    },
+  },
+  [Screens.DidViewer.screen]: {
+    screen: DidViewer,
+    navigationOptions: {
+      title: i18n.t('Did Viewer'),
+    },
+  },
 })
 
 const HomeNavigator = createStackNavigator({
@@ -117,10 +135,22 @@ const HomeNavigator = createStackNavigator({
   },
 })
 
-const DrawerNavigator = createDrawerNavigator({
-  [Screens.Home.screen]: HomeNavigator,
-  Developer: DeveloperNavigator,
-})
+const DrawerNavigator = createDrawerNavigator(
+  {
+    [Screens.Home.screen]: HomeNavigator,
+    Developer: DeveloperNavigator,
+  },
+  {
+    // Use for slack style example and import drawer right
+    // drawerPosition: 'right',
+    contentComponent: props => (
+      <DrawerLeft
+        activeItemkey={props.activeItemKey}
+        onItemPress={props.onItemPress}
+      />
+    ),
+  },
+)
 
 const RootNavigator = createStackNavigator(
   {

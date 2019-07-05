@@ -7,12 +7,12 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation, MutationState } from 'react-apollo'
+import { NavigationScreenProps } from 'react-navigation'
 import {
   Did,
   getDidsQuery,
   createDidMutation,
   importSeedMutation,
-  deleteSeedMutation,
 } from '../lib/Signer'
 import {
   Container,
@@ -21,11 +21,12 @@ import {
   Screen,
   ListItem,
   Text,
-  Section,
 } from '@kancha/kancha-ui'
 import { Colors } from '../theme'
 
-export default () => {
+interface SignerProps extends NavigationScreenProps {}
+
+const Signer: React.FC<SignerProps> = props => {
   const { t } = useTranslation()
   const [seed, setSeed] = useState('')
   return (
@@ -96,14 +97,23 @@ export default () => {
               style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
               data={data.dids}
               renderItem={({ item, index }) => (
-                <ListItem last={index === data.dids.length - 1}>
-                  {item.did.substring(0, 25) + '...'}
+                <ListItem
+                  last={index === data.dids.length - 1}
+                  onPress={() => {
+                    props.navigation.push('DidViewer', {
+                      did: item.did,
+                      address: item.address,
+                      seed: item.seed,
+                    })
+                  }}
+                >
+                  {item.did.substring(0, 30) + '...'}
                 </ListItem>
               )}
               keyExtractor={item => item.did}
               onRefresh={refetch}
               refreshing={loading}
-              ListFooterComponent={
+              ListHeaderComponent={
                 <Container background={Constants.BrandOptions.Primary}>
                   <TextInput
                     style={{
@@ -125,3 +135,5 @@ export default () => {
     </Screen>
   )
 }
+
+export default Signer
