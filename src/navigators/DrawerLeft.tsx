@@ -45,57 +45,61 @@ const Drawer: React.FC<DrawerProps> = props => {
       <ScrollView>
         <Container paddingTop paddingBottom>
           <Section noTopMargin={true} noTopBorder>
-            <MenuItem
-              active={props.activeItemkey === 'Home'}
-              onPress={() =>
-                props.onItemPress({
-                  route: { routeName: 'Home', key: 'Home' },
-                  focused: false,
-                })
-              }
-              icon={{ name: 'hearto', iconFamily: 'AntDesign' }}
-            >
-              Dashboard
-            </MenuItem>
-            <MenuItem
-              onPress={() => ''}
-              icon={{ name: 'staro', iconFamily: 'AntDesign' }}
-            >
-              Favourites
-            </MenuItem>
-            <MenuItem
-              onPress={() => ''}
-              icon={{ name: 'smileo', iconFamily: 'AntDesign' }}
-            >
-              Feedback
-            </MenuItem>
-            <MenuItem
-              onPress={() => ''}
-              icon={{ name: 'hearto', iconFamily: 'AntDesign' }}
-            >
-              Menu Item
-            </MenuItem>
-            <MenuItem
-              onPress={() => ''}
-              icon={{ name: 'setting', iconFamily: 'AntDesign' }}
-            >
-              Settings
-            </MenuItem>
-          </Section>
-          <Container paddingTop>
-            <Section noTopMargin={true} noTopBorder>
+            <Container paddingRight={10}>
               <MenuItem
-                active={props.activeItemkey === 'Developer'}
+                active={props.activeItemkey === 'Home'}
                 onPress={() =>
                   props.onItemPress({
-                    route: { routeName: 'Developer', key: 'Developer' },
+                    route: { routeName: 'Home', key: 'Home' },
                     focused: false,
                   })
                 }
-                icon={{ name: 'codesquareo', iconFamily: 'AntDesign' }}
+                icon={{ name: 'hearto', iconFamily: 'AntDesign' }}
               >
-                Developer Tools
+                Dashboard
               </MenuItem>
+              <MenuItem
+                onPress={() => ''}
+                icon={{ name: 'staro', iconFamily: 'AntDesign' }}
+              >
+                Favourites
+              </MenuItem>
+              <MenuItem
+                onPress={() => ''}
+                icon={{ name: 'smileo', iconFamily: 'AntDesign' }}
+              >
+                Feedback
+              </MenuItem>
+              <MenuItem
+                onPress={() => ''}
+                icon={{ name: 'hearto', iconFamily: 'AntDesign' }}
+              >
+                Menu Item
+              </MenuItem>
+              <MenuItem
+                onPress={() => ''}
+                icon={{ name: 'setting', iconFamily: 'AntDesign' }}
+              >
+                Settings
+              </MenuItem>
+            </Container>
+          </Section>
+          <Container paddingTop>
+            <Section noTopMargin={true} noTopBorder>
+              <Container paddingRight={10}>
+                <MenuItem
+                  active={props.activeItemkey === 'Developer'}
+                  onPress={() =>
+                    props.onItemPress({
+                      route: { routeName: 'Developer', key: 'Developer' },
+                      focused: false,
+                    })
+                  }
+                  icon={{ name: 'codesquareo', iconFamily: 'AntDesign' }}
+                >
+                  Developer Tools
+                </MenuItem>
+              </Container>
             </Section>
           </Container>
         </Container>
