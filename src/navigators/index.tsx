@@ -1,4 +1,5 @@
 import React from 'react'
+import { Animated, Easing } from 'react-native'
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -23,6 +24,7 @@ import Scanner from '../screens/Scanner'
 import DrawerRight from './DrawerRight'
 import DrawerLeft from './DrawerLeft'
 import DidViewer from '../screens/DidViewer'
+import ModalDemo from '../screens/ModalDemo'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -34,6 +36,7 @@ export const Screens = {
   Crash: { screen: 'Crash', title: 'Crash Reporting' },
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
+  ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
 }
 
 export interface NavigationScreen {
@@ -142,15 +145,24 @@ const RootNavigator = createStackNavigator(
     [Screens.Scanner.screen]: {
       screen: Scanner,
     },
+    [Screens.ModalDemo.screen]: {
+      screen: ModalDemo,
+    },
   },
   {
     headerMode: 'none',
     mode: 'modal',
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0,
-      },
-    }),
+    transparentCard: true,
+    transitionConfig: (nextScene: any) => {
+      return {
+        transitionSpec: {
+          duration: nextScene.scene.route.routeName !== 'ModalDemo' ? 0 : 500,
+          timing: Animated.timing,
+          easing: Easing.out(Easing.poly(7)),
+          useNativeDriver: true,
+        },
+      }
+    },
   },
 )
 

@@ -53,6 +53,11 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
             {i18n.language === 'en' ? t('English') : t('Spanish')}
           </ListItem>
         </Section>
+        <Section title={'UI'}>
+          <ListItem last onPress={() => navigation.navigate('ModalDemo')}>
+            Show Modal Demo
+          </ListItem>
+        </Section>
       </Container>
     </Screen>
   )
