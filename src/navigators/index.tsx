@@ -25,6 +25,7 @@ import DrawerRight from './DrawerRight'
 import DrawerLeft from './DrawerLeft'
 import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
+import Claim from '../screens/Claim'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -37,6 +38,7 @@ export const Screens = {
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
   ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
+  Claim: { screen: 'Claim', title: 'Claim Demo' },
 }
 
 export interface NavigationScreen {
@@ -106,6 +108,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: DidViewer,
     navigationOptions: {
       title: i18n.t('Did Viewer'),
+    },
+  },
+  [Screens.Claim.screen]: {
+    screen: Claim,
+    navigationOptions: {
+      title: i18n.t('Claim Viewer'),
     },
   },
 })

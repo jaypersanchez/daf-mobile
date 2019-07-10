@@ -54,6 +54,9 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           </ListItem>
         </Section>
         <Section title={'UI'}>
+          <ListItem last onPress={() => navigation.navigate('Claim')}>
+            Claim Viewer (Debug Version)
+          </ListItem>
           <ListItem last onPress={() => navigation.navigate('ModalDemo')}>
             Show Modal Demo
           </ListItem>
