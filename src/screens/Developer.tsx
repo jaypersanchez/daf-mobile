@@ -54,17 +54,17 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           </ListItem>
         </Section>
         <Section title={'UI'}>
-          <ListItem last onPress={() => navigation.navigate('Claim')}>
+          <ListItem onPress={() => navigation.navigate('Claim')}>
             Claim Viewer (Debug Version)
           </ListItem>
-          <ListItem last onPress={() => navigation.navigate('ModalDemo')}>
+          <ListItem onPress={() => navigation.navigate('ModalDemo')}>
             Show Modal Demo
           </ListItem>
           <ListItem
             last
             onPress={() => navigation.navigate('DisclosureRequest')}
           >
-            Disclosure Request
+            Disclosure Request (Full Screen)
           </ListItem>
         </Section>
       </Container>
