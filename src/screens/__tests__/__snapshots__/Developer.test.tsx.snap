@@ -2467,7 +2467,7 @@ exports[`renders correctly 1`] = `
                             }
                           }
                         >
-                          Disclosure Request
+                          Disclosure Request (Full Screen)
                         </Text>
                       </View>
                     </View>
