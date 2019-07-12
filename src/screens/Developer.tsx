@@ -60,6 +60,12 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           <ListItem last onPress={() => navigation.navigate('ModalDemo')}>
             Show Modal Demo
           </ListItem>
+          <ListItem
+            last
+            onPress={() => navigation.navigate('DisclosureRequest')}
+          >
+            Disclosure Request
+          </ListItem>
         </Section>
       </Container>
     </Screen>

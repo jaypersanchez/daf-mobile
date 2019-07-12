@@ -26,6 +26,7 @@ import DrawerLeft from './DrawerLeft'
 import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
+import DisclosureRequest from '../screens/DisclosureRequest'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -39,6 +40,10 @@ export const Screens = {
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
   ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
   Claim: { screen: 'Claim', title: 'Claim Demo' },
+  DisclosureRequest: {
+    screen: 'DisclosureRequest',
+    title: 'Disclosure Request',
+  },
 }
 
 export interface NavigationScreen {
@@ -156,6 +161,9 @@ const RootNavigator = createStackNavigator(
     [Screens.ModalDemo.screen]: {
       screen: ModalDemo,
     },
+    [Screens.DisclosureRequest.screen]: {
+      screen: DisclosureRequest,
+    },
   },
   {
     headerMode: 'none',
@@ -164,7 +172,7 @@ const RootNavigator = createStackNavigator(
     transitionConfig: (nextScene: any) => {
       return {
         transitionSpec: {
-          duration: nextScene.scene.route.routeName !== 'ModalDemo' ? 0 : 500,
+          duration: nextScene.scene.route.routeName === 'Scanner' ? 0 : 500,
           timing: Animated.timing,
           easing: Easing.out(Easing.poly(7)),
           useNativeDriver: true,
