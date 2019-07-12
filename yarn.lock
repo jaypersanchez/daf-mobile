@@ -909,10 +909,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.14":
-  version "1.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.14.tgz#5f6f26cf72010a4f77a9d19caa24012787e24e68"
-  integrity sha512-ci08YaMAy1Ruhnpx4F4wgu40AsEJkQIbVPV3iQ50GUbQAdmoD54NcqyvJvsCBMMK7fr/km+ggNtC9X+itiN9Eg==
+"@kancha/kancha-ui@^1.0.0-beta.15":
+  version "1.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.15.tgz#561de7b0d4c986dbee30a206ad2e8bb3385e016b"
+  integrity sha512-Z6/pHAW7H5vbgl/Jp8CzyW/AIllg+ok093kPa/zVM36SKKXXfSNE/HslM2kFynizofg60LCJSQTT3X7hogARhQ==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -6170,7 +6170,7 @@ react-native-safe-area-view@^0.13.0:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-"react-native-screens@^1.0.0 || ^1.0.0-alpha", react-native-screens@^1.0.0-alpha.22:
+react-native-screens@1.0.0-alpha.22, "react-native-screens@^1.0.0 || ^1.0.0-alpha":
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
