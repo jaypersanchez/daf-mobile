@@ -24,15 +24,23 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('Logs')}>
             {t('Logs')}
           </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Config')}>
             {t('Configuration')}
           </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Signer')}>
             {t('Signer')}
           </ListItem>
+
+          <ListItem onPress={() => navigation.navigate('CreateVerification')}>
+            {t('CreateVerification')}
+          </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Codepush')}>
             {t('CodePush')}
           </ListItem>
+
           <ListItem last onPress={() => navigation.navigate('Crash')}>
             {t('CrashReporting')}
           </ListItem>

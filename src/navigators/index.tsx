@@ -27,6 +27,7 @@ import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
+import CreateVerification from '../screens/CreateVerification'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -40,10 +41,8 @@ export const Screens = {
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
   ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
   Claim: { screen: 'Claim', title: 'Claim Demo' },
-  DisclosureRequest: {
-    screen: 'DisclosureRequest',
-    title: 'Disclosure Request',
-  },
+  DisclosureRequest: { screen: 'DisclosureRequest', title: 'Disclosure Request' },
+  CreateVerification: { screen: 'CreateVerification', title: 'CreateVerification' },
 }
 
 export interface NavigationScreen {
@@ -119,6 +118,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: Claim,
     navigationOptions: {
       title: i18n.t('Claim Viewer'),
+    },
+  },
+  [Screens.CreateVerification.screen]: {
+    screen: CreateVerification,
+    navigationOptions: {
+      title: i18n.t('Create Verification'),
     },
   },
 })
