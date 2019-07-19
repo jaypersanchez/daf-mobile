@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation, MutationState } from 'react-apollo'
 import { NavigationScreenProps } from 'react-navigation'
-import { Did, getDidsQuery, createVerificationMutation } from '../lib/Signer'
+import { Did, getDidsQuery, signJwtMutation } from '../lib/Signer'
 import {
   Container,
   Button,
@@ -19,9 +19,9 @@ import {
 } from '@kancha/kancha-ui'
 import { Colors } from '../theme'
 
-interface CreateVerificationProps extends NavigationScreenProps {}
+interface SignJwtProps extends NavigationScreenProps {}
 
-const CreateVerification: React.FC<CreateVerificationProps> = props => {
+const SignJwt: React.FC<SignJwtProps> = props => {
   const { t } = useTranslation()
 
   return (
@@ -37,16 +37,13 @@ const CreateVerification: React.FC<CreateVerificationProps> = props => {
             loading: boolean
             refetch: () => void
           }) => (
-            <Mutation
-              mutation={createVerificationMutation}
-              refetchQueries={['getDids']}
-            >
+            <Mutation mutation={signJwtMutation} refetchQueries={['getDids']}>
               {(mutate: any) => (
                 <Button
                   fullWidth
                   type={Constants.BrandOptions.Primary}
                   block={Constants.ButtonBlocks.Filled}
-                  buttonText={t('create credential')}
+                  buttonText={t('Sign Jwt')}
                   onPress={() => {
                     mutate({
                       variables: {
@@ -65,4 +62,4 @@ const CreateVerification: React.FC<CreateVerificationProps> = props => {
   )
 }
 
-export default CreateVerification
+export default SignJwt

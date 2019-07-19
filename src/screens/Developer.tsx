@@ -33,8 +33,8 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
             {t('Signer')}
           </ListItem>
 
-          <ListItem onPress={() => navigation.navigate('CreateVerification')}>
-            {t('CreateVerification')}
+          <ListItem onPress={() => navigation.navigate('SignJwt')}>
+            {t('SignJwt')}
           </ListItem>
 
           <ListItem onPress={() => navigation.navigate('Codepush')}>

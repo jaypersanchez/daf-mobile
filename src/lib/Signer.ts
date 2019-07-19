@@ -1,11 +1,8 @@
 import { Resolvers, ApolloError } from 'apollo-client'
 import gql from 'graphql-tag'
 import { client } from './GraphQL'
-import UportSigner, {
-  RNUportHDSigner,
-  getSignerForHDPath,
-} from 'react-native-uport-signer'
-import { Credentials } from 'uport-credentials'
+import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
+import { createJWT } from 'did-jwt'
 import analytics from '@segment/analytics-react-native'
 import Log from './Log'
 
@@ -81,13 +78,16 @@ export const resolvers: Resolvers = {
       analytics.track('Identity deleted', { type: 'did:ethr' })
       return result
     },
-    createVerification: async (_, { address }, context) => {
-      const signer = getSignerForHDPath(address.address)
-      const params: any = { signer: signer, did: address.did }
-      const cred = new Credentials(params)
-      const token = await cred.createVerification({
-        sub: address.did, // uport address of user
-        claim: { name: 'John Smith' },
+    signJwt: async (_, { address }, context) => {
+      const signer: any = getSignerForHDPath(address.address)
+      let message = {
+        aud: address.did,
+        exp: Date.now() + 600,
+        name: 'uPort Developer',
+      }
+      let token = await createJWT(message, {
+        issuer: address.did,
+        signer: signer,
       })
       console.log(token)
     },
@@ -115,8 +115,8 @@ export const createDidMutation = gql`
     }
   }
 `
-export const createVerificationMutation = gql`
-  mutation createVerification($address: String!) {
-    createVerification(address: $address) @client
+export const signJwtMutation = gql`
+  mutation signJwt($address: String!) {
+    signJwt(address: $address) @client
   }
 `
