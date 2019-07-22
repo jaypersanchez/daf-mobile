@@ -27,6 +27,7 @@ import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
+import SignJwt from '../screens/SignJwt'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -44,6 +45,7 @@ export const Screens = {
     screen: 'DisclosureRequest',
     title: 'Disclosure Request',
   },
+  SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
 }
 
 export interface NavigationScreen {
@@ -119,6 +121,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: Claim,
     navigationOptions: {
       title: i18n.t('Claim Viewer'),
+    },
+  },
+  [Screens.SignJwt.screen]: {
+    screen: SignJwt,
+    navigationOptions: {
+      title: i18n.t('Sign Jwt'),
     },
   },
 })
