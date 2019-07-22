@@ -38,21 +38,29 @@ const SignJwt: React.FC<SignJwtProps> = props => {
             refetch: () => void
           }) => (
             <Mutation mutation={signJwtMutation} refetchQueries={['getDids']}>
-              {(mutate: any) => (
-                <Button
-                  fullWidth
-                  type={Constants.BrandOptions.Primary}
-                  block={Constants.ButtonBlocks.Filled}
-                  buttonText={t('Sign Jwt')}
-                  onPress={() => {
-                    mutate({
-                      variables: {
-                        address: data.dids[0],
-                      },
-                    })
-                  }}
-                  navButton
-                />
+              {(mutate: any, state: MutationState) => (
+                <Container paddingBottom>
+                  <Button
+                    fullWidth
+                    type={Constants.BrandOptions.Primary}
+                    block={Constants.ButtonBlocks.Filled}
+                    buttonText={t('Sign Jwt')}
+                    onPress={() => {
+                      mutate({
+                        variables: {
+                          address: data.dids[0].address,
+                        },
+                      })
+                    }}
+                    navButton
+                  />
+                  {state.error !== undefined && (
+                    <Text>{state.error.message}</Text>
+                  )}
+                  {state.data && state.data.signJwt && (
+                    <Text>{state.data.signJwt}</Text>
+                  )}
+                </Container>
               )}
             </Mutation>
           )}

@@ -78,18 +78,22 @@ export const resolvers: Resolvers = {
       analytics.track('Identity deleted', { type: 'did:ethr' })
       return result
     },
+    // This is only an example of how to use getSignerForHDPath with did-jwt:
     signJwt: async (_, { address }, context) => {
-      const signer: any = getSignerForHDPath(address.address)
-      let message = {
-        aud: address.did,
-        exp: Date.now() + 600,
-        name: 'uPort Developer',
+      const signer: any = getSignerForHDPath(address)
+      const did = 'did:ethr:' + address
+      const vc = {
+        sub: did,
+        claim: {
+          name: 'uPort Developer',
+        },
       }
-      let token = await createJWT(message, {
-        issuer: address.did,
-        signer: signer,
+      const jwt = await createJWT(vc, {
+        issuer: did,
+        signer,
       })
-      console.log(token)
+      Log.info('Signed: ' + jwt, 'Signer')
+      return jwt
     },
   },
 }
