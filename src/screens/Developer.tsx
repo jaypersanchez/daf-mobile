@@ -30,15 +30,23 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('Logs')}>
             {t('Logs')}
           </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Config')}>
             {t('Configuration')}
           </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Signer')}>
             {t('Signer')}
           </ListItem>
+
+          <ListItem onPress={() => navigation.navigate('SignJwt')}>
+            {t('SignJwt')}
+          </ListItem>
+
           <ListItem onPress={() => navigation.navigate('Codepush')}>
             {t('CodePush')}
           </ListItem>
+
           <ListItem last onPress={() => navigation.navigate('Crash')}>
             {t('CrashReporting')}
           </ListItem>
@@ -57,6 +65,20 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
             }
           >
             {i18n.language === 'en' ? t('English') : t('Spanish')}
+          </ListItem>
+        </Section>
+        <Section title={'UI'}>
+          <ListItem onPress={() => navigation.navigate('Claim')}>
+            Claim Viewer (Debug Version)
+          </ListItem>
+          <ListItem onPress={() => navigation.navigate('ModalDemo')}>
+            Show Modal Demo
+          </ListItem>
+          <ListItem
+            last
+            onPress={() => navigation.navigate('DisclosureRequest')}
+          >
+            Disclosure Request (Full Screen)
           </ListItem>
         </Section>
       </Container>

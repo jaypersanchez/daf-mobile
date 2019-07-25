@@ -21,7 +21,7 @@
     "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight"
   },
   "dependencies": {
-    "@kancha/kancha-ui": "^1.0.0-beta.10",
+    "@kancha/kancha-ui": "^1.0.0-beta.15",
     "@segment/analytics-react-native": "^1.1.0-beta.0",
     "@types/react-native-sqlite-storage": "^3.3.1",
     "@types/url-parse": "^1.4.3",
@@ -53,10 +53,10 @@
     "react-native-config": "^0.11.7",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-localize": "^1.1.2",
-    "react-native-screens": "^1.0.0-alpha.22",
+    "react-native-screens": "1.0.0-alpha.22",
     "react-native-sentry": "^0.43.2",
     "react-native-sqlite-storage": "^3.3.10",
-    "react-native-uport-signer": "^1.3.4",
+    "react-native-uport-signer": "1.5.0-alpha.0",
     "react-navigation": "^3.9.1",
     "uport-did-resolver": "^0.0.7",
     "url-parse": "^1.4.7"

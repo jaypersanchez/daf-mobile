@@ -1,7 +1,8 @@
 import { Resolvers, ApolloError } from 'apollo-client'
 import gql from 'graphql-tag'
 import { client } from './GraphQL'
-import { RNUportHDSigner } from 'react-native-uport-signer'
+import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
+import { createJWT } from 'did-jwt'
 import analytics from '@segment/analytics-react-native'
 import Log from './Log'
 
@@ -77,6 +78,23 @@ export const resolvers: Resolvers = {
       analytics.track('Identity deleted', { type: 'did:ethr' })
       return result
     },
+    // This is only an example of how to use getSignerForHDPath with did-jwt:
+    signJwt: async (_, { address }, context) => {
+      const signer: any = getSignerForHDPath(address)
+      const did = 'did:ethr:' + address
+      const vc = {
+        sub: did,
+        claim: {
+          name: 'uPort Developer',
+        },
+      }
+      const jwt = await createJWT(vc, {
+        issuer: did,
+        signer,
+      })
+      Log.info('Signed: ' + jwt, 'Signer')
+      return jwt
+    },
   },
 }
 
@@ -99,5 +117,10 @@ export const createDidMutation = gql`
     createDid @client {
       did
     }
+  }
+`
+export const signJwtMutation = gql`
+  mutation signJwt($address: String!) {
+    signJwt(address: $address) @client
   }
 `
