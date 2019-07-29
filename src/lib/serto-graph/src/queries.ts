@@ -32,7 +32,7 @@ export const newMessage = gql`
 
 export const findMessages = gql`
   query FindMessages($iss: ID, $sub: ID) {
-    messages(iss: $iss, sub: $sub) {
+    messages(iss: $iss, sub: $sub) @client {
       iss {
         did
         shortId

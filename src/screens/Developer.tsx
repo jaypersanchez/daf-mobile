@@ -24,6 +24,9 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('Messages')}>
             {t('Messages')}
           </ListItem>
+          <ListItem onPress={() => navigation.navigate('TrustGraphEdges')}>
+            {t('Trust Graph Edges')}
+          </ListItem>
           <ListItem onPress={() => navigation.navigate('Connections')}>
             {t('Connections')}
           </ListItem>

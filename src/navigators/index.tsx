@@ -30,6 +30,7 @@ import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
 import SignJwt from '../screens/SignJwt'
+import TrustGraphEdges from '../screens/TrustGraphEdges'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -50,6 +51,7 @@ export const Screens = {
     title: 'Disclosure Request',
   },
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
+  TrustGraphEdges: { screen: 'TrustGraphEdges', title: 'TG Edges' },
 }
 
 export interface NavigationScreen {
@@ -83,6 +85,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: Messages,
     navigationOptions: {
       title: i18n.t('Messages'),
+    },
+  },
+  [Screens.TrustGraphEdges.screen]: {
+    screen: TrustGraphEdges,
+    navigationOptions: {
+      title: i18n.t('Trust Graph Edges'),
     },
   },
   [Screens.Connections.screen]: {

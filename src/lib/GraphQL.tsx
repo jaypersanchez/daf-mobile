@@ -3,14 +3,13 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient, Resolvers } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { from } from 'apollo-link'
-import { HttpLink } from 'apollo-link-http'
-import gql from 'graphql-tag'
 import { SchemaLink } from 'apollo-link-schema'
 import { Api, typeDefs, resolvers } from './serto-graph'
 import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
 import Log from './Log'
 import { View, Text } from 'react-native'
+import { syncEdges } from './TGEClient'
 
 const localTypeDefs = `
 
@@ -47,17 +46,11 @@ const contextLink = new SchemaLink({
   context: { api, viewer },
 })
 
-// const httpLink = new HttpLink({uri: '/graphql'})
-
-const link = from([
-  contextLink,
-  // httpLink,
-])
+const link = from([contextLink])
 
 export const cache = new InMemoryCache()
 export const client = new ApolloClient({
   connectToDevTools: true,
-  // typeDefs,
   cache,
   link,
 })
@@ -87,6 +80,7 @@ class CustomProvider extends React.Component<Props, State> {
       .then(() => api.initialize())
       .then(() => {
         this.setState({ isRunningMigrations: false })
+        syncEdges(client)
       })
       .catch(e => console.log(e))
   }
