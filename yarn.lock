@@ -909,10 +909,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.15":
-  version "1.0.0-beta.15"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.15.tgz#561de7b0d4c986dbee30a206ad2e8bb3385e016b"
-  integrity sha512-Z6/pHAW7H5vbgl/Jp8CzyW/AIllg+ok093kPa/zVM36SKKXXfSNE/HslM2kFynizofg60LCJSQTT3X7hogARhQ==
+"@kancha/kancha-ui@^1.0.0-beta.16":
+  version "1.0.0-beta.16"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.16.tgz#9e78a8ef2d9ce0fdb395109a6c3384c77c9bf6fc"
+  integrity sha512-MiYL5voOzXOCKM82AoZjeagmfZnDlLNF+EMloq7/FbsXEavms7ABHpjxqHCNZT/Sjpa3QZHwtbeY+75n8sje0A==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -1182,6 +1182,11 @@ acorn@^6.0.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
   integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.2.0:
   version "4.2.1"
@@ -6391,6 +6396,11 @@ react-navigation-drawer@1.2.1:
   dependencies:
     react-native-tab-view "^1.2.0"
 
+react-navigation-hooks@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-navigation-hooks/-/react-navigation-hooks-1.0.1.tgz#f8bc2061c31026b14162943650946df715a9ae57"
+  integrity sha512-CUnnzrDlLB+OLYQwlY90T4/Bnlq5EbVnSdenrC+29JUgR5cys50ZL+ixQjArVSv5aiuyyQ68Fo4tF0ru3sFt8Q==
+
 react-navigation-stack@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.3.0.tgz#34bbddb068c094c9ab843e36059b9fd92b728250"
@@ -8146,6 +8156,11 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+yarn@^1.17.3:
+  version "1.17.3"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.17.3.tgz#60e0b77d079eb78e753bb616f7592b51b6a9adce"
+  integrity sha512-CgA8o7nRZaQvmeF/WBx2FC7f9W/0X59T2IaLYqgMo6637wfp5mMEsM3YXoJtKUspnpmDJKl/gGFhnqS+sON7hA==
 
 yazl@^2.4.1:
   version "2.5.1"

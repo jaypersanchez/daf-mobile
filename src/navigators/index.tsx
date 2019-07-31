@@ -28,6 +28,7 @@ import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
 import SignJwt from '../screens/SignJwt'
+import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -40,6 +41,7 @@ export const Screens = {
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
   ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
+  IdentitySelectModal: { screen: 'IdentitySelectModal', title: 'Identities' },
   Claim: { screen: 'Claim', title: 'Claim Demo' },
   DisclosureRequest: {
     screen: 'DisclosureRequest',
@@ -153,12 +155,42 @@ const DrawerNavigator = createDrawerNavigator(
     // drawerPosition: 'right',
     contentComponent: props => (
       <DrawerLeft
+        navigation={props.navigation}
         activeItemkey={props.activeItemKey}
         onItemPress={props.onItemPress}
       />
     ),
   },
 )
+
+/**
+ * Define custom transitions for views based on routenames
+ */
+const handleCustomTransition = ({ scenes }: any) => {
+  const prevScene = scenes[scenes.length - 2]
+  const nextScene = scenes[scenes.length - 1]
+  const defaultDuration = 500
+
+  if (
+    (prevScene && prevScene.route.routeName === Screens.Scanner.screen) ||
+    (nextScene && nextScene.route.routeName === Screens.Scanner.screen)
+  ) {
+    return {
+      transitionSpec: {
+        duration: 0,
+      },
+    }
+  }
+
+  return {
+    transitionSpec: {
+      duration: defaultDuration,
+      timing: Animated.timing,
+      easing: Easing.out(Easing.poly(7)),
+      useNativeDriver: true,
+    },
+  }
+}
 
 const RootNavigator = createStackNavigator(
   {
@@ -169,6 +201,9 @@ const RootNavigator = createStackNavigator(
     [Screens.ModalDemo.screen]: {
       screen: ModalDemo,
     },
+    [Screens.IdentitySelectModal.screen]: {
+      screen: IdentitySelectModal,
+    },
     [Screens.DisclosureRequest.screen]: {
       screen: DisclosureRequest,
     },
@@ -177,16 +212,7 @@ const RootNavigator = createStackNavigator(
     headerMode: 'none',
     mode: 'modal',
     transparentCard: true,
-    transitionConfig: (nextScene: any) => {
-      return {
-        transitionSpec: {
-          duration: nextScene.scene.route.routeName === 'Scanner' ? 0 : 500,
-          timing: Animated.timing,
-          easing: Easing.out(Easing.poly(7)),
-          useNativeDriver: true,
-        },
-      }
-    },
+    transitionConfig: nav => handleCustomTransition(nav),
   },
 )
 

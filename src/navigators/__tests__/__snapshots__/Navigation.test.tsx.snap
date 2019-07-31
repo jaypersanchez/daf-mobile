@@ -735,30 +735,17 @@ exports[`Navigation renders correctly 1`] = `
                     }
                   >
                     <View
-                      pointerEvents="auto"
+                      accessible={true}
+                      isTVSelectable={true}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
                       style={
                         Object {
-                          "alignItems": "center",
-                          "backgroundColor": "#FFFFFF",
-                          "borderBottomColor": "#CCCCCC",
-                          "borderBottomWidth": 0.5,
-                          "borderRadius": undefined,
-                          "flex": undefined,
-                          "flexDirection": "row",
-                          "height": undefined,
-                          "justifyContent": undefined,
-                          "margin": undefined,
-                          "marginBottom": undefined,
-                          "marginLeft": undefined,
-                          "marginRight": undefined,
-                          "marginTop": 50,
-                          "padding": 15,
-                          "paddingBottom": undefined,
-                          "paddingHorizontal": undefined,
-                          "paddingLeft": undefined,
-                          "paddingRight": undefined,
-                          "paddingTop": undefined,
-                          "width": undefined,
+                          "opacity": 1,
                         }
                       }
                     >
@@ -767,79 +754,69 @@ exports[`Navigation renders correctly 1`] = `
                         style={
                           Object {
                             "alignItems": "center",
-                            "backgroundColor": "#0078ff",
-                            "borderColor": "#FFFFFF",
-                            "borderRadius": 20,
-                            "borderWidth": 2,
-                            "flex": undefined,
-                            "flexDirection": undefined,
-                            "height": 40,
-                            "justifyContent": "center",
-                            "margin": undefined,
-                            "marginBottom": undefined,
-                            "marginLeft": undefined,
-                            "marginRight": undefined,
-                            "marginTop": undefined,
-                            "padding": undefined,
-                            "paddingBottom": undefined,
-                            "paddingHorizontal": undefined,
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingTop": undefined,
-                            "width": 40,
-                          }
-                        }
-                      >
-                        <Text
-                          style={
-                            Object {
-                              "color": "#ffffff",
-                              "fontSize": 20,
-                              "fontWeight": "bold",
-                            }
-                          }
-                        >
-                          Sa
-                        </Text>
-                      </View>
-                      <View
-                        pointerEvents="auto"
-                        style={
-                          Object {
-                            "alignItems": undefined,
-                            "backgroundColor": undefined,
+                            "backgroundColor": "#FFFFFF",
+                            "borderBottomColor": "#CCCCCC",
+                            "borderBottomWidth": 0.5,
                             "borderRadius": undefined,
                             "flex": undefined,
-                            "flexDirection": undefined,
+                            "flexDirection": "row",
                             "height": undefined,
                             "justifyContent": undefined,
                             "margin": undefined,
                             "marginBottom": undefined,
                             "marginLeft": undefined,
                             "marginRight": undefined,
-                            "marginTop": undefined,
-                            "padding": undefined,
+                            "marginTop": 50,
+                            "padding": 15,
                             "paddingBottom": undefined,
                             "paddingHorizontal": undefined,
-                            "paddingLeft": 10,
+                            "paddingLeft": undefined,
                             "paddingRight": undefined,
                             "paddingTop": undefined,
                             "width": undefined,
                           }
                         }
                       >
-                        <Text
+                        <View
+                          pointerEvents="auto"
                           style={
                             Object {
-                              "color": "#333333",
-                              "fontSize": 16,
-                              "fontWeight": "bold",
-                              "lineHeight": 22,
+                              "alignItems": "center",
+                              "backgroundColor": "#0078ff",
+                              "borderColor": "#FFFFFF",
+                              "borderRadius": 20,
+                              "borderWidth": 2,
+                              "flex": undefined,
+                              "flexDirection": undefined,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "margin": undefined,
+                              "marginBottom": undefined,
+                              "marginLeft": undefined,
+                              "marginRight": undefined,
+                              "marginTop": undefined,
+                              "padding": undefined,
+                              "paddingBottom": undefined,
+                              "paddingHorizontal": undefined,
+                              "paddingLeft": undefined,
+                              "paddingRight": undefined,
+                              "paddingTop": undefined,
+                              "width": 40,
                             }
                           }
                         >
-                          Sarah Adamson
-                        </Text>
+                          <Text
+                            style={
+                              Object {
+                                "color": "#ffffff",
+                                "fontSize": 20,
+                                "fontWeight": "bold",
+                              }
+                            }
+                          >
+                            Sa
+                          </Text>
+                        </View>
                         <View
                           pointerEvents="auto"
                           style={
@@ -859,8 +836,8 @@ exports[`Navigation renders correctly 1`] = `
                               "padding": undefined,
                               "paddingBottom": undefined,
                               "paddingHorizontal": undefined,
-                              "paddingLeft": undefined,
-                              "paddingRight": undefined,
+                              "paddingLeft": 10,
+                              "paddingRight": 5,
                               "paddingTop": undefined,
                               "width": undefined,
                             }
@@ -869,14 +846,73 @@ exports[`Navigation renders correctly 1`] = `
                           <Text
                             style={
                               Object {
-                                "color": "#BBBBBB",
-                                "fontSize": 14,
+                                "color": "#333333",
+                                "fontSize": 16,
+                                "fontWeight": "bold",
+                                "lineHeight": 22,
                               }
                             }
                           >
-                            0xfdh44hdud88dshs333...
+                            Sarah Adamson
                           </Text>
+                          <View
+                            pointerEvents="auto"
+                            style={
+                              Object {
+                                "alignItems": undefined,
+                                "backgroundColor": undefined,
+                                "borderRadius": undefined,
+                                "flex": undefined,
+                                "flexDirection": undefined,
+                                "height": undefined,
+                                "justifyContent": undefined,
+                                "margin": undefined,
+                                "marginBottom": undefined,
+                                "marginLeft": undefined,
+                                "marginRight": undefined,
+                                "marginTop": undefined,
+                                "padding": undefined,
+                                "paddingBottom": undefined,
+                                "paddingHorizontal": undefined,
+                                "paddingLeft": undefined,
+                                "paddingRight": undefined,
+                                "paddingTop": undefined,
+                                "width": undefined,
+                              }
+                            }
+                          >
+                            <Text
+                              style={
+                                Object {
+                                  "color": "#BBBBBB",
+                                  "fontSize": 14,
+                                }
+                              }
+                            >
+                              0xfdh44hdud88dshs333...
+                            </Text>
+                          </View>
                         </View>
+                        <Text
+                          allowFontScaling={false}
+                          style={
+                            Array [
+                              Object {
+                                "color": "#BBBBBB",
+                                "fontSize": 26,
+                              },
+                              undefined,
+                              Object {
+                                "fontFamily": "Ionicons",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              Object {},
+                            ]
+                          }
+                        >
+                          
+                        </Text>
                       </View>
                     </View>
                     <RCTScrollView>
