@@ -13,14 +13,17 @@ const options = {
 }
 
 const languageDetector = {
-  type: 'languageDetector',
   async: true,
   detect: (cb: any) => {
     const locales = RNLocalize.getLocales()
     cb(locales[0].languageCode)
   },
-  init: () => {},
-  cacheUserLanguage: () => {},
+  init: () => {
+    // Code
+  },
+  cacheUserLanguage: () => {
+    // Code
+  },
 }
 
 i18n
