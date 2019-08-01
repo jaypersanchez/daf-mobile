@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import {
   Text,
   Container,
@@ -8,9 +8,11 @@ import {
   Section,
   MenuItem,
   Constants,
+  Icon,
 } from '@kancha/kancha-ui'
+import { NavigationScreen } from '../navigators'
 
-interface DrawerProps {
+interface DrawerProps extends NavigationScreen {
   onItemPress: (scene: any) => void
   activeItemkey: string | undefined
   theme: any
@@ -22,26 +24,31 @@ interface DrawerProps {
 const Drawer: React.FC<DrawerProps> = props => {
   return (
     <Container flex={1} background={'primary'}>
-      <Container
-        dividerBottom
-        background={'primary'}
-        padding={true}
-        flexDirection={'row'}
-        alignItems={'center'}
-        marginTop={50}
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate('IdentitySelectModal')}
       >
-        <Avatar title={'Sarah Adamson'} border={true} size={40} />
-        <Container paddingLeft={10}>
-          <Text bold={true} type={Constants.TextTypes.Body}>
-            Sarah Adamson
-          </Text>
-          <Container>
-            <Text type={Constants.TextTypes.SubTitle}>
-              0xfdh44hdud88dshs333...
+        <Container
+          dividerBottom
+          background={'primary'}
+          padding={true}
+          flexDirection={'row'}
+          alignItems={'center'}
+          marginTop={50}
+        >
+          <Avatar title={'Sarah Adamson'} border={true} size={40} />
+          <Container paddingLeft={10} paddingRight={5}>
+            <Text bold={true} type={Constants.TextTypes.Body}>
+              Sarah Adamson
             </Text>
+            <Container>
+              <Text type={Constants.TextTypes.SubTitle}>
+                0xfdh44hdud88dshs333...
+              </Text>
+            </Container>
           </Container>
+          <Icon icon={{ name: 'ios-arrow-down', iconFamily: 'Ionicons' }} />
         </Container>
-      </Container>
+      </TouchableOpacity>
       <ScrollView>
         <Container paddingTop paddingBottom>
           <Section noTopMargin={true} noTopBorder>
