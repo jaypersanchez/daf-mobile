@@ -13,6 +13,7 @@ const options = {
 }
 
 const languageDetector = {
+  type: 'languageDetector',
   async: true,
   detect: (cb: any) => {
     const locales = RNLocalize.getLocales()
