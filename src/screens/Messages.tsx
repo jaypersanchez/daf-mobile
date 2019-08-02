@@ -49,7 +49,7 @@ export default () => {
                   >
                     <Text>{item.iss.shortId}</Text>
                     <Text type={Constants.TextTypes.Summary}>
-                      {moment.unix(item.iat).calendar()}
+                      {moment.unix(item.time).calendar()}
                     </Text>
                   </ListItem>
                 )}

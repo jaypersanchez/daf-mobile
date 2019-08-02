@@ -3,7 +3,7 @@ import * as blake from 'blakejs'
 import { DbDriver, Viewer, Logger } from './types'
 import runMigrations from './migrations'
 import * as messages from './messages'
-import { SertoMessage } from '../../serto-credentials'
+import { SertoMessage, vcsInMessage } from '../../serto-credentials'
 
 class Api {
   private db: DbDriver
@@ -31,32 +31,30 @@ class Api {
     let sql = null
 
     if (viewer.isAdmin) {
-      sql = 'SELECT * FROM verifiable_claims order by iat desc'
+      sql = 'SELECT * FROM verifiable_claims order by nbf desc'
       if (iss && !sub) {
         params = { $iss: iss }
-        sql = 'SELECT * FROM verifiable_claims where iss=$iss order by iat desc'
+        sql = 'SELECT * FROM verifiable_claims where iss=$iss order by nbf desc'
       } else if (!iss && sub) {
         params = { $sub: sub }
-        sql = 'SELECT * FROM verifiable_claims where sub=$sub order by iat desc'
+        sql = 'SELECT * FROM verifiable_claims where sub=$sub order by nbf desc'
       } else if (iss && sub) {
         params = { $iss: iss, $sub: sub }
         sql =
-          'SELECT * FROM verifiable_claims where iss=$iss and sub=$sub order by iat desc'
+          'SELECT * FROM verifiable_claims where iss=$iss and sub=$sub order by nbf desc'
       }
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = ownership.params
-      const accessControlSql = `inner join messages as m on vc.parent_id = m.id where (m.sub in (${
-        ownership.sql
-      }) or m.iss in (${ownership.sql}))`
+      const accessControlSql = `inner join messages as m on vc.parent_id = m.id where (m.sub in (${ownership.sql}) or m.iss in (${ownership.sql}))`
 
-      sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} order by vc.iat desc`
+      sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} order by vc.nbf desc`
       if (iss && !sub) {
         params[`$iss`] = iss
-        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.iss=$iss order by iat desc`
+        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.iss=$iss order by nbf desc`
       } else if (!iss && sub) {
         params[`$sub`] = sub
-        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.sub=$sub order by iat desc`
+        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.sub=$sub order by nbf desc`
       }
     }
 
@@ -67,7 +65,7 @@ class Api {
         iss: { did: row.iss },
         sub: { did: row.sub },
         raw: row.raw,
-        iat: row.iat,
+        nbf: row.nbf,
         exp: row.exp,
       })),
     )
@@ -83,7 +81,7 @@ class Api {
           iss: { did: row.iss },
           sub: { did: row.sub },
           raw: row.raw,
-          iat: row.iat,
+          nbf: row.nbf,
           exp: row.exp,
         })),
       )
@@ -121,37 +119,35 @@ class Api {
     let params = null
     let sql = null
     if (viewer.isAdmin) {
-      sql = 'SELECT "rowid" as rowid,* FROM messages order by iat desc'
+      sql = 'SELECT "rowid" as rowid,* FROM messages order by time desc'
       if (iss && !sub) {
         params = { $iss: iss }
         sql =
-          'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by iat desc'
+          'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by time desc'
       } else if (!iss && sub) {
         params = { $sub: sub }
         sql =
-          'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by iat desc'
+          'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by time desc'
       } else if (iss && sub) {
         params = { $iss: iss, $sub: sub }
         sql =
-          'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by iat desc'
+          'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by time desc'
       }
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = ownership.params
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${
-        ownership.sql
-      }))`
-      sql = `SELECT "rowid" as rowid,* FROM messages where ${accessControlSql} order by iat desc`
+      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
+      sql = `SELECT "rowid" as rowid,* FROM messages where ${accessControlSql} order by time desc`
       if (iss && !sub) {
         params[`$iss`] = iss
-        sql = `SELECT "rowid" as rowid,* FROM messages where iss=$iss and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where iss=$iss and ${accessControlSql} order by time desc`
       } else if (!iss && sub) {
         params[`$sub`] = sub
-        sql = `SELECT "rowid" as rowid,* FROM messages where sub=$sub and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where sub=$sub and ${accessControlSql} order by time desc`
       } else if (iss && sub) {
         params[`$iss`] = iss
         params[`$sub`] = sub
-        sql = `SELECT "rowid" as rowid,* FROM messages where (iss=$iss or sub=$sub) and ${accessControlSql} order by iat desc`
+        sql = `SELECT "rowid" as rowid,* FROM messages where (iss=$iss or sub=$sub) and ${accessControlSql} order by time desc`
       }
     }
     return this.db.rows(sql, params).then(rows =>
@@ -160,8 +156,9 @@ class Api {
         iss: { did: row.iss },
         sub: { did: row.sub },
         type: row.type,
-        raw: row.raw,
-        iat: row.iat,
+        data: row.data,
+        jwt: row.jwt,
+        time: row.time,
       })),
     )
   }
@@ -175,9 +172,7 @@ class Api {
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = { ...ownership.params, $hash: hash }
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${
-        ownership.sql
-      }))`
+      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
       sql = `SELECT * FROM messages where id=$hash and ${accessControlSql}`
     }
 
@@ -189,8 +184,9 @@ class Api {
           iss: { did: row.iss },
           sub: { did: row.sub },
           type: row.type,
-          raw: row.raw,
-          iat: row.iat,
+          jwt: row.jwt,
+          data: row.data,
+          time: row.time,
         })),
       )
       .then(rows => rows[0])
@@ -262,45 +258,24 @@ class Api {
   }
 
   async saveMessage(msg: SertoMessage) {
-    const message = msg.payload
-    if (!messages.isValidMessage(message)) {
-      throw Error('Invalid message')
-    }
-    const hash = blake.blake2bHex(msg.jwt)
-
-    // Do we need to save _value? It can be derived from `raw` when needed.id
     await this.db.run(
-      'INSERT INTO messages (id, iss, sub, iat, type, _value, raw, sourceType ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        hash,
-        message.iss,
-        message.sub,
-        message.iat,
-        message.type,
-        JSON.stringify(message),
-        msg.jwt,
-        'JWT',
-      ],
+      'INSERT INTO messages (id, iss, sub, time, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [msg.hash, msg.iss, msg.sub, msg.time, msg.type, msg.data, msg.jwt],
     )
 
-    if (message.vc && Array.isArray(message.vc)) {
-      for (const key in message.vc) {
-        if (message.vc.hasOwnProperty(key)) {
-          const verifiableClaimJWT = message.vc[key]
-          await this.saveVerifiableClaim(verifiableClaimJWT, hash)
-        }
+    const vcs = await vcsInMessage(msg)
+
+    for (const key in vcs) {
+      if (vcs.hasOwnProperty(key)) {
+        const verifiableClaimJWT = vcs[key]
+        await this.saveVerifiableClaim(verifiableClaimJWT, msg.hash)
       }
     }
 
-    return { jwt: msg.jwt, hash }
+    return { jwt: msg.jwt, hash: msg.hash }
   }
 
-  async saveVerifiableClaim(input: string, messageHash: string) {
-    let jwt = input
-    if (jwt.slice(0, 6) === '/ipfs/') {
-      const response = await fetch('https://cloudflare-ipfs.com' + input)
-      jwt = await response.text()
-    }
+  async saveVerifiableClaim(jwt: string, messageHash: string) {
     const decoded = await didJWT.decodeJWT(jwt) // todo change to verifyJWT
     const verifiableClaim = decoded.payload
     if (!messages.isValidVerifiableClaim(verifiableClaim)) {
@@ -309,18 +284,18 @@ class Api {
     const vcHash = blake.blake2bHex(jwt)
 
     await this.db.run(
-      'INSERT INTO verifiable_claims (id, parent_id, iss, sub, iat, raw ) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO verifiable_claims (id, parent_id, iss, sub, nbf, raw ) VALUES (?, ?, ?, ?, ?, ?)',
       [
         vcHash,
         messageHash,
         verifiableClaim.iss,
         verifiableClaim.sub,
-        verifiableClaim.iat,
+        verifiableClaim.nbf,
         jwt,
       ],
     )
 
-    const { claim } = verifiableClaim
+    const claim = verifiableClaim.vc.credentialSubject
 
     for (const type in claim) {
       if (claim.hasOwnProperty(type)) {
@@ -328,12 +303,12 @@ class Api {
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
         await this.db.run(
-          'INSERT INTO verifiable_claims_fields (parent_id, iss, sub, iat, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO verifiable_claims_fields (parent_id, iss, sub, nbf, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?)',
           [
             vcHash,
             verifiableClaim.iss,
             verifiableClaim.sub,
-            verifiableClaim.iat,
+            verifiableClaim.nbf,
             type,
             isObj ? JSON.stringify(value) : value,
             isObj ? 1 : 0,
@@ -354,9 +329,7 @@ class Api {
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = { ...ownership.params, $hash: hash }
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${
-        ownership.sql
-      }))`
+      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
       sql = `DELETE FROM messages where id=$hash and ${accessControlSql}`
     }
 

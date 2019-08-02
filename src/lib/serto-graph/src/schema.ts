@@ -1,5 +1,6 @@
 import Api from './api'
 import { Viewer } from './types'
+import { SertoMessage } from '../../serto-credentials'
 
 export const typeDefs = `
   type Query {
@@ -13,7 +14,7 @@ export const typeDefs = `
 
   type Mutation {
     deleteMessage(hash: ID!): Boolean
-    newMessage(json: String!): Message
+    newMessage(message: MessageInput!): Message
   }
 
   
@@ -35,15 +36,30 @@ export const typeDefs = `
     messages(edgeType: EdgeType): [Message]
     claims(edgeType: EdgeType): [VerifiableClaim]
   }
+  
+  input MessageInput {
+    hash: String
+    iss: String
+    sub: String
+    time: Int
+    type: String
+    data: String
+    tag: String
+    visibility: String
+    retention: Int
+    jwt: String
+  }
 
   type Message {
     hash: ID!
     iss: Identity!
     sub: Identity
     type: String!
-    raw: String!
-    iat: Int!
-    exp: Int
+    jwt: String!
+    data: String!
+    time: Int!
+    visibility: String
+    tag: String
     vc: [VerifiableClaim]
   }
 
@@ -54,7 +70,7 @@ export const typeDefs = `
     sub: Identity!
     json: String!
     raw: String!
-    iat: Int!
+    nbf: Int!
     exp: Int
     fields: [VerifiableClaimField]
   }
@@ -148,7 +164,9 @@ export const resolvers = {
       _: any,
       { iss, sub }: { iss: string; sub: string },
       { api, viewer }: Context,
-    ) => api.findMessages(iss, sub, viewer),
+    ) => {
+      return api.findMessages(iss, sub, viewer)
+    },
     message: async (
       _: any,
       { hash }: { hash: string },
@@ -161,8 +179,11 @@ export const resolvers = {
     ) => api.findClaims(iss, sub, viewer),
   },
   Mutation: {
-    newMessage: async (_: any, { json }, { api }: Context) =>
-      api.saveMessage(JSON.parse(json)),
+    newMessage: async (
+      _: any,
+      { message }: { message: SertoMessage },
+      { api }: Context,
+    ) => api.saveMessage(message),
     deleteMessage: async (_: any, { hash }, { api, viewer }: Context) =>
       api.deleteMessage(hash, viewer),
   },

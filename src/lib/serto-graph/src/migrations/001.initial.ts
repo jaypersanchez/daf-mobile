@@ -6,16 +6,13 @@ export const initial: Migration = {
     await db.run(
       `CREATE TABLE IF NOT EXISTS messages (
       id TEXT,
-      parentId TEXT,
+      parent_id TEXT,
       iss TEXT,
-      aud TEXT,
       sub TEXT,
       type TEXT,
-      _value TEXT,
-      iat NUMERIC,
-      raw TEXT,
-      sourceType TEXT,
-      context TEXT,
+      data TEXT,
+      time NUMERIC,
+      jwt TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
       null,
@@ -28,7 +25,7 @@ export const initial: Migration = {
       iss TEXT,
       aud TEXT,
       sub TEXT,
-      iat NUMERIC,
+      nbf NUMERIC,
       raw TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
@@ -39,7 +36,7 @@ export const initial: Migration = {
       `CREATE TABLE IF NOT EXISTS verifiable_claims_fields (
       parent_id INTEGER,
       iss TEXT, sub TEXT,
-      iat NUMERIC,
+      nbf NUMERIC,
       claim_type TEXT,
       claim_value TEXT,
       is_obj NUMERIC NOT NULL default 0

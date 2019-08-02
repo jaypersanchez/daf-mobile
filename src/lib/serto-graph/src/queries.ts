@@ -23,8 +23,8 @@ export const getAllIdentities = gql`
 `
 
 export const newMessage = gql`
-  mutation newMessage($json: String!) {
-    newMessage(json: $json) {
+  mutation newMessage($message: MessageInput!) {
+    newMessage(message: $message) {
       hash
     }
   }
@@ -32,7 +32,7 @@ export const newMessage = gql`
 
 export const findMessages = gql`
   query FindMessages($iss: ID, $sub: ID) {
-    messages(iss: $iss, sub: $sub) @client {
+    messages(iss: $iss, sub: $sub) {
       iss {
         did
         shortId
@@ -40,10 +40,9 @@ export const findMessages = gql`
         lastName
         profileImage
       }
-
       type
       hash
-      iat
+      time
       vc {
         hash
         parentHash
@@ -62,7 +61,7 @@ export const findMessages = gql`
           profileImage
         }
         raw
-        iat
+        nbf
         fields {
           type
           value

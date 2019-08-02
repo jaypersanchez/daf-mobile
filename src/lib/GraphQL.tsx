@@ -8,7 +8,7 @@ import { Api, typeDefs, resolvers } from './serto-graph'
 import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
 import Log from './Log'
-import { View, Text } from 'react-native'
+import { Container, Screen, Text } from '@kancha/kancha-ui'
 import { syncEdges } from './TGEClient'
 
 const localTypeDefs = `
@@ -88,9 +88,11 @@ class CustomProvider extends React.Component<Props, State> {
   render() {
     if (this.state.isRunningMigrations) {
       return (
-        <View>
-          <Text>Updating data...</Text>
-        </View>
+        <Screen safeArea={true}>
+          <Container flex={1} alignItems={'center'} justifyContent={'center'}>
+            <Text>Updating data...</Text>
+          </Container>
+        </Screen>
       )
     } else {
       return (

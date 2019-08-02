@@ -43,7 +43,7 @@ export interface VerifiableClaim {
   sub: Identity
   json: string
   raw: string
-  iat: number
+  nbf: number
   exp: number
   fields: [VerifiableClaimField]
 }
@@ -62,76 +62,10 @@ export interface Message {
   hash: string
   type: string
   parent?: Message // hash - string
-  raw?: string
+  jwt?: string
   iss: Identity // did - string
   sub: Identity // did - string
-  iat: number
-  exp?: number
-  title?: string
-  body?: string
+  time: number
   vc: [VerifiableClaim]
-  req?: [Request]
-  resp?: [Response]
-  callback?: string
-}
-
-export enum ResponseType {
-  SelectiveDisclosure = 'SelectiveDisclosure',
-}
-
-export enum RequestType {
-  PresentVC = 'PresentVerifiableClaims',
-  SignVC = 'SignVerifiableClaim',
-  SelectiveDisclosure = 'SelectiveDisclosure',
-  Web3Rpc = 'Web3Rpc',
-  Permissions = 'Permissions',
-}
-
-export interface Request {
-  type: RequestType
-}
-
-export interface Response {
-  type: ResponseType
-}
-
-export interface PermissionsRequest extends Request {
-  permissions: string[]
-}
-
-export interface PresentVerifiableClaimsRequest extends Request {
-  vc: [VerifiableClaim]
-}
-
-export interface SignClaimRequest extends Request {
-  iss: string
-  sub: string
-  exp?: number
-  claim: object
-}
-
-export interface SelectiveDisclosureResponse extends Response {
-  vc: [VerifiableClaim]
-}
-export interface ClaimValueQueryObject {}
-
-export interface SelectiveDisclosureRequest extends Request {
-  claimType: string
-  claimValue?: ClaimValueQueryObject
-  required?: boolean
-  iss?: string[] // Regex?
-  exp?: {
-    start?: number
-    end?: number
-  }
-  iat?: {
-    start?: number
-    end?: number
-  }
-}
-
-export interface Web3Rpc extends Request {
-  rpcUrl?: string // Endpoint URL
-  method: string
-  params: object
+  actions?: [any]
 }

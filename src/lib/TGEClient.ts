@@ -6,12 +6,8 @@ import { from } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import gql from 'graphql-tag'
-import { SchemaLink } from 'apollo-link-schema'
-import { Api, typeDefs, resolvers } from './serto-graph'
-import { RnSqlite } from './db-rn-sqlite3'
-import { makeExecutableSchema } from 'graphql-tools'
+import { Queries } from './serto-graph'
 import Log from './Log'
-import { View, Text } from 'react-native'
 import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
 import { createJWT } from 'did-jwt'
 import Config from 'react-native-config'
@@ -21,9 +17,8 @@ const uri = Config.TGE_URI
 const localTypeDefs = `
 
 extend type Query {
-  findEdges(fromDID:[String], toDID:[String], type:[String], since:Date, tag:[String]): [Edge!]!
+  findEdges(fromDID:[String], toDID:[String], type:[String], since:Int, tag:[String]): [Edge!]!
 }
-scalar Date
 
 type Edge {
     # blake2b hash of the JWT
@@ -36,8 +31,8 @@ type Edge {
     to: Identity!
     # type of the edge. "type" on the JWT
     type: String!
-    # date of the issuance of the edge. "iat" on the JWT
-    time: Date!
+    # date of the issuance of the edge. "nbf" on the JWT
+    time: Int!
     # tag of the edge. "tag" on the JWT
     tag: String
     # visibility of the edge. "vis" on the JWT
@@ -54,11 +49,6 @@ enum VisibilityEnum {
   ANY
 }
 `
-
-export const schema = makeExecutableSchema({
-  typeDefs: typeDefs + localTypeDefs,
-  resolvers,
-})
 
 const authLink = setContext(async (_, { headers }) => {
   const list = await RNUportHDSigner.listSeedAddresses()
@@ -95,8 +85,8 @@ export const client = new ApolloClient({
 })
 
 export const findEdges = gql`
-  query findEdges($toDID: [String]) {
-    findEdges(toDID: $toDID) {
+  query findEdges($toDID: [String], $since: Int) {
+    findEdges(toDID: $toDID, since: $since) {
       hash
       time
       type
@@ -110,22 +100,62 @@ export const findEdges = gql`
       tag
       retention
       data
+      jwt
     }
   }
 `
 
-export const syncEdges = async (localClient: any) => {
+export const syncEdges = async (localClient: ApolloClient<any>) => {
   const list = await RNUportHDSigner.listSeedAddresses()
   const address = list[0]
   const did = 'did:ethr:' + address
   Log.info('Syncing data with ' + uri, 'TGE')
-  const result = await client.query({
-    query: findEdges,
-    variables: {
-      toDID: [did],
-    },
-  })
-  Log.info('Done syncing data', 'TGE')
 
-  console.log(result)
+  // Find last message
+  const res = await localClient.query({
+    query: Queries.findMessages,
+  })
+
+  const lastMessageTime = res.data.messages[0]
+    ? res.data.messages[0].time
+    : null
+  console.log({ lastMessageTime })
+  try {
+    const result = await client.query({
+      query: findEdges,
+      variables: {
+        toDID: [did],
+        since: lastMessageTime,
+      },
+    })
+
+    result.data.findEdges.forEach(async (edge: any) => {
+      Log.info('Saving ' + edge.time, 'TGE')
+      try {
+        const message = {
+          hash: edge.hash,
+          iss: edge.from.did,
+          sub: edge.to.did,
+          time: edge.time,
+          type: edge.type,
+          data: edge.data,
+          tag: edge.tag,
+          retention: edge.retention,
+          visibility: edge.visibility,
+          jwt: edge.jwt,
+        }
+        const hash = await localClient.mutate({
+          mutation: Queries.newMessage,
+          variables: { message },
+        })
+        // console.log(hash)
+      } catch (e) {
+        console.log(e)
+      }
+    })
+  } catch (e) {
+    console.log(e)
+  }
+
+  Log.info('Done syncing data', 'TGE')
 }
