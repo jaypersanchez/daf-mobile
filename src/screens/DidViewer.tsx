@@ -10,6 +10,7 @@ import {
 import { Mutation } from 'react-apollo'
 import { withNavigation, NavigationScreenProps } from 'react-navigation'
 import { deleteSeedMutation } from '../lib/Signer'
+import { ApolloConsumer } from 'react-apollo'
 
 interface DidViewerProps extends NavigationScreenProps {}
 
@@ -29,24 +30,46 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
       safeArea
       footerComponent={
         <Container padding>
-          <Mutation mutation={deleteSeedMutation} refetchQueries={['getDids']}>
-            {(mutate: any) => (
-              <Button
-                fullWidth
-                type={Constants.BrandOptions.Warning}
-                block={Constants.ButtonBlocks.Outlined}
-                buttonText={'Delete Seed'}
-                onPress={() => {
-                  mutate({
-                    variables: {
-                      address,
-                    },
-                  }).then(() => props.navigation.goBack())
-                }}
-                navButton
-              />
-            )}
-          </Mutation>
+          <Container marginBottom>
+            <ApolloConsumer>
+              {client => (
+                <Button
+                  fullWidth
+                  type={Constants.BrandOptions.Primary}
+                  block={Constants.ButtonBlocks.Filled}
+                  buttonText={'Make Default'}
+                  onPress={() => {
+                    // tslint:disable-next-line:no-console
+                    console.log(client)
+                    client.writeData({ data: { selectedDid: did } })
+                    client.reFetchObservableQueries()
+                  }}
+                />
+              )}
+            </ApolloConsumer>
+          </Container>
+          <Container>
+            <Mutation
+              mutation={deleteSeedMutation}
+              refetchQueries={['getDids']}
+            >
+              {(mutate: any) => (
+                <Button
+                  fullWidth
+                  type={Constants.BrandOptions.Warning}
+                  block={Constants.ButtonBlocks.Outlined}
+                  buttonText={'Delete Seed'}
+                  onPress={() => {
+                    mutate({
+                      variables: {
+                        address,
+                      },
+                    }).then(() => props.navigation.goBack())
+                  }}
+                />
+              )}
+            </Mutation>
+          </Container>
         </Container>
       }
     >

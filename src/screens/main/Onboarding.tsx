@@ -43,9 +43,6 @@ const Onboarding: React.FC<OnboardingProps> = props => {
                     did: string
                   }
                 }) => {
-                  // tslint:disable-next-line:no-console
-                  console.log(createDid.address, createDid.did)
-
                   client.writeData({ data: { selectedDid: createDid.did } })
                 }}
               >
