@@ -11,7 +11,12 @@ describe('Navigation', () => {
     const onPress = jest.fn()
 
     const tree = render(
-      <DrawerLeft onItemPress={onPress} activeItemkey={'TEST_KEY'} />,
+      <DrawerLeft
+        onItemPress={onPress}
+        activeItemkey={'TEST_KEY'}
+        // @ts-ignore
+        navigation={jest.fn()}
+      />,
     ).toJSON()
     expect(tree).toMatchSnapshot()
   })

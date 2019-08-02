@@ -45,6 +45,59 @@ exports[`renders correctly 1`] = `
       pointerEvents="auto"
       style={
         Object {
+          "alignItems": "center",
+          "backgroundColor": undefined,
+          "borderRadius": undefined,
+          "flex": undefined,
+          "flexDirection": undefined,
+          "height": undefined,
+          "justifyContent": "center",
+          "margin": undefined,
+          "marginBottom": undefined,
+          "marginLeft": undefined,
+          "marginRight": undefined,
+          "marginTop": undefined,
+          "padding": 8,
+          "paddingBottom": undefined,
+          "paddingHorizontal": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+          "width": undefined,
+        }
+      }
+    >
+      <View
+        pointerEvents="auto"
+        style={
+          Object {
+            "alignItems": undefined,
+            "backgroundColor": "#BBBBBB",
+            "borderRadius": 5,
+            "flex": undefined,
+            "flexDirection": undefined,
+            "height": 5,
+            "justifyContent": undefined,
+            "margin": undefined,
+            "marginBottom": undefined,
+            "marginLeft": undefined,
+            "marginRight": undefined,
+            "marginTop": undefined,
+            "padding": undefined,
+            "paddingBottom": undefined,
+            "paddingHorizontal": undefined,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": undefined,
+            "width": 50,
+          }
+        }
+      />
+    </View>
+    <View
+      pointerEvents="auto"
+      style={
+        Object {
           "alignItems": undefined,
           "backgroundColor": undefined,
           "borderRadius": undefined,

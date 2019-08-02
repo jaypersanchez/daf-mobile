@@ -91,6 +91,7 @@ export const resolvers: Resolvers = {
       const jwt = await createJWT(vc, {
         issuer: did,
         signer,
+        alg: 'ES256K-R',
       })
       Log.info('Signed: ' + jwt, 'Signer')
       return jwt
