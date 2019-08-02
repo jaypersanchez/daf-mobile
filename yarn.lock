@@ -1061,6 +1061,11 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
+"@react-native-community/async-storage@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.6.1.tgz#19be07fc1d65c77bdeb20f46108ba12076aad1c5"
+  integrity sha512-1WA28xfdhG+unkTEk/lXnqI2izv6belo0CYw7UdvaeHm8TIYT6eTmIIdGR7oiCa2xSKEnaPQqRMH6h7gyLNbww==
+
 "@react-native-community/cli@^1.2.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-1.9.1.tgz#47e261a4a8bdfdcbd9a971b90e56257bee5af1ac"
@@ -1460,6 +1465,11 @@ apollo-cache-inmemory@^1.5.1:
     optimism "^0.6.9"
     ts-invariant "^0.2.1"
     tslib "^1.9.3"
+
+apollo-cache-persist@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/apollo-cache-persist/-/apollo-cache-persist-0.1.1.tgz#e6cfe1983b998982a679aaf05241d3ed395edb1e"
+  integrity sha512-/7GAyblPR169ryW3ugbtHqiU0UGkhIt10NeaO2gn2ClxjLHF/nIkJD5mx/0OCF2vLNbbnzLZVDeIO1pf72TrEA==
 
 apollo-cache@1.2.1, apollo-cache@^1.2.1:
   version "1.2.1"

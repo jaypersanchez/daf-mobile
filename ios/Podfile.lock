@@ -63,9 +63,11 @@ PODS:
   - RNAnalytics (1.1.0-beta.0):
     - Analytics
     - React
+  - RNCAsyncStorage (1.6.1):
+    - React
   - RNGestureHandler (1.2.1):
     - React
-  - RNLocalize (1.1.2):
+  - RNLocalize (1.1.4):
     - React
   - RNScreens (1.0.0-alpha.22):
     - React
@@ -93,6 +95,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - "RNAnalytics (from `../node_modules/@segment/analytics-react-native`)"
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -121,6 +124,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   RNAnalytics:
     :path: "../node_modules/@segment/analytics-react-native"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
@@ -145,14 +150,15 @@ SPEC CHECKSUMS:
   React: a86b92f00edbe1873a63e4a212c29b7a7ad5224f
   react-native-camera: 0d18706a9fd6d30ece4fa7c9c50fe36f484c54fa
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
+  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
   RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
-  RNLocalize: d6a0b7ed06d3c5fca79a55ed8e1337032fc33722
+  RNLocalize: 62a949d2ec5bee0eb8f39a80a48f01e2f4f67080
   RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
   RNVectorIcons: f6cf608dee5b2cb5726ff3b629a5258586d5677b
   Sentry: 4e8a17b61ddd116f89536cc81d567fdee1ebca96
   SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
   yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
 
-PODFILE CHECKSUM: 68229f973c4a4ecc5b65a2b73a09431dc32a0b2d
+PODFILE CHECKSUM: afc9043c8302791d1f7e5bc7336610b81a60f070
 
 COCOAPODS: 1.7.2

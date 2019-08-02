@@ -89,7 +89,7 @@ const Signer: React.FC<SignerProps> = props => {
             loading,
             refetch,
           }: {
-            data: { dids: Did[] }
+            data: { dids: Did[]; selectedDid: string }
             loading: boolean
             refetch: () => void
           }) => (
@@ -98,6 +98,8 @@ const Signer: React.FC<SignerProps> = props => {
               data={data.dids}
               renderItem={({ item, index }) => (
                 <ListItem
+                  iconLeft={<Text>🚀</Text>}
+                  subTitle={data.selectedDid}
                   last={index === data.dids.length - 1}
                   onPress={() => {
                     props.navigation.push('DidViewer', {

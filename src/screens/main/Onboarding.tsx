@@ -2,13 +2,8 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Screen, Container, Text, Button, Constants } from '@kancha/kancha-ui'
 import { NavigationScreen } from '../../navigators'
-import { Query, Mutation, MutationState } from 'react-apollo'
-import {
-  Did,
-  getDidsQuery,
-  createDidMutation,
-  importSeedMutation,
-} from '../../lib/Signer'
+import { Query, Mutation } from 'react-apollo'
+import { Did, getDidsQuery, createDidMutation } from '../../lib/Signer'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 
@@ -18,6 +13,7 @@ interface Resp {
   data: { dids: Did[] }
   loading: boolean
   refetch: () => void
+  client: any
 }
 
 const Onboarding: React.FC<OnboardingProps> = props => {
@@ -32,13 +28,26 @@ const Onboarding: React.FC<OnboardingProps> = props => {
         }
       }}
     >
-      {({ data, loading, refetch }: Resp) => (
+      {({ data, loading, client }: Resp) => (
         <Screen>
           <Container alignItems={'center'} justifyContent={'center'} flex={1}>
             {!loading && data.dids.length === 0 ? (
               <Mutation
                 mutation={createDidMutation}
                 refetchQueries={['getDids']}
+                onCompleted={({
+                  createDid,
+                }: {
+                  createDid: {
+                    address: string
+                    did: string
+                  }
+                }) => {
+                  // tslint:disable-next-line:no-console
+                  console.log(createDid.address, createDid.did)
+
+                  client.writeData({ data: { selectedDid: createDid.did } })
+                }}
               >
                 {(mutate: any) => (
                   <Button
