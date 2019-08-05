@@ -19,46 +19,47 @@ import {
 } from '@kancha/kancha-ui'
 import { Colors } from '../theme'
 import moment from 'moment'
-import { NavigationScreenProps } from 'react-navigation'
+import { withNavigation, NavigationScreenProps } from 'react-navigation'
 
 interface Result extends QueryResult {
-  data: { identities: Types.Identity[] }
+  data: { claims: Types.VerifiableClaim[] }
 }
 
 interface Props extends NavigationScreenProps {}
 
-const Connections: React.FC<Props> = props => {
+export const Credentials: React.FC<Props> = props => {
+  const { navigation } = props
+  const did = navigation.getParam('did', 'Did does not exist anymore')
   const { t } = useTranslation()
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query query={Queries.getAllIdentities} onError={console.log}>
+        <Query
+          query={Queries.findClaims}
+          variables={{ sub: did }}
+          onError={console.log}
+        >
           {({ data, loading, refetch, error }: Result) =>
             error ? (
               <Text>{error.message}</Text>
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data.identities}
+                data={data.claims}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
                       <Image
-                        source={{ uri: item.profileImage }}
+                        source={{ uri: item.iss.profileImage }}
                         style={{ width: 32, height: 32 }}
                       />
                     }
-                    onPress={() => {
-                      props.navigation.push('Credentials', {
-                        did: item.did,
-                      })
-                    }}
-                    last={index === data.identities.length - 1}
+                    last={index === data.claims.length - 1}
                   >
-                    {item.shortId}
+                    {item.fields.map(field => field.type + ' = ' + field.value)}
                   </ListItem>
                 )}
-                keyExtractor={item => item.did}
+                keyExtractor={item => item.rowId}
                 onRefresh={refetch}
                 refreshing={loading}
               />
@@ -70,4 +71,4 @@ const Connections: React.FC<Props> = props => {
   )
 }
 
-export default Connections
+export default withNavigation(Credentials)

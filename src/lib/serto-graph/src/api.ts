@@ -31,53 +31,60 @@ class Api {
     let sql = null
 
     if (viewer.isAdmin) {
-      sql = 'SELECT * FROM verifiable_claims order by nbf desc'
+      sql =
+        'SELECT "rowid" as rowid, * FROM verifiable_claims order by nbf desc'
       if (iss && !sub) {
-        params = { $iss: iss }
-        sql = 'SELECT * FROM verifiable_claims where iss=$iss order by nbf desc'
-      } else if (!iss && sub) {
-        params = { $sub: sub }
-        sql = 'SELECT * FROM verifiable_claims where sub=$sub order by nbf desc'
-      } else if (iss && sub) {
-        params = { $iss: iss, $sub: sub }
+        params = [iss]
         sql =
-          'SELECT * FROM verifiable_claims where iss=$iss and sub=$sub order by nbf desc'
+          'SELECT "rowid" as rowid, * FROM verifiable_claims where iss=? order by nbf desc'
+      } else if (!iss && sub) {
+        params = [sub]
+        sql =
+          'SELECT "rowid" as rowid, * FROM verifiable_claims where sub=? order by nbf desc'
+      } else if (iss && sub) {
+        params = [iss, sub]
+        sql =
+          'SELECT * FROM verifiable_claims where iss=? and sub=? order by nbf desc'
       }
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = ownership.params
-      const accessControlSql = `inner join messages as m on vc.parent_id = m.id where (m.sub in (${ownership.sql}) or m.iss in (${ownership.sql}))`
+      const accessControlSql = `inner join messages as m on vc.parent_hash = m.hash where (m.sub in (${ownership.sql}) or m.iss in (${ownership.sql}))`
 
-      sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} order by vc.nbf desc`
+      sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} order by vc.nbf desc`
       if (iss && !sub) {
         params[`$iss`] = iss
-        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.iss=$iss order by nbf desc`
+        sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.iss=$iss order by nbf desc`
       } else if (!iss && sub) {
         params[`$sub`] = sub
-        sql = `SELECT vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.sub=$sub order by nbf desc`
+        sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.sub=$sub order by nbf desc`
       }
     }
-
-    return this.db.rows(sql, params).then(rows =>
-      rows.map(row => ({
-        hash: row.id,
-        parentHash: row.parent_id,
+    console.log(sql, params)
+    return this.db.rows(sql, params).then(rows => {
+      return rows.map(row => ({
+        rowId: `${row.rowid}`,
+        hash: row.hash,
+        parentHash: row.parent_hash,
         iss: { did: row.iss },
         sub: { did: row.sub },
         raw: row.raw,
         nbf: row.nbf,
-        exp: row.exp,
-      })),
-    )
+      }))
+    })
   }
 
   claimsForMessageHash(hash: string) {
     return this.db
-      .rows('SELECT * FROM verifiable_claims where parent_id=?', [hash])
+      .rows(
+        'SELECT "rowid" as rowid, * FROM verifiable_claims where parent_hash=?',
+        [hash],
+      )
       .then(rows =>
         rows.map(row => ({
-          hash: row.id,
-          parentHash: row.parent_id,
+          rowId: `${row.rowid}`,
+          hash: row.hash,
+          parentHash: row.parent_hash,
           iss: { did: row.iss },
           sub: { did: row.sub },
           raw: row.raw,
@@ -89,11 +96,15 @@ class Api {
 
   claimsFieldsForClaimHash(hash: string) {
     return this.db
-      .rows('SELECT * FROM verifiable_claims_fields where parent_id=?', [hash])
+      .rows(
+        'SELECT "rowid" as rowid, * FROM verifiable_claims_fields where parent_hash=?',
+        [hash],
+      )
       .then(rows =>
         rows.map(row => ({
-          hash: row.id,
-          parentHash: row.parent_id,
+          rowId: `${row.rowid}`,
+          hash: row.hash,
+          parentHash: row.parent_hash,
           iss: { did: row.iss },
           sub: { did: row.sub },
           type: row.claim_type,
@@ -119,7 +130,7 @@ class Api {
     let params = null
     let sql = null
     if (viewer.isAdmin) {
-      sql = 'SELECT "rowid" as rowid,* FROM messages order by time desc'
+      sql = 'SELECT "rowid" as rowid, * FROM messages order by time desc'
       if (iss && !sub) {
         params = { $iss: iss }
         sql =
@@ -152,7 +163,8 @@ class Api {
     }
     return this.db.rows(sql, params).then(rows =>
       rows.map(row => ({
-        hash: row.rowid,
+        rowId: `${row.rowid}`,
+        hash: row.hash,
         iss: { did: row.iss },
         sub: { did: row.sub },
         type: row.type,
@@ -168,19 +180,20 @@ class Api {
     let sql = null
     if (viewer.isAdmin) {
       params = [hash]
-      sql = 'SELECT * FROM messages where id=?'
+      sql = 'SELECT "rowid" as rowid, * FROM messages where hash=?'
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = { ...ownership.params, $hash: hash }
       const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
-      sql = `SELECT * FROM messages where id=$hash and ${accessControlSql}`
+      sql = `SELECT "rowid" as rowid, * FROM messages where hash=$hash and ${accessControlSql}`
     }
 
     return this.db
       .rows(sql, params)
       .then(rows =>
         rows.map(row => ({
-          hash: row.id,
+          rowId: `${row.rowid}`,
+          hash: row.hash,
           iss: { did: row.iss },
           sub: { did: row.sub },
           type: row.type,
@@ -259,7 +272,7 @@ class Api {
 
   async saveMessage(msg: SertoMessage) {
     await this.db.run(
-      'INSERT INTO messages (id, iss, sub, time, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO messages (hash, iss, sub, time, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [msg.hash, msg.iss, msg.sub, msg.time, msg.type, msg.data, msg.jwt],
     )
 
@@ -284,7 +297,7 @@ class Api {
     const vcHash = blake.blake2bHex(jwt)
 
     await this.db.run(
-      'INSERT INTO verifiable_claims (id, parent_id, iss, sub, nbf, raw ) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO verifiable_claims (hash, parent_hash, iss, sub, nbf, raw ) VALUES (?, ?, ?, ?, ?, ?)',
       [
         vcHash,
         messageHash,
@@ -303,7 +316,7 @@ class Api {
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
         await this.db.run(
-          'INSERT INTO verifiable_claims_fields (parent_id, iss, sub, nbf, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO verifiable_claims_fields (parent_hash, iss, sub, nbf, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?)',
           [
             vcHash,
             verifiableClaim.iss,
@@ -325,12 +338,12 @@ class Api {
     let sql = null
     if (viewer.isAdmin) {
       params = [hash]
-      sql = 'DELETE FROM messages where id=?'
+      sql = 'DELETE FROM messages where hasn=?'
     } else {
       const ownership = this.getOwnershipSqlParams(viewer)
       params = { ...ownership.params, $hash: hash }
       const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
-      sql = `DELETE FROM messages where id=$hash and ${accessControlSql}`
+      sql = `DELETE FROM messages where hash=$hash and ${accessControlSql}`
     }
 
     return this.db.run(sql, params)

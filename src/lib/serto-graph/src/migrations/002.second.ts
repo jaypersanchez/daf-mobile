@@ -5,11 +5,11 @@ export const second: Migration = {
     console.log('Creating indexes...')
 
     await db.run(
-      `CREATE INDEX IF NOT EXISTS "messages_id" ON "messages" ("id");`,
+      `CREATE INDEX IF NOT EXISTS "messages_hash" ON "messages" ("hash");`,
       null,
     )
     await db.run(
-      `CREATE INDEX IF NOT EXISTS "messages_parent_id" ON "messages" ("parent_id");`,
+      `CREATE INDEX IF NOT EXISTS "messages_parent_hash" ON "messages" ("parent_hash");`,
       null,
     )
     await db.run(
@@ -22,7 +22,7 @@ export const second: Migration = {
     )
 
     await db.run(
-      `CREATE INDEX IF NOT EXISTS "verifiable_claims_parent_id" ON "verifiable_claims" ("parent_id");`,
+      `CREATE INDEX IF NOT EXISTS "verifiable_claims_parent_hash" ON "verifiable_claims" ("parent_hash");`,
       null,
     )
     await db.run(
@@ -35,7 +35,7 @@ export const second: Migration = {
     )
 
     await db.run(
-      `CREATE INDEX IF NOT EXISTS "verifiable_claims_fields_parent_id" ON "verifiable_claims_fields" ("parent_id");`,
+      `CREATE INDEX IF NOT EXISTS "verifiable_claims_fields_parent_hash" ON "verifiable_claims_fields" ("parent_hash");`,
       null,
     )
     await db.run(

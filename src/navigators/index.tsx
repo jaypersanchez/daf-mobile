@@ -32,6 +32,7 @@ import DisclosureRequest from '../screens/DisclosureRequest'
 import SignJwt from '../screens/SignJwt'
 import TrustGraphEdges from '../screens/TrustGraphEdges'
 import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+import Credentials from '../screens/Credentials'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -54,6 +55,7 @@ export const Screens = {
   },
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
   TrustGraphEdges: { screen: 'TrustGraphEdges', title: 'TG Edges' },
+  Credentials: { screen: 'Credentials', title: 'Credentials' },
 }
 
 export interface NavigationScreen {
@@ -141,6 +143,12 @@ const DeveloperNavigator = createStackNavigator({
     screen: DidViewer,
     navigationOptions: {
       title: i18n.t('Did Viewer'),
+    },
+  },
+  [Screens.Credentials.screen]: {
+    screen: Credentials,
+    navigationOptions: {
+      title: i18n.t('Credentials'),
     },
   },
   [Screens.Claim.screen]: {

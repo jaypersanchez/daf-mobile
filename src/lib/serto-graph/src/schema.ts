@@ -52,6 +52,7 @@ export const typeDefs = `
 
   type Message {
     hash: ID!
+    rowId: String!
     iss: Identity!
     sub: Identity
     type: String!
@@ -66,6 +67,7 @@ export const typeDefs = `
   type VerifiableClaim {
     hash: ID!
     parentHash: ID!
+    rowId: String!
     iss: Identity!
     sub: Identity!
     json: String!
@@ -76,6 +78,7 @@ export const typeDefs = `
   }
 
   type VerifiableClaimField {
+    rowId: String!
     hash: ID!
     parentHash: ID!
     iss: Identity!
@@ -176,7 +179,10 @@ export const resolvers = {
       _: any,
       { iss, sub }: { iss: string; sub: string },
       { api, viewer }: Context,
-    ) => api.findClaims(iss, sub, viewer),
+    ) => {
+      const res = await api.findClaims(iss, sub, viewer)
+      return res
+    },
   },
   Mutation: {
     newMessage: async (

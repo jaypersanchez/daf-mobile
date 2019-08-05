@@ -41,6 +41,7 @@ export const findMessages = gql`
         profileImage
       }
       type
+      rowId
       hash
       time
       vc {
@@ -67,6 +68,37 @@ export const findMessages = gql`
           value
           isObj
         }
+      }
+    }
+  }
+`
+
+export const findClaims = gql`
+  query FindClaims($iss: ID, $sub: ID) {
+    claims(iss: $iss, sub: $sub) {
+      rowId
+      hash
+      parentHash
+      iss {
+        did
+        shortId
+        firstName
+        lastName
+        profileImage
+      }
+      sub {
+        did
+        shortId
+        firstName
+        lastName
+        profileImage
+      }
+      raw
+      nbf
+      fields {
+        type
+        value
+        isObj
       }
     }
   }

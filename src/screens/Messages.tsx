@@ -53,7 +53,7 @@ export default () => {
                     </Text>
                   </ListItem>
                 )}
-                keyExtractor={item => item.hash}
+                keyExtractor={item => item.rowId}
                 onRefresh={refetch}
                 refreshing={loading}
               />

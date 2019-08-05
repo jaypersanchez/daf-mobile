@@ -37,6 +37,7 @@ export interface Identity {
 }
 
 export interface VerifiableClaim {
+  rowId: string
   hash: string
   parentHash: string
   iss: Identity
@@ -49,6 +50,7 @@ export interface VerifiableClaim {
 }
 
 export interface VerifiableClaimField {
+  rowId: string
   hash: string
   parentHash: string
   iss: Identity
@@ -59,6 +61,7 @@ export interface VerifiableClaimField {
 }
 
 export interface Message {
+  rowId: string
   hash: string
   type: string
   parent?: Message // hash - string
