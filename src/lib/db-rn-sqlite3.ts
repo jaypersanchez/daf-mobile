@@ -25,22 +25,20 @@ export class RnSqlite implements Types.DbDriver {
   run(sql: string, params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db.transaction((tx: any) => {
-        tx.executeSql(sql, params || [], (t, result) => {
-          //todo reject
+        tx.executeSql(sql, params || [], (t: any, result: any) => {
           resolve()
         })
-      })
+      }, reject)
     })
   }
 
   rows(sql: string, params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db.transaction((tx: any) => {
-        tx.executeSql(sql, params || [], (t, result) => {
-          //todo reject
+        tx.executeSql(sql, params || [], (t: any, result: any) => {
           resolve(result.rows.raw())
         })
-      })
+      }, reject)
     })
   }
 }
