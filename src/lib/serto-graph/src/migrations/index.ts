@@ -5,7 +5,7 @@ import Log from '../../../Log'
 
 const availableMigrations = [initial, second]
 
-export const insertLastMigrationId = (db: DbDriver, id: Number) => {
+export const insertLastMigrationId = (db: DbDriver, id: number) => {
   const timestamp = new Date().getTime()
   Log.info('Finished migration: ' + id, 'serto graph')
   return db.run('INSERT INTO migrations VALUES (?, ?)', [id, timestamp])
@@ -17,13 +17,10 @@ const runMigrations = (db: DbDriver) => {
   return db
     .run(
       'CREATE TABLE IF NOT EXISTS migrations (migrationId TEXT, timestamp TEXT)',
-      null,
+      [],
     )
     .then(() =>
-      db.rows(
-        'SELECT * FROM migrations ORDER BY migrationId DESC LIMIT 1',
-        null,
-      ),
+      db.rows('SELECT * FROM migrations ORDER BY migrationId DESC LIMIT 1', []),
     )
     .then(rows => {
       let lastMigrationId = -1

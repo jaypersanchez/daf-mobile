@@ -16,53 +16,27 @@ class Api {
     return runMigrations(this.db)
   }
 
-  // Access Control Logic
-  isAdmin(did: string) {
-    // Todo query for admin claims
-    return false
-  }
-  getOwnedDids(did: string) {
-    // Todo query for ownership claims
-    return [did]
-  }
+  findClaims({ iss, sub }: { iss?: string; sub?: string }) {
+    let params: string[] = []
 
-  findClaims(iss: string, sub: string, viewer: Viewer) {
-    let params = null
-    let sql = null
-
-    if (viewer.isAdmin) {
+    let sql =
+      'SELECT "rowid" as rowid, * FROM verifiable_claims order by nbf desc'
+    if (iss && !sub) {
+      params = [iss]
       sql =
-        'SELECT "rowid" as rowid, * FROM verifiable_claims order by nbf desc'
-      if (iss && !sub) {
-        params = [iss]
-        sql =
-          'SELECT "rowid" as rowid, * FROM verifiable_claims where iss=? order by nbf desc'
-      } else if (!iss && sub) {
-        params = [sub]
-        sql =
-          'SELECT "rowid" as rowid, * FROM verifiable_claims where sub=? order by nbf desc'
-      } else if (iss && sub) {
-        params = [iss, sub]
-        sql =
-          'SELECT * FROM verifiable_claims where iss=? and sub=? order by nbf desc'
-      }
-    } else {
-      const ownership = this.getOwnershipSqlParams(viewer)
-      params = ownership.params
-      const accessControlSql = `inner join messages as m on vc.parent_hash = m.hash where (m.sub in (${ownership.sql}) or m.iss in (${ownership.sql}))`
-
-      sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} order by vc.nbf desc`
-      if (iss && !sub) {
-        params[`$iss`] = iss
-        sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.iss=$iss order by nbf desc`
-      } else if (!iss && sub) {
-        params[`$sub`] = sub
-        sql = `SELECT "rowid" as rowid, vc.* FROM verifiable_claims as vc ${accessControlSql} and vc.sub=$sub order by nbf desc`
-      }
+        'SELECT "rowid" as rowid, * FROM verifiable_claims where iss=? order by nbf desc'
+    } else if (!iss && sub) {
+      params = [sub]
+      sql =
+        'SELECT "rowid" as rowid, * FROM verifiable_claims where sub=? order by nbf desc'
+    } else if (iss && sub) {
+      params = [iss, sub]
+      sql =
+        'SELECT * FROM verifiable_claims where iss=? and sub=? order by nbf desc'
     }
-    console.log(sql, params)
+
     return this.db.rows(sql, params).then(rows => {
-      return rows.map(row => ({
+      return rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
         parentHash: row.parent_hash,
@@ -81,7 +55,7 @@ class Api {
         [hash],
       )
       .then(rows =>
-        rows.map(row => ({
+        rows.map((row: any) => ({
           rowId: `${row.rowid}`,
           hash: row.hash,
           parentHash: row.parent_hash,
@@ -101,7 +75,7 @@ class Api {
         [hash],
       )
       .then(rows =>
-        rows.map(row => ({
+        rows.map((row: any) => ({
           rowId: `${row.rowid}`,
           hash: row.hash,
           parentHash: row.parent_hash,
@@ -114,55 +88,27 @@ class Api {
       )
   }
 
-  getOwnershipSqlParams(viewer: Viewer) {
-    const params = {}
-    const sql = viewer.ownsDids.map((did, key) => `$did${key}`).join(', ')
-    viewer.ownsDids.forEach((did, key) => {
-      params[`$did${key}`] = did
-    })
-    return {
-      params,
-      sql,
-    }
-  }
-
-  findMessages(iss: string, sub: string, viewer: Viewer) {
+  findMessages({ iss, sub }: { iss?: string; sub?: string }) {
     let params = null
     let sql = null
-    if (viewer.isAdmin) {
-      sql = 'SELECT "rowid" as rowid, * FROM messages order by time desc'
-      if (iss && !sub) {
-        params = { $iss: iss }
-        sql =
-          'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by time desc'
-      } else if (!iss && sub) {
-        params = { $sub: sub }
-        sql =
-          'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by time desc'
-      } else if (iss && sub) {
-        params = { $iss: iss, $sub: sub }
-        sql =
-          'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by time desc'
-      }
-    } else {
-      const ownership = this.getOwnershipSqlParams(viewer)
-      params = ownership.params
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
-      sql = `SELECT "rowid" as rowid,* FROM messages where ${accessControlSql} order by time desc`
-      if (iss && !sub) {
-        params[`$iss`] = iss
-        sql = `SELECT "rowid" as rowid,* FROM messages where iss=$iss and ${accessControlSql} order by time desc`
-      } else if (!iss && sub) {
-        params[`$sub`] = sub
-        sql = `SELECT "rowid" as rowid,* FROM messages where sub=$sub and ${accessControlSql} order by time desc`
-      } else if (iss && sub) {
-        params[`$iss`] = iss
-        params[`$sub`] = sub
-        sql = `SELECT "rowid" as rowid,* FROM messages where (iss=$iss or sub=$sub) and ${accessControlSql} order by time desc`
-      }
+
+    sql = 'SELECT "rowid" as rowid, * FROM messages order by time desc'
+    if (iss && !sub) {
+      params = { $iss: iss }
+      sql =
+        'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by time desc'
+    } else if (!iss && sub) {
+      params = { $sub: sub }
+      sql =
+        'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by time desc'
+    } else if (iss && sub) {
+      params = { $iss: iss, $sub: sub }
+      sql =
+        'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by time desc'
     }
+
     return this.db.rows(sql, params).then(rows =>
-      rows.map(row => ({
+      rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
         iss: { did: row.iss },
@@ -176,22 +122,13 @@ class Api {
   }
 
   findMessage(hash: string, viewer: Viewer) {
-    let params = null
-    let sql = null
-    if (viewer.isAdmin) {
-      params = [hash]
-      sql = 'SELECT "rowid" as rowid, * FROM messages where hash=?'
-    } else {
-      const ownership = this.getOwnershipSqlParams(viewer)
-      params = { ...ownership.params, $hash: hash }
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
-      sql = `SELECT "rowid" as rowid, * FROM messages where hash=$hash and ${accessControlSql}`
-    }
+    const params = [hash]
+    const sql = 'SELECT "rowid" as rowid, * FROM messages where hash=?'
 
     return this.db
       .rows(sql, params)
       .then(rows =>
-        rows.map(row => ({
+        rows.map((row: any) => ({
           rowId: `${row.rowid}`,
           hash: row.hash,
           iss: { did: row.iss },
@@ -224,10 +161,10 @@ class Api {
     )
     const uniqueDids = [
       ...new Set([
-        ...messageSubjects.map(item => item.did),
-        ...messageIssuers.map(item => item.did),
-        ...vcIssuers.map(item => item.did),
-        ...vcSubjects.map(item => item.did),
+        ...messageSubjects.map((item: any) => item.did),
+        ...messageIssuers.map((item: any) => item.did),
+        ...vcIssuers.map((item: any) => item.did),
+        ...vcSubjects.map((item: any) => item.did),
       ]),
     ].map(did => ({ did }))
 
@@ -245,7 +182,7 @@ class Api {
       order by count(claim_value) asc ) where sub=? group by sub;`,
       [claimType, did],
     )
-    return rows[0] && rows[0]['claim_value']
+    return rows[0] && rows[0].claim_value
   }
 
   async interactionCount(did: string, viewer: Viewer) {
@@ -254,7 +191,7 @@ class Api {
     where (iss=$did and sub=$viewer) or (iss=$viewer and sub=$did)`,
       { $did: did, $viewer: viewer.did },
     )
-    return rows[0] && rows[0]['count']
+    return rows[0] && rows[0].count
   }
 
   async shortId(did: string) {
@@ -290,7 +227,7 @@ class Api {
 
   async saveVerifiableClaim(jwt: string, messageHash: string) {
     const decoded = await didJWT.decodeJWT(jwt) // todo change to verifyJWT
-    const verifiableClaim = decoded.payload
+    const verifiableClaim = decoded.payload as any
     if (!messages.isValidVerifiableClaim(verifiableClaim)) {
       throw Error('Invalid verifiable claim')
     }
@@ -334,17 +271,8 @@ class Api {
   }
 
   deleteMessage(hash: string, viewer: Viewer) {
-    let params = null
-    let sql = null
-    if (viewer.isAdmin) {
-      params = [hash]
-      sql = 'DELETE FROM messages where hasn=?'
-    } else {
-      const ownership = this.getOwnershipSqlParams(viewer)
-      params = { ...ownership.params, $hash: hash }
-      const accessControlSql = `(iss in (${ownership.sql}) or sub in (${ownership.sql}))`
-      sql = `DELETE FROM messages where hash=$hash and ${accessControlSql}`
-    }
+    const params = [hash]
+    const sql = 'DELETE FROM messages where hash=?'
 
     return this.db.run(sql, params)
   }

@@ -119,7 +119,9 @@ export const resolvers = {
         if (ipfs['/']) {
           url = 'https://cloudflare-ipfs.com' + ipfs['/']
         }
-      } catch (e) {}
+      } catch (e) {
+        // do nothing
+      }
       return url
     },
     url: async (identity: any, {}, { api }: Context) =>
@@ -135,11 +137,11 @@ export const resolvers = {
     ) => {
       switch (edgeType) {
         case 'ISSUER':
-          return api.findClaims(identity.did, null, viewer)
+          return api.findClaims({ iss: identity.did })
         case 'SUBJECT':
-          return api.findClaims(null, identity.did, viewer)
+          return api.findClaims({ sub: identity.did })
       }
-      return api.findClaims(identity.did, identity.did, viewer)
+      return api.findClaims({ iss: identity.did, sub: identity.did })
     },
     messages: async (
       identity: any,
@@ -148,27 +150,31 @@ export const resolvers = {
     ) => {
       switch (edgeType) {
         case 'ISSUER':
-          return api.findMessages(identity.did, null, viewer)
+          return api.findMessages({ iss: identity.did })
         case 'SUBJECT':
-          return api.findMessages(null, identity.did, viewer)
+          return api.findMessages({ sub: identity.did })
       }
-      return api.findMessages(identity.did, identity.did, viewer)
+      return api.findMessages({ iss: identity.did, sub: identity.did })
     },
   },
   Query: {
     viewer: async (_: any, {}, { api, viewer }: Context) =>
       api.findIdentityByDid(viewer.did),
-    identity: async (_: any, { did }, { api }: Context) =>
+    identity: async (_: any, { did }: { did: string }, { api }: Context) =>
       api.findIdentityByDid(did),
-    identities: async (_: any, { dids }, { api }: Context) => {
+    identities: async (
+      _: any,
+      { dids }: { dids: string[] },
+      { api }: Context,
+    ) => {
       return dids ? dids.map(did => ({ did })) : api.allIdentities()
     },
     messages: async (
       _: any,
       { iss, sub }: { iss: string; sub: string },
-      { api, viewer }: Context,
+      { api }: Context,
     ) => {
-      return api.findMessages(iss, sub, viewer)
+      return api.findMessages({ iss, sub })
     },
     message: async (
       _: any,
@@ -180,7 +186,7 @@ export const resolvers = {
       { iss, sub }: { iss: string; sub: string },
       { api, viewer }: Context,
     ) => {
-      const res = await api.findClaims(iss, sub, viewer)
+      const res = await api.findClaims({ iss, sub })
       return res
     },
   },
@@ -190,7 +196,10 @@ export const resolvers = {
       { message }: { message: SertoMessage },
       { api }: Context,
     ) => api.saveMessage(message),
-    deleteMessage: async (_: any, { hash }, { api, viewer }: Context) =>
-      api.deleteMessage(hash, viewer),
+    deleteMessage: async (
+      _: any,
+      { hash }: { hash: string },
+      { api, viewer }: Context,
+    ) => api.deleteMessage(hash, viewer),
   },
 }

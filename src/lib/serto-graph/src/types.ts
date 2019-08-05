@@ -16,7 +16,7 @@ export interface DbDriver {
 }
 
 export interface Migration {
-  run(db: DbDriver, index: Number): Promise<any>
+  run(db: DbDriver, index: number): Promise<any>
 }
 
 export interface DIDManager {
@@ -57,7 +57,7 @@ export interface VerifiableClaimField {
   sub: Identity
   type: string
   value: string
-  isObj: Boolean
+  isObj: boolean
 }
 
 export interface Message {

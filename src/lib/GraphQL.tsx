@@ -37,8 +37,6 @@ const api = new Api(driver)
 const did = ''
 const viewer = {
   did,
-  ownsDids: api.getOwnedDids(did),
-  isAdmin: true,
 }
 
 const contextLink = new SchemaLink({

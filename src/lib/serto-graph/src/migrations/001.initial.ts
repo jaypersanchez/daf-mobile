@@ -15,7 +15,7 @@ export const initial: Migration = {
       jwt TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
-      null,
+      [],
     )
 
     await db.run(
@@ -29,7 +29,7 @@ export const initial: Migration = {
       raw TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
-      null,
+      [],
     )
 
     await db.run(
@@ -41,21 +41,21 @@ export const initial: Migration = {
       claim_value TEXT,
       is_obj NUMERIC NOT NULL default 0
     );`,
-      null,
+      [],
     )
 
     await db.run(
       `CREATE TRIGGER IF NOT EXISTS delete_messages BEFORE DELETE ON "messages" BEGIN
       DELETE FROM verifiable_claims where parent_hash = old.hash;
     END;`,
-      null,
+      [],
     )
 
     await db.run(
       `CREATE TRIGGER IF NOT EXISTS delete_verifiable_claims BEFORE DELETE ON "verifiable_claims" BEGIN
       DELETE FROM verifiable_claims_fields where parent_hash = old.hash;
     END;`,
-      null,
+      [],
     )
   },
 }
