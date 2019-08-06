@@ -1,4 +1,6 @@
 import React from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
+import { persistCache } from 'apollo-cache-persist'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient, Resolvers } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
@@ -46,7 +48,14 @@ const contextLink = new SchemaLink({
 
 const link = from([contextLink])
 
-export const cache = new InMemoryCache()
+export const cache = new InMemoryCache({})
+
+persistCache({
+  cache,
+  // @ts-ignore
+  storage: AsyncStorage,
+})
+
 export const client = new ApolloClient({
   connectToDevTools: true,
   cache,
@@ -55,6 +64,7 @@ export const client = new ApolloClient({
 
 cache.writeData({
   data: {
+    selectedDid: null,
     logs: [],
   },
 })

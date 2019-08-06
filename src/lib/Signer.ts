@@ -1,6 +1,6 @@
 import { Resolvers, ApolloError } from 'apollo-client'
 import gql from 'graphql-tag'
-import { client } from './GraphQL'
+import { client, cache } from './GraphQL'
 import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
 import { createJWT } from 'did-jwt'
 import analytics from '@segment/analytics-react-native'
@@ -20,8 +20,15 @@ export interface Did {
   did: string
   address: string
   seed?: string
+  isSelected: boolean
   __typename?: string
 }
+
+export const getSelectedDidQuery = gql`
+  query getSelectedDid {
+    selectedDid @client
+  }
+`
 
 export const getDidsQuery = gql`
   query getDids {
@@ -29,7 +36,9 @@ export const getDidsQuery = gql`
       did
       address
       seed
+      isSelected
     }
+    selectedDid @client
   }
 `
 export const resolvers: Resolvers = {
@@ -41,9 +50,14 @@ export const resolvers: Resolvers = {
   Query: {
     dids: async (_, args, context) => {
       const list = await RNUportHDSigner.listSeedAddresses()
+      const localCache: any = cache.readQuery({
+        query: getSelectedDidQuery,
+      })
       return list.map((address: string) => ({
         did: 'did:ethr:' + address,
         address,
+        isSelected:
+          localCache && localCache.selectedDid === 'did:ethr:' + address,
         __typename: 'Did',
       })) as Did[]
     },

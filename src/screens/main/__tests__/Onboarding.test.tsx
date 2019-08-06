@@ -1,20 +1,17 @@
 import 'react-native'
 import React from 'react'
-import IdentitySelectionModal from '../IdentitySelectionModal'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from 'react-apollo/test-utils'
-import { getDidsQuery } from '../../../lib/Signer'
+import Onboarding from '../Onboarding'
+import { Did, getDidsQuery, createDidMutation } from '../../../lib/Signer'
 
 jest.useFakeTimers()
 
-const navigation = {
-  goBack: jest.fn(),
-}
-
-const mockDid = {
+const mockDidItem: Did = {
   did: 'did:ethr:123456',
   address: '123456',
   isSelected: true,
+  seed: 'winkle berry boojam',
 }
 
 const mocks = [
@@ -25,8 +22,7 @@ const mocks = [
     },
     result: {
       data: {
-        dids: [mockDid],
-        selectedDid: mockDid.did,
+        logs: [mockDidItem],
       },
     },
   },
@@ -37,7 +33,7 @@ it('renders correctly', () => {
     <MockedProvider mocks={mocks} addTypename={false}>
       {
         // @ts-ignore
-        <IdentitySelectionModal navigation={navigation} />
+        <Onboarding navigation={jest.fn()} />
       }
     </MockedProvider>,
   ).toJSON()

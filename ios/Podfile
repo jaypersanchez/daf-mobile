@@ -38,6 +38,7 @@ target 'Serto' do
   pod 'RNLocalize', :path => '../node_modules/react-native-localize'
 
   pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
   target 'SertoTests' do
     inherit! :search_paths

@@ -10,6 +10,7 @@ import {
 
 import analytics from '@segment/analytics-react-native'
 import { RNUportHDSigner } from 'react-native-uport-signer'
+
 jest.mock('../GraphQL')
 jest.mock('../Log')
 
@@ -17,7 +18,11 @@ it('dids query returns valid result', async () => {
   const result = await resolvers.Query.dids(null, null, null)
   expect(RNUportHDSigner.listSeedAddresses).toBeCalled()
   expect(result).toEqual([
-    { did: 'did:ethr:0x12345', address: '0x12345', __typename: 'Did' },
+    {
+      did: 'did:ethr:0x12345',
+      address: '0x12345',
+      __typename: 'Did',
+    },
   ])
 })
 
