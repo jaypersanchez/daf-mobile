@@ -39,11 +39,7 @@ const Drawer: React.FC<DrawerProps> = props => {
         onPress={() => props.navigation.navigate('IdentitySelectModal')}
       >
         <Query query={getSelectedDidQuery}>
-          {({ data, loading }: Resp) => {
-            if (loading) {
-              return <Container />
-            }
-
+          {({ data }: Resp) => {
             return (
               <Container
                 dividerBottom
@@ -60,7 +56,9 @@ const Drawer: React.FC<DrawerProps> = props => {
                   </Text>
                   <Container>
                     <Text type={Constants.TextTypes.SubTitle}>
-                      {data.selectedDid.substring(0, 20) + '...'}
+                      {data &&
+                        data.selectedDid &&
+                        data.selectedDid.substring(0, 20) + '...'}
                     </Text>
                   </Container>
                 </Container>

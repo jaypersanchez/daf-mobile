@@ -39,8 +39,6 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
                   block={Constants.ButtonBlocks.Filled}
                   buttonText={'Make Default'}
                   onPress={() => {
-                    // tslint:disable-next-line:no-console
-                    console.log(client)
                     client.writeData({ data: { selectedDid: did } })
                     client.reFetchObservableQueries()
                   }}

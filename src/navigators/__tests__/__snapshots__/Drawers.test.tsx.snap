@@ -181,9 +181,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
                 "fontSize": 14,
               }
             }
-          >
-            0xfdh44hdud88dshs333...
-          </Text>
+          />
         </View>
       </View>
       <Text
