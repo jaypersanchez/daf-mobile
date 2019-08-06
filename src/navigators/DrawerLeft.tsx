@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
+import { Query } from 'react-apollo'
+import { getSelectedDidQuery } from '../lib/Signer'
 import {
   Text,
   Container,
@@ -18,8 +20,17 @@ interface DrawerProps extends NavigationScreen {
   theme: any
 }
 
+interface Resp {
+  data: {
+    selectedDid: string
+  }
+  loading: boolean
+}
+
 /**
- * Custom drawer implemenation using Kancha components
+ * @Todo
+ * The query just grabs whats in cache as seleted query but this will
+ * need to be updated with a getUser query that passes in @selectedDid as its param
  */
 const Drawer: React.FC<DrawerProps> = props => {
   return (
@@ -27,27 +38,39 @@ const Drawer: React.FC<DrawerProps> = props => {
       <TouchableOpacity
         onPress={() => props.navigation.navigate('IdentitySelectModal')}
       >
-        <Container
-          dividerBottom
-          background={'primary'}
-          padding={true}
-          flexDirection={'row'}
-          alignItems={'center'}
-          marginTop={50}
-        >
-          <Avatar title={'Sarah Adamson'} border={true} size={40} />
-          <Container paddingLeft={10} paddingRight={5}>
-            <Text bold={true} type={Constants.TextTypes.Body}>
-              Sarah Adamson
-            </Text>
-            <Container>
-              <Text type={Constants.TextTypes.SubTitle}>
-                0xfdh44hdud88dshs333...
-              </Text>
-            </Container>
-          </Container>
-          <Icon icon={{ name: 'ios-arrow-down', iconFamily: 'Ionicons' }} />
-        </Container>
+        <Query query={getSelectedDidQuery}>
+          {({ data, loading }: Resp) => {
+            if (loading) {
+              return <Container />
+            }
+
+            return (
+              <Container
+                dividerBottom
+                background={'primary'}
+                padding={true}
+                flexDirection={'row'}
+                alignItems={'center'}
+                marginTop={50}
+              >
+                <Avatar title={'Sarah Adamson'} border={true} size={40} />
+                <Container paddingLeft={10} paddingRight={5}>
+                  <Text bold={true} type={Constants.TextTypes.Body}>
+                    Sarah Adamson
+                  </Text>
+                  <Container>
+                    <Text type={Constants.TextTypes.SubTitle}>
+                      {data.selectedDid.substring(0, 20) + '...'}
+                    </Text>
+                  </Container>
+                </Container>
+                <Icon
+                  icon={{ name: 'ios-arrow-down', iconFamily: 'Ionicons' }}
+                />
+              </Container>
+            )
+          }}
+        </Query>
       </TouchableOpacity>
       <ScrollView>
         <Container paddingTop paddingBottom>

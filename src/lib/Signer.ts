@@ -24,7 +24,7 @@ export interface Did {
   __typename?: string
 }
 
-const getSelectedDidQuery = gql`
+export const getSelectedDidQuery = gql`
   query getSelectedDid {
     selectedDid @client
   }
