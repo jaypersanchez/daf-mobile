@@ -10,6 +10,7 @@ import {
 
 import analytics from '@segment/analytics-react-native'
 import { RNUportHDSigner } from 'react-native-uport-signer'
+
 jest.mock('../GraphQL')
 jest.mock('../Log')
 

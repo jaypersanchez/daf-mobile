@@ -50,13 +50,14 @@ export const resolvers: Resolvers = {
   Query: {
     dids: async (_, args, context) => {
       const list = await RNUportHDSigner.listSeedAddresses()
-      const { selectedDid }: any = cache.readQuery({
+      const localCache: any = cache.readQuery({
         query: getSelectedDidQuery,
       })
       return list.map((address: string) => ({
         did: 'did:ethr:' + address,
         address,
-        isSelected: selectedDid === 'did:ethr:' + address,
+        isSelected:
+          localCache && localCache.selectedDid === 'did:ethr:' + address,
         __typename: 'Did',
       })) as Did[]
     },
