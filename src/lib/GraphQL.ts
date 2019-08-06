@@ -42,6 +42,7 @@ export const client = new ApolloClient({
 
 cache.writeData({
   data: {
+    selectedDid: null,
     logs: [],
   },
 })
