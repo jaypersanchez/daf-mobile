@@ -7,6 +7,7 @@ import {
   NavigationParams,
   NavigationScreenProp,
   NavigationState,
+  createSwitchNavigator,
 } from 'react-navigation'
 import i18n from '../lib/I18n'
 
@@ -29,6 +30,7 @@ import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
 import SignJwt from '../screens/SignJwt'
 import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+import Onboarding from '../screens/main/Onboarding'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -48,6 +50,8 @@ export const Screens = {
     title: 'Disclosure Request',
   },
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
+  Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
+  IdentityCheck: { screen: 'IdentityCheck', title: 'Identity Check' },
 }
 
 export interface NavigationScreen {
@@ -192,7 +196,7 @@ const handleCustomTransition = ({ scenes }: any) => {
   }
 }
 
-const RootNavigator = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     Drawer: DrawerNavigator,
     [Screens.Scanner.screen]: {
@@ -213,6 +217,27 @@ const RootNavigator = createStackNavigator(
     mode: 'modal',
     transparentCard: true,
     transitionConfig: nav => handleCustomTransition(nav),
+  },
+)
+
+const OnboardingNavigator = createStackNavigator(
+  {
+    [Screens.Onboarding.screen]: {
+      screen: Onboarding,
+    },
+  },
+  {
+    headerMode: 'none',
+  },
+)
+
+const RootNavigator = createSwitchNavigator(
+  {
+    App: AppNavigator,
+    Onboarding: OnboardingNavigator,
+  },
+  {
+    initialRouteName: 'Onboarding',
   },
 )
 

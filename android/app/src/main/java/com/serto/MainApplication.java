@@ -3,6 +3,7 @@ package com.serto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
@@ -37,7 +38,8 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNScreensPackage(), new RNCameraPackage(),
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new AsyncStoragePackage(), new RNScreensPackage(), new RNCameraPackage(),
           new RNAnalyticsPackage(), new RNSentryPackage(), new RNUportSignerPackage(), new RNLocalizePackage(),
           new RNGestureHandlerPackage(),
           new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey),

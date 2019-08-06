@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import { ApolloClient, Resolvers } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { persistCache } from 'apollo-cache-persist'
 import { from } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import gql from 'graphql-tag'
@@ -23,7 +25,14 @@ const typeDefs = gql`
   }
 `
 
-export const cache = new InMemoryCache()
+export const cache = new InMemoryCache({})
+
+persistCache({
+  cache,
+  // @ts-ignore
+  storage: AsyncStorage,
+})
+
 export const client = new ApolloClient({
   connectToDevTools: true,
   typeDefs,

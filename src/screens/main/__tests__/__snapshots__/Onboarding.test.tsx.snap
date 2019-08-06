@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  pointerEvents="auto"
+  style={
+    Object {
+      "alignItems": undefined,
+      "backgroundColor": undefined,
+      "borderRadius": undefined,
+      "flex": 1,
+      "flexDirection": undefined,
+      "height": undefined,
+      "justifyContent": undefined,
+      "margin": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "padding": undefined,
+      "paddingBottom": undefined,
+      "paddingHorizontal": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "width": undefined,
+    }
+  }
+>
+  <View
+    pointerEvents="auto"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": undefined,
+        "borderRadius": undefined,
+        "flex": 1,
+        "flexDirection": undefined,
+        "height": undefined,
+        "justifyContent": "center",
+        "margin": undefined,
+        "marginBottom": undefined,
+        "marginLeft": undefined,
+        "marginRight": undefined,
+        "marginTop": undefined,
+        "padding": undefined,
+        "paddingBottom": undefined,
+        "paddingHorizontal": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+        "width": undefined,
+      }
+    }
+  >
+    <ActivityIndicator
+      animating={true}
+      color="#3A89C9"
+      hidesWhenStopped={true}
+      size="large"
+    />
+  </View>
+</View>
+`;
