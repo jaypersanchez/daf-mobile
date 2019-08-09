@@ -23,7 +23,9 @@ const Onboarding: React.FC<OnboardingProps> = props => {
     <Query
       query={getDidsQuery}
       onCompleted={(data: { dids: Did[] }) => {
-        if (data.dids.length > 0) {
+        // tslint:disable-next-line:no-console
+        console.log(data)
+        if (data.dids.length !== 0) {
           props.navigation.navigate('App')
         }
       }}

@@ -16,12 +16,24 @@ import { Icons } from '../theme'
 
 export default (props: NavigationScreen) => {
   const { t } = useTranslation()
+  const loadRequest = (requestData: any) => {
+    setTimeout(() => {
+      if (requestData.type === 'DISCLOSURE') {
+        props.navigation.navigate('Request', {
+          requestData,
+        })
+      }
+    }, 500)
+  }
+
   return (
     <Screen
       fabButton={
         <Container>
           <FabButton
-            onPress={() => props.navigation.push('Scanner')}
+            onPress={() =>
+              props.navigation.navigate('Scanner', { loadRequest })
+            }
             icon={Icons.SCAN}
           />
         </Container>
@@ -34,7 +46,7 @@ export default (props: NavigationScreen) => {
         backgroundColor={'#F5FCFF'}
       >
         <Container paddingBottom>
-          <Text type={Constants.TextTypes.H2}>{t('Welcome to Serto')}!</Text>
+          <Text type={Constants.TextTypes.H2}>{t('Scan a QR code')}!</Text>
         </Container>
       </Container>
     </Screen>

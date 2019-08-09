@@ -7,14 +7,14 @@ import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { NavigationScreen } from '../navigators'
 import { Colors, Icons } from '../theme'
-import { Alert } from 'react-native'
 
 export default (props: NavigationScreen) => {
   const onBarCodeRead = (e: any) => {
-    // tslint:disable-next-line:no-console
-    console.log('Barcode value is ' + e.data, 'Barcode type is ' + e.type)
-
-    props.navigation.goBack()
+    props.navigation.navigate('App')
+    props.navigation.state.params.loadRequest({
+      type: 'DISCLOSURE',
+      data: JSON.parse(e.data),
+    })
   }
 
   return (
@@ -23,7 +23,7 @@ export default (props: NavigationScreen) => {
         <Container alignItems={'center'} justifyContent={'flex-end'}>
           <FabButton
             color={Colors.CHARCOAL}
-            onPress={() => props.navigation.goBack()}
+            onPress={() => props.navigation.navigate('App')}
             icon={Icons.CLOSE}
           />
         </Container>

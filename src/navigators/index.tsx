@@ -28,6 +28,7 @@ import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
+import Request from '../screens/main/Request'
 import SignJwt from '../screens/SignJwt'
 import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
 import Onboarding from '../screens/main/Onboarding'
@@ -48,6 +49,10 @@ export const Screens = {
   DisclosureRequest: {
     screen: 'DisclosureRequest',
     title: 'Disclosure Request',
+  },
+  Request: {
+    screen: 'Request',
+    title: 'Request',
   },
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
   Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
@@ -171,26 +176,15 @@ const DrawerNavigator = createDrawerNavigator(
  * Define custom transitions for views based on routenames
  */
 const handleCustomTransition = ({ scenes }: any) => {
-  const prevScene = scenes[scenes.length - 2]
-  const nextScene = scenes[scenes.length - 1]
-  const defaultDuration = 500
-
-  if (
-    (prevScene && prevScene.route.routeName === Screens.Scanner.screen) ||
-    (nextScene && nextScene.route.routeName === Screens.Scanner.screen)
-  ) {
-    return {
-      transitionSpec: {
-        duration: 0,
-      },
-    }
-  }
+  // const prevScene = scenes[scenes.length - 2]
+  // const nextScene = scenes[scenes.length - 1]
+  const defaultDuration = 700
 
   return {
     transitionSpec: {
       duration: defaultDuration,
       timing: Animated.timing,
-      easing: Easing.out(Easing.poly(7)),
+      easing: Easing.out(Easing.poly(5)),
       useNativeDriver: true,
     },
   }
@@ -199,9 +193,6 @@ const handleCustomTransition = ({ scenes }: any) => {
 const AppNavigator = createStackNavigator(
   {
     Drawer: DrawerNavigator,
-    [Screens.Scanner.screen]: {
-      screen: Scanner,
-    },
     [Screens.ModalDemo.screen]: {
       screen: ModalDemo,
     },
@@ -210,6 +201,9 @@ const AppNavigator = createStackNavigator(
     },
     [Screens.DisclosureRequest.screen]: {
       screen: DisclosureRequest,
+    },
+    [Screens.Request.screen]: {
+      screen: Request,
     },
   },
   {
@@ -235,6 +229,7 @@ const RootNavigator = createSwitchNavigator(
   {
     App: AppNavigator,
     Onboarding: OnboardingNavigator,
+    [Screens.Scanner.screen]: Scanner,
   },
   {
     initialRouteName: 'Onboarding',
