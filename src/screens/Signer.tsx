@@ -6,7 +6,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
-import { Query, Mutation, MutationState } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { NavigationScreenProps } from 'react-navigation'
 import {
   Did,
@@ -40,7 +40,7 @@ const Signer: React.FC<SignerProps> = props => {
             // tslint:disable-next-line:no-console
             onError={(e: any) => console.log('Error: ', e)}
           >
-            {(mutate: any, state: MutationState) => {
+            {(mutate: any, state: any) => {
               return (
                 <Container paddingBottom>
                   <Button

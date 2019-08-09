@@ -2,70 +2,50 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Screen, Container, Text, Button, Constants } from '@kancha/kancha-ui'
 import { NavigationScreen } from '../../navigators'
-import { Query, Mutation } from 'react-apollo'
-import { Did, getDidsQuery, createDidMutation } from '../../lib/Signer'
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
+import {
+  getDidsQuery as GET_DIDS,
+  createDidMutation as CREATE_DID,
+} from '../../lib/Signer'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 
 interface OnboardingProps extends NavigationScreen {}
 
-interface Resp {
-  data: { dids: Did[] }
-  loading: boolean
-  refetch: () => void
-  client: any
-}
-
 const Onboarding: React.FC<OnboardingProps> = props => {
   const { t } = useTranslation()
+  const client = useApolloClient()
+  const { data, loading, error } = useQuery(GET_DIDS, {
+    onCompleted(response) {
+      if (response.dids.length > 0) {
+        props.navigation.navigate('App')
+      }
+    },
+  })
+  const [createDid] = useMutation(CREATE_DID, {
+    onCompleted(response) {
+      client.writeData({ data: { selectedDid: response.createDid.did } })
+    },
+    refetchQueries: ['getDids'],
+  })
 
   return (
-    <Query
-      query={getDidsQuery}
-      onCompleted={(data: { dids: Did[] }) => {
-        if (data.dids.length > 0) {
-          props.navigation.navigate('App')
-        }
-      }}
-    >
-      {({ data, loading, client }: Resp) => (
-        <Screen>
-          <Container alignItems={'center'} justifyContent={'center'} flex={1}>
-            {!loading && data.dids.length === 0 ? (
-              <Mutation
-                mutation={createDidMutation}
-                refetchQueries={['getDids']}
-                onCompleted={({
-                  createDid,
-                }: {
-                  createDid: {
-                    address: string
-                    did: string
-                  }
-                }) => {
-                  client.writeData({ data: { selectedDid: createDid.did } })
-                }}
-              >
-                {(mutate: any) => (
-                  <Button
-                    fullWidth
-                    type={Constants.BrandOptions.Primary}
-                    block={Constants.ButtonBlocks.Filled}
-                    buttonText={t('Create New Identity')}
-                    onPress={() => {
-                      mutate()
-                    }}
-                    navButton
-                  />
-                )}
-              </Mutation>
-            ) : (
-              <ActivityIndicator size={'large'} color={Colors.BRAND} />
-            )}
-          </Container>
-        </Screen>
-      )}
-    </Query>
+    <Screen>
+      <Container alignItems={'center'} justifyContent={'center'} flex={1}>
+        {loading && <ActivityIndicator size={'large'} color={Colors.BRAND} />}
+        {!loading && data.dids.length === 0 && (
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Create New Identity')}
+            onPress={() => {
+              createDid()
+            }}
+          />
+        )}
+      </Container>
+    </Screen>
   )
 }
 
