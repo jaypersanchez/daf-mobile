@@ -181,7 +181,7 @@ const DrawerNavigator = createDrawerNavigator(
 const handleCustomTransition = ({ scenes }: any) => {
   // const prevScene = scenes[scenes.length - 2]
   // const nextScene = scenes[scenes.length - 1]
-  const defaultDuration = 700
+  const defaultDuration = 500
 
   return {
     transitionSpec: {

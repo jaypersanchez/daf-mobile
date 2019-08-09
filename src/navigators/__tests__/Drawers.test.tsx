@@ -3,7 +3,7 @@ import React from 'react'
 import DrawerLeft from '../DrawerLeft'
 import DrawerRight from '../DrawerRight'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import { getSelectedDidQuery } from '../../lib/Signer'
 
 jest.useFakeTimers()

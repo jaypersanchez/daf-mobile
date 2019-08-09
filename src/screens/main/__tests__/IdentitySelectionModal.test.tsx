@@ -2,7 +2,7 @@ import 'react-native'
 import React from 'react'
 import IdentitySelectionModal from '../IdentitySelectionModal'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import { getDidsQuery } from '../../../lib/Signer'
 
 jest.useFakeTimers()

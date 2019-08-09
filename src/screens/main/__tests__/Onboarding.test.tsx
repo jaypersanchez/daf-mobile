@@ -1,7 +1,7 @@
 import 'react-native'
 import React from 'react'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import Onboarding from '../Onboarding'
 import { Did, getDidsQuery, createDidMutation } from '../../../lib/Signer'
 
