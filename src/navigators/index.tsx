@@ -14,24 +14,27 @@ import i18n from '../lib/I18n'
 import { Container, Icon, Button, Constants } from '@kancha/kancha-ui'
 import { Icons, Colors } from '../theme'
 
-import Welcome from '../screens/Welcome'
+// Main Screens
+import Welcome from '../screens/main/Welcome'
+import Scanner from '../screens/main/Scanner'
+import DrawerRight from './DrawerRight'
+import DrawerLeft from './DrawerLeft'
+import Request from '../screens/main/Request'
+import Onboarding from '../screens/main/Onboarding'
+import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+
+// Developer Screens
 import Developer from '../screens/Developer'
 import Logs from '../screens/Logs'
 import Codepush from '../screens/Codepush'
 import Signer from '../screens/Signer'
 import Config from '../screens/Config'
 import Crash from '../screens/Crash'
-import Scanner from '../screens/Scanner'
-import DrawerRight from './DrawerRight'
-import DrawerLeft from './DrawerLeft'
 import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
-import Request from '../screens/main/Request'
 import SignJwt from '../screens/SignJwt'
-import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
-import Onboarding from '../screens/main/Onboarding'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },

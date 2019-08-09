@@ -11,8 +11,8 @@ import {
   Constants,
   Screen,
 } from '@kancha/kancha-ui'
-import { NavigationScreen } from '../navigators'
-import { Icons } from '../theme'
+import { NavigationScreen } from '../../navigators'
+import { Icons } from '../../theme'
 
 export default (props: NavigationScreen) => {
   const { t } = useTranslation()

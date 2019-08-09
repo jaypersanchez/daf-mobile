@@ -5,8 +5,8 @@
 import * as React from 'react'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
-import { NavigationScreen } from '../navigators'
-import { Colors, Icons } from '../theme'
+import { NavigationScreen } from '../../navigators'
+import { Colors, Icons } from '../../theme'
 
 export default (props: NavigationScreen) => {
   const onBarCodeRead = (e: any) => {
