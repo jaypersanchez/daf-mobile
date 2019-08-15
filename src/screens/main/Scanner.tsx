@@ -13,7 +13,7 @@ export default (props: NavigationScreen) => {
     props.navigation.navigate('App')
     props.navigation.state.params.loadRequest({
       type: 'DISCLOSURE',
-      data: JSON.parse(e.data),
+      data: e.data,
     })
   }
 

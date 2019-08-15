@@ -6,6 +6,7 @@ import {
   Constants,
   Banner,
   RequestItem,
+  Toaster,
 } from '@kancha/kancha-ui'
 import { NavigationScreenProps } from 'react-navigation'
 import { Colors } from '../../theme'
@@ -17,6 +18,20 @@ const avatar1 = require('../../assets/images/space-x-logo.jpg')
 const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
 const Component: React.FC<NavigationScreenProps> = ({ navigation }) => {
+  const accept = () => {
+    navigation.goBack()
+    /**
+     * Mock receiving a credential sometime after
+     */
+    setTimeout(() => {
+      Toaster.confirm(
+        'Credential Received!',
+        'You have received a credential from somebody.',
+        2000,
+      )
+    }, 500)
+  }
+
   return (
     <Screen
       statusBarHidden={true}
@@ -44,7 +59,7 @@ const Component: React.FC<NavigationScreenProps> = ({ navigation }) => {
                 block={Constants.ButtonBlocks.Filled}
                 type={Constants.BrandOptions.Primary}
                 buttonText={'Accept'}
-                onPress={() => navigation.goBack()}
+                onPress={accept}
                 shadowOpacity={0.2}
               />
             </Container>
