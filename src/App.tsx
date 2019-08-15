@@ -7,7 +7,7 @@ import { client } from './lib/GraphQL'
 import Log from './lib/Log'
 import './lib/I18n'
 
-import { ThemeProvider } from '@kancha/kancha-ui'
+import { ThemeProvider, Toast } from '@kancha/kancha-ui'
 import { Theme } from './theme'
 
 const defaultHandler =
@@ -32,6 +32,7 @@ class App extends React.Component {
     return (
       <ApolloProvider client={client}>
         <ThemeProvider theme={Theme}>
+          <Toast />
           <Navigation />
         </ThemeProvider>
       </ApolloProvider>
