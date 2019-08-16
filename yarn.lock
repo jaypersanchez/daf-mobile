@@ -1097,10 +1097,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.17":
-  version "1.0.0-beta.17"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.17.tgz#b63020f930676ce33a4f00fe9494d96ad9b1ceed"
-  integrity sha512-lMcP4yFYdRTSeErix+1hz3vwqekzTXPX8gcuRLXRM9gbfCvzyr3ITxRrK36q9ui6cTz0AIASG7MYzt3NFgUVSw==
+"@kancha/kancha-ui@^1.0.0-beta.18":
+  version "1.0.0-beta.18"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.18.tgz#e001ee846e4759721fdf21124328f3e8e691fc07"
+  integrity sha512-dtSjt65S5xWZEoxLEWx9+dQKUE3c+4jRYWYMWj+vUE/hShDBNFjo4z02a3UnUQHxrg6Z2kyXi4jezXbrvuo6ag==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"

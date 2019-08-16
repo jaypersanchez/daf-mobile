@@ -22,6 +22,7 @@ import DrawerLeft from './DrawerLeft'
 import Request from '../screens/main/Request'
 import Onboarding from '../screens/main/Onboarding'
 import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+import Credential from '../screens/main/Credential'
 
 // Developer Screens
 import Developer from '../screens/Developer'
@@ -60,6 +61,7 @@ export const Screens = {
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
   Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
   IdentityCheck: { screen: 'IdentityCheck', title: 'Identity Check' },
+  Credential: { screen: 'Credential', title: 'Credential' },
 }
 
 export interface NavigationScreen {
@@ -207,6 +209,9 @@ const AppNavigator = createStackNavigator(
     },
     [Screens.Request.screen]: {
       screen: Request,
+    },
+    [Screens.Credential.screen]: {
+      screen: Credential,
     },
   },
   {

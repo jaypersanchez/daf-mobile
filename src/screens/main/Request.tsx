@@ -8,7 +8,7 @@ import {
   RequestItem,
   Toaster,
 } from '@kancha/kancha-ui'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationScreen } from '../../navigators'
 import { Colors } from '../../theme'
 
 // tslint:disable-next-line:no-var-requires
@@ -17,9 +17,9 @@ const avatar1 = require('../../assets/images/space-x-logo.jpg')
 // tslint:disable-next-line:no-var-requires
 const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
-const Component: React.FC<NavigationScreenProps> = ({ navigation }) => {
+const Component: React.FC<NavigationScreen> = props => {
   const accept = () => {
-    navigation.goBack()
+    props.navigation.goBack()
     /**
      * Mock receiving a credential sometime after
      */
@@ -51,7 +51,7 @@ const Component: React.FC<NavigationScreenProps> = ({ navigation }) => {
                 block={Constants.ButtonBlocks.Clear}
                 type={Constants.BrandOptions.Warning}
                 buttonText={'Decline'}
-                onPress={() => navigation.goBack()}
+                onPress={() => props.navigation.goBack()}
               />
             </Container>
             <Container flex={1}>

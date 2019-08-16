@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.0",
-    "@kancha/kancha-ui": "^1.0.0-beta.17",
+    "@kancha/kancha-ui": "^1.0.0-beta.18",
     "@react-native-community/async-storage": "^1.6.1",
     "@segment/analytics-react-native": "^1.1.0-beta.0",
     "add": "^2.0.6",
