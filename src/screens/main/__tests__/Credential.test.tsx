@@ -7,6 +7,7 @@ jest.useFakeTimers()
 
 const navigation = {
   navigate: jest.fn(),
+  getParam: jest.fn(),
 }
 
 it('renders correctly', () => {

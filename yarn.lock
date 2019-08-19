@@ -1097,10 +1097,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@kancha/kancha-ui@^1.0.0-beta.18":
-  version "1.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.18.tgz#e001ee846e4759721fdf21124328f3e8e691fc07"
-  integrity sha512-dtSjt65S5xWZEoxLEWx9+dQKUE3c+4jRYWYMWj+vUE/hShDBNFjo4z02a3UnUQHxrg6Z2kyXi4jezXbrvuo6ag==
+"@kancha/kancha-ui@^1.0.0-beta.20":
+  version "1.0.0-beta.20"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.20.tgz#dfd0efcc2019d4a4bb11402a64d031dd7e62a63f"
+  integrity sha512-6M//XkTkeIXqa0ZC/XavG1P60cDoDk8+wEaiV8fOrSTMBdoeH+Dfc711GcX5DQpdzcK10nHx7PivuW7a/RbPjA==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -1110,6 +1110,7 @@
     react-native-json-tree "^1.2.0"
     react-native-keyboard-aware-scrollview "^2.0.0"
     react-native-vector-icons "^6.5.0"
+    string "^3.3.3"
 
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
@@ -7863,6 +7864,11 @@ string-width@^3.0.0, string-width@^3.1.0:
     emoji-regex "^7.0.1"
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^5.1.0"
+
+string@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/string/-/string-3.3.3.tgz#5ea211cd92d228e184294990a6cc97b366a77cb0"
+  integrity sha1-XqIRzZLSKOGEKUmQpsyXs2anfLA=
 
 string_decoder@^1.1.1:
   version "1.2.0"

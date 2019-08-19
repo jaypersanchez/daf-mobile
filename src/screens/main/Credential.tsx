@@ -1,48 +1,38 @@
 import * as React from 'react'
-import { Container, Modal, Text, Constants } from '@kancha/kancha-ui'
+import {
+  Container,
+  Modal,
+  Banner,
+  ClaimExplore,
+  Typings,
+} from '@kancha/kancha-ui'
 import { NavigationScreenProps } from 'react-navigation'
-import { Colors } from '../../theme'
+
+// tslint:disable-next-line:no-var-requires
+const avatar1 = require('../../assets/images/space-x-logo.jpg')
+
+// tslint:disable-next-line:no-var-requires
+const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
 interface Props extends NavigationScreenProps {}
 
 const Credential: React.FC<Props> = ({ navigation }) => {
+  const vc: Typings.VerifiableCredential = navigation.getParam('vc', null)
+
   return (
-    <Modal dismiss={() => navigation.goBack()} scrollEnabled>
-      <Container padding>
-        <Container marginBottom>
-          <Text type={Constants.TextTypes.H3}>Credential</Text>
+    <Modal scrollEnabled={true}>
+      {vc && (
+        <Container>
+          <Banner
+            size={'small'}
+            title={vc.type || ''}
+            subTitle={vc.iss}
+            avatar={avatar1}
+            backgroundImage={bannerImage}
+          />
+          <ClaimExplore claim={vc.claim} />
         </Container>
-        <Container
-          h={80}
-          backgroundColor={Colors.LIGHTEST_GREY}
-          br={10}
-          marginBottom={10}
-        />
-        <Container
-          h={80}
-          backgroundColor={Colors.LIGHTEST_GREY}
-          br={10}
-          marginBottom={10}
-        />
-        <Container
-          h={80}
-          backgroundColor={Colors.LIGHTEST_GREY}
-          br={10}
-          marginBottom={10}
-        />
-        <Container
-          h={80}
-          backgroundColor={Colors.LIGHTEST_GREY}
-          br={10}
-          marginBottom={10}
-        />
-        <Container
-          h={80}
-          backgroundColor={Colors.LIGHTEST_GREY}
-          br={10}
-          marginBottom={10}
-        />
-      </Container>
+      )}
     </Modal>
   )
 }
