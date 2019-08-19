@@ -88,12 +88,12 @@ Array [
                 "height": undefined,
                 "justifyContent": undefined,
                 "margin": undefined,
-                "marginBottom": undefined,
+                "marginBottom": 15,
                 "marginLeft": undefined,
                 "marginRight": undefined,
                 "marginTop": undefined,
                 "padding": undefined,
-                "paddingBottom": 15,
+                "paddingBottom": undefined,
                 "paddingHorizontal": undefined,
                 "paddingLeft": undefined,
                 "paddingRight": undefined,
@@ -313,7 +313,7 @@ Array [
                           }
                         }
                       >
-                        Network Maintenance
+                        Serto ID
                       </Text>
                     </View>
                     <Text
@@ -324,7 +324,7 @@ Array [
                         }
                       }
                     >
-                      Cern
+                      Serto Identity Platform
                     </Text>
                   </View>
                 </View>
