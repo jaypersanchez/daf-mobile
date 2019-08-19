@@ -237,6 +237,7 @@ workflows:
       - android-build:
           requires:
             - checkout-setup
+            - unit-tests
       - android-deploy:
           requires:
             - android-build
@@ -252,6 +253,7 @@ workflows:
       - ios-build:
           requires:
             - checkout-setup
+            - unit-tests
       - ios-deploy:
           requires:
             - ios-build
