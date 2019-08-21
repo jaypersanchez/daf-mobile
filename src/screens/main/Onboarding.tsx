@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Screen, Container, Text, Button, Constants } from '@kancha/kancha-ui'
+import { Screen, Container, Button, Constants } from '@kancha/kancha-ui'
 import { NavigationScreen } from '../../navigators'
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import {
@@ -33,15 +33,14 @@ const Onboarding: React.FC<OnboardingProps> = props => {
     <Screen>
       <Container alignItems={'center'} justifyContent={'center'} flex={1}>
         {loading && <ActivityIndicator size={'large'} color={Colors.BRAND} />}
-        {!loading && data.dids.length === 0 && (
+        {!loading && data.dids && data.dids.length === 0 && (
           <Button
+            testID={'CREATE_IDENTITY_BTN'}
             fullWidth
             type={Constants.BrandOptions.Primary}
             block={Constants.ButtonBlocks.Filled}
             buttonText={t('Create New Identity')}
-            onPress={() => {
-              createDid()
-            }}
+            onPress={() => createDid()}
           />
         )}
       </Container>

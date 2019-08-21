@@ -3,8 +3,6 @@ import React from 'react'
 import Developer from '../Developer'
 import { render } from 'react-native-testing-library'
 
-jest.useFakeTimers()
-
 const navigation = {
   navigate: jest.fn(),
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Onboarding renders the intermediate screen if dids are present 1`] = `
 <View
   pointerEvents="auto"
   style={

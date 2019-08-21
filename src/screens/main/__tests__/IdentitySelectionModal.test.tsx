@@ -6,6 +6,7 @@ import { MockedProvider } from '@apollo/react-testing'
 import { getDidsQuery } from '../../../lib/Signer'
 
 jest.useFakeTimers()
+jest.runAllTimers()
 
 const navigation = {
   goBack: jest.fn(),
@@ -33,12 +34,11 @@ const mocks = [
 ]
 
 it('renders correctly', () => {
+  // @ts-ignore
+  const screen = <IdentitySelectionModal navigation={navigation} />
   const tree = render(
     <MockedProvider mocks={mocks} addTypename={false}>
-      {
-        // @ts-ignore
-        <IdentitySelectionModal navigation={navigation} />
-      }
+      {screen}
     </MockedProvider>,
   ).toJSON()
   expect(tree).toMatchSnapshot()

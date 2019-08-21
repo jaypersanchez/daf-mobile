@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Welcome renders correctly 1`] = `
 Array [
   <RCTScrollView
     contentInset={
@@ -580,6 +580,7 @@ Array [
       }
     >
       <View
+        accessibilityLabel="SCAN_BTN"
         accessible={true}
         isTVSelectable={true}
         onResponderGrant={[Function]}
@@ -603,6 +604,7 @@ Array [
             "width": 70,
           }
         }
+        testID="SCAN_BTN"
       >
         <Text
           allowFontScaling={false}

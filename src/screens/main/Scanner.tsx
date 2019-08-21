@@ -22,6 +22,7 @@ export default (props: NavigationScreen) => {
       fabButton={
         <Container alignItems={'center'} justifyContent={'flex-end'}>
           <FabButton
+            testID={'CANCEL_SCAN_BTN'}
             color={Colors.CHARCOAL}
             onPress={() => props.navigation.navigate('App')}
             icon={Icons.CLOSE}

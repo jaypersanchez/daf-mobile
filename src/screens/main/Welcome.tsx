@@ -2,8 +2,7 @@
  * Serto Mobile App
  *
  */
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import {
   Container,
   Text,
@@ -98,6 +97,7 @@ export default (props: NavigationScreen) => {
       fabButton={
         <Container>
           <FabButton
+            testID={'SCAN_BTN'}
             onPress={() =>
               props.navigation.navigate('Scanner', {
                 loadRequest,
