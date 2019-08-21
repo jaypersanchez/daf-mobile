@@ -10,6 +10,8 @@ const navigation = {
 }
 
 it('renders correctly', () => {
+  jest.runAllTimers()
+
   //@ts-ignore
   const tree = render(<Welcome navigation={navigation} />).toJSON()
 

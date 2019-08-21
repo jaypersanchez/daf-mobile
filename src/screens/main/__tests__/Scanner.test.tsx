@@ -10,6 +10,5 @@ const navigation = {
 it('renders correctly', () => {
   //@ts-ignore
   const tree = render(<Scanner navigation={navigation} />).toJSON()
-
   expect(tree).toMatchSnapshot()
 })

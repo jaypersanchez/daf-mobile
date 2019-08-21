@@ -1,5 +1,6 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import codePush, { DownloadProgress } from 'react-native-code-push'
 import { handleCodePushStatusChange } from './lib/CodepushHelpers'
 import Navigation from './navigators'
@@ -9,6 +10,8 @@ import './lib/I18n'
 
 import { ThemeProvider, Toast } from '@kancha/kancha-ui'
 import { Theme } from './theme'
+
+jest.mock('NativeAnimatedHelper')
 
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
@@ -31,10 +34,12 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <ThemeProvider theme={Theme}>
-          <Toast />
-          <Navigation />
-        </ThemeProvider>
+        <ApolloHooksProvider client={client}>
+          <ThemeProvider theme={Theme}>
+            <Toast />
+            <Navigation />
+          </ThemeProvider>
+        </ApolloHooksProvider>
       </ApolloProvider>
     )
   }
