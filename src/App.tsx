@@ -11,8 +11,6 @@ import './lib/I18n'
 import { ThemeProvider, Toast } from '@kancha/kancha-ui'
 import { Theme } from './theme'
 
-jest.mock('NativeAnimatedHelper')
-
 const defaultHandler =
   ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()
 if (defaultHandler) {
