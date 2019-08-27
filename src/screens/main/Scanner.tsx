@@ -11,10 +11,13 @@ import { Colors, Icons } from '../../theme'
 export default (props: NavigationScreen) => {
   const onBarCodeRead = (e: any) => {
     props.navigation.navigate('App')
-    props.navigation.state.params.loadRequest({
-      type: 'DISCLOSURE',
-      data: e.data,
-    })
+
+    if (props.navigation.state.params.loadRequest) {
+      props.navigation.state.params.loadRequest({
+        type: 'DISCLOSURE',
+        data: e.data,
+      })
+    }
   }
 
   return (

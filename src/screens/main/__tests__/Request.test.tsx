@@ -3,7 +3,6 @@ import React from 'react'
 import Request from '../Request'
 import { render, fireEvent, act } from 'react-native-testing-library'
 import { Toaster } from '@kancha/kancha-ui'
-import console = require('console')
 
 const navigation = {
   goBack: jest.fn(),
