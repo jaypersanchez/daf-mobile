@@ -1126,10 +1126,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.20":
-  version "1.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.20.tgz#dfd0efcc2019d4a4bb11402a64d031dd7e62a63f"
-  integrity sha512-6M//XkTkeIXqa0ZC/XavG1P60cDoDk8+wEaiV8fOrSTMBdoeH+Dfc711GcX5DQpdzcK10nHx7PivuW7a/RbPjA==
+"@kancha/kancha-ui@^1.0.0-beta.21":
+  version "1.0.0-beta.21"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.21.tgz#3a84099dba5a0e6fcbedc7625645cb76f5a45718"
+  integrity sha512-toL30+AVhhF2D1ZF7msWyIM7s++CGKzFjXk7QNJFDB7fAdrLOy8AORjDAzs5qbIGt/deJvPEsKqzRvOeGqNqfw==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -6878,7 +6878,7 @@ react-native-config@^0.11.7:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.7.tgz#a2b323f2ecd76a4df88cbb6bc86eaa2ef9febee7"
   integrity sha512-dn5s+zhwLyE25vRT/vaEtLk/j8ZL1UZKvejORNDWakSwpOnLmFurFeaZV83IqkPlfWHXHFdsYe2IRYG1WN4WkQ==
 
-react-native-gesture-handler@^1.2.1:
+react-native-gesture-handler@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.2.1.tgz#9c48fb1ab13d29cece24bbb77b1e847eebf27a2b"
   integrity sha512-c1+L72Vjc/bwHKcIJ8a2/88SW9l3/axcAIpg3zB1qTzwdCxHZJeQn6d58cQXHPepxFBbgfTCo60B7SipSfo+zw==
