@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
-    "@kancha/kancha-ui": "^1.0.0-beta.20",
+    "@kancha/kancha-ui": "^1.0.0-beta.21",
     "@react-native-community/async-storage": "^1.6.1",
     "@segment/analytics-react-native": "^1.1.0-beta.0",
     "add": "^2.0.6",
@@ -51,7 +51,7 @@
     "react-native-localize": "^1.1.4",
     "react-native-screens": "1.0.0-alpha.22",
     "react-native-sentry": "^0.43.2",
-    "react-native-uport-signer": "1.5.0-alpha.0",
+    "react-native-uport-signer": "1.5.0",
     "react-navigation": "^3.9.1",
     "react-navigation-hooks": "^1.0.1",
     "yarn": "^1.17.3"

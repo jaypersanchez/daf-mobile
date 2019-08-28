@@ -236,7 +236,6 @@ workflows:
             - checkout-setup
       - android-build:
           requires:
-            - checkout-setup
             - unit-tests
       - android-deploy:
           requires:
@@ -252,7 +251,6 @@ workflows:
               only: master
       - ios-build:
           requires:
-            - checkout-setup
             - unit-tests
       - ios-deploy:
           requires:
