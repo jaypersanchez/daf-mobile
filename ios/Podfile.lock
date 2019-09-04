@@ -1,5 +1,5 @@
 PODS:
-  - Analytics (3.6.10)
+  - Analytics (3.7.0)
   - AppCenter/Core (1.14.0)
   - AppCenterReactNativeShared (1.13.0):
     - AppCenter/Core (= 1.14.0)
@@ -48,13 +48,7 @@ PODS:
     - React/cxxreact
     - React/jsi
   - React/jsinspector (0.59.9)
-  - React/RCTAnimation (0.59.9):
-    - React/Core
   - React/RCTBlob (0.59.9):
-    - React/Core
-  - React/RCTNetwork (0.59.9):
-    - React/Core
-  - React/RCTText (0.59.9):
     - React/Core
   - React/RCTWebSocket (0.59.9):
     - React/Core
@@ -90,10 +84,6 @@ DEPENDENCIES:
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
-  - React/RCTAnimation (from `../node_modules/react-native`)
-  - React/RCTNetwork (from `../node_modules/react-native`)
-  - React/RCTText (from `../node_modules/react-native`)
-  - React/RCTWebSocket (from `../node_modules/react-native`)
   - "RNAnalytics (from `../node_modules/@segment/analytics-react-native`)"
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -140,7 +130,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
+  Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
   AppCenter: 02c5efe08d3bbab5421ae41d5f7aa7238906b817
   AppCenterReactNativeShared: 00f470c3c17b47718db8733cbe811ccdcfd86282
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
@@ -159,6 +149,6 @@ SPEC CHECKSUMS:
   SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
   yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
 
-PODFILE CHECKSUM: afc9043c8302791d1f7e5bc7336610b81a60f070
+PODFILE CHECKSUM: 112aa17515abfda1ebc43c28ccb54354ec71603e
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.7.5

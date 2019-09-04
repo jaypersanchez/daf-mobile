@@ -1,6 +1,6 @@
 {
   "name": "serto-mobile",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -18,7 +18,9 @@
     "sentry-android-codepush-production": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Production",
     "sentry-ios-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto ios ./build/ios/CodePush --deployment Staging",
     "sentry-android-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Staging",
-    "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight"
+    "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight",
+    "release": "semantic-release",
+    "postversion": "react-native-version --never-amend"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
@@ -62,6 +64,7 @@
     "@babel/runtime": "^7.4.5",
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@semantic-release/git": "^7.0.16",
     "@types/jest": "^24.0.18",
     "@types/react": "^16.8.13",
     "@types/react-native": "^0.57.46",
@@ -78,7 +81,9 @@
     "react-dom": "^16.8.6",
     "react-native-testing-library": "^1.11.1",
     "react-native-typescript-transformer": "^1.2.12",
+    "react-native-version": "^3.1.0",
     "react-test-renderer": "^16.8.6",
+    "semantic-release": "^15.13.24",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
@@ -153,5 +158,28 @@
   "jest-junit": {
     "outputDirectory": "./test-results/jest/",
     "outputName": "results.xml"
+  },
+  "release": {
+    "branch": "master",
+    "npmPublish": false,
+    "ci": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "ios/Serto/Info.plist",
+            "ios/Serto.xcodeproj/project.pbxproj",
+            "android/app/build.gradle",
+            "package.json"
+          ],
+          "message": "chore(release): :rocket: New version ${nextRelease.version} \n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   }
 }

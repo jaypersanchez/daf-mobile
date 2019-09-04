@@ -35,33 +35,17 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* SertoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SertoTests.m */; };
-		2DE1DD44603AB24764772352 /* libPods-SertoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C812CBCEB9520C4D7837D118 /* libPods-SertoTests.a */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3E447C92F19C4D118E8D1B2E /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4FFC930A1CA429BB066AD14 /* libReactNativeConfig.a */; };
 		49F68E54059F4E0789EA4FFE /* libReactNativeConfig-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA96AE880C9F4A2285D7F858 /* libReactNativeConfig-tvOS.a */; };
-		6EBE459FCB7ED97D9AEECE51 /* libPods-Serto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF28AE38B49429E7226A7559 /* libPods-Serto.a */; };
+		6202299C5B8AF25C911B0680 /* libPods-SertoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */; };
 		7010C9ED227B270200642EEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9EC227B270200642EEA /* libz.tbd */; };
 		70AFD2F422C3C12C00C7808E /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9C1227B26BF00642EEA /* libCodePush.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		9685349122BD26A300EED8BB /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348222BD26A300EED8BB /* AntDesign.ttf */; };
-		9685349222BD26A300EED8BB /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348322BD26A300EED8BB /* FontAwesome5_Brands.ttf */; };
-		9685349322BD26A300EED8BB /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348422BD26A300EED8BB /* MaterialCommunityIcons.ttf */; };
-		9685349422BD26A300EED8BB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348522BD26A300EED8BB /* EvilIcons.ttf */; };
-		9685349522BD26A300EED8BB /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348622BD26A300EED8BB /* Ionicons.ttf */; };
-		9685349622BD26A300EED8BB /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348722BD26A300EED8BB /* FontAwesome5_Solid.ttf */; };
-		9685349722BD26A300EED8BB /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348822BD26A300EED8BB /* Feather.ttf */; };
-		9685349822BD26A300EED8BB /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348922BD26A300EED8BB /* FontAwesome5_Regular.ttf */; };
-		9685349922BD26A300EED8BB /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348A22BD26A300EED8BB /* SimpleLineIcons.ttf */; };
-		9685349A22BD26A300EED8BB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348B22BD26A300EED8BB /* MaterialIcons.ttf */; };
-		9685349B22BD26A300EED8BB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348C22BD26A300EED8BB /* Octicons.ttf */; };
-		9685349C22BD26A300EED8BB /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348D22BD26A300EED8BB /* FontAwesome.ttf */; };
-		9685349D22BD26A300EED8BB /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348E22BD26A300EED8BB /* Foundation.ttf */; };
-		9685349E22BD26A300EED8BB /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685348F22BD26A300EED8BB /* Zocial.ttf */; };
-		9685349F22BD26A300EED8BB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9685349022BD26A300EED8BB /* Entypo.ttf */; };
+		84FFE451259573812909632C /* libPods-Serto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4AF996CBB07408E11EA97B /* libPods-Serto.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B539769F4BB14DB89C1B3F3F /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E239F5FC32547B2B894550C /* libAppCenterReactNative.a */; };
 		D833D557FB274CE8ABBDA520 /* libRNUportSigner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D77231876FD7434582D4DEC9 /* libRNUportSigner.a */; };
-		E192D44E08184382B4906350 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB4AFB3599445F89D0385C0 /* AppCenter-Config.plist */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
@@ -458,7 +442,9 @@
 		2D02E47B1E0B4A5D006451C7 /* Serto-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Serto-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Serto-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Serto-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F2C9A2C89DABE80C699CE8C /* Pods-Serto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.debug.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.debug.xcconfig"; sourceTree = "<group>"; };
+		35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.release.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.release.xcconfig"; sourceTree = "<group>"; };
+		55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.release.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.release.xcconfig"; sourceTree = "<group>"; };
+		5A4AF996CBB07408E11EA97B /* libPods-Serto.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		7010C9B8227B26BF00642EEA /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		7010C9EC227B270200642EEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -466,10 +452,10 @@
 		707703CD22BB7C96002885B6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-uport-signer/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		70AFD2B522C3C10B00C7808E /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		79BF9C07393B4BF9B8E19D31 /* Pods-SertoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.debug.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E239F5FC32547B2B894550C /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85219DD9E2CC44B29CB6A75B /* RNUportSigner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNUportSigner.xcodeproj; path = "../node_modules/react-native-uport-signer/ios/RNUportSigner.xcodeproj"; sourceTree = "<group>"; };
+		924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.debug.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9685348222BD26A300EED8BB /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		9685348322BD26A300EED8BB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		9685348422BD26A300EED8BB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -486,13 +472,11 @@
 		9685348F22BD26A300EED8BB /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		9685349022BD26A300EED8BB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		C7AD22BB766EDA8EE0817480 /* Pods-SertoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.release.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.release.xcconfig"; sourceTree = "<group>"; };
-		C812CBCEB9520C4D7837D118 /* libPods-SertoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SertoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SertoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.debug.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.debug.xcconfig"; sourceTree = "<group>"; };
 		CA96AE880C9F4A2285D7F858 /* libReactNativeConfig-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libReactNativeConfig-tvOS.a"; sourceTree = "<group>"; };
 		CEB4AFB3599445F89D0385C0 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "Serto/AppCenter-Config.plist"; sourceTree = "<group>"; };
-		CF28AE38B49429E7226A7559 /* libPods-Serto.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77231876FD7434582D4DEC9 /* libRNUportSigner.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNUportSigner.a; sourceTree = "<group>"; };
-		DB0BCD3248F9BC524FEB6E81 /* Pods-Serto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.release.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.release.xcconfig"; sourceTree = "<group>"; };
 		E4FFC930A1CA429BB066AD14 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -504,7 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				2DE1DD44603AB24764772352 /* libPods-SertoTests.a in Frameworks */,
+				6202299C5B8AF25C911B0680 /* libPods-SertoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,7 +514,7 @@
 				3E447C92F19C4D118E8D1B2E /* libReactNativeConfig.a in Frameworks */,
 				B539769F4BB14DB89C1B3F3F /* libAppCenterReactNative.a in Frameworks */,
 				D833D557FB274CE8ABBDA520 /* libRNUportSigner.a in Frameworks */,
-				6EBE459FCB7ED97D9AEECE51 /* libPods-Serto.a in Frameworks */,
+				84FFE451259573812909632C /* libPods-Serto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,8 +670,8 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				CF28AE38B49429E7226A7559 /* libPods-Serto.a */,
-				C812CBCEB9520C4D7837D118 /* libPods-SertoTests.a */,
+				5A4AF996CBB07408E11EA97B /* libPods-Serto.a */,
+				C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -873,10 +857,10 @@
 		D46C82B1ABA8F7023B562381 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2F2C9A2C89DABE80C699CE8C /* Pods-Serto.debug.xcconfig */,
-				DB0BCD3248F9BC524FEB6E81 /* Pods-Serto.release.xcconfig */,
-				79BF9C07393B4BF9B8E19D31 /* Pods-SertoTests.debug.xcconfig */,
-				C7AD22BB766EDA8EE0817480 /* Pods-SertoTests.release.xcconfig */,
+				C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */,
+				35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */,
+				924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */,
+				55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -888,7 +872,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SertoTests" */;
 			buildPhases = (
-				F47F67A06295CEF3F16C650F /* [CP] Check Pods Manifest.lock */,
+				1E6E3CFB40CE44E8D3B081A8 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -907,13 +891,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Serto" */;
 			buildPhases = (
-				D02A8AA83F1F11AC2DA18EBE /* [CP] Check Pods Manifest.lock */,
+				59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				12C69C7C11C74F4C9CB8851B /* Upload Debug Symbols to Sentry */,
-				2127B3E111717B9E920429FF /* [CP] Copy Pods Resources */,
+				38A8DC55F043904C9074F291 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1461,22 +1444,6 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				9685349D22BD26A300EED8BB /* Foundation.ttf in Resources */,
-				9685349722BD26A300EED8BB /* Feather.ttf in Resources */,
-				9685349822BD26A300EED8BB /* FontAwesome5_Regular.ttf in Resources */,
-				9685349A22BD26A300EED8BB /* MaterialIcons.ttf in Resources */,
-				9685349522BD26A300EED8BB /* Ionicons.ttf in Resources */,
-				9685349F22BD26A300EED8BB /* Entypo.ttf in Resources */,
-				9685349922BD26A300EED8BB /* SimpleLineIcons.ttf in Resources */,
-				9685349122BD26A300EED8BB /* AntDesign.ttf in Resources */,
-				9685349422BD26A300EED8BB /* EvilIcons.ttf in Resources */,
-				E192D44E08184382B4906350 /* AppCenter-Config.plist in Resources */,
-				9685349B22BD26A300EED8BB /* Octicons.ttf in Resources */,
-				9685349C22BD26A300EED8BB /* FontAwesome.ttf in Resources */,
-				9685349622BD26A300EED8BB /* FontAwesome5_Solid.ttf in Resources */,
-				9685349322BD26A300EED8BB /* MaterialCommunityIcons.ttf in Resources */,
-				9685349E22BD26A300EED8BB /* Zocial.ttf in Resources */,
-				9685349222BD26A300EED8BB /* FontAwesome5_Brands.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1510,23 +1477,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# First set the path to sentry.properties\nexport SENTRY_PROPERTIES=sentry.properties\n\n# Setup nvm and set node\n[ -z \"$NVM_DIR\" ] && export NVM_DIR=\"$HOME/.nvm\"\n\nif [[ -s \"$HOME/.nvm/nvm.sh\" ]]; then\n. \"$HOME/.nvm/nvm.sh\"\nelif [[ -x \"$(command -v brew)\" && -s \"$(brew --prefix nvm)/nvm.sh\" ]]; then\n. \"$(brew --prefix nvm)/nvm.sh\"\nfi\n\n# Set up the nodenv node version manager if present\nif [[ -x \"$HOME/.nodenv/bin/nodenv\" ]]; then\neval \"$(\"$HOME/.nodenv/bin/nodenv\" init -)\"\nfi\n\n# Trying notion\nif [ -z \"$NODE_BINARY\" ]; then\nif [[ -s \"$HOME/.notion/bin/node\" ]]; then\nexport NODE_BINARY=\"$HOME/.notion/bin/node\"\nfi\nfi\n\n[ -z \"$NODE_BINARY\" ] && export NODE_BINARY=\"node\"\n\n$NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli react-native xcode \\\n../node_modules/react-native/scripts/react-native-xcode.sh\n\n";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		12C69C7C11C74F4C9CB8851B /* Upload Debug Symbols to Sentry */ = {
+		1E6E3CFB40CE44E8D3B081A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SertoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Upload Debug Symbols to Sentry";
+			name = "Bundle React Native Code And Images";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# First set the path to sentry.properties\nexport SENTRY_PROPERTIES=sentry.properties\n\n# Setup nvm and set node\n[ -z \"$NVM_DIR\" ] && export NVM_DIR=\"$HOME/.nvm\"\n\nif [[ -s \"$HOME/.nvm/nvm.sh\" ]]; then\n. \"$HOME/.nvm/nvm.sh\"\nelif [[ -x \"$(command -v brew)\" && -s \"$(brew --prefix nvm)/nvm.sh\" ]]; then\n. \"$(brew --prefix nvm)/nvm.sh\"\nfi\n\n# Set up the nodenv node version manager if present\nif [[ -x \"$HOME/.nodenv/bin/nodenv\" ]]; then\neval \"$(\"$HOME/.nodenv/bin/nodenv\" init -)\"\nfi\n\n# Trying notion\nif [ -z \"$NODE_BINARY\" ]; then\nif [[ -s \"$HOME/.notion/bin/node\" ]]; then\nexport NODE_BINARY=\"$HOME/.notion/bin/node\"\nfi\nfi\n\n[ -z \"$NODE_BINARY\" ] && export NODE_BINARY=\"node\"\n\n# Run sentry cli script to upload debug symbols\n$NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\"\n\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2127B3E111717B9E920429FF /* [CP] Copy Pods Resources */ = {
+		38A8DC55F043904C9074F291 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1572,21 +1561,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Serto/Pods-Serto-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		D02A8AA83F1F11AC2DA18EBE /* [CP] Check Pods Manifest.lock */ = {
+		59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1602,28 +1577,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Serto-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F47F67A06295CEF3F16C650F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SertoTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1697,7 +1650,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 79BF9C07393B4BF9B8E19D31 /* Pods-SertoTests.debug.xcconfig */;
+			baseConfigurationReference = 924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1734,7 +1687,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7AD22BB766EDA8EE0817480 /* Pods-SertoTests.release.xcconfig */;
+			baseConfigurationReference = 55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -1767,7 +1720,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F2C9A2C89DABE80C699CE8C /* Pods-Serto.debug.xcconfig */;
+			baseConfigurationReference = C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Serto/Serto.entitlements;
@@ -1801,7 +1754,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB0BCD3248F9BC524FEB6E81 /* Pods-Serto.release.xcconfig */;
+			baseConfigurationReference = 35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Serto/Serto.entitlements;

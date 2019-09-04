@@ -15,44 +15,24 @@
 
 default_platform(:ios)
 
-platform :ios do
+desc "Build & push a new beta build to TestFlight"
+before_all do
+  setup_circle_ci
+end
 
-  desc "Make a build for TestFlight"
-  lane :buildTheApp do
-    match(type: "appstore")
-    gym(
-      export_method: "app-store",
-      workspace: "Serto.xcworkspace",
-      scheme: "Serto",
-      include_bitcode: true,
-      include_symbols: true
-    )
-  end
+desc "Build archive and sign"
+lane :assemble_ios_build do
+  match(type: "appstore")
+  gym(
+    scheme: "Serto",
+    export_method: "app-store",
+    workspace: "Serto.xcworkspace",
+    include_bitcode: true,
+    include_symbols: true
+  )
+end
 
-  desc "Upload to Testflight"
-  lane :uploadToTestflight do
-       match(type: "appstore")
-       pilot(
-         ipa: "./Serto.ipa",
-         skip_submission: true,
-         skip_waiting_for_build_processing: true
-       )
-  end
-
-  desc "Build & Upload to Testflight"
-  lane :buildAndUploadToTestflight do
-    match(type: "appstore")
-    gym(
-      export_method: "app-store",
-      workspace: "Serto.xcworkspace",
-      scheme: "Serto",
-      include_bitcode: true,
-      include_symbols: true
-    )
-    pilot(
-      ipa: "./Serto.ipa",
-      skip_submission: true,
-      skip_waiting_for_build_processing: true
-    )
-  end  
+desc "Upload archive to Testflight"
+lane :deploy do
+  upload_to_testflight
 end

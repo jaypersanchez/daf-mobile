@@ -1,266 +1,344 @@
+###############################################################
+# References
+###############################################################
 version: 2
-jobs:
-  #First job, checkouts code and node deps
-  checkout-setup:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - checkout
-      # Restore dependencies cache
-      - restore_cache:
-          keys:
-            - dependencies-cache-{{ checksum "package.json" }}
-      # Install dependencies and
-      - run:
-          name: install-dependencies
-          command: |
-            npm i
-      # Save dependencies cache
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      # Persist data
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - ./
+references:
+  restore_yarn_cache: &restore_yarn_cache
+    restore_cache:
+      keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+        - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        - yarn-packages-v1-{{ .Branch }}-
+        - yarn-packages-v1-
 
-  # Run unit tests and codecoverage
-  unit-tests:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: install-dependencies
-          command: sudo npm i -g codecov
-      - run:
-          name: test
-          command: npm test && codecov
-      # Send codecoverage report to codecov.io (Needs the CODECOV_TOKEN env for private repo)
-      - run:
-          name: code-coverage
-          command: bash <(curl -s https://codecov.io/bash)
-      # Store test results for the "Test Summary" tab
-      - store_test_results:
-          path: test-results
-      # Store test results in the "Artifacts" tab
-      - store_artifacts:
-          path: test-results
-      # Store test reports in the "Artifacts" tab
-      - store_artifacts:
-          path: test-reports
-      # Store coverage in the "Artifacts" tab
-      - store_artifacts:
-          path: coverage
+  save_yarn_cache: &save_yarn_cache
+    save_cache:
+      paths:
+        - node_modules/
+      key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
-  #Run android buils
-  android-build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/android:api-28-node
-        environment:
-          ANDROID_HOME: /opt/android/sdk
-          GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xms256m -Xmx3072m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true'
-          TERM: dumb
-          _JAVA_OPTIONS: '-Xmx1500m'
-          LC_ALL: en_US.UTF-8
-          LANG: en_US.UTF-8
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      # Run package-android
-      - run:
-          name: package-android
-          command: cd ~/repo/android && ./gradlew bundleReleaseJsAndAssets
+  # ...
+  # The node module cache for macos machines must
+  # be separate from the other node module cache
+  # because the home directory differs.
+  restore_yarn_cache_macos: &restore_yarn_cache_macos
+    restore_cache:
+      keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+        - yarn-packages-macos-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        - yarn-packages-macos-v1-{{ .Branch }}-
+        - yarn-packages-macos-v2-
+  save_yarn_cache_macos: &save_yarn_cache_macos
+    save_cache:
+      paths:
+        - node_modules/
+      key: yarn-packages-macos-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
-      # Restore gradle cache (from https://circleci.com/docs/2.0/caching/)
-      - restore_cache:
-          keys:
-            # when lock file changes, use increasingly general patterns to restore cache
-            - gradle-repo-v2-{{ .Branch }}-{{ checksum "android/build.gradle" }}
-            - gradle-repo-v2-{{ .Branch }}-
-            - gradle-repo-v2-
+  gems_cache_key_ios: &gems_cache_key_ios ios-bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  restore_gems_cache_ios: &restore_gems_cache_ios
+    restore_cache:
+      key: *gems_cache_key_ios
+  save_gems_cache_ios: &save_gems_cache_ios
+    save_cache:
+      key: *gems_cache_key_ios
+      paths:
+        - vendor/bundle
 
-      #Run androidDependncies
-      - run:
-          name: get android dependencies
-          command: cd ~/repo/android && ./gradlew androidDependencies
+  pods_cache_key_ios: &pods_cache_key_ios ios-pods-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  restore_pods_cache_ios: &restore_pods_cache_ios
+    restore_cache:
+      key: *pods_cache_key_ios
+  save_pods_cache_ios: &save_pods_cache_ios
+    save_cache:
+      key: *pods_cache_key_ios
+      paths:
+        - ios/Pods
 
-      # Save dependencies cache
-      - save_cache:
-          paths:
-            - ~/android/.gradle
-          key: gradle-repo-v2-{{ .Branch }}-{{ checksum "android/build.gradle" }}
+  create_google_play_key: &create_google_play_key
+    run:
+      name: Create Google Play key
+      command: echo $GOOGLE_PLAY_CREDS_JSON > android-developer-creds.json
 
-      # Run assemble
-      - run: cd ~/repo/android && ./gradlew assembleRelease -x bundleReleaseJsAndAssets
+  decode_android_key: &decode_android_key
+    run:
+      name: Decode Android keystore
+      command: echo $ANDROID_KEYSTORE | base64 -di | tee release-key.keystore app/release-key.keystore >/dev/null
 
-      # Persist for deploy
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - android/app/build/outputs
+  gems_cache_key_android: &gems_cache_key_android android-bundle-v1-{{ checksum "../Gemfile.lock" }}-{{ arch }}
 
-      # Store build report
-      - store_artifacts:
-          path: android/app/build/reports
+  gradle_cache_key: &gradle_cache_key jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
 
-  # Deploy android version to testing channels
-  android-deploy:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: todo-deploy
-          command: echo "TODO deploy android version to testing channels"
-      - run:
-          name: deliver-story
-          command: echo "TODO deliver story in PT"
+  restore_gems_cache_android: &restore_gems_cache_android
+    restore_cache:
+      key: *gems_cache_key_android
 
-  # Run test automation on android devices
-  android-tests:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: todo-tests-automation
-          command: echo "TODO Run test automation on android devices"
-      - run:
-          name: reject-story
-          command: echo "TODO reject story in PT if test failed"
+  save_gems_cache_android: &save_gems_cache_android
+    save_cache:
+      key: *gems_cache_key_android
+      paths:
+        - ../vendor/bundle
 
-  # Release android version to PlayStore
-  android-release:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: release
-          command: echo "TODO Release android to PlayStore"
-      - run:
-          name: accept-story
-          command: echo "TODO accept story in PT"
+  restore_gradle_cache: &restore_gradle_cache
+    restore_cache:
+      key: *gradle_cache_key
 
-  #IOS build
-  ios-build:
-    working_directory: ~/repo
-    environment:
-      FL_OUTPUT_DIR: ~/repo/ios
-      TERM: dumb
-      REACT_NATIVE_MAX_WORKERS: 2
-      LC_ALL: en_US.UTF-8
-      LANG: en_US.UTF-8
-    macos:
-      xcode: '10.1.0'
-    shell: /bin/bash --login -o pipefail
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: xcrun
-          command: |
-            cd ~/repo/ios && xcrun instruments -w "iPhone 8 (11.2) [" || true
-      #TODO - persist_to_workspace:
-      #    root: ~/repo
-      #    paths:
-      #      - ios/gym??
-      - store_artifacts:
-          path: ~repo/ios/gym
+  save_gradle_cache: &save_gradle_cache
+    save_cache:
+      key: *gradle_cache_key
+      paths:
+        - ~/.gradle
+        - ~/.m2
 
-  # Deploy ios version to testing channels
-  ios-deploy:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: ios-deploy
-          command: echo "TODO deploy ios version to testing channels"
-      - run:
-          name: deliver-story
-          command: echo "TODO deliver story in PT"
+  android_dependencies: &android_dependencies
+    run:
+      name: Download Android Dependencies
+      command: ./gradlew androidDependencies
 
-  # Run test automation on ios devices
-  ios-tests:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: todo-tests-automation
-          command: echo "TODO Run test automation on ios devices"
-      - run:
-          name: reject-story
-          command: echo "TODO reject story in PT if test failed"
-
-  # Release IOS version to AppStore
-  ios-release:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: release
-          command: echo "TODO Release ios to AppStore"
-      - run:
-          name: accept-story
-          command: echo "TODO accept story in PT"
-
+###############################################################
+# Workflows
+###############################################################
 workflows:
   version: 2
-  build-and-deploy:
+  # Trigger workflow for last commit (merge commits) to master
+  # Run unit tests for sanity and if all looks good run semantic release
+  # Semantic release will decide based on commit messages if another release is needed
+  # Always run unit tests on master
+  semantic-release:
     jobs:
-      - checkout-setup
-      - unit-tests:
-          requires:
-            - checkout-setup
-      - android-build:
-          requires:
-            - unit-tests
-      - android-deploy:
-          requires:
-            - android-build
-      - android-tests:
-          requires:
-            - android-deploy
-      - android-release:
-          requires:
-            - android-tests
+      - verify_unit_tests:
           filters:
             branches:
-              only: master
-      - ios-build:
+              only:
+                - master
+      - verify_release:
           requires:
-            - unit-tests
-      - ios-deploy:
-          requires:
-            - ios-build
-      - ios-tests:
-          requires:
-            - ios-deploy
-      - ios-release:
-          requires:
-            - ios-tests
+            - verify_unit_tests
           filters:
             branches:
-              only: master
+              only:
+                - master
+            tags:
+              # Would be good if we can ignore tagged commits but it won't trigger another build so it's fine
+              ignore: /.*/
+
+  # This gets triggers on every push to all branches except master
+  # It verifies the branch, runs unit tests and builds iOS and Android
+  verify-test-build:
+    jobs:
+      - verify_unit_tests:
+          filters:
+            branches:
+              ignore:
+                - master
+      - build_ios:
+          requires:
+            - verify_unit_tests
+          filters:
+            branches:
+              ignore:
+                - master
+      - build_android:
+          requires:
+            - verify_unit_tests
+          filters:
+            branches:
+              ignore:
+                - master
+
+  deploy-release-tag:
+    jobs:
+      - verify_unit_tests:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - build_ios:
+          requires:
+            - verify_unit_tests
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - build_android:
+          requires:
+            - verify_unit_tests
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy_ios:
+          requires:
+            - verify_unit_tests
+            - build_ios
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy_android:
+          requires:
+            - verify_unit_tests
+            - build_android
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+
+###############################################################
+# Jobs
+###############################################################
+
+jobs:
+  verify_unit_tests:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - run:
+          name: Install node modules
+          command: yarn --frozen-lockfile
+      - *save_yarn_cache
+      - run:
+          name: Run unit tests
+          command: yarn test --maxWorkers=2
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
+
+  verify_release:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout:
+          path: ~/project
+
+      - attach_workspace:
+          at: ~/project
+
+      - run:
+          name: Semantic release
+          command: yarn release
+
+  build_android:
+    working_directory: ~/project/android
+    docker:
+      - image: circleci/android:api-28-node8-alpha
+    steps:
+      - checkout:
+          path: ~/project
+
+      - attach_workspace:
+          at: ~/project
+
+      - *restore_gradle_cache
+      - *android_dependencies
+      - *save_gradle_cache
+
+      - *restore_gems_cache_android
+      - run:
+          name: Bundle install
+          command: bundle install
+          working_directory: ~/project
+      - *save_gems_cache_android
+
+      - *decode_android_key
+
+      - run:
+          name: Build android APK
+          command: bundle exec fastlane assemble_android_build
+
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: /apk/
+
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - android/app/build/outputs/apk
+            - vendor/bundle
+
+  build_ios:
+    macos:
+      xcode: '10.1.0'
+    working_directory: ~/project
+    environment:
+      FL_OUTPUT_DIR: output
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - run:
+          name: Fetch CocoaPods Specs
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - *restore_yarn_cache_macos
+      - run:
+          name: Install node modules
+          command: yarn --frozen-lockfile
+      - *save_yarn_cache_macos
+      - *restore_gems_cache_ios
+      - run:
+          name: Bundle install
+          command: bundle install
+      - *save_gems_cache_ios
+      - *restore_pods_cache_ios
+      - run:
+          name: Install Pods
+          command: bundle exec pod install --verbose
+          working_directory: ios
+      - *save_pods_cache_ios
+      - run:
+          name: Build iOS IPA
+          command: bundle exec fastlane assemble_ios_build
+          working_directory: ios
+          no_output_timeout: 30m
+
+      - store_artifacts:
+          path: ios/output/gym/
+          destination: /ipa/
+
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - ios/output
+            - vendor/bundle
+  # ...
+  deploy_ios:
+    macos:
+      xcode: '10.3.0'
+    working_directory: ~/project
+    environment:
+      FL_OUTPUT_DIR: output
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - attach_workspace
+      - run:
+          name: Deploy iOS ipa
+          command: bundle exec fastlane deploy
+          working_directory: ios
+          no_output_timeout: 10m
+
+deploy_android:
+  working_directory: ~/project/android
+  docker:
+    - image: circleci/android:api-28-node8-alpha
+  steps:
+    - checkout:
+        path: ~/project
+    - attach_workspace:
+        at: ~/project
+    - *create_google_play_key
+    - run:
+        name: Build and deploy android APK
+        command: bundle exec fastlane deploy_android
+    - store_artifacts:
+        path: app/build/outputs/apk/
+        destination: /apk/
