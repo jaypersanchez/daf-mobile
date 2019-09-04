@@ -263,7 +263,6 @@ jobs:
           root: ~/project
           paths:
             - android/app/build/outputs/bundle
-            - vendor/bundle
 
   build_ios:
     macos:
@@ -307,8 +306,8 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - ios
-            - vendor/bundle
+            - ios/Serto.app.dSYM.zip
+            - ios/Serto.ipa
   # ...
   deploy_ios:
     macos:
@@ -318,13 +317,18 @@ jobs:
       FL_OUTPUT_DIR: output
     shell: /bin/bash --login -o pipefail
     steps:
-      - checkout
-      - attach_workspace
+      - checkout:
+          path: ~/project
+      - attach_workspace:
+          at: ~/project
+      - *restore_gems_cache_ios
+      - run:
+          name: Bundle install
+          command: bundle install
       - run:
           name: Deploy iOS ipa
           command: bundle exec fastlane deploy
           working_directory: ios
-          no_output_timeout: 10m
 
 deploy_android:
   working_directory: ~/project/android
@@ -333,6 +337,11 @@ deploy_android:
   steps:
     - checkout:
         path: ~/project
+    - *restore_gems_cache_android
+    - run:
+        name: Bundle install
+        command: bundle install
+        working_directory: ~/project
     - attach_workspace:
         at: ~/project
     - *create_google_play_key
