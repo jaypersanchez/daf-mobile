@@ -329,24 +329,24 @@ jobs:
           command: bundle exec fastlane deploy
           working_directory: ios
 
-deploy_android:
-  working_directory: ~/project/android
-  docker:
-    - image: circleci/android:api-28-node8-alpha
-  steps:
-    - checkout:
-        path: ~/project
-    - *restore_gems_cache_android
-    - run:
-        name: Bundle install
-        command: bundle install
-        working_directory: ~/project
-    - attach_workspace:
-        at: ~/project
-    - *create_google_play_key
-    - run:
-        name: Build and deploy android APK
-        command: bundle exec fastlane deploy_android
-    - store_artifacts:
-        path: app/build/outputs/apk/
-        destination: /apk/
+  deploy_android:
+    working_directory: ~/project/android
+    docker:
+      - image: circleci/android:api-28-node8-alpha
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_gems_cache_android
+      - run:
+          name: Bundle install
+          command: bundle install
+          working_directory: ~/project
+      - attach_workspace:
+          at: ~/project
+      - *create_google_play_key
+      - run:
+          name: Build and deploy android APK
+          command: bundle exec fastlane deploy_android
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: /apk/
