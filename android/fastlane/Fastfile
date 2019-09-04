@@ -24,13 +24,19 @@ lane :assemble_android_build do
     "android.injected.signing.key.password" => ENV['ANDROID_STORE_PASSWORD']
   }
 
-  gradle(task: "assemble", build_type: "Release", print_command: false, properties: production_properties)
+  gradle(task: "bundle", build_type: "Release", print_command: false, properties: production_properties)
 end
 
-desc "Build and deploy APK to Google Play"
+desc "Build and deploy Android bundle to Google Play"
 lane :deploy_android do
   # Can be changed to another track (e.g. 'beta')
-  upload_to_play_store(track: 'internal')
+  upload_to_play_store(
+      track: "internal", 
+      aab: "./app/build/outputs/bundle/release/app.aab", 
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true  
+  )
 end
 
 desc "Clean project"
