@@ -306,8 +306,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - ios/Serto.app.dSYM.zip
-            - ios/Serto.ipa
+            - ios/output/gym/
   # ...
   deploy_ios:
     macos:
