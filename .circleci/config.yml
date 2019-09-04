@@ -256,13 +256,13 @@ jobs:
           command: bundle exec fastlane assemble_android_build
 
       - store_artifacts:
-          path: app/build/outputs/apk/
+          path: app/build/outputs/bundle
           destination: /apk/
 
       - persist_to_workspace:
           root: ~/project
           paths:
-            - android/app/build/outputs/apk
+            - android/app/build/outputs/bundle
             - vendor/bundle
 
   build_ios:
@@ -307,7 +307,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - ios/output
+            - ios
             - vendor/bundle
   # ...
   deploy_ios:
