@@ -24,6 +24,7 @@ desc "Build archive and sign"
 lane :assemble_ios_build do
   match(type: "appstore")
   gym(
+    output_directory: "./output/gym",
     scheme: "Serto",
     export_method: "app-store",
     workspace: "Serto.xcworkspace",
@@ -34,5 +35,9 @@ end
 
 desc "Upload archive to Testflight"
 lane :deploy do
-  upload_to_testflight
+  upload_to_testflight(
+    ipa: "./output/gym/Serto.ipa",
+    skip_submission: true,
+    skip_waiting_for_build_processing: true
+  )
 end

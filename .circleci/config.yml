@@ -306,7 +306,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - ios/output/gym/
+            - ios/output/gym
   # ...
   deploy_ios:
     macos:
