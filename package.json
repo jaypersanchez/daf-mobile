@@ -1,5 +1,6 @@
 {
   "name": "serto-mobile",
+  "description": "Serto identity plaform",
   "version": "1.2.0",
   "private": true,
   "scripts": {
