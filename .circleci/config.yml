@@ -345,7 +345,7 @@ jobs:
           at: ~/project
       - *create_google_play_key
       - run:
-          name: Build and deploy android APK
+          name: Deploy Android Bundle to Google Play internal track
           command: bundle exec fastlane deploy_android
       - store_artifacts:
           path: app/build/outputs/apk/
