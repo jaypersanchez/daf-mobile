@@ -2,6 +2,7 @@ import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import { persistCache } from 'apollo-cache-persist'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import { ApolloClient, Resolvers } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { from } from 'apollo-link'
@@ -104,7 +105,11 @@ class CustomProvider extends React.Component<Props, State> {
       )
     } else {
       return (
-        <ApolloProvider client={client}>{this.props.children}</ApolloProvider>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            {this.props.children}
+          </ApolloHooksProvider>
+        </ApolloProvider>
       )
     }
   }

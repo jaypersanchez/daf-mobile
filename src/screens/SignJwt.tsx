@@ -3,10 +3,9 @@
  *
  */
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, TextInput } from 'react-native'
-import { Query, Mutation, MutationState } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { NavigationScreenProps } from 'react-navigation'
 import { Did, getDidsQuery, signJwtMutation } from '../lib/Signer'
 import {
@@ -38,7 +37,7 @@ const SignJwt: React.FC<SignJwtProps> = props => {
             refetch: () => void
           }) => (
             <Mutation mutation={signJwtMutation} refetchQueries={['getDids']}>
-              {(mutate: any, state: MutationState) => (
+              {(mutate: any, state: any) => (
                 <Container paddingBottom>
                   <Button
                     fullWidth

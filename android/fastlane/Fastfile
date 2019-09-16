@@ -1,0 +1,47 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+desc "Build and sign Android APK"
+lane :assemble_android_build do
+  production_properties = {
+    "android.injected.signing.store.file" => "app/release-key.keystore",
+    "android.injected.signing.store.password" => ENV['ANDROID_STORE_PASSWORD'],
+    "android.injected.signing.key.alias" => ENV['ANDROID_KEY_ALIAS'],
+    "android.injected.signing.key.password" => ENV['ANDROID_STORE_PASSWORD']
+  }
+
+  gradle(task: "bundle", build_type: "Release", print_command: false, properties: production_properties)
+end
+
+desc "Build and deploy Android bundle to Google Play"
+lane :deploy_android do
+  # Can be changed to another track (e.g. 'beta')
+  upload_to_play_store(
+      track: "internal", 
+      aab: "./app/build/outputs/bundle/release/app.aab", 
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true  
+  )
+end
+
+desc "Clean project"
+lane :clean_android do
+  gradle(
+    task: "clean"
+  ) 
+end

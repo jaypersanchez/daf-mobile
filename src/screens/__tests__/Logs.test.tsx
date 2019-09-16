@@ -1,11 +1,12 @@
 import 'react-native'
 import React from 'react'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import Logs from '../Logs'
 import { LogMessage, LogMessageType, getLogsQuery } from '../../lib/Log'
 
 jest.useFakeTimers()
+jest.runAllTimers()
 
 const mockLogItem: LogMessage = {
   message: 'Sample info',
@@ -29,11 +30,12 @@ const mocks = [
   },
 ]
 
-it('renders correctly', () => {
+test('renders correctly', () => {
   const tree = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <Logs />
     </MockedProvider>,
   ).toJSON()
+
   expect(tree).toMatchSnapshot()
 })

@@ -41,6 +41,9 @@ buck-out/
 \.buckd/
 *.keystore
 
+# Gem
+vendor/
+
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
@@ -52,6 +55,8 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 */fastlane/README.md
+
+android-developer-creds.json
 
 # Bundle artifact
 *.jsbundle

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Request Component renders correctly 1`] = `
 Array [
   <RCTScrollView
     contentInset={
@@ -232,6 +232,136 @@ Array [
             style={
               Object {
                 "alignItems": undefined,
+                "backgroundColor": "#FFFFFF",
+                "borderRadius": undefined,
+                "flex": undefined,
+                "flexDirection": undefined,
+                "height": undefined,
+                "justifyContent": undefined,
+                "margin": undefined,
+                "marginBottom": undefined,
+                "marginLeft": undefined,
+                "marginRight": undefined,
+                "marginTop": undefined,
+                "padding": undefined,
+                "paddingBottom": undefined,
+                "paddingHorizontal": undefined,
+                "paddingLeft": undefined,
+                "paddingRight": undefined,
+                "paddingTop": undefined,
+                "width": undefined,
+              }
+            }
+          >
+            <View
+              pointerEvents="auto"
+              style={
+                Object {
+                  "alignItems": undefined,
+                  "backgroundColor": "#222222",
+                  "borderRadius": undefined,
+                  "flex": undefined,
+                  "flexDirection": undefined,
+                  "height": undefined,
+                  "justifyContent": undefined,
+                  "margin": undefined,
+                  "marginBottom": undefined,
+                  "marginLeft": undefined,
+                  "marginRight": undefined,
+                  "marginTop": undefined,
+                  "padding": 15,
+                  "paddingBottom": undefined,
+                  "paddingHorizontal": undefined,
+                  "paddingLeft": undefined,
+                  "paddingRight": undefined,
+                  "paddingTop": undefined,
+                  "width": undefined,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#FFFFFF",
+                    "fontSize": 14,
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Share your data with Space X
+              </Text>
+            </View>
+            <View
+              pointerEvents="auto"
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": undefined,
+                  "borderRadius": undefined,
+                  "flex": undefined,
+                  "flexDirection": undefined,
+                  "height": undefined,
+                  "justifyContent": undefined,
+                  "margin": undefined,
+                  "marginBottom": undefined,
+                  "marginLeft": undefined,
+                  "marginRight": undefined,
+                  "marginTop": undefined,
+                  "padding": undefined,
+                  "paddingBottom": undefined,
+                  "paddingHorizontal": undefined,
+                  "paddingLeft": undefined,
+                  "paddingRight": undefined,
+                  "paddingTop": undefined,
+                  "width": undefined,
+                }
+              }
+            >
+              <View
+                pointerEvents="auto"
+                style={
+                  Object {
+                    "alignItems": undefined,
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#222222",
+                    "borderBottomWidth": 15,
+                    "borderLeftColor": "transparent",
+                    "borderLeftWidth": 20,
+                    "borderRadius": undefined,
+                    "borderRightColor": "transparent",
+                    "borderRightWidth": 20,
+                    "borderStyle": "solid",
+                    "flex": undefined,
+                    "flexDirection": undefined,
+                    "height": 0,
+                    "justifyContent": undefined,
+                    "margin": undefined,
+                    "marginBottom": undefined,
+                    "marginLeft": undefined,
+                    "marginRight": undefined,
+                    "marginTop": undefined,
+                    "padding": undefined,
+                    "paddingBottom": undefined,
+                    "paddingHorizontal": undefined,
+                    "paddingLeft": undefined,
+                    "paddingRight": undefined,
+                    "paddingTop": undefined,
+                    "transform": Array [
+                      Object {
+                        "rotate": "180deg",
+                      },
+                    ],
+                    "width": 0,
+                  }
+                }
+              />
+            </View>
+          </View>
+          <View
+            pointerEvents="auto"
+            style={
+              Object {
+                "alignItems": undefined,
                 "backgroundColor": undefined,
                 "borderRadius": undefined,
                 "flex": undefined,
@@ -352,8 +482,8 @@ Array [
                         }
                       }
                     >
-                      Name
-                      
+                      Firstname
+                      *
                     </Text>
                     <View
                       pointerEvents="auto"
@@ -390,7 +520,7 @@ Array [
                           }
                         }
                       >
-                        Jack
+                        Jane
                       </Text>
                     </View>
                   </View>
@@ -543,8 +673,8 @@ Array [
                         }
                       }
                     >
-                      Date of Birth
-                      
+                      Lastname
+                      *
                     </Text>
                     <View
                       pointerEvents="auto"
@@ -581,7 +711,7 @@ Array [
                           }
                         }
                       >
-                        24-01-1991
+                        Morrison
                       </Text>
                     </View>
                   </View>
@@ -735,7 +865,7 @@ Array [
                       }
                     >
                       Location
-                      
+                      *
                     </Text>
                     <View
                       pointerEvents="auto"
@@ -773,6 +903,197 @@ Array [
                         }
                       >
                         Ireland
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    pointerEvents="auto"
+                    style={
+                      Object {
+                        "alignItems": undefined,
+                        "backgroundColor": undefined,
+                        "borderRadius": undefined,
+                        "flex": undefined,
+                        "flexDirection": undefined,
+                        "height": undefined,
+                        "justifyContent": undefined,
+                        "margin": undefined,
+                        "marginBottom": undefined,
+                        "marginLeft": undefined,
+                        "marginRight": undefined,
+                        "marginTop": undefined,
+                        "padding": undefined,
+                        "paddingBottom": undefined,
+                        "paddingHorizontal": undefined,
+                        "paddingLeft": undefined,
+                        "paddingRight": 32,
+                        "paddingTop": undefined,
+                        "width": undefined,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        Array [
+                          Object {
+                            "color": "#BBBBBB",
+                            "fontSize": 26,
+                          },
+                          undefined,
+                          Object {
+                            "fontFamily": "Ionicons",
+                            "fontStyle": "normal",
+                            "fontWeight": "normal",
+                          },
+                          Object {},
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                pointerEvents="auto"
+                style={
+                  Object {
+                    "alignItems": undefined,
+                    "backgroundColor": "#FFFFFF",
+                    "borderBottomColor": "#CCCCCC",
+                    "borderBottomWidth": 0.5,
+                    "borderRadius": undefined,
+                    "flex": undefined,
+                    "flexDirection": undefined,
+                    "height": undefined,
+                    "justifyContent": undefined,
+                    "margin": undefined,
+                    "marginBottom": undefined,
+                    "marginLeft": undefined,
+                    "marginRight": undefined,
+                    "marginTop": undefined,
+                    "padding": undefined,
+                    "paddingBottom": undefined,
+                    "paddingHorizontal": undefined,
+                    "paddingLeft": undefined,
+                    "paddingRight": undefined,
+                    "paddingTop": undefined,
+                    "width": undefined,
+                  }
+                }
+              >
+                <View
+                  pointerEvents="auto"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": undefined,
+                      "borderRadius": undefined,
+                      "flex": undefined,
+                      "flexDirection": "row",
+                      "height": undefined,
+                      "justifyContent": undefined,
+                      "margin": undefined,
+                      "marginBottom": undefined,
+                      "marginLeft": undefined,
+                      "marginRight": undefined,
+                      "marginTop": undefined,
+                      "padding": undefined,
+                      "paddingBottom": 16,
+                      "paddingHorizontal": undefined,
+                      "paddingLeft": 24,
+                      "paddingRight": undefined,
+                      "paddingTop": 16,
+                      "width": undefined,
+                    }
+                  }
+                >
+                  <View
+                    pointerEvents="auto"
+                    style={
+                      Object {
+                        "alignItems": undefined,
+                        "backgroundColor": undefined,
+                        "borderRadius": undefined,
+                        "flex": 1,
+                        "flexDirection": undefined,
+                        "height": undefined,
+                        "justifyContent": undefined,
+                        "margin": undefined,
+                        "marginBottom": undefined,
+                        "marginLeft": undefined,
+                        "marginRight": undefined,
+                        "marginTop": undefined,
+                        "padding": undefined,
+                        "paddingBottom": undefined,
+                        "paddingHorizontal": undefined,
+                        "paddingLeft": undefined,
+                        "paddingRight": undefined,
+                        "paddingTop": undefined,
+                        "width": undefined,
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Object {
+                          "color": "#BBBBBB",
+                          "fontSize": 14,
+                        }
+                      }
+                    >
+                      Email
+                      
+                    </Text>
+                    <View
+                      pointerEvents="auto"
+                      style={
+                        Object {
+                          "alignItems": undefined,
+                          "backgroundColor": undefined,
+                          "borderRadius": undefined,
+                          "flex": undefined,
+                          "flexDirection": undefined,
+                          "height": undefined,
+                          "justifyContent": undefined,
+                          "margin": undefined,
+                          "marginBottom": undefined,
+                          "marginLeft": undefined,
+                          "marginRight": undefined,
+                          "marginTop": undefined,
+                          "padding": undefined,
+                          "paddingBottom": undefined,
+                          "paddingHorizontal": undefined,
+                          "paddingLeft": undefined,
+                          "paddingRight": undefined,
+                          "paddingTop": 2,
+                          "width": undefined,
+                        }
+                      }
+                    >
+                      <Text
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "lineHeight": 22,
+                          }
+                        }
+                      >
+                        jack@mymail.com
                       </Text>
                     </View>
                   </View>
@@ -963,46 +1284,9 @@ Array [
                           }
                         }
                       >
-                        +555-876-882771
+                        +555-321-8763
                       </Text>
                     </View>
-                  </View>
-                  <View
-                    pointerEvents="auto"
-                    style={
-                      Object {
-                        "alignItems": undefined,
-                        "backgroundColor": undefined,
-                        "borderRadius": undefined,
-                        "flex": undefined,
-                        "flexDirection": undefined,
-                        "height": undefined,
-                        "justifyContent": undefined,
-                        "margin": undefined,
-                        "marginBottom": undefined,
-                        "marginLeft": undefined,
-                        "marginRight": undefined,
-                        "marginTop": undefined,
-                        "padding": undefined,
-                        "paddingBottom": undefined,
-                        "paddingHorizontal": undefined,
-                        "paddingLeft": undefined,
-                        "paddingRight": 32,
-                        "paddingTop": undefined,
-                        "width": undefined,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
-                        Object {
-                          "color": "#BBBBBB",
-                          "fontSize": 15,
-                        }
-                      }
-                    >
-                      Mobile
-                    </Text>
                   </View>
                   <View
                     pointerEvents="auto"

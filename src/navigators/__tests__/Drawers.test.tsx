@@ -3,10 +3,11 @@ import React from 'react'
 import DrawerLeft from '../DrawerLeft'
 import DrawerRight from '../DrawerRight'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import { getSelectedDidQuery } from '../../lib/Signer'
 
 jest.useFakeTimers()
+jest.runAllTimers()
 
 const mocks = [
   {
@@ -25,7 +26,6 @@ const mocks = [
 describe('Navigation', () => {
   it('renders left drawer correctly', () => {
     const onPress = jest.fn()
-
     const tree = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <DrawerLeft
@@ -40,7 +40,6 @@ describe('Navigation', () => {
   })
   it('renders right drawer correctly', () => {
     const onPress = jest.fn()
-
     const tree = render(
       <DrawerRight onItemPress={onPress} activeItemkey={'TEST_KEY'} />,
     ).toJSON()

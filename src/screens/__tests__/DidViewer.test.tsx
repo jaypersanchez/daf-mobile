@@ -1,24 +1,25 @@
 import 'react-native'
 import React from 'react'
 import { DidViewer } from '../DidViewer'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import { render } from 'react-native-testing-library'
 
 jest.useFakeTimers()
+jest.runAllTimers()
 
 const navigation = {
   push: jest.fn(),
   getParam: jest.fn(),
 }
 
-it('renders correctly', () => {
+test('renders correctly', () => {
+  // jest.useFakeTimers()
+  // @ts-ignore
+  const screen = <DidViewer navigation={navigation} />
   const tree = render(
-    <MockedProvider mocks={[]}>
-      {
-        // @ts-ignore
-        <DidViewer navigation={navigation} />
-      }
-    </MockedProvider>,
+    <MockedProvider mocks={[]}>{screen}</MockedProvider>,
   ).toJSON()
+
+  // jest.runAllTimers()
   expect(tree).toMatchSnapshot()
 })

@@ -6,7 +6,7 @@ import Provider from './lib/GraphQL'
 import Log from './lib/Log'
 import './lib/I18n'
 
-import { ThemeProvider } from '@kancha/kancha-ui'
+import { ThemeProvider, Toast } from '@kancha/kancha-ui'
 import { Theme } from './theme'
 
 class App extends React.Component {
@@ -22,6 +22,7 @@ class App extends React.Component {
     return (
       <Provider>
         <ThemeProvider theme={Theme}>
+          <Toast />
           <Navigation />
         </ThemeProvider>
       </Provider>

@@ -1,11 +1,12 @@
 import 'react-native'
 import React from 'react'
 import { render } from 'react-native-testing-library'
-import { MockedProvider } from 'react-apollo/test-utils'
+import { MockedProvider } from '@apollo/react-testing'
 import Onboarding from '../Onboarding'
-import { Did, getDidsQuery, createDidMutation } from '../../../lib/Signer'
+import { Did, getDidsQuery } from '../../../lib/Signer'
 
 jest.useFakeTimers()
+jest.runAllTimers()
 
 const mockDidItem: Did = {
   did: 'did:ethr:123456',
@@ -22,20 +23,25 @@ const mocks = [
     },
     result: {
       data: {
-        logs: [mockDidItem],
+        dids: [mockDidItem],
       },
     },
   },
 ]
 
-it('renders correctly', () => {
-  const tree = render(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      {
-        // @ts-ignore
-        <Onboarding navigation={jest.fn()} />
-      }
-    </MockedProvider>,
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('Onboarding', () => {
+  test('renders the intermediate screen if dids are present', async () => {
+    // jest.useFakeTimers()
+    // @ts-ignore
+    const onboarding = <Onboarding navigation={jest.fn()} />
+    const tree = render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        {onboarding}
+      </MockedProvider>,
+    ).toJSON()
+
+    // jest.runAllTimers()
+
+    expect(tree).toMatchSnapshot()
+  })
 })

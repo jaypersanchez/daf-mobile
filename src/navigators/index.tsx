@@ -14,7 +14,17 @@ import i18n from '../lib/I18n'
 import { Container, Icon, Button, Constants } from '@kancha/kancha-ui'
 import { Icons, Colors } from '../theme'
 
-import Welcome from '../screens/Welcome'
+// Main Screens
+import Welcome from '../screens/main/Welcome'
+import Scanner from '../screens/main/Scanner'
+import DrawerRight from './DrawerRight'
+import DrawerLeft from './DrawerLeft'
+import Request from '../screens/main/Request'
+import Onboarding from '../screens/main/Onboarding'
+import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+import Credential from '../screens/main/Credential'
+
+// Developer Screens
 import Developer from '../screens/Developer'
 import Logs from '../screens/Logs'
 import Codepush from '../screens/Codepush'
@@ -23,18 +33,13 @@ import Config from '../screens/Config'
 import Crash from '../screens/Crash'
 import Messages from '../screens/Messages'
 import Connections from '../screens/Connections'
-import Scanner from '../screens/Scanner'
-import DrawerRight from './DrawerRight'
-import DrawerLeft from './DrawerLeft'
 import DidViewer from '../screens/DidViewer'
 import ModalDemo from '../screens/ModalDemo'
 import Claim from '../screens/Claim'
 import DisclosureRequest from '../screens/DisclosureRequest'
 import SignJwt from '../screens/SignJwt'
 import TrustGraphEdges from '../screens/TrustGraphEdges'
-import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
 import Credentials from '../screens/Credentials'
-import Onboarding from '../screens/main/Onboarding'
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
@@ -55,11 +60,16 @@ export const Screens = {
     screen: 'DisclosureRequest',
     title: 'Disclosure Request',
   },
+  Request: {
+    screen: 'Request',
+    title: 'Request',
+  },
   SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
   TrustGraphEdges: { screen: 'TrustGraphEdges', title: 'TG Edges' },
   Credentials: { screen: 'Credentials', title: 'Credentials' },
   Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
   IdentityCheck: { screen: 'IdentityCheck', title: 'Identity Check' },
+  Credential: { screen: 'Credential', title: 'Credential' },
 }
 
 export interface NavigationScreen {
@@ -203,26 +213,15 @@ const DrawerNavigator = createDrawerNavigator(
  * Define custom transitions for views based on routenames
  */
 const handleCustomTransition = ({ scenes }: any) => {
-  const prevScene = scenes[scenes.length - 2]
-  const nextScene = scenes[scenes.length - 1]
+  // const prevScene = scenes[scenes.length - 2]
+  // const nextScene = scenes[scenes.length - 1]
   const defaultDuration = 500
-
-  if (
-    (prevScene && prevScene.route.routeName === Screens.Scanner.screen) ||
-    (nextScene && nextScene.route.routeName === Screens.Scanner.screen)
-  ) {
-    return {
-      transitionSpec: {
-        duration: 0,
-      },
-    }
-  }
 
   return {
     transitionSpec: {
       duration: defaultDuration,
       timing: Animated.timing,
-      easing: Easing.out(Easing.poly(7)),
+      easing: Easing.out(Easing.poly(5)),
       useNativeDriver: true,
     },
   }
@@ -231,9 +230,6 @@ const handleCustomTransition = ({ scenes }: any) => {
 const AppNavigator = createStackNavigator(
   {
     Drawer: DrawerNavigator,
-    [Screens.Scanner.screen]: {
-      screen: Scanner,
-    },
     [Screens.ModalDemo.screen]: {
       screen: ModalDemo,
     },
@@ -242,6 +238,12 @@ const AppNavigator = createStackNavigator(
     },
     [Screens.DisclosureRequest.screen]: {
       screen: DisclosureRequest,
+    },
+    [Screens.Request.screen]: {
+      screen: Request,
+    },
+    [Screens.Credential.screen]: {
+      screen: Credential,
     },
   },
   {
@@ -267,6 +269,7 @@ const RootNavigator = createSwitchNavigator(
   {
     App: AppNavigator,
     Onboarding: OnboardingNavigator,
+    [Screens.Scanner.screen]: Scanner,
   },
   {
     initialRouteName: 'App',
