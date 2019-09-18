@@ -1,8 +1,5 @@
 PODS:
   - Analytics (3.7.0)
-  - AppCenter/Core (1.14.0)
-  - AppCenterReactNativeShared (1.13.0):
-    - AppCenter/Core (= 1.14.0)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - Folly (2018.10.22.00):
@@ -67,16 +64,9 @@ PODS:
     - React
   - RNVectorIcons (6.5.0):
     - React
-  - Sentry (4.1.3):
-    - Sentry/Core (= 4.1.3)
-  - Sentry/Core (4.1.3)
-  - SentryReactNative (0.43.2):
-    - React
-    - Sentry (~> 4.1.3)
   - yoga (0.59.9.React)
 
 DEPENDENCIES:
-  - AppCenterReactNativeShared (~> 1.13.0)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -90,16 +80,12 @@ DEPENDENCIES:
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
-  - SentryReactNative (from `../node_modules/react-native-sentry/SentryReactNative.podspec`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Analytics
-    - AppCenter
-    - AppCenterReactNativeShared
     - boost-for-react-native
-    - Sentry
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -124,15 +110,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
-  SentryReactNative:
-    :path: "../node_modules/react-native-sentry/SentryReactNative.podspec"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
-  AppCenter: 02c5efe08d3bbab5421ae41d5f7aa7238906b817
-  AppCenterReactNativeShared: 00f470c3c17b47718db8733cbe811ccdcfd86282
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
@@ -145,10 +127,8 @@ SPEC CHECKSUMS:
   RNLocalize: 62a949d2ec5bee0eb8f39a80a48f01e2f4f67080
   RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
   RNVectorIcons: f6cf608dee5b2cb5726ff3b629a5258586d5677b
-  Sentry: 4e8a17b61ddd116f89536cc81d567fdee1ebca96
-  SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
   yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
 
-PODFILE CHECKSUM: 112aa17515abfda1ebc43c28ccb54354ec71603e
+PODFILE CHECKSUM: cdf3540b73e1cd76ceaa1cfdae906b89fd433821
 
 COCOAPODS: 1.7.5
