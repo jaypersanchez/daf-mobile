@@ -11,21 +11,7 @@ registerEthrResolver()
 
 export const JWT_REGEX = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/
 
-export interface SertoMessage {
-  hash: string
-  iss: string
-  sub?: string
-  type: string
-  jwt: string
-  data: string
-  time: number
-  visibility: string
-  tag: string
-}
-
 export enum ActionType {
-  VerifiableCredentials = 'serto.action.vc.v1.0',
-  VerifiablePresentation = 'serto.action.w3c.presentation.v1.0',
   SelectiveDisclosureGQL = 'serto.action.sdr.gql.v1.0',
   SelectiveDisclosureClaims = 'serto.action.sdr.claims.v1.0',
 }
@@ -39,24 +25,6 @@ export enum VisibilityType {
   To = 'TO',
   Both = 'BOTH',
   Any = 'ANY',
-}
-
-export const vcsInMessage = async (message: SertoMessage) => {
-  const actions = JSON.parse(message.data)
-  let vcs: string[] = []
-
-  if (Array.isArray(actions)) {
-    actions.forEach(async (action: any) => {
-      if (action.type === ActionType.VerifiableCredentials) {
-        vcs = [...vcs, ...action.jwt]
-      } else if (action.type === ActionType.VerifiablePresentation) {
-        const verified = await verifyJWT(action.jwt)
-        vcs = [...vcs, ...verified.payload.vp.verifiableCredential]
-      }
-    })
-  }
-
-  return vcs
 }
 
 // export const messageFromURL = async (url: string) => {

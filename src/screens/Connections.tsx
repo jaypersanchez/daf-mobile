@@ -39,7 +39,7 @@ const Connections: React.FC<Props> = props => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data.identities}
+                data={data && data.identities}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -61,6 +61,7 @@ const Connections: React.FC<Props> = props => {
                 keyExtractor={item => item.did}
                 onRefresh={refetch}
                 refreshing={loading}
+                ListEmptyComponent={<Text>No connections</Text>}
               />
             )
           }

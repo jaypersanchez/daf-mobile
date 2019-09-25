@@ -6,8 +6,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput, Image } from 'react-native'
-import { Query, Mutation, MutationState, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../lib/serto-graph'
+import { Query, QueryResult } from 'react-apollo'
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
+
 import {
   Container,
   Button,
@@ -21,6 +22,8 @@ import { Colors } from '../theme'
 import moment from 'moment'
 import gql from 'graphql-tag'
 import { client } from '../lib/TGEClient'
+import { syncTgeEdges } from '../lib/GraphQL'
+import { getDidsQuery as GET_DIDS } from '../lib/Signer'
 
 export const findEdges = gql`
   query findEdges($toDID: [String]) {
@@ -48,14 +51,26 @@ interface Result extends QueryResult {
 
 export default () => {
   const { t } = useTranslation()
+  const { data, loading, error } = useQuery(GET_DIDS)
+  console.log({ data, loading, error })
+
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
+        <Container padding>
+          <Button
+            fullWidth
+            type={Constants.BrandOptions.Primary}
+            block={Constants.ButtonBlocks.Filled}
+            buttonText={t('Sync')}
+            onPress={syncTgeEdges}
+          />
+        </Container>
         <Query
           query={findEdges}
           client={client}
           variables={{
-            toDID: ['did:ethr:0x4649725d96180ba84415c47f13ed51ac194a8415'],
+            toDID: [data && data.selectedDid],
           }}
           onError={console.log}
         >
@@ -65,7 +80,7 @@ export default () => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data.findEdges}
+                data={data && data.findEdges}
                 renderItem={({ item, index }) => (
                   <ListItem last={index === data.findEdges.length - 1}>
                     <Text>Type: {item.type}</Text>
@@ -78,6 +93,7 @@ export default () => {
                 keyExtractor={item => item.hash}
                 onRefresh={refetch}
                 refreshing={loading}
+                ListEmptyComponent={<Text>No edges</Text>}
               />
             )
           }

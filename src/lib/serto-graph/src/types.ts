@@ -43,7 +43,7 @@ export interface VerifiableClaim {
   iss: Identity
   sub: Identity
   json: string
-  raw: string
+  jwt: string
   nbf: number
   exp: number
   fields: [VerifiableClaimField]
@@ -58,17 +58,4 @@ export interface VerifiableClaimField {
   type: string
   value: string
   isObj: boolean
-}
-
-export interface Message {
-  rowId: string
-  hash: string
-  type: string
-  parent?: Message // hash - string
-  jwt?: string
-  iss: Identity // did - string
-  sub: Identity // did - string
-  time: number
-  vc: [VerifiableClaim]
-  actions?: [any]
 }

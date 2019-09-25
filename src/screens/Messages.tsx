@@ -29,14 +29,18 @@ export default () => {
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query query={Queries.findMessages} onError={console.log}>
+        <Query
+          query={Queries.findMessages}
+          onError={console.log}
+          fetchPolicy={'cache-and-network'}
+        >
           {({ data, loading, refetch, error }: Result) =>
             error ? (
               <Text>{error.message}</Text>
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data.messages}
+                data={data && data.messages}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -49,7 +53,7 @@ export default () => {
                   >
                     <Text>{item.iss.shortId}</Text>
                     <Text type={Constants.TextTypes.Summary}>
-                      {moment.unix(item.time).calendar()}
+                      {moment.unix(item.iat).calendar()}
                     </Text>
                   </ListItem>
                 )}

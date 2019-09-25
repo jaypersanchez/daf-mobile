@@ -70,6 +70,10 @@ cache.writeData({
   },
 })
 
+export const syncTgeEdges = () => {
+  syncEdges(client)
+}
+
 interface Props {}
 interface State {
   isRunningMigrations: boolean
@@ -89,7 +93,7 @@ class CustomProvider extends React.Component<Props, State> {
       .then(() => api.initialize())
       .then(() => {
         this.setState({ isRunningMigrations: false })
-        syncEdges(client)
+        syncTgeEdges()
       })
       .catch(e => console.log(e))
   }

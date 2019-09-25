@@ -14,7 +14,7 @@ export const typeDefs = `
 
   type Mutation {
     deleteMessage(hash: ID!): Boolean
-    newMessage(message: MessageInput!): Message
+    newMessage(jwt: String!): Message
   }
 
   
@@ -37,29 +37,18 @@ export const typeDefs = `
     claims(edgeType: EdgeType): [VerifiableClaim]
   }
   
-  input MessageInput {
-    hash: String
-    iss: String
-    sub: String
-    time: Int
-    type: String
-    data: String
-    tag: String
-    visibility: String
-    retention: Int
-    jwt: String
-  }
-
   type Message {
     hash: ID!
     rowId: String!
     iss: Identity!
     sub: Identity
+    aud: Identity
     type: String!
     jwt: String!
     data: String!
-    time: Int!
-    visibility: String
+    iat: Int
+    nbf: Int
+    vis: String
     tag: String
     vc: [VerifiableClaim]
   }
@@ -71,8 +60,9 @@ export const typeDefs = `
     iss: Identity!
     sub: Identity!
     json: String!
-    raw: String!
-    nbf: Int!
+    jwt: String!
+    nbf: Int
+    iat: Int
     exp: Int
     fields: [VerifiableClaimField]
   }
@@ -191,11 +181,8 @@ export const resolvers = {
     },
   },
   Mutation: {
-    newMessage: async (
-      _: any,
-      { message }: { message: SertoMessage },
-      { api }: Context,
-    ) => api.saveMessage(message),
+    newMessage: async (_: any, { jwt }: { jwt: string }, { api }: Context) =>
+      api.saveMessage(jwt),
     deleteMessage: async (
       _: any,
       { hash }: { hash: string },

@@ -11,7 +11,8 @@ export const initial: Migration = {
       sub TEXT,
       type TEXT,
       data TEXT,
-      time NUMERIC,
+      iat NUMERIC,
+      nbf NUMERIC,
       jwt TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
@@ -26,7 +27,8 @@ export const initial: Migration = {
       aud TEXT,
       sub TEXT,
       nbf NUMERIC,
-      raw TEXT,
+      iat NUMERIC,
+      jwt TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
       [],
@@ -37,6 +39,7 @@ export const initial: Migration = {
       parent_hash INTEGER,
       iss TEXT, sub TEXT,
       nbf NUMERIC,
+      iat NUMERIC,
       claim_type TEXT,
       claim_value TEXT,
       is_obj NUMERIC NOT NULL default 0

@@ -23,8 +23,8 @@ export const getAllIdentities = gql`
 `
 
 export const newMessage = gql`
-  mutation newMessage($message: MessageInput!) {
-    newMessage(message: $message) {
+  mutation newMessage($jwt: String!) {
+    newMessage(jwt: $jwt) {
       hash
     }
   }
@@ -43,7 +43,8 @@ export const findMessages = gql`
       type
       rowId
       hash
-      time
+      iat
+      nbf
       vc {
         hash
         parentHash
@@ -61,7 +62,7 @@ export const findMessages = gql`
           lastName
           profileImage
         }
-        raw
+        jwt
         nbf
         fields {
           type
@@ -93,7 +94,7 @@ export const findClaims = gql`
         lastName
         profileImage
       }
-      raw
+      jwt
       nbf
       fields {
         type

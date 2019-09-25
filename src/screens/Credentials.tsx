@@ -45,7 +45,7 @@ export const Credentials: React.FC<Props> = props => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data.claims}
+                data={data && data.claims}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -62,6 +62,7 @@ export const Credentials: React.FC<Props> = props => {
                 keyExtractor={item => item.rowId}
                 onRefresh={refetch}
                 refreshing={loading}
+                ListEmptyComponent={<Text>No credentials</Text>}
               />
             )
           }

@@ -3,7 +3,7 @@ import * as blake from 'blakejs'
 import { DbDriver, Viewer, Logger } from './types'
 import runMigrations from './migrations'
 import * as messages from './messages'
-import { SertoMessage, vcsInMessage } from '../../serto-credentials'
+import { verifyEdgeJWT } from '../../serto-credentials/verification'
 
 class Api {
   private db: DbDriver
@@ -42,7 +42,7 @@ class Api {
         parentHash: row.parent_hash,
         iss: { did: row.iss },
         sub: { did: row.sub },
-        raw: row.raw,
+        jwt: row.jwt,
         nbf: row.nbf,
       }))
     })
@@ -61,7 +61,7 @@ class Api {
           parentHash: row.parent_hash,
           iss: { did: row.iss },
           sub: { did: row.sub },
-          raw: row.raw,
+          jwt: row.jwt,
           nbf: row.nbf,
           exp: row.exp,
         })),
@@ -92,19 +92,19 @@ class Api {
     let params = null
     let sql = null
 
-    sql = 'SELECT "rowid" as rowid, * FROM messages order by time desc'
+    sql = 'SELECT "rowid" as rowid, * FROM messages order by nbf desc'
     if (iss && !sub) {
       params = { $iss: iss }
       sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by time desc'
+        'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by nbf desc'
     } else if (!iss && sub) {
       params = { $sub: sub }
       sql =
-        'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by time desc'
+        'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by nbf desc'
     } else if (iss && sub) {
       params = { $iss: iss, $sub: sub }
       sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by time desc'
+        'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by nbf desc'
     }
 
     return this.db.rows(sql, params).then(rows =>
@@ -116,7 +116,8 @@ class Api {
         type: row.type,
         data: row.data,
         jwt: row.jwt,
-        time: row.time,
+        nbf: row.nbf,
+        iat: row.iat,
       })),
     )
   }
@@ -136,7 +137,7 @@ class Api {
           type: row.type,
           jwt: row.jwt,
           data: row.data,
-          time: row.time,
+          nbf: row.nbf,
         })),
       )
       .then(rows => rows[0])
@@ -207,41 +208,39 @@ class Api {
     return shortId
   }
 
-  async saveMessage(msg: SertoMessage) {
+  async saveMessage(jwt: string) {
+    const msg = await verifyEdgeJWT(jwt)
+    const p = msg.verified.payload
+
     await this.db.run(
-      'INSERT INTO messages (hash, iss, sub, time, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [msg.hash, msg.iss, msg.sub, msg.time, msg.type, msg.data, msg.jwt],
+      'INSERT INTO messages (hash, iss, sub, iat, nbf, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [msg.hash, p.iss, p.sub, p.iat, p.nbf, msg.type, p.data, jwt],
     )
 
-    const vcs = await vcsInMessage(msg)
-
-    for (const key in vcs) {
-      if (vcs.hasOwnProperty(key)) {
-        const verifiableClaimJWT = vcs[key]
-        await this.saveVerifiableClaim(verifiableClaimJWT, msg.hash)
+    for (const key in msg.vc) {
+      if (msg.vc.hasOwnProperty(key)) {
+        await this.saveVerifiableClaim(msg.vc[key], msg.hash)
       }
     }
 
-    return { jwt: msg.jwt, hash: msg.hash }
+    return { hash: msg.hash }
   }
 
-  async saveVerifiableClaim(jwt: string, messageHash: string) {
-    const decoded = await didJWT.decodeJWT(jwt) // todo change to verifyJWT
-    const verifiableClaim = decoded.payload as any
-    if (!messages.isValidVerifiableClaim(verifiableClaim)) {
-      throw Error('Invalid verifiable claim')
-    }
-    const vcHash = blake.blake2bHex(jwt)
+  async saveVerifiableClaim(vc: any, messageHash: string) {
+    const verifiableClaim = vc.payload as any
+
+    const vcHash = blake.blake2bHex(vc.jwt)
 
     await this.db.run(
-      'INSERT INTO verifiable_claims (hash, parent_hash, iss, sub, nbf, raw ) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO verifiable_claims (hash, parent_hash, iss, sub, nbf, iat, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [
         vcHash,
         messageHash,
         verifiableClaim.iss,
         verifiableClaim.sub,
         verifiableClaim.nbf,
-        jwt,
+        verifiableClaim.iat,
+        vc.jwt,
       ],
     )
 
@@ -253,12 +252,13 @@ class Api {
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
         await this.db.run(
-          'INSERT INTO verifiable_claims_fields (parent_hash, iss, sub, nbf, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO verifiable_claims_fields (parent_hash, iss, sub, nbf, iat, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
           [
             vcHash,
             verifiableClaim.iss,
             verifiableClaim.sub,
             verifiableClaim.nbf,
+            verifiableClaim.iat,
             type,
             isObj ? JSON.stringify(value) : value,
             isObj ? 1 : 0,

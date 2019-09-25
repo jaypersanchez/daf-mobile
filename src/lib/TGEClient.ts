@@ -11,6 +11,7 @@ import Log from './Log'
 import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
 import { createJWT } from 'did-jwt'
 import Config from 'react-native-config'
+import { client as localGqlClient } from './GraphQL'
 
 const uri = Config.TGE_URI
 
@@ -30,7 +31,7 @@ type Edge {
     # to field of the edge. "sub" on the JWT
     to: Identity!
     # type of the edge. "type" on the JWT
-    type: String!
+    type: String
     # date of the issuance of the edge. "nbf" on the JWT
     time: Int!
     # tag of the edge. "tag" on the JWT
@@ -51,16 +52,17 @@ enum VisibilityEnum {
 `
 
 const authLink = setContext(async (_, { headers }) => {
-  const list = await RNUportHDSigner.listSeedAddresses()
-  const address = list[0]
-  const signer: any = getSignerForHDPath(address)
-  console.log({ address })
+  const { data } = await localGqlClient.query({
+    query: getSelectedDid,
+  })
+
+  const signer: any = getSignerForHDPath(data.selectedDid.slice(9))
 
   const vc = {
     exp: Math.floor(Date.now() / 1000) + 100,
   }
   const jwt = await createJWT(vc, {
-    issuer: 'did:ethr:' + address,
+    issuer: data.selectedDid,
     signer,
     alg: 'ES256K-R',
   })
@@ -87,28 +89,25 @@ export const client = new ApolloClient({
 export const findEdges = gql`
   query findEdges($toDID: [String], $since: Int) {
     findEdges(toDID: $toDID, since: $since) {
-      hash
       time
-      type
-      from {
-        did
-      }
-      to {
-        did
-      }
-      visibility
-      tag
-      retention
-      data
+      hash
       jwt
     }
   }
 `
 
+export const getSelectedDid = gql`
+  query getSelectedDid {
+    selectedDid @client
+  }
+`
 export const syncEdges = async (localClient: ApolloClient<any>) => {
-  const list = await RNUportHDSigner.listSeedAddresses()
-  const address = list[0]
-  const did = 'did:ethr:' + address
+  const { data } = await localClient.query({
+    query: getSelectedDid,
+  })
+
+  const did = data.selectedDid
+
   Log.info('Syncing data with ' + uri, 'TGE')
 
   // Find last message
@@ -116,13 +115,14 @@ export const syncEdges = async (localClient: ApolloClient<any>) => {
     query: Queries.findMessages,
   })
 
-  const lastMessageTime = res.data.messages[0]
-    ? res.data.messages[0].time
-    : null
-  console.log({ lastMessageTime })
+  const lastMessageTime = res.data.messages[0] ? res.data.messages[0].iat : null
+
+  Log.info('Latest known message time: ' + lastMessageTime, 'TGE')
+
   try {
     const result = await client.query({
       query: findEdges,
+      fetchPolicy: 'network-only',
       variables: {
         toDID: [did],
         since: lastMessageTime,
@@ -130,31 +130,18 @@ export const syncEdges = async (localClient: ApolloClient<any>) => {
     })
 
     result.data.findEdges.forEach(async (edge: any) => {
-      Log.info('Saving ' + edge.time, 'TGE')
+      Log.info('Saving ' + edge.hash, 'TGE')
       try {
-        const message = {
-          hash: edge.hash,
-          iss: edge.from.did,
-          sub: edge.to.did,
-          time: edge.time,
-          type: edge.type,
-          data: edge.data,
-          tag: edge.tag,
-          retention: edge.retention,
-          visibility: edge.visibility,
-          jwt: edge.jwt,
-        }
         const hash = await localClient.mutate({
           mutation: Queries.newMessage,
-          variables: { message },
+          variables: { jwt: edge.jwt },
         })
-        // console.log(hash)
       } catch (e) {
-        console.log(e)
+        Log.error(e.message, 'TGE')
       }
     })
   } catch (e) {
-    console.log(e)
+    Log.error(e.message, 'TGE')
   }
 
   Log.info('Done syncing data', 'TGE')
