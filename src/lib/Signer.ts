@@ -113,7 +113,7 @@ export const resolvers: Resolvers = {
   },
 }
 
-client.addResolvers(resolvers)
+client && client.addResolvers(resolvers)
 
 export const importSeedMutation = gql`
   mutation importSeed($seed: String!) {

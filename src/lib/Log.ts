@@ -53,7 +53,7 @@ export const resolvers: Resolvers = {
   },
 }
 
-client.addResolvers(resolvers)
+client && client.addResolvers(resolvers)
 
 const newLogItemMutation = gql`
   mutation newLogItem($message: String!, $type: Int!, $category: String) {
