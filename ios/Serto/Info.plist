@@ -23,30 +23,28 @@
 	<key>CFBundleVersion</key>
 	<string>13</string>
 	<key>CodePushDeploymentKey</key>
-	<string>Qew6u_A32QCcd3PLV9Yo3Psbcvs7By3RmD_o4</string>
+	<string>__RN_CONFIG_CODE_PUSH_IOS</string>
 	<key>CodePushPublicKey</key>
-	<string>-----BEGIN PUBLIC KEY-----
-		MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz7uNqjyy2D3F8eo22lPieWbxIpxOs9guVUDwwZ9J2cVvuJj97PIQ7cx6dM8HAYWCKg25kkPNjRLGFj3WIhrN8JtBoA87tNoWOoIuZBUTl0YO7iYNDz7pgtDA4eTJV3zArbqxTKcvQSzhOsHZHrSsDfUXbV6IzwDrltxqxj7zvVw+NKjE+kimdU6WrJ1J8jJ5V1ntkWzM2Wzw7CF88RIYChacv2S5tYb9COQR9DSST5aKiaQASaml3hnwvaIpHmVs6rCf8RcSIcjRmYhy0g41KWe91bxfKn2874DrdWW1xHpYerXF/4l5jqkB2912g5vIwl4aP+5THHmqXfx0xt9zlwIDAQAB
-		-----END PUBLIC KEY-----</string>
+	<string>__RN_CONFIG_CODE_PUSH_PUBLIC_KEY</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
-	<false />
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string />
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -85,6 +83,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 </dict>
 </plist>

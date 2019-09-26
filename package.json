@@ -21,7 +21,8 @@
     "sentry-android-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Staging",
     "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight",
     "release": "semantic-release",
-    "postversion": "react-native-version --never-amend"
+    "postversion": "react-native-version --never-amend",
+    "encode-env": "openssl base64 -A -in .env_template"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -30,6 +31,7 @@
     "@segment/analytics-react-native": "^1.1.0-beta.0",
     "@types/react-native-sqlite-storage": "^3.3.1",
     "@types/url-parse": "^1.4.3",
+    "@sentry/react-native": "^1.0.4",
     "add": "^2.0.6",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-cache-persist": "^0.1.1",

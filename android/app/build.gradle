@@ -2,7 +2,7 @@ apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
     debug: ".env",
-    release: ".env.production"
+    release: ".env",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -81,9 +81,12 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js"
 ]
+project.ext.sentryCli = [
+    logLevel: "debug"
+]
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-sentry/sentry.gradle"
+apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
@@ -127,6 +130,13 @@ android {
         }
     }
     buildTypes {
+
+        debug {
+            // Set an empty key for codepush in debug mode. This env variable will different for staging and production
+            buildConfigField "String", "CODE_PUSH_ANDROID", '""'
+            buildConfigField "String", "CODE_PUSH_PUBLIC_KEY", '""'
+        }
+
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -149,16 +159,15 @@ android {
 
 dependencies {
     implementation project(':react-native-sqlite-storage')
+    implementation project(':@sentry_react-native')
     implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-screens')
     implementation project(':react-native-camera')
     implementation project(':@segment_analytics-react-native')
-    implementation project(':react-native-sentry')
     implementation project(':react-native-uport-signer')
     implementation project(':react-native-localize')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-code-push')
-    implementation project(':appcenter')
     implementation project(':react-native-config')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])

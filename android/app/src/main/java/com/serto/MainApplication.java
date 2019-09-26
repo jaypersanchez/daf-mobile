@@ -12,7 +12,6 @@ import com.reactlibrary.RNUportSignerPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.microsoft.codepush.react.CodePush;
-import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNLocalizePackage(),
             new RNGestureHandlerPackage(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG, R.string.reactNativeCodePush_PublicKey),
-            new AppCenterReactNativePackage(MainApplication.this),
             new ReactNativeConfigPackage()
       );
     }

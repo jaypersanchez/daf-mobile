@@ -1,7 +1,7 @@
 ###############################################################
 # References
 ###############################################################
-version: 2
+version: 2.1
 references:
   restore_yarn_cache: &restore_yarn_cache
     restore_cache:
@@ -64,6 +64,16 @@ references:
       name: Decode Android keystore
       command: echo $ANDROID_KEYSTORE | base64 -di | tee release-key.keystore app/release-key.keystore >/dev/null
 
+  create_production_env_file: &create_production_env_file
+    run:
+      name: Create production environment file
+      command: echo $PRODUCTION_ENV | base64 -di | tee .env >/dev/null
+
+  create_staging_env_file: &create_staging_env_file
+    run:
+      name: Create staging environment file
+      command: echo $STAGING_ENV | base64 -di | tee .env >/dev/null
+
   gems_cache_key_android: &gems_cache_key_android android-bundle-v1-{{ checksum "../Gemfile.lock" }}-{{ arch }}
 
   gradle_cache_key: &gradle_cache_key jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
@@ -98,7 +108,6 @@ references:
 # Workflows
 ###############################################################
 workflows:
-  version: 2
   # Trigger workflow for last commit (merge commits) to master
   # Run unit tests for sanity and if all looks good run semantic release
   # Semantic release will decide based on commit messages if another release is needed
@@ -106,13 +115,14 @@ workflows:
   semantic-release:
     jobs:
       - verify_unit_tests:
+          name: verify_unit_tests_sanity
           filters:
             branches:
               only:
                 - master
       - verify_release:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_sanity
           filters:
             branches:
               only:
@@ -126,20 +136,22 @@ workflows:
   verify-test-build:
     jobs:
       - verify_unit_tests:
+          name: verify_unit_tests_staging
+          staging: true
           filters:
             branches:
               ignore:
                 - master
       - build_ios:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_staging
           filters:
             branches:
               ignore:
                 - master
       - build_android:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_staging
           filters:
             branches:
               ignore:
@@ -148,6 +160,8 @@ workflows:
   deploy-release-tag:
     jobs:
       - verify_unit_tests:
+          name: verify_unit_tests_prod
+          production: true
           filters:
             tags:
               only: /^v.*/
@@ -155,7 +169,7 @@ workflows:
               ignore: /.*/
       - build_ios:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_prod
           filters:
             tags:
               only: /^v.*/
@@ -163,7 +177,7 @@ workflows:
               ignore: /.*/
       - build_android:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_prod
           filters:
             tags:
               only: /^v.*/
@@ -171,7 +185,7 @@ workflows:
               ignore: /.*/
       - deploy_ios:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_prod
             - build_ios
           filters:
             tags:
@@ -180,7 +194,7 @@ workflows:
               ignore: /.*/
       - deploy_android:
           requires:
-            - verify_unit_tests
+            - verify_unit_tests_prod
             - build_android
           filters:
             tags:
@@ -197,8 +211,23 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/node:10
+    parameters:
+      production:
+        type: boolean
+        default: false
+      staging:
+        type: boolean
+        default: false
     steps:
       - checkout
+      - when:
+          condition: <<parameters.production>>
+          steps:
+            - *create_production_env_file
+      - when:
+          condition: <<parameters.staging>>
+          steps:
+            - *create_staging_env_file
       - *restore_yarn_cache
       - run:
           name: Install node modules
@@ -211,6 +240,7 @@ jobs:
           root: ~/project
           paths:
             - node_modules
+            - .env
 
   verify_release:
     working_directory: ~/project
