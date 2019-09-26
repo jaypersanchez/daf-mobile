@@ -76,5 +76,6 @@ Serto.app.dSYM.zip
 .env.production
 .env_production
 .env_staging
+.env
 
 ios/Pods
