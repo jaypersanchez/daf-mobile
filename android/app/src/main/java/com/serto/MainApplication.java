@@ -49,7 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNUportSignerPackage(),
             new RNLocalizePackage(),
             new RNGestureHandlerPackage(),
-            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG, R.string.reactNativeCodePush_PublicKey),
+            new CodePush(BuildConfig.CODE_PUSH_ANDROID, getApplicationContext(), BuildConfig.DEBUG, BuildConfig.CODE_PUSH_PUBLIC_KEY),
             new ReactNativeConfigPackage()
       );
     }
