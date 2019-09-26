@@ -13,7 +13,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "Serto/*": ["./*"]
+      "Serto/*": ["./*"],
+      "serto-graph": ["./lib/serto-graph"]
     }
   },
   "types": ["jest"],

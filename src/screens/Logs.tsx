@@ -27,7 +27,7 @@ export default () => {
           }) => (
             <FlatList
               style={{ backgroundColor: Colors.LIGHTEST_GREY }}
-              data={data.logs}
+              data={data && data.logs}
               renderItem={({ item }) => (
                 <LogItem
                   type={item.type}

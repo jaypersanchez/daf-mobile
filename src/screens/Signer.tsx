@@ -95,7 +95,7 @@ const Signer: React.FC<SignerProps> = props => {
           }) => (
             <FlatList
               style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-              data={data.dids}
+              data={data && data.dids}
               renderItem={({ item, index }) => (
                 <ListItem
                   last={index === data.dids.length - 1}

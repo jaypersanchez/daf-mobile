@@ -2,7 +2,7 @@
  * Serto Mobile App
  *
  */
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { NavigationScreen } from '../../navigators'

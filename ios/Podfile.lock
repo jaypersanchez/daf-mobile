@@ -1,5 +1,5 @@
 PODS:
-  - Analytics (3.7.0)
+  - Analytics (3.6.10)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - Folly (2018.10.22.00):
@@ -7,70 +7,73 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - React (0.59.9):
-    - React/Core (= 0.59.9)
-  - react-native-camera (2.11.0):
+  - React (0.59.10):
+    - React/Core (= 0.59.10)
+  - react-native-camera (2.11.2):
     - React
-    - react-native-camera/RCT (= 2.11.0)
-    - react-native-camera/RN (= 2.11.0)
-  - react-native-camera/RCT (2.11.0):
+    - react-native-camera/RCT (= 2.11.2)
+    - react-native-camera/RN (= 2.11.2)
+  - react-native-camera/RCT (2.11.2):
     - React
-  - react-native-camera/RN (2.11.0):
+  - react-native-camera/RN (2.11.2):
     - React
-  - React/Core (0.59.9):
-    - yoga (= 0.59.9.React)
-  - React/CxxBridge (0.59.9):
+  - react-native-sqlite-storage (3.3.11):
+    - React
+  - React/Core (0.59.10):
+    - yoga (= 0.59.10.React)
+  - React/CxxBridge (0.59.10):
     - Folly (= 2018.10.22.00)
     - React/Core
     - React/cxxreact
     - React/jsiexecutor
-  - React/cxxreact (0.59.9):
+  - React/cxxreact (0.59.10):
     - boost-for-react-native (= 1.63.0)
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/jsinspector
-  - React/DevSupport (0.59.9):
+  - React/DevSupport (0.59.10):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.59.9)
-  - React/jsi (0.59.9):
+  - React/fishhook (0.59.10)
+  - React/jsi (0.59.10):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
-  - React/jsiexecutor (0.59.9):
+  - React/jsiexecutor (0.59.10):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/cxxreact
     - React/jsi
-  - React/jsinspector (0.59.9)
-  - React/RCTBlob (0.59.9):
+  - React/jsinspector (0.59.10)
+  - React/RCTBlob (0.59.10):
     - React/Core
-  - React/RCTWebSocket (0.59.9):
+  - React/RCTWebSocket (0.59.10):
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNAnalytics (1.1.0-beta.0):
+  - RNAnalytics (1.1.0-beta.2):
     - Analytics
     - React
-  - RNCAsyncStorage (1.6.1):
+  - RNCAsyncStorage (1.6.2):
     - React
   - RNGestureHandler (1.2.1):
     - React
-  - RNLocalize (1.1.4):
+  - RNLocalize (1.2.1):
     - React
   - RNScreens (1.0.0-alpha.22):
     - React
-  - RNVectorIcons (6.5.0):
+  - RNVectorIcons (6.6.0):
     - React
-  - yoga (0.59.9.React)
+  - yoga (0.59.10.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -98,6 +101,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-sqlite-storage:
+    :path: "../node_modules/react-native-sqlite-storage"
   RNAnalytics:
     :path: "../node_modules/@segment/analytics-react-native"
   RNCAsyncStorage:
@@ -114,21 +119,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
+  Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
-  React: a86b92f00edbe1873a63e4a212c29b7a7ad5224f
-  react-native-camera: 0d18706a9fd6d30ece4fa7c9c50fe36f484c54fa
-  RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
-  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
+  React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
+  react-native-camera: b5e6e34586ca6f588b0c736dcabfe0aad5ce2f3e
+  react-native-sqlite-storage: c7d77c26a0b82a304d7158d3515f188665e3ef72
+  RNAnalytics: 67854ebc95a440c6d522babd84cf1968c8629947
+  RNCAsyncStorage: 60a80e72d95bf02a01cace55d3697d9724f0d77f
   RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
-  RNLocalize: 62a949d2ec5bee0eb8f39a80a48f01e2f4f67080
+  RNLocalize: f42aea3133d91d7fa3ec01284a6895019af1a83f
   RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
-  RNVectorIcons: f6cf608dee5b2cb5726ff3b629a5258586d5677b
-  yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: cdf3540b73e1cd76ceaa1cfdae906b89fd433821
+PODFILE CHECKSUM: 6a2f1236de5e4b1f3125c59c9e8f33b23dfbb349
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.7.2

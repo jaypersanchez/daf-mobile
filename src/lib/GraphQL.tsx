@@ -1,18 +1,21 @@
+import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
+import { persistCache } from 'apollo-cache-persist'
+import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import { ApolloClient, Resolvers } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { persistCache } from 'apollo-cache-persist'
 import { from } from 'apollo-link'
-import { HttpLink } from 'apollo-link-http'
-import gql from 'graphql-tag'
+import { SchemaLink } from 'apollo-link-schema'
+import { Api, typeDefs, resolvers } from './serto-graph'
+import { RnSqlite } from './db-rn-sqlite3'
+import { makeExecutableSchema } from 'graphql-tools'
+import Log from './Log'
+import { Container, Screen, Text } from '@kancha/kancha-ui'
+import { syncEdges } from './TGEClient'
 
-// const httpLink = new HttpLink({uri: '/graphql'})
+const localTypeDefs = `
 
-const link = from([
-  // httpLink,
-])
-
-const typeDefs = gql`
   type LogMessage {
     id: ID!
     timestamp: Int
@@ -25,6 +28,27 @@ const typeDefs = gql`
   }
 `
 
+export const schema = makeExecutableSchema({
+  typeDefs: typeDefs + localTypeDefs,
+  resolvers,
+})
+
+// local
+const driver = new RnSqlite()
+const api = new Api(driver)
+
+const did = ''
+const viewer = {
+  did,
+}
+
+const contextLink = new SchemaLink({
+  schema,
+  context: { api, viewer },
+})
+
+const link = from([contextLink])
+
 export const cache = new InMemoryCache({})
 
 persistCache({
@@ -35,7 +59,6 @@ persistCache({
 
 export const client = new ApolloClient({
   connectToDevTools: true,
-  typeDefs,
   cache,
   link,
 })
@@ -46,3 +69,54 @@ cache.writeData({
     logs: [],
   },
 })
+
+export const syncTgeEdges = () => {
+  syncEdges(client)
+}
+
+interface Props {}
+interface State {
+  isRunningMigrations: boolean
+}
+
+class CustomProvider extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      isRunningMigrations: true,
+    }
+  }
+
+  componentDidMount() {
+    driver
+      .initialize()
+      .then(() => api.initialize())
+      .then(() => {
+        this.setState({ isRunningMigrations: false })
+        syncTgeEdges()
+      })
+      .catch(e => console.log(e))
+  }
+
+  render() {
+    if (this.state.isRunningMigrations) {
+      return (
+        <Screen safeArea={true}>
+          <Container flex={1} alignItems={'center'} justifyContent={'center'}>
+            <Text>Updating data...</Text>
+          </Container>
+        </Screen>
+      )
+    } else {
+      return (
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            {this.props.children}
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      )
+    }
+  }
+}
+
+export default CustomProvider

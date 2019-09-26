@@ -12,5 +12,6 @@ export default {
     English: 'Inglesa',
     Spanish: 'Española',
     CrashReporting: 'Informes de colisión',
+    Connections: 'Conexiones',
   },
 }

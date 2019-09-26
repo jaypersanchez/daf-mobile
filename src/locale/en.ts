@@ -12,5 +12,6 @@ export default {
     English: 'English',
     Spanish: 'Spanish',
     CrashReporting: 'Crash Reporting',
+    Connections: 'Connections',
   },
 }

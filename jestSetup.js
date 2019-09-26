@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill' // this is needed for apollo client to run on nodejs
 import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
 
