@@ -1,6 +1,4 @@
-import React from 'react'
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient, Resolvers } from 'apollo-client'
+import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { from } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
@@ -8,12 +6,17 @@ import { setContext } from 'apollo-link-context'
 import gql from 'graphql-tag'
 import { Queries } from './serto-graph'
 import Log from './Log'
-import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
+import { getSignerForHDPath } from 'react-native-uport-signer'
 import { createJWT } from 'did-jwt'
 import Config from 'react-native-config'
 import { client as localGqlClient } from './GraphQL'
+import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
+import { split } from 'apollo-link'
+import { saveMessage } from './Messages'
 
 const uri = Config.TGE_URI
+const wsUri = Config.TGE_WS_URI
 
 const localTypeDefs = `
 
@@ -51,10 +54,13 @@ enum VisibilityEnum {
 }
 `
 
-const authLink = setContext(async (_, { headers }) => {
+const getAuthToken = async () => {
   const { data } = await localGqlClient.query({
     query: getSelectedDid,
   })
+  if (!data.selectedDid) {
+    throw Error('No selected DID')
+  }
 
   const signer: any = getSignerForHDPath(data.selectedDid.slice(9))
 
@@ -67,23 +73,45 @@ const authLink = setContext(async (_, { headers }) => {
     alg: 'ES256K-R',
   })
 
-  console.log('JWT', jwt)
+  return jwt
+}
 
+const authLink = setContext(async (_, { headers }) => {
+  const token = await getAuthToken()
   return {
-    headers: { ...headers, Authorization: `Bearer ${jwt}` },
+    headers: { ...headers, authorization: `Bearer ${token}` },
   }
 })
 
 const httpLink = new HttpLink({ uri })
+const wsLink = new WebSocketLink({
+  uri: wsUri,
+  options: {
+    reconnect: true,
+    connectionParams: async () => {
+      const token = await getAuthToken()
+      return { authorization: `Bearer ${token}` }
+    },
+  },
+})
 
-const link = from([authLink, httpLink])
+const link = split(
+  // split based on operation type
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  httpLink,
+)
 
-export const cache = new InMemoryCache()
 export const client = new ApolloClient({
-  connectToDevTools: true,
+  cache: new InMemoryCache(),
+  link: authLink.concat(link),
   typeDefs: localTypeDefs,
-  cache,
-  link,
 })
 
 export const findEdges = gql`
@@ -96,13 +124,21 @@ export const findEdges = gql`
   }
 `
 
+export const edgeAdded = gql`
+  subscription edgeAdded($toDID: [String]) {
+    edgeAdded(toDID: $toDID) {
+      jwt
+    }
+  }
+`
+
 export const getSelectedDid = gql`
   query getSelectedDid {
     selectedDid @client
   }
 `
-export const syncEdges = async (localClient: ApolloClient<any>) => {
-  const { data } = await localClient.query({
+export const syncEdges = async () => {
+  const { data } = await localGqlClient.query({
     query: getSelectedDid,
   })
 
@@ -111,7 +147,7 @@ export const syncEdges = async (localClient: ApolloClient<any>) => {
   Log.info('Syncing data with ' + uri, 'TGE')
 
   // Find last message
-  const res = await localClient.query({
+  const res = await localGqlClient.query({
     query: Queries.findMessages,
   })
 
@@ -132,10 +168,7 @@ export const syncEdges = async (localClient: ApolloClient<any>) => {
     result.data.findEdges.forEach(async (edge: any) => {
       Log.info('Saving ' + edge.hash, 'TGE')
       try {
-        const hash = await localClient.mutate({
-          mutation: Queries.newMessage,
-          variables: { jwt: edge.jwt },
-        })
+        saveMessage(edge.jwt)
       } catch (e) {
         Log.error(e.message, 'TGE')
       }
@@ -145,4 +178,29 @@ export const syncEdges = async (localClient: ApolloClient<any>) => {
   }
 
   Log.info('Done syncing data', 'TGE')
+}
+
+export const subscribeToNewEdges = async () => {
+  const { data } = await localGqlClient.query({
+    query: getSelectedDid,
+  })
+
+  const did = data.selectedDid
+
+  Log.info('Subscribing to new data', 'TGE')
+
+  client
+    .subscribe({
+      query: edgeAdded,
+      variables: { toDID: did },
+    })
+    .subscribe({
+      async next(result) {
+        Log.info('New edge received', 'TGE')
+        saveMessage(result.data.edgeAdded.jwt)
+      },
+      error(err) {
+        Log.error(err.message, 'TGE')
+      },
+    })
 }

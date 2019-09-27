@@ -21,8 +21,7 @@ import {
 import { Colors } from '../theme'
 import moment from 'moment'
 import gql from 'graphql-tag'
-import { client } from '../lib/TGEClient'
-import { syncTgeEdges } from '../lib/GraphQL'
+import { client, syncEdges } from '../lib/TGEClient'
 import { getDidsQuery as GET_DIDS } from '../lib/Signer'
 
 export const findEdges = gql`
@@ -63,7 +62,7 @@ export default () => {
             type={Constants.BrandOptions.Primary}
             block={Constants.ButtonBlocks.Filled}
             buttonText={t('Sync')}
-            onPress={syncTgeEdges}
+            onPress={syncEdges}
           />
         </Container>
         <Query

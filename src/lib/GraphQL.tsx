@@ -12,7 +12,7 @@ import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
 import Log from './Log'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
-import { syncEdges } from './TGEClient'
+import { syncEdges, subscribeToNewEdges } from './TGEClient'
 
 const localTypeDefs = `
 
@@ -70,10 +70,6 @@ cache.writeData({
   },
 })
 
-export const syncTgeEdges = () => {
-  syncEdges(client)
-}
-
 interface Props {}
 interface State {
   isRunningMigrations: boolean
@@ -87,15 +83,13 @@ class CustomProvider extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    driver
-      .initialize()
-      .then(() => api.initialize())
-      .then(() => {
-        this.setState({ isRunningMigrations: false })
-        syncTgeEdges()
-      })
-      .catch(e => console.log(e))
+  async componentDidMount() {
+    await driver.initialize()
+    await api.initialize()
+
+    this.setState({ isRunningMigrations: false })
+    await syncEdges()
+    await subscribeToNewEdges()
   }
 
   render() {
