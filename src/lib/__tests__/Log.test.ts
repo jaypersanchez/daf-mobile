@@ -3,11 +3,15 @@ import Log, {
   LogMessageType,
   getLogsQuery,
   resolvers,
+  configure,
 } from '../Log'
 
-jest.mock('../GraphQL')
+const client = {
+  mutate: jest.fn(),
+  addResolvers: jest.fn(),
+}
 
-import { client } from '../GraphQL'
+configure(client)
 
 const cache = {
   readQuery: jest.fn().mockReturnValue({ logs: [] }),
