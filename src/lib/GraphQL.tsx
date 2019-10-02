@@ -10,9 +10,15 @@ import { SchemaLink } from 'apollo-link-schema'
 import { Api, typeDefs, resolvers } from './serto-graph'
 import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
-import Log from './Log'
+import Log, { configure as configureLog } from './Log'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
-import { syncEdges } from './TGEClient'
+import TrustGraphClient from './trust-graph-client'
+import { getSignerForHDPath } from 'react-native-uport-signer'
+import { Queries } from './serto-graph'
+import Config from 'react-native-config'
+import { Issuer } from 'did-jwt-vc/src/types'
+import { Signer } from 'did-jwt'
+import gql from 'graphql-tag'
 
 const localTypeDefs = `
 
@@ -70,9 +76,59 @@ cache.writeData({
   },
 })
 
-export const syncTgeEdges = () => {
-  syncEdges(client)
+// Log config
+
+configureLog(client)
+
+// TrustGraphClient config
+
+export const getSelectedDid = gql`
+  query getSelectedDid {
+    selectedDid @client
+  }
+`
+
+const getIssuer = async (): Promise<Issuer> => {
+  const { data } = await client.query({
+    query: getSelectedDid,
+  })
+  if (!data.selectedDid) {
+    throw Error('No selected DID')
+  }
+
+  return {
+    did: data.selectedDid,
+    signer: getSignerForHDPath(data.selectedDid.slice(9)) as Signer,
+  }
 }
+
+const saveMessage = async (jwt: string) => {
+  return client.mutate({
+    mutation: Queries.newMessage,
+    variables: { jwt },
+    refetchQueries: [
+      { query: Queries.findMessages },
+      { query: Queries.getAllIdentities },
+    ],
+  })
+}
+
+const getLatestMessageTimestamp = async () => {
+  const { data } = await client.query({
+    query: Queries.findMessages,
+  })
+
+  return data.messages[0] ? data.messages[0].iat : null
+}
+
+export const trustGraphClient = new TrustGraphClient({
+  uri: Config.TGE_URI,
+  wsUri: Config.TGE_WS_URI,
+  getIssuer,
+  getLatestMessageTimestamp,
+  saveMessage,
+  log: Log,
+})
 
 interface Props {}
 interface State {
@@ -87,15 +143,14 @@ class CustomProvider extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    driver
-      .initialize()
-      .then(() => api.initialize())
-      .then(() => {
-        this.setState({ isRunningMigrations: false })
-        syncTgeEdges()
-      })
-      .catch(e => console.log(e))
+  async componentDidMount() {
+    await driver.initialize()
+    await api.initialize()
+
+    this.setState({ isRunningMigrations: false })
+    await trustGraphClient.setupClient()
+    await trustGraphClient.syncLatestMessages()
+    await trustGraphClient.subscribeToNewEdges()
   }
 
   render() {

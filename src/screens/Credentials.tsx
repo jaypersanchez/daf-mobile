@@ -38,6 +38,7 @@ export const Credentials: React.FC<Props> = props => {
           query={Queries.findClaims}
           variables={{ sub: did }}
           onError={console.log}
+          fetchPolicy={'network-only'}
         >
           {({ data, loading, refetch, error }: Result) =>
             error ? (

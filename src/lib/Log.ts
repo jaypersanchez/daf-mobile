@@ -1,6 +1,7 @@
 import { Resolvers } from 'apollo-client'
 import gql from 'graphql-tag'
-import { client } from './GraphQL'
+
+let client: any = null
 
 export enum LogMessageType {
   Info,
@@ -53,8 +54,6 @@ export const resolvers: Resolvers = {
   },
 }
 
-client && client.addResolvers(resolvers)
-
 const newLogItemMutation = gql`
   mutation newLogItem($message: String!, $type: Int!, $category: String) {
     log(message: $message, type: $type, category: $category) @client
@@ -75,6 +74,11 @@ const writeLogItemToCache = (
     },
     refetchQueries: ['getLogs'],
   })
+}
+
+export const configure = (gqlClient: any) => {
+  client = gqlClient
+  client.addResolvers(resolvers)
 }
 /* tslint:disable:no-console */
 export default {
