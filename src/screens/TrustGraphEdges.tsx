@@ -21,7 +21,7 @@ import {
 import { Colors } from '../theme'
 import moment from 'moment'
 import gql from 'graphql-tag'
-import { client, syncEdges } from '../lib/TGEClient'
+import { trustGraphClient } from '../lib/GraphQL'
 import { getDidsQuery as GET_DIDS } from '../lib/Signer'
 
 export const findEdges = gql`
@@ -51,7 +51,6 @@ interface Result extends QueryResult {
 export default () => {
   const { t } = useTranslation()
   const { data, loading, error } = useQuery(GET_DIDS)
-  console.log({ data, loading, error })
 
   return (
     <Screen safeArea={true}>
@@ -62,12 +61,12 @@ export default () => {
             type={Constants.BrandOptions.Primary}
             block={Constants.ButtonBlocks.Filled}
             buttonText={t('Sync')}
-            onPress={syncEdges}
+            onPress={async () => await trustGraphClient.syncLatestMessages()}
           />
         </Container>
         <Query
           query={findEdges}
-          client={client}
+          client={trustGraphClient.getClient()}
           variables={{
             toDID: [data && data.selectedDid],
           }}
