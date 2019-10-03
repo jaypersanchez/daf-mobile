@@ -26,6 +26,9 @@ export const newMessage = gql`
   mutation newMessage($jwt: String!) {
     newMessage(jwt: $jwt) {
       hash
+      iss {
+        did
+      }
     }
   }
 `

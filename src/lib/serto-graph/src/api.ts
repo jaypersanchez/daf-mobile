@@ -223,7 +223,7 @@ class Api {
       }
     }
 
-    return { hash: msg.hash }
+    return { hash: msg.hash, iss: { did: p.iss } }
   }
 
   async saveVerifiableClaim(vc: any, messageHash: string) {

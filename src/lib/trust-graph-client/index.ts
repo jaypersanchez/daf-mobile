@@ -135,7 +135,8 @@ class TrustGraphClient {
       data.findEdges.forEach(async (edge: any) => {
         this.log.info('Saving ' + edge.hash, 'TGC')
         try {
-          this.saveMessage(edge.jwt)
+          const message = await this.saveMessage(edge.jwt)
+          await this.syncPublicProfile(message.iss.did)
         } catch (e) {
           this.log.error(e.message, 'TGC')
         }
@@ -147,11 +148,41 @@ class TrustGraphClient {
     this.log.info('Done syncing data', 'TGC')
   }
 
+  async syncPublicProfile(did: string) {
+    this.log.info('Getting public profile for ' + did, 'TGC')
+
+    try {
+      const { data } = await this.client.query({
+        query: findEdges,
+        fetchPolicy: 'network-only',
+        variables: {
+          toDID: [did],
+          fromDID: [did],
+          tag: 'public-profile.v1',
+        },
+      })
+
+      data.findEdges.forEach(async (edge: any) => {
+        this.log.info('Saving ' + edge.hash, 'TGC')
+        try {
+          await this.saveMessage(edge.jwt)
+        } catch (e) {
+          this.log.error(e.message, 'TGC')
+        }
+      })
+    } catch (e) {
+      this.log.error(e.message, 'TGC')
+    }
+
+    this.log.info('Done getting public profile', 'TGC')
+  }
+
   async subscribeToNewEdges() {
     const issuer = await this.getIssuer()
 
     this.log.info('Subscribing to new data', 'TGC')
-    const saveMessage = this.saveMessage
+    const saveMessage = this.saveMessage.bind(this)
+    const syncPublicProfile = this.syncPublicProfile.bind(this)
     const log = this.log
 
     this.client
@@ -162,7 +193,12 @@ class TrustGraphClient {
       .subscribe({
         async next(result: any) {
           log.info('New edge received', 'TGC')
-          saveMessage(result.data.edgeAdded.jwt)
+          try {
+            const message = await saveMessage(result.data.edgeAdded.jwt)
+            await syncPublicProfile(message.iss.did)
+          } catch (e) {
+            log.error(e.message, 'TGC')
+          }
         },
         error(err: Error) {
           log.error(err.message, 'TGC')

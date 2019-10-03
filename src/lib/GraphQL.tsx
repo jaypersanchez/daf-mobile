@@ -103,7 +103,7 @@ const getIssuer = async (): Promise<Issuer> => {
 }
 
 const saveMessage = async (jwt: string) => {
-  return client.mutate({
+  const { data } = await client.mutate({
     mutation: Queries.newMessage,
     variables: { jwt },
     refetchQueries: [
@@ -111,6 +111,8 @@ const saveMessage = async (jwt: string) => {
       { query: Queries.getAllIdentities },
     ],
   })
+
+  return data.newMessage
 }
 
 const getLatestMessageTimestamp = async () => {
