@@ -43,9 +43,8 @@ export const schema = makeExecutableSchema({
 const driver = new RnSqlite()
 const api = new Api(driver)
 
-const did = ''
 const viewer = {
-  did,
+  did: '',
 }
 
 const contextLink = new SchemaLink({
@@ -118,6 +117,25 @@ const saveMessage = async (jwt: string) => {
 const getLatestMessageTimestamp = async () => {
   const { data } = await client.query({
     query: Queries.findMessages,
+    fetchPolicy: 'network-only',
+    variables: {
+      limit: 1,
+    },
+  })
+
+  return data.messages[0] ? data.messages[0].iat : null
+}
+
+const getLatestPublicProfileTimestamp = async (did: string) => {
+  const { data } = await client.query({
+    query: Queries.findMessages,
+    fetchPolicy: 'network-only',
+    variables: {
+      iss: did,
+      sub: did,
+      tag: 'public-profile.v1',
+      limit: 1,
+    },
   })
 
   return data.messages[0] ? data.messages[0].iat : null
@@ -128,6 +146,7 @@ export const trustGraphClient = new TrustGraphClient({
   wsUri: Config.TGE_WS_URI,
   getIssuer,
   getLatestMessageTimestamp,
+  getLatestPublicProfileTimestamp,
   saveMessage,
   log: Log,
 })

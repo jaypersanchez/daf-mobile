@@ -1,9 +1,8 @@
-import * as didJWT from 'did-jwt'
 import * as blake from 'blakejs'
 import { DbDriver, Viewer, Logger } from './types'
 import runMigrations from './migrations'
-import * as messages from './messages'
 import { verifyEdgeJWT } from '../../serto-credentials/verification'
+import * as sql from 'sql-bricks-sqlite'
 
 class Api {
   private db: DbDriver
@@ -17,25 +16,19 @@ class Api {
   }
 
   findClaims({ iss, sub }: { iss?: string; sub?: string }) {
-    let params: string[] = []
+    let where = {}
 
-    let sql =
-      'SELECT "rowid" as rowid, * FROM verifiable_claims order by nbf desc'
-    if (iss && !sub) {
-      params = [iss]
-      sql =
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where iss=? order by nbf desc'
-    } else if (!iss && sub) {
-      params = [sub]
-      sql =
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where sub=? order by nbf desc'
-    } else if (iss && sub) {
-      params = [iss, sub]
-      sql =
-        'SELECT * FROM verifiable_claims where iss=? and sub=? order by nbf desc'
-    }
+    if (iss) where = sql.and(where, { iss })
+    if (sub) where = sql.and(where, { sub })
 
-    return this.db.rows(sql, params).then(rows => {
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims')
+      .where(where)
+      .orderBy('nbf desc')
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows => {
       return rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
@@ -88,26 +81,36 @@ class Api {
       )
   }
 
-  findMessages({ iss, sub }: { iss?: string; sub?: string }) {
-    let params = null
-    let sql = null
+  findMessages({
+    iss,
+    sub,
+    tag,
+    limit,
+  }: {
+    iss?: string
+    sub?: string
+    tag?: string
+    limit?: number
+  }) {
+    let where = {}
 
-    sql = 'SELECT "rowid" as rowid, * FROM messages order by nbf desc'
-    if (iss && !sub) {
-      params = { $iss: iss }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by nbf desc'
-    } else if (!iss && sub) {
-      params = { $sub: sub }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by nbf desc'
-    } else if (iss && sub) {
-      params = { $iss: iss, $sub: sub }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by nbf desc'
+    if (iss) where = sql.and(where, { iss })
+    if (sub) where = sql.and(where, { sub })
+    if (tag) where = sql.and(where, { tag })
+
+    let query = sql
+      .select('rowid', '*')
+      .from('messages')
+      .where(where)
+      .orderBy('nbf desc')
+
+    if (limit) {
+      query = query.limit(limit)
     }
 
-    return this.db.rows(sql, params).then(rows =>
+    query = query.toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
       rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
@@ -213,8 +216,8 @@ class Api {
     const p = msg.verified.payload
 
     await this.db.run(
-      'INSERT INTO messages (hash, iss, sub, iat, nbf, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [msg.hash, p.iss, p.sub, p.iat, p.nbf, msg.type, p.data, jwt],
+      'INSERT INTO messages (hash, iss, sub, iat, nbf, type, tag, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [msg.hash, p.iss, p.sub, p.iat, p.nbf, msg.type, p.tag, p.data, jwt],
     )
 
     for (const key in msg.vc) {

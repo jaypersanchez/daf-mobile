@@ -7,7 +7,7 @@ export const typeDefs = `
     viewer: Identity!
     identity(did: ID!): Identity
     identities(dids: [ID!]): [Identity]
-    messages(iss: ID, sub: ID): [Message]
+    messages(iss: ID, sub: ID, tag: String, limit: Int): [Message]
     message(hash: ID!): Message!
     claims(iss: ID, sub: ID): [VerifiableClaim]
   }
@@ -161,10 +161,15 @@ export const resolvers = {
     },
     messages: async (
       _: any,
-      { iss, sub }: { iss: string; sub: string },
+      {
+        iss,
+        sub,
+        tag,
+        limit,
+      }: { iss: string; sub: string; tag: string; limit: number },
       { api }: Context,
     ) => {
-      return api.findMessages({ iss, sub })
+      return api.findMessages({ iss, sub, tag, limit })
     },
     message: async (
       _: any,

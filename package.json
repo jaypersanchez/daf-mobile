@@ -72,6 +72,7 @@
     "react-native-uport-signer": "1.5.0",
     "react-navigation": "^3.9.1",
     "react-navigation-hooks": "^1.0.1",
+    "sql-bricks-sqlite": "^0.1.0",
     "subscriptions-transport-ws": "^0.9.16",
     "uport-did-resolver": "^0.0.7",
     "url-parse": "^1.4.7",

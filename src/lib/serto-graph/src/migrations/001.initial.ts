@@ -10,6 +10,7 @@ export const initial: Migration = {
       iss TEXT,
       sub TEXT,
       type TEXT,
+      tag TEXT,
       data TEXT,
       iat NUMERIC,
       nbf NUMERIC,

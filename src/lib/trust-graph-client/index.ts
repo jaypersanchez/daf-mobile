@@ -24,6 +24,7 @@ interface Config {
   webSocketImpl?: any
   saveMessage: (jwt: string) => Promise<any>
   getLatestMessageTimestamp: () => Promise<number>
+  getLatestPublicProfileTimestamp: (did: string) => Promise<number>
   log: Logger
 }
 
@@ -34,6 +35,7 @@ class TrustGraphClient {
   private getIssuer: () => Promise<Issuer>
   private saveMessage: (jwt: string) => Promise<any>
   private getLatestMessageTimestamp: () => Promise<number>
+  private getLatestPublicProfileTimestamp: (did: string) => Promise<number>
   private log: Logger
 
   private client?: any
@@ -45,6 +47,8 @@ class TrustGraphClient {
     this.webSocketImpl = config.webSocketImpl
     this.saveMessage = config.saveMessage
     this.getLatestMessageTimestamp = config.getLatestMessageTimestamp
+    this.getLatestPublicProfileTimestamp =
+      config.getLatestPublicProfileTimestamp
     this.log = config.log
   }
 
@@ -132,7 +136,7 @@ class TrustGraphClient {
         },
       })
 
-      data.findEdges.forEach(async (edge: any) => {
+      for (const edge of data.findEdges) {
         this.log.info('Saving ' + edge.hash, 'TGC')
         try {
           const message = await this.saveMessage(edge.jwt)
@@ -140,7 +144,7 @@ class TrustGraphClient {
         } catch (e) {
           this.log.error(e.message, 'TGC')
         }
-      })
+      }
     } catch (e) {
       this.log.error(e.message, 'TGC')
     }
@@ -151,6 +155,13 @@ class TrustGraphClient {
   async syncPublicProfile(did: string) {
     this.log.info('Getting public profile for ' + did, 'TGC')
 
+    const lastMessageTime = await this.getLatestPublicProfileTimestamp(did)
+
+    this.log.info(
+      'Latest known public profile message time: ' + lastMessageTime,
+      'TGC',
+    )
+
     try {
       const { data } = await this.client.query({
         query: findEdges,
@@ -158,18 +169,19 @@ class TrustGraphClient {
         variables: {
           toDID: [did],
           fromDID: [did],
+          since: lastMessageTime,
           tag: 'public-profile.v1',
         },
       })
 
-      data.findEdges.forEach(async (edge: any) => {
+      for (const edge of data.findEdges) {
         this.log.info('Saving ' + edge.hash, 'TGC')
         try {
           await this.saveMessage(edge.jwt)
         } catch (e) {
           this.log.error(e.message, 'TGC')
         }
-      })
+      }
     } catch (e) {
       this.log.error(e.message, 'TGC')
     }
