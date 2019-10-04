@@ -220,17 +220,19 @@ class Api {
     const msg = await verifyEdgeJWT(jwt)
     const p = msg.verified.payload
 
-    const query = sql.insert('messages', {
-      hash: msg.hash,
-      iss: p.iss,
-      sub: p.sub,
-      iat: p.iat,
-      nbf: p.nbf,
-      type: msg.type,
-      tag: p.tag,
-      data: p.data,
-      jwt,
-    })
+    const query = sql
+      .insert('messages', {
+        hash: msg.hash,
+        iss: p.iss,
+        sub: p.sub,
+        iat: p.iat,
+        nbf: p.nbf,
+        type: msg.type,
+        tag: p.tag,
+        data: p.data,
+        jwt,
+      })
+      .toParams()
 
     await this.db.run(query.text, query.values)
 
@@ -248,15 +250,17 @@ class Api {
 
     const vcHash = blake.blake2bHex(vc.jwt)
 
-    const query = sql.insert('verifiable_claims', {
-      hash: vcHash,
-      parent_hash: messageHash,
-      iss: verifiableClaim.iss,
-      sub: verifiableClaim.sub,
-      nbf: verifiableClaim.nbf,
-      iat: verifiableClaim.iat,
-      jwt: vc.jwt,
-    })
+    const query = sql
+      .insert('verifiable_claims', {
+        hash: vcHash,
+        parent_hash: messageHash,
+        iss: verifiableClaim.iss,
+        sub: verifiableClaim.sub,
+        nbf: verifiableClaim.nbf,
+        iat: verifiableClaim.iat,
+        jwt: vc.jwt,
+      })
+      .toParams()
 
     await this.db.run(query.text, query.values)
 
@@ -268,16 +272,18 @@ class Api {
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
 
-        const fieldsQuery = sql.insert('verifiable_claims_fields', {
-          parent_hash: vcHash,
-          iss: verifiableClaim.iss,
-          sub: verifiableClaim.sub,
-          nbf: verifiableClaim.nbf,
-          iat: verifiableClaim.iat,
-          claim_type: type,
-          claim_value: isObj ? JSON.stringify(value) : value,
-          isObj: isObj ? 1 : 0,
-        })
+        const fieldsQuery = sql
+          .insert('verifiable_claims_fields', {
+            parent_hash: vcHash,
+            iss: verifiableClaim.iss,
+            sub: verifiableClaim.sub,
+            nbf: verifiableClaim.nbf,
+            iat: verifiableClaim.iat,
+            claim_type: type,
+            claim_value: isObj ? JSON.stringify(value) : value,
+            is_obj: isObj ? 1 : 0,
+          })
+          .toParams()
 
         await this.db.run(fieldsQuery.text, fieldsQuery.values)
       }

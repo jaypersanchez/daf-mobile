@@ -11,6 +11,7 @@ import { Api, typeDefs, resolvers } from './serto-graph'
 import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
 import Log, { configure as configureLog } from './Log'
+import { saveMessage, configure as configureMessages } from './Messages'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
 import TrustGraphClient from './trust-graph-client'
 import { getSignerForHDPath } from 'react-native-uport-signer'
@@ -101,19 +102,6 @@ const getIssuer = async (): Promise<Issuer> => {
   }
 }
 
-const saveMessage = async (jwt: string) => {
-  const { data } = await client.mutate({
-    mutation: Queries.newMessage,
-    variables: { jwt },
-    refetchQueries: [
-      { query: Queries.findMessages },
-      { query: Queries.getAllIdentities },
-    ],
-  })
-
-  return data.newMessage
-}
-
 const getLatestMessageTimestamp = async () => {
   const { data } = await client.query({
     query: Queries.findMessages,
@@ -150,6 +138,10 @@ export const trustGraphClient = new TrustGraphClient({
   saveMessage,
   log: Log,
 })
+
+// Configure messages
+
+configureMessages(client, trustGraphClient)
 
 interface Props {}
 interface State {

@@ -139,8 +139,7 @@ class TrustGraphClient {
       for (const edge of data.findEdges) {
         this.log.info('Saving ' + edge.hash, 'TGC')
         try {
-          const message = await this.saveMessage(edge.jwt)
-          await this.syncPublicProfile(message.iss.did)
+          await this.saveMessage(edge.jwt)
         } catch (e) {
           this.log.error(e.message, 'TGC')
         }
@@ -194,7 +193,6 @@ class TrustGraphClient {
 
     this.log.info('Subscribing to new data', 'TGC')
     const saveMessage = this.saveMessage.bind(this)
-    const syncPublicProfile = this.syncPublicProfile.bind(this)
     const log = this.log
 
     this.client
@@ -206,8 +204,7 @@ class TrustGraphClient {
         async next(result: any) {
           log.info('New edge received', 'TGC')
           try {
-            const message = await saveMessage(result.data.edgeAdded.jwt)
-            await syncPublicProfile(message.iss.did)
+            await saveMessage(result.data.edgeAdded.jwt)
           } catch (e) {
             log.error(e.message, 'TGC')
           }
