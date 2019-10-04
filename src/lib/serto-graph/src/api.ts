@@ -42,43 +42,45 @@ class Api {
   }
 
   claimsForMessageHash(hash: string) {
-    return this.db
-      .rows(
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where parent_hash=?',
-        [hash],
-      )
-      .then(rows =>
-        rows.map((row: any) => ({
-          rowId: `${row.rowid}`,
-          hash: row.hash,
-          parentHash: row.parent_hash,
-          iss: { did: row.iss },
-          sub: { did: row.sub },
-          jwt: row.jwt,
-          nbf: row.nbf,
-          exp: row.exp,
-        })),
-      )
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims')
+      .where({ parent_hash: hash })
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
+      rows.map((row: any) => ({
+        rowId: `${row.rowid}`,
+        hash: row.hash,
+        parentHash: row.parent_hash,
+        iss: { did: row.iss },
+        sub: { did: row.sub },
+        jwt: row.jwt,
+        nbf: row.nbf,
+        exp: row.exp,
+      })),
+    )
   }
 
   claimsFieldsForClaimHash(hash: string) {
-    return this.db
-      .rows(
-        'SELECT "rowid" as rowid, * FROM verifiable_claims_fields where parent_hash=?',
-        [hash],
-      )
-      .then(rows =>
-        rows.map((row: any) => ({
-          rowId: `${row.rowid}`,
-          hash: row.hash,
-          parentHash: row.parent_hash,
-          iss: { did: row.iss },
-          sub: { did: row.sub },
-          type: row.claim_type,
-          value: row.claim_value,
-          isObj: row.is_obj === 1,
-        })),
-      )
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims_fields')
+      .where({ parent_hash: hash })
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
+      rows.map((row: any) => ({
+        rowId: `${row.rowid}`,
+        hash: row.hash,
+        parentHash: row.parent_hash,
+        iss: { did: row.iss },
+        sub: { did: row.sub },
+        type: row.claim_type,
+        value: row.claim_value,
+        isObj: row.is_obj === 1,
+      })),
+    )
   }
 
   findMessages({
@@ -126,11 +128,14 @@ class Api {
   }
 
   findMessage(hash: string, viewer: Viewer) {
-    const params = [hash]
-    const sql = 'SELECT "rowid" as rowid, * FROM messages where hash=?'
+    const query = sql
+      .select('rowid', '*')
+      .from('messages')
+      .where({ hash })
+      .toParams()
 
     return this.db
-      .rows(sql, params)
+      .rows(query.text, query.values)
       .then(rows =>
         rows.map((row: any) => ({
           rowId: `${row.rowid}`,
@@ -215,10 +220,19 @@ class Api {
     const msg = await verifyEdgeJWT(jwt)
     const p = msg.verified.payload
 
-    await this.db.run(
-      'INSERT INTO messages (hash, iss, sub, iat, nbf, type, tag, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [msg.hash, p.iss, p.sub, p.iat, p.nbf, msg.type, p.tag, p.data, jwt],
-    )
+    const query = sql.insert('messages', {
+      hash: msg.hash,
+      iss: p.iss,
+      sub: p.sub,
+      iat: p.iat,
+      nbf: p.nbf,
+      type: msg.type,
+      tag: p.tag,
+      data: p.data,
+      jwt,
+    })
+
+    await this.db.run(query.text, query.values)
 
     for (const key in msg.vc) {
       if (msg.vc.hasOwnProperty(key)) {
@@ -234,18 +248,17 @@ class Api {
 
     const vcHash = blake.blake2bHex(vc.jwt)
 
-    await this.db.run(
-      'INSERT INTO verifiable_claims (hash, parent_hash, iss, sub, nbf, iat, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [
-        vcHash,
-        messageHash,
-        verifiableClaim.iss,
-        verifiableClaim.sub,
-        verifiableClaim.nbf,
-        verifiableClaim.iat,
-        vc.jwt,
-      ],
-    )
+    const query = sql.insert('verifiable_claims', {
+      hash: vcHash,
+      parent_hash: messageHash,
+      iss: verifiableClaim.iss,
+      sub: verifiableClaim.sub,
+      nbf: verifiableClaim.nbf,
+      iat: verifiableClaim.iat,
+      jwt: vc.jwt,
+    })
+
+    await this.db.run(query.text, query.values)
 
     const claim = verifiableClaim.vc.credentialSubject
 
@@ -254,19 +267,19 @@ class Api {
         const value = claim[type]
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
-        await this.db.run(
-          'INSERT INTO verifiable_claims_fields (parent_hash, iss, sub, nbf, iat, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-          [
-            vcHash,
-            verifiableClaim.iss,
-            verifiableClaim.sub,
-            verifiableClaim.nbf,
-            verifiableClaim.iat,
-            type,
-            isObj ? JSON.stringify(value) : value,
-            isObj ? 1 : 0,
-          ],
-        )
+
+        const fieldsQuery = sql.insert('verifiable_claims_fields', {
+          parent_hash: vcHash,
+          iss: verifiableClaim.iss,
+          sub: verifiableClaim.sub,
+          nbf: verifiableClaim.nbf,
+          iat: verifiableClaim.iat,
+          claim_type: type,
+          claim_value: isObj ? JSON.stringify(value) : value,
+          isObj: isObj ? 1 : 0,
+        })
+
+        await this.db.run(fieldsQuery.text, fieldsQuery.values)
       }
     }
 
@@ -274,10 +287,7 @@ class Api {
   }
 
   deleteMessage(hash: string, viewer: Viewer) {
-    const params = [hash]
-    const sql = 'DELETE FROM messages where hash=?'
-
-    return this.db.run(sql, params)
+    return this.db.run('DELETE FROM messages where hash=?', [hash])
   }
 }
 
