@@ -29,9 +29,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
 >
   <View
     accessible={true}
-    focusable={true}
     isTVSelectable={true}
-    onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -318,9 +316,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
             >
               <View
                 accessible={true}
-                focusable={true}
                 isTVSelectable={true}
-                onClick={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -446,9 +442,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
               </View>
               <View
                 accessible={true}
-                focusable={true}
                 isTVSelectable={true}
-                onClick={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -574,9 +568,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
               </View>
               <View
                 accessible={true}
-                focusable={true}
                 isTVSelectable={true}
-                onClick={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -702,9 +694,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
               </View>
               <View
                 accessible={true}
-                focusable={true}
                 isTVSelectable={true}
-                onClick={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -830,9 +820,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
               </View>
               <View
                 accessible={true}
-                focusable={true}
                 isTVSelectable={true}
-                onClick={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -1067,9 +1055,7 @@ exports[`Navigation renders left drawer correctly 1`] = `
               >
                 <View
                   accessible={true}
-                  focusable={true}
                   isTVSelectable={true}
-                  onClick={[Function]}
                   onResponderGrant={[Function]}
                   onResponderMove={[Function]}
                   onResponderRelease={[Function]}
@@ -1435,9 +1421,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
           >
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -1701,9 +1685,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
             </View>
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -2023,9 +2005,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
           >
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -2242,9 +2222,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
             </View>
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -2461,9 +2439,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
             </View>
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -2680,9 +2656,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
             </View>
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -2955,9 +2929,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
           >
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -3174,9 +3146,7 @@ exports[`Navigation renders right drawer correctly 1`] = `
             </View>
             <View
               accessible={true}
-              focusable={true}
               isTVSelectable={true}
-              onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
