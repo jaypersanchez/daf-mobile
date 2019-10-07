@@ -18,7 +18,7 @@ default_platform(:android)
 desc "Build and sign Android APK"
 lane :assemble_android_build do
   production_properties = {
-    "android.injected.signing.store.file" => "app/release-key.keystore",
+    "android.injected.signing.store.file" => "release-key.keystore",
     "android.injected.signing.store.password" => ENV['ANDROID_STORE_PASSWORD'],
     "android.injected.signing.key.alias" => ENV['ANDROID_KEY_ALIAS'],
     "android.injected.signing.key.password" => ENV['ANDROID_STORE_PASSWORD']

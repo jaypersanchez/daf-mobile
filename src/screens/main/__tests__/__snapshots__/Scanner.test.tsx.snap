@@ -129,7 +129,9 @@ Array [
       <View
         accessibilityLabel="CANCEL_SCAN_BTN"
         accessible={true}
+        focusable={true}
         isTVSelectable={true}
+        onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}

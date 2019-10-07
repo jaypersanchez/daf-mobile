@@ -1,6 +1,6 @@
 global.Buffer = global.Buffer || require('buffer/').Buffer
 
-import { AppRegistry, NativeModules, Platform } from 'react-native'
+import { AppRegistry, NativeModules, Platform, YellowBox } from 'react-native'
 import App from './src/App'
 import { name as appName } from './app.json'
 import codePush from 'react-native-code-push'
@@ -9,6 +9,8 @@ import * as Sentry from '@sentry/react-native'
 import analytics from '@segment/analytics-react-native'
 import { useScreens } from 'react-native-screens'
 import Log from './src/lib/Log'
+
+YellowBox.ignoreWarnings(['componentWillUpdate', 'componentWillReceiveProps'])
 
 const { UIManager } = NativeModules
 
