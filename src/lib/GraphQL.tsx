@@ -11,6 +11,7 @@ import { Api, typeDefs, resolvers } from './serto-graph'
 import { RnSqlite } from './db-rn-sqlite3'
 import { makeExecutableSchema } from 'graphql-tools'
 import Log, { configure as configureLog } from './Log'
+import { saveMessage, configure as configureMessages } from './Messages'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
 import TrustGraphClient from './trust-graph-client'
 import { getSignerForHDPath } from 'react-native-uport-signer'
@@ -43,9 +44,8 @@ export const schema = makeExecutableSchema({
 const driver = new RnSqlite()
 const api = new Api(driver)
 
-const did = ''
 const viewer = {
-  did,
+  did: '',
 }
 
 const contextLink = new SchemaLink({
@@ -102,20 +102,28 @@ const getIssuer = async (): Promise<Issuer> => {
   }
 }
 
-const saveMessage = async (jwt: string) => {
-  return client.mutate({
-    mutation: Queries.newMessage,
-    variables: { jwt },
-    refetchQueries: [
-      { query: Queries.findMessages },
-      { query: Queries.getAllIdentities },
-    ],
-  })
-}
-
 const getLatestMessageTimestamp = async () => {
   const { data } = await client.query({
     query: Queries.findMessages,
+    fetchPolicy: 'network-only',
+    variables: {
+      limit: 1,
+    },
+  })
+
+  return data.messages[0] ? data.messages[0].iat : null
+}
+
+const getLatestPublicProfileTimestamp = async (did: string) => {
+  const { data } = await client.query({
+    query: Queries.findMessages,
+    fetchPolicy: 'network-only',
+    variables: {
+      iss: did,
+      sub: did,
+      tag: 'public-profile.v1',
+      limit: 1,
+    },
   })
 
   return data.messages[0] ? data.messages[0].iat : null
@@ -126,9 +134,14 @@ export const trustGraphClient = new TrustGraphClient({
   wsUri: Config.TGE_WS_URI,
   getIssuer,
   getLatestMessageTimestamp,
+  getLatestPublicProfileTimestamp,
   saveMessage,
   log: Log,
 })
+
+// Configure messages
+
+configureMessages(client, trustGraphClient)
 
 interface Props {}
 interface State {

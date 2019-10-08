@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Screen,
@@ -9,9 +9,12 @@ import {
   Toaster,
   Typings,
   Indicator,
+  Text,
 } from '@kancha/kancha-ui'
 import { NavigationScreen } from '../../navigators'
 import { Colors } from '../../theme'
+
+import { saveMessage } from '../../lib/Messages'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
@@ -131,21 +134,23 @@ const phoneOptions: Typings.RequestItemSelectable[] = [
 const Component: React.FC<NavigationScreen> = props => {
   const accept = () => {
     props.navigation.goBack()
-    /**
-     * Mock receiving a credential sometime after
-     */
-    setTimeout(() => {
-      Toaster.confirm(
-        'Credential Received!',
-        'You have received a credential from somebody.',
-        2000,
-      )
-    }, 500)
   }
+
+  const requestData = props.navigation.getParam('requestData')
+
+  const [saving, setSaving] = useState(true)
+  const [messageHash, setMessageHash] = useState('')
+
+  useEffect(() => {
+    saveMessage(requestData.data).then(message => {
+      setMessageHash(message.hash)
+      setSaving(false)
+    })
+  }, [])
 
   return (
     <Screen
-      statusBarHidden={true}
+      statusBarHidden={false}
       safeAreaBottom={true}
       safeAreaBottomBackground={Colors.WHITE}
       scrollEnabled={true}
@@ -178,42 +183,50 @@ const Component: React.FC<NavigationScreen> = props => {
         </Container>
       }
     >
-      <Container>
-        <Banner
-          title={'Space X'}
-          subTitle={'Blast off to the Moon'}
-          avatar={avatar1}
-          backgroundImage={bannerImage}
-        />
-        <Indicator text={'Share your data with Space X'} />
+      {saving && (
         <Container>
-          <RequestItem
-            subTitle={'Firstname'}
-            options={nameOptions}
-            required={true}
-          />
-          <RequestItem
-            subTitle={'Lastname'}
-            options={lastNameOptions}
-            required={true}
-          />
-          <RequestItem
-            subTitle={'Location'}
-            options={locationOptions}
-            required={true}
-          />
-          <RequestItem
-            subTitle={'Email'}
-            options={emailOptions}
-            required={false}
-          />
-          <RequestItem
-            subTitle={'Phone'}
-            options={phoneOptions}
-            required={false}
-          />
+          <Text>Loading...</Text>
         </Container>
-      </Container>
+      )}
+
+      {!saving && (
+        <Container>
+          <Banner
+            title={'Space X'}
+            subTitle={'Blast off to the Moon'}
+            avatar={avatar1}
+            backgroundImage={bannerImage}
+          />
+          <Indicator text={'Share your data with Space X'} />
+          <Container>
+            <RequestItem
+              subTitle={'Firstname'}
+              options={nameOptions}
+              required={true}
+            />
+            <RequestItem
+              subTitle={'Lastname'}
+              options={lastNameOptions}
+              required={true}
+            />
+            <RequestItem
+              subTitle={'Location'}
+              options={locationOptions}
+              required={true}
+            />
+            <RequestItem
+              subTitle={'Email'}
+              options={emailOptions}
+              required={false}
+            />
+            <RequestItem
+              subTitle={'Phone'}
+              options={phoneOptions}
+              required={false}
+            />
+          </Container>
+        </Container>
+      )}
     </Screen>
   )
 }

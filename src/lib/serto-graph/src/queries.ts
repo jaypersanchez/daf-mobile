@@ -26,13 +26,16 @@ export const newMessage = gql`
   mutation newMessage($jwt: String!) {
     newMessage(jwt: $jwt) {
       hash
+      iss {
+        did
+      }
     }
   }
 `
 
 export const findMessages = gql`
-  query FindMessages($iss: ID, $sub: ID) {
-    messages(iss: $iss, sub: $sub) {
+  query FindMessages($iss: ID, $sub: ID, $tag: String, $limit: Int) {
+    messages(iss: $iss, sub: $sub, tag: $tag, limit: $limit) {
       iss {
         did
         shortId

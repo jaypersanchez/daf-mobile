@@ -1,9 +1,8 @@
-import * as didJWT from 'did-jwt'
 import * as blake from 'blakejs'
 import { DbDriver, Viewer, Logger } from './types'
 import runMigrations from './migrations'
-import * as messages from './messages'
 import { verifyEdgeJWT } from '../../serto-credentials/verification'
+import * as sql from 'sql-bricks-sqlite'
 
 class Api {
   private db: DbDriver
@@ -17,25 +16,19 @@ class Api {
   }
 
   findClaims({ iss, sub }: { iss?: string; sub?: string }) {
-    let params: string[] = []
+    let where = {}
 
-    let sql =
-      'SELECT "rowid" as rowid, * FROM verifiable_claims order by nbf desc'
-    if (iss && !sub) {
-      params = [iss]
-      sql =
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where iss=? order by nbf desc'
-    } else if (!iss && sub) {
-      params = [sub]
-      sql =
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where sub=? order by nbf desc'
-    } else if (iss && sub) {
-      params = [iss, sub]
-      sql =
-        'SELECT * FROM verifiable_claims where iss=? and sub=? order by nbf desc'
-    }
+    if (iss) where = sql.and(where, { iss })
+    if (sub) where = sql.and(where, { sub })
 
-    return this.db.rows(sql, params).then(rows => {
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims')
+      .where(where)
+      .orderBy('nbf desc')
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows => {
       return rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
@@ -49,65 +42,77 @@ class Api {
   }
 
   claimsForMessageHash(hash: string) {
-    return this.db
-      .rows(
-        'SELECT "rowid" as rowid, * FROM verifiable_claims where parent_hash=?',
-        [hash],
-      )
-      .then(rows =>
-        rows.map((row: any) => ({
-          rowId: `${row.rowid}`,
-          hash: row.hash,
-          parentHash: row.parent_hash,
-          iss: { did: row.iss },
-          sub: { did: row.sub },
-          jwt: row.jwt,
-          nbf: row.nbf,
-          exp: row.exp,
-        })),
-      )
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims')
+      .where({ parent_hash: hash })
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
+      rows.map((row: any) => ({
+        rowId: `${row.rowid}`,
+        hash: row.hash,
+        parentHash: row.parent_hash,
+        iss: { did: row.iss },
+        sub: { did: row.sub },
+        jwt: row.jwt,
+        nbf: row.nbf,
+        exp: row.exp,
+      })),
+    )
   }
 
   claimsFieldsForClaimHash(hash: string) {
-    return this.db
-      .rows(
-        'SELECT "rowid" as rowid, * FROM verifiable_claims_fields where parent_hash=?',
-        [hash],
-      )
-      .then(rows =>
-        rows.map((row: any) => ({
-          rowId: `${row.rowid}`,
-          hash: row.hash,
-          parentHash: row.parent_hash,
-          iss: { did: row.iss },
-          sub: { did: row.sub },
-          type: row.claim_type,
-          value: row.claim_value,
-          isObj: row.is_obj === 1,
-        })),
-      )
+    const query = sql
+      .select('rowid', '*')
+      .from('verifiable_claims_fields')
+      .where({ parent_hash: hash })
+      .toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
+      rows.map((row: any) => ({
+        rowId: `${row.rowid}`,
+        hash: row.hash,
+        parentHash: row.parent_hash,
+        iss: { did: row.iss },
+        sub: { did: row.sub },
+        type: row.claim_type,
+        value: row.claim_value,
+        isObj: row.is_obj === 1,
+      })),
+    )
   }
 
-  findMessages({ iss, sub }: { iss?: string; sub?: string }) {
-    let params = null
-    let sql = null
+  findMessages({
+    iss,
+    sub,
+    tag,
+    limit,
+  }: {
+    iss?: string
+    sub?: string
+    tag?: string
+    limit?: number
+  }) {
+    let where = {}
 
-    sql = 'SELECT "rowid" as rowid, * FROM messages order by nbf desc'
-    if (iss && !sub) {
-      params = { $iss: iss }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss order by nbf desc'
-    } else if (!iss && sub) {
-      params = { $sub: sub }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where sub=$sub order by nbf desc'
-    } else if (iss && sub) {
-      params = { $iss: iss, $sub: sub }
-      sql =
-        'SELECT "rowid" as rowid,* FROM messages where iss=$iss or sub=$sub order by nbf desc'
+    if (iss) where = sql.and(where, { iss })
+    if (sub) where = sql.and(where, { sub })
+    if (tag) where = sql.and(where, { tag })
+
+    let query = sql
+      .select('rowid', '*')
+      .from('messages')
+      .where(where)
+      .orderBy('nbf desc')
+
+    if (limit) {
+      query = query.limit(limit)
     }
 
-    return this.db.rows(sql, params).then(rows =>
+    query = query.toParams()
+
+    return this.db.rows(query.text, query.values).then(rows =>
       rows.map((row: any) => ({
         rowId: `${row.rowid}`,
         hash: row.hash,
@@ -123,11 +128,14 @@ class Api {
   }
 
   findMessage(hash: string, viewer: Viewer) {
-    const params = [hash]
-    const sql = 'SELECT "rowid" as rowid, * FROM messages where hash=?'
+    const query = sql
+      .select('rowid', '*')
+      .from('messages')
+      .where({ hash })
+      .toParams()
 
     return this.db
-      .rows(sql, params)
+      .rows(query.text, query.values)
       .then(rows =>
         rows.map((row: any) => ({
           rowId: `${row.rowid}`,
@@ -212,10 +220,21 @@ class Api {
     const msg = await verifyEdgeJWT(jwt)
     const p = msg.verified.payload
 
-    await this.db.run(
-      'INSERT INTO messages (hash, iss, sub, iat, nbf, type, data, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [msg.hash, p.iss, p.sub, p.iat, p.nbf, msg.type, p.data, jwt],
-    )
+    const query = sql
+      .insert('messages', {
+        hash: msg.hash,
+        iss: p.iss,
+        sub: p.sub,
+        iat: p.iat,
+        nbf: p.nbf,
+        type: msg.type,
+        tag: p.tag,
+        data: p.data,
+        jwt,
+      })
+      .toParams()
+
+    await this.db.run(query.text, query.values)
 
     for (const key in msg.vc) {
       if (msg.vc.hasOwnProperty(key)) {
@@ -223,7 +242,7 @@ class Api {
       }
     }
 
-    return { hash: msg.hash }
+    return { hash: msg.hash, iss: { did: p.iss } }
   }
 
   async saveVerifiableClaim(vc: any, messageHash: string) {
@@ -231,18 +250,19 @@ class Api {
 
     const vcHash = blake.blake2bHex(vc.jwt)
 
-    await this.db.run(
-      'INSERT INTO verifiable_claims (hash, parent_hash, iss, sub, nbf, iat, jwt ) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [
-        vcHash,
-        messageHash,
-        verifiableClaim.iss,
-        verifiableClaim.sub,
-        verifiableClaim.nbf,
-        verifiableClaim.iat,
-        vc.jwt,
-      ],
-    )
+    const query = sql
+      .insert('verifiable_claims', {
+        hash: vcHash,
+        parent_hash: messageHash,
+        iss: verifiableClaim.iss,
+        sub: verifiableClaim.sub,
+        nbf: verifiableClaim.nbf,
+        iat: verifiableClaim.iat,
+        jwt: vc.jwt,
+      })
+      .toParams()
+
+    await this.db.run(query.text, query.values)
 
     const claim = verifiableClaim.vc.credentialSubject
 
@@ -251,19 +271,21 @@ class Api {
         const value = claim[type]
         const isObj =
           typeof value === 'function' || (typeof value === 'object' && !!value)
-        await this.db.run(
-          'INSERT INTO verifiable_claims_fields (parent_hash, iss, sub, nbf, iat, claim_type, claim_value, is_obj ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-          [
-            vcHash,
-            verifiableClaim.iss,
-            verifiableClaim.sub,
-            verifiableClaim.nbf,
-            verifiableClaim.iat,
-            type,
-            isObj ? JSON.stringify(value) : value,
-            isObj ? 1 : 0,
-          ],
-        )
+
+        const fieldsQuery = sql
+          .insert('verifiable_claims_fields', {
+            parent_hash: vcHash,
+            iss: verifiableClaim.iss,
+            sub: verifiableClaim.sub,
+            nbf: verifiableClaim.nbf,
+            iat: verifiableClaim.iat,
+            claim_type: type,
+            claim_value: isObj ? JSON.stringify(value) : value,
+            is_obj: isObj ? 1 : 0,
+          })
+          .toParams()
+
+        await this.db.run(fieldsQuery.text, fieldsQuery.values)
       }
     }
 
@@ -271,10 +293,7 @@ class Api {
   }
 
   deleteMessage(hash: string, viewer: Viewer) {
-    const params = [hash]
-    const sql = 'DELETE FROM messages where hash=?'
-
-    return this.db.run(sql, params)
+    return this.db.run('DELETE FROM messages where hash=?', [hash])
   }
 }
 

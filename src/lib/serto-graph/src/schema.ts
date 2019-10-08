@@ -7,7 +7,7 @@ export const typeDefs = `
     viewer: Identity!
     identity(did: ID!): Identity
     identities(dids: [ID!]): [Identity]
-    messages(iss: ID, sub: ID): [Message]
+    messages(iss: ID, sub: ID, tag: String, limit: Int): [Message]
     message(hash: ID!): Message!
     claims(iss: ID, sub: ID): [VerifiableClaim]
   }
@@ -104,15 +104,17 @@ export const resolvers = {
       api.popularClaimForDid(identity.did, 'lastName'),
     profileImage: async (identity: any, {}, { api }: Context) => {
       let url = await api.popularClaimForDid(identity.did, 'profileImage')
-      try {
-        const ipfs = JSON.parse(url)
-        if (ipfs['/']) {
-          url = 'https://cloudflare-ipfs.com' + ipfs['/']
+      if (url) {
+        try {
+          const ipfs = JSON.parse(url)
+          if (ipfs['/']) {
+            url = 'https://cloudflare-ipfs.com' + ipfs['/']
+          }
+        } catch (e) {
+          // do nothing
         }
-      } catch (e) {
-        // do nothing
       }
-      return url
+      return typeof url === 'string' ? url : ''
     },
     url: async (identity: any, {}, { api }: Context) =>
       api.popularClaimForDid(identity.did, 'url'),
@@ -161,10 +163,15 @@ export const resolvers = {
     },
     messages: async (
       _: any,
-      { iss, sub }: { iss: string; sub: string },
+      {
+        iss,
+        sub,
+        tag,
+        limit,
+      }: { iss: string; sub: string; tag: string; limit: number },
       { api }: Context,
     ) => {
-      return api.findMessages({ iss, sub })
+      return api.findMessages({ iss, sub, tag, limit })
     },
     message: async (
       _: any,

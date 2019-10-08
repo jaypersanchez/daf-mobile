@@ -6,7 +6,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput, Image } from 'react-native'
-import { Query, Mutation, MutationState, QueryResult } from 'react-apollo'
+import { Query, QueryResult } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
+import { getDidsQuery as GET_DIDS } from '../lib/Signer'
 import { Queries, Types } from '../lib/serto-graph'
 import {
   Container,
@@ -26,11 +28,15 @@ interface Result extends QueryResult {
 
 export default () => {
   const { t } = useTranslation()
+  const didsQuery = useQuery(GET_DIDS)
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
           query={Queries.findMessages}
+          variables={{
+            sub: didsQuery.data.selectedDid,
+          }}
           onError={console.log}
           fetchPolicy={'cache-and-network'}
         >

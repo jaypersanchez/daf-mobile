@@ -24,6 +24,7 @@ interface Config {
   webSocketImpl?: any
   saveMessage: (jwt: string) => Promise<any>
   getLatestMessageTimestamp: () => Promise<number>
+  getLatestPublicProfileTimestamp: (did: string) => Promise<number>
   log: Logger
 }
 
@@ -34,6 +35,7 @@ class TrustGraphClient {
   private getIssuer: () => Promise<Issuer>
   private saveMessage: (jwt: string) => Promise<any>
   private getLatestMessageTimestamp: () => Promise<number>
+  private getLatestPublicProfileTimestamp: (did: string) => Promise<number>
   private log: Logger
 
   private client?: any
@@ -45,6 +47,8 @@ class TrustGraphClient {
     this.webSocketImpl = config.webSocketImpl
     this.saveMessage = config.saveMessage
     this.getLatestMessageTimestamp = config.getLatestMessageTimestamp
+    this.getLatestPublicProfileTimestamp =
+      config.getLatestPublicProfileTimestamp
     this.log = config.log
   }
 
@@ -132,14 +136,14 @@ class TrustGraphClient {
         },
       })
 
-      data.findEdges.forEach(async (edge: any) => {
+      for (const edge of data.findEdges) {
         this.log.info('Saving ' + edge.hash, 'TGC')
         try {
-          this.saveMessage(edge.jwt)
+          await this.saveMessage(edge.jwt)
         } catch (e) {
           this.log.error(e.message, 'TGC')
         }
-      })
+      }
     } catch (e) {
       this.log.error(e.message, 'TGC')
     }
@@ -147,11 +151,48 @@ class TrustGraphClient {
     this.log.info('Done syncing data', 'TGC')
   }
 
+  async syncPublicProfile(did: string) {
+    this.log.info('Getting public profile for ' + did, 'TGC')
+
+    const lastMessageTime = await this.getLatestPublicProfileTimestamp(did)
+
+    this.log.info(
+      'Latest known public profile message time: ' + lastMessageTime,
+      'TGC',
+    )
+
+    try {
+      const { data } = await this.client.query({
+        query: findEdges,
+        fetchPolicy: 'network-only',
+        variables: {
+          toDID: [did],
+          fromDID: [did],
+          since: lastMessageTime,
+          tag: 'public-profile.v1',
+        },
+      })
+
+      for (const edge of data.findEdges) {
+        this.log.info('Saving ' + edge.hash, 'TGC')
+        try {
+          await this.saveMessage(edge.jwt)
+        } catch (e) {
+          this.log.error(e.message, 'TGC')
+        }
+      }
+    } catch (e) {
+      this.log.error(e.message, 'TGC')
+    }
+
+    this.log.info('Done getting public profile', 'TGC')
+  }
+
   async subscribeToNewEdges() {
     const issuer = await this.getIssuer()
 
     this.log.info('Subscribing to new data', 'TGC')
-    const saveMessage = this.saveMessage
+    const saveMessage = this.saveMessage.bind(this)
     const log = this.log
 
     this.client
@@ -162,7 +203,11 @@ class TrustGraphClient {
       .subscribe({
         async next(result: any) {
           log.info('New edge received', 'TGC')
-          saveMessage(result.data.edgeAdded.jwt)
+          try {
+            await saveMessage(result.data.edgeAdded.jwt)
+          } catch (e) {
+            log.error(e.message, 'TGC')
+          }
         },
         error(err: Error) {
           log.error(err.message, 'TGC')
