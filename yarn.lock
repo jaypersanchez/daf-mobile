@@ -1032,10 +1032,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.21":
-  version "1.0.0-beta.21"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.21.tgz#3a84099dba5a0e6fcbedc7625645cb76f5a45718"
-  integrity sha512-toL30+AVhhF2D1ZF7msWyIM7s++CGKzFjXk7QNJFDB7fAdrLOy8AORjDAzs5qbIGt/deJvPEsKqzRvOeGqNqfw==
+"@kancha/kancha-ui@^1.0.0-beta.22":
+  version "1.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.22.tgz#1294fc216dc681324a00bfc24d289bcd64fd1c61"
+  integrity sha512-UmVL+nZ2V2CSInLgMirbKzD4Wwql6hrF9+iFu4e1r4RluYjZ7nXrzMah5hjK3341aQNAyjSj7Q2ZazQqevxQ4A==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     deepmerge "^3.2.1"
@@ -1043,7 +1043,7 @@
     hex-to-rgba "^2.0.0"
     md5 "^2.2.1"
     react-native-json-tree "^1.2.0"
-    react-native-keyboard-aware-scrollview "^2.0.0"
+    react-native-keyboard-aware-scroll-view "^0.9.1"
     react-native-vector-icons "^6.5.0"
     string "^3.3.3"
 
@@ -8637,6 +8637,11 @@ react-native-gesture-handler@^1.4.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-iphone-x-helper@^1.0.3:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
+  integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
 react-native-json-tree@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-json-tree/-/react-native-json-tree-1.2.0.tgz#4600310bff1934026edbe77fc621230866fe7182"
@@ -8645,10 +8650,13 @@ react-native-json-tree@^1.2.0:
     prop-types "^15.6.0"
     react-base16-styling "github:dean177/react-base16-styling#fbc6593"
 
-react-native-keyboard-aware-scrollview@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-2.0.0.tgz#a7e2cc31b7230893db5dc05eb6fed3f358500a55"
-  integrity sha512-VAkwrmNl00bjTLXcvB3EMxuJ06kEBVRfpUq61X0Wl6Gdy1iSQpv04dVbZZ3KIflA9VhAlE0HFPltLLXIGjf2Ug==
+react-native-keyboard-aware-scroll-view@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.1.tgz#9e54b565a5f19b30bed12221d48921781f7630af"
+  integrity sha512-tBZ8rmjELN0F6t5UBp5CW3NYmZXgVnJSzVCssv/OqG2t6kiB+OUTqxNvUP24K+HARX4H+XaW0aEJSFQkQCv6KA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
 
 react-native-localize@^1.1.4:
   version "1.2.1"
@@ -8708,10 +8716,10 @@ react-native-typescript-transformer@^1.2.12:
     semver "^5.4.1"
     source-map "^0.5.6"
 
-react-native-uport-signer@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/react-native-uport-signer/-/react-native-uport-signer-1.6.0.tgz#950998f1b6bc1662a776e61196461718d002bc18"
-  integrity sha512-gzQbMNb66tWhgYcHuMQQcWPBaFPo4nh6+hlAcWKchZwdPbxAbucsRedC9TR5ZRt3Gs8wnbHAr5KjnGSaC3Fd/A==
+react-native-uport-signer@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-uport-signer/-/react-native-uport-signer-1.6.1.tgz#452997433355efcb0de0d933cd19c15b08a3f3a8"
+  integrity sha512-OaArtXmUKVix9DeKHb5QJpvbK4p2UvyI9l9aG7U0096CXp46xYz+rpgLv+dC3j9E0Q0s8l+dOMOwagDtC8QLdg==
   dependencies:
     buffer "^5.2.1"
     set-value "^2.0.1"

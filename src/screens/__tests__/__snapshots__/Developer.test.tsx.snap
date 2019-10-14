@@ -2,25 +2,39 @@
 
 exports[`renders correctly 1`] = `
 <RCTScrollView
+  automaticallyAdjustContentInsets={false}
   contentInset={
     Object {
       "bottom": 0,
     }
   }
   contentInsetAdjustmentBehavior="never"
-  getTextInputRefs={[Function]}
-  onContentSizeChange={[Function]}
-  onLayout={[Function]}
+  enableAutomaticScroll={true}
+  enableOnAndroid={false}
+  enableResetScrollToCoords={true}
+  extraHeight={75}
+  extraScrollHeight={0}
+  getScrollResponder={[Function]}
+  handleOnScroll={[Function]}
+  keyboardDismissMode="interactive"
+  keyboardOpeningTime={250}
+  keyboardSpace={0}
   onScroll={[Function]}
-  scrollEventThrottle={200}
-  scrollToBottomOnKBShow={false}
-  scrollToInputAdditionalOffset={75}
-  startScrolledToBottom={false}
+  resetKeyboardSpace={[Function]}
+  scrollEventThrottle={1}
+  scrollForExtraHeightOnAndroid={[Function]}
+  scrollIntoView={[Function]}
+  scrollToEnd={[Function]}
+  scrollToFocusedInput={[Function]}
+  scrollToPosition={[Function]}
+  showsVerticalScrollIndicator={true}
   style={
     Object {
       "backgroundColor": "#EFEEF3",
     }
   }
+  update={[Function]}
+  viewIsInsideTabBar={false}
 >
   <View>
     <View
