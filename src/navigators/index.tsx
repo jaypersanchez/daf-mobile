@@ -272,7 +272,7 @@ const RootNavigator = createSwitchNavigator(
     [Screens.Scanner.screen]: Scanner,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Onboarding',
   },
 )
 

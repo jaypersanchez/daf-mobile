@@ -1,5 +1,8 @@
 global.Buffer = global.Buffer || require('buffer/').Buffer
 
+// Temporary to top crashes
+import 'react-native-gesture-handler'
+
 import { AppRegistry, NativeModules, Platform, YellowBox } from 'react-native'
 import App from './src/App'
 import { name as appName } from './app.json'

@@ -67,12 +67,14 @@ references:
   create_production_env_file: &create_production_env_file
     run:
       name: Create production environment file
-      command: rm .env && echo $PRODUCTION_ENV | base64 -di | tee .env >/dev/null
+      command: rm .env && echo $PRODUCTION_ENV | base64 --decode | tee .env >/dev/null
+      working_directory: ~/project
 
   create_staging_env_file: &create_staging_env_file
     run:
       name: Create staging environment file
-      command: rm .env && echo $STAGING_ENV | base64 -di | tee .env >/dev/null
+      command: rm .env && echo $STAGING_ENV | base64 --decode | tee .env >/dev/null
+      working_directory: ~/project
 
   gems_cache_key_android: &gems_cache_key_android android-bundle-v1-{{ checksum "../Gemfile.lock" }}-{{ arch }}
 
@@ -115,14 +117,13 @@ workflows:
   semantic-release:
     jobs:
       - verify_unit_tests:
-          name: verify_unit_tests_sanity
           filters:
             branches:
               only:
                 - master
       - verify_release:
           requires:
-            - verify_unit_tests_sanity
+            - verify_unit_tests
           filters:
             branches:
               only:
@@ -136,22 +137,24 @@ workflows:
   verify-test-build:
     jobs:
       - verify_unit_tests:
-          name: verify_unit_tests_staging
-          staging: true
           filters:
             branches:
               ignore:
                 - master
       - build_ios:
+          name: build_ios_staging
+          staging: true
           requires:
-            - verify_unit_tests_staging
+            - verify_unit_tests
           filters:
             branches:
               ignore:
                 - master
       - build_android:
+          name: build_android_staging
+          staging: true
           requires:
-            - verify_unit_tests_staging
+            - verify_unit_tests
           filters:
             branches:
               ignore:
@@ -160,24 +163,26 @@ workflows:
   deploy-release-tag:
     jobs:
       - verify_unit_tests:
-          name: verify_unit_tests_prod
-          production: true
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: /.*/
       - build_ios:
+          name: build_ios_prod
+          production: true
           requires:
-            - verify_unit_tests_prod
+            - verify_unit_tests
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: /.*/
       - build_android:
+          name: build_android_prod
+          production: true
           requires:
-            - verify_unit_tests_prod
+            - verify_unit_tests
           filters:
             tags:
               only: /^v.*/
@@ -185,8 +190,8 @@ workflows:
               ignore: /.*/
       - deploy_ios:
           requires:
-            - verify_unit_tests_prod
-            - build_ios
+            - verify_unit_tests
+            - build_ios_prod
           filters:
             tags:
               only: /^v.*/
@@ -194,8 +199,8 @@ workflows:
               ignore: /.*/
       - deploy_android:
           requires:
-            - verify_unit_tests_prod
-            - build_android
+            - verify_unit_tests
+            - build_android_prod
           filters:
             tags:
               only: /^v.*/
@@ -211,23 +216,8 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/node:10
-    parameters:
-      production:
-        type: boolean
-        default: false
-      staging:
-        type: boolean
-        default: false
     steps:
       - checkout
-      - when:
-          condition: <<parameters.production>>
-          steps:
-            - *create_production_env_file
-      - when:
-          condition: <<parameters.staging>>
-          steps:
-            - *create_staging_env_file
       - *restore_yarn_cache
       - run:
           name: Install node modules
@@ -240,7 +230,6 @@ jobs:
           root: ~/project
           paths:
             - node_modules
-            - .env
 
   verify_release:
     working_directory: ~/project
@@ -259,6 +248,13 @@ jobs:
 
   build_android:
     working_directory: ~/project/android
+    parameters:
+      production:
+        type: boolean
+        default: false
+      staging:
+        type: boolean
+        default: false
     docker:
       - image: circleci/android:api-28-node8-alpha
     steps:
@@ -281,6 +277,15 @@ jobs:
 
       - *decode_android_key
 
+      - when:
+          condition: <<parameters.production>>
+          steps:
+            - *create_production_env_file
+      - when:
+          condition: <<parameters.staging>>
+          steps:
+            - *create_staging_env_file
+
       - run:
           name: Build android APK
           command: bundle exec fastlane assemble_android_build
@@ -298,6 +303,13 @@ jobs:
     macos:
       xcode: '10.1.0'
     working_directory: ~/project
+    parameters:
+      production:
+        type: boolean
+        default: false
+      staging:
+        type: boolean
+        default: false
     environment:
       FL_OUTPUT_DIR: output
     shell: /bin/bash --login -o pipefail
@@ -323,6 +335,15 @@ jobs:
           command: bundle exec pod install --verbose
           working_directory: ios
       - *save_pods_cache_ios
+
+      - when:
+          condition: <<parameters.production>>
+          steps:
+            - *create_production_env_file
+      - when:
+          condition: <<parameters.staging>>
+          steps:
+            - *create_staging_env_file
       - run:
           name: Build iOS IPA
           command: bundle exec fastlane assemble_ios_build
