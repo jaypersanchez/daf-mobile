@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Screen, Container, Button, Constants } from '@kancha/kancha-ui'
-import { NavigationScreen } from '../../navigators'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import {
   getDidsQuery as GET_DIDS,
@@ -10,7 +10,7 @@ import {
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 
-interface OnboardingProps extends NavigationScreen {}
+interface OnboardingProps extends NavigationStackScreenProps {}
 
 const Onboarding: React.FC<OnboardingProps> = props => {
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ const Onboarding: React.FC<OnboardingProps> = props => {
     <Screen>
       <Container alignItems={'center'} justifyContent={'center'} flex={1}>
         {loading && <ActivityIndicator size={'large'} color={Colors.BRAND} />}
-        {!loading && data.dids && data.dids.length === 0 && (
+        {!loading && data && data.dids.length === 0 && (
           <Button
             testID={'CREATE_IDENTITY_BTN'}
             fullWidth

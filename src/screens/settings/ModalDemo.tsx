@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Container, Modal, Text, Constants } from '@kancha/kancha-ui'
 import { NavigationScreenProps } from 'react-navigation'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 
 interface Props extends NavigationScreenProps {}
 

@@ -154,6 +154,7 @@ Array [
                 style={
                   Object {
                     "color": "#BBBBBB",
+                    "flexWrap": "wrap",
                     "fontSize": 14,
                     "paddingBottom": 15,
                   }
@@ -219,7 +220,11 @@ Array [
                 }
               >
                 <Text
-                  style={Object {}}
+                  style={
+                    Object {
+                      "flexWrap": "wrap",
+                    }
+                  }
                 />
               </View>
             </View>
@@ -280,6 +285,7 @@ Array [
                 style={
                   Object {
                     "color": "#BBBBBB",
+                    "flexWrap": "wrap",
                     "fontSize": 14,
                     "paddingBottom": 15,
                   }
@@ -345,7 +351,11 @@ Array [
                 }
               >
                 <Text
-                  style={Object {}}
+                  style={
+                    Object {
+                      "flexWrap": "wrap",
+                    }
+                  }
                 />
               </View>
             </View>
@@ -406,6 +416,7 @@ Array [
                 style={
                   Object {
                     "color": "#BBBBBB",
+                    "flexWrap": "wrap",
                     "fontSize": 14,
                     "paddingBottom": 15,
                   }
@@ -471,7 +482,11 @@ Array [
                 }
               >
                 <Text
-                  style={Object {}}
+                  style={
+                    Object {
+                      "flexWrap": "wrap",
+                    }
+                  }
                 />
               </View>
             </View>
@@ -634,6 +649,7 @@ Array [
                 style={
                   Object {
                     "color": "#FFFFFF",
+                    "flexWrap": "wrap",
                     "fontSize": 18,
                   }
                 }
@@ -748,6 +764,7 @@ Array [
                 style={
                   Object {
                     "color": "#3DCF8A",
+                    "flexWrap": "wrap",
                     "fontSize": 18,
                   }
                 }

@@ -11,7 +11,7 @@ import {
   Screen,
   ClaimDebug,
 } from '@kancha/kancha-ui'
-import { NavigationScreen } from '../navigators'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 
 const claim = {
   iss: 'did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a',
@@ -39,7 +39,7 @@ const claim = {
   vc: [],
 }
 
-export default (props: NavigationScreen) => {
+export default (props: NavigationStackScreenProps) => {
   return (
     <Screen scrollEnabled>
       <Container paddingBottom>

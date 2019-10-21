@@ -11,7 +11,7 @@ import {
   Indicator,
   Text,
 } from '@kancha/kancha-ui'
-import { NavigationScreen } from '../../navigators'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 
 import { saveMessage } from '../../lib/Messages'
@@ -131,7 +131,7 @@ const phoneOptions: Typings.RequestItemSelectable[] = [
   },
 ]
 
-const Component: React.FC<NavigationScreen> = props => {
+const Component: React.FC<NavigationStackScreenProps> = props => {
   const accept = () => {
     props.navigation.goBack()
   }
@@ -150,7 +150,6 @@ const Component: React.FC<NavigationScreen> = props => {
 
   return (
     <Screen
-      statusBarHidden={false}
       safeAreaBottom={true}
       safeAreaBottomBackground={Colors.WHITE}
       scrollEnabled={true}

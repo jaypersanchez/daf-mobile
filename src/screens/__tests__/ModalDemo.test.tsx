@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import ModalDemo from '../ModalDemo'
+import ModalDemo from '../settings/ModalDemo'
 import { render } from 'react-native-testing-library'
 
 const navigation = {

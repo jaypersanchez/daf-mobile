@@ -245,6 +245,7 @@ exports[`renders correctly 1`] = `
             <Text
               style={
                 Object {
+                  "flexWrap": "wrap",
                   "fontSize": 18,
                 }
               }
@@ -311,6 +312,7 @@ exports[`renders correctly 1`] = `
               style={
                 Object {
                   "color": "#333333",
+                  "flexWrap": "wrap",
                   "fontSize": 20,
                 }
               }

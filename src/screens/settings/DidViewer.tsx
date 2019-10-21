@@ -9,7 +9,7 @@ import {
 } from '@kancha/kancha-ui'
 import { Mutation } from 'react-apollo'
 import { withNavigation, NavigationScreenProps } from 'react-navigation'
-import { deleteSeedMutation } from '../lib/Signer'
+import { deleteSeedMutation } from '../../lib/Signer'
 import { ApolloConsumer } from 'react-apollo'
 
 interface DidViewerProps extends NavigationScreenProps {}

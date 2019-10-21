@@ -14,7 +14,7 @@ import {
   Section,
 } from '@kancha/kancha-ui'
 import codePush, { LocalPackage } from 'react-native-code-push'
-import { handleCodePushStatusChange } from './../lib/CodepushHelpers'
+import { handleCodePushStatusChange } from '../../lib/CodepushHelpers'
 
 export default () => {
   const { t } = useTranslation()

@@ -91,7 +91,11 @@ Array [
           }
         >
           <Text
-            style={Object {}}
+            style={
+              Object {
+                "flexWrap": "wrap",
+              }
+            }
           >
             Loading...
           </Text>
@@ -281,6 +285,7 @@ Array [
                   style={
                     Object {
                       "color": "#3DCF8A",
+                      "flexWrap": "wrap",
                       "fontSize": 18,
                     }
                   }
@@ -398,6 +403,7 @@ Array [
                   style={
                     Object {
                       "color": "#FFFFFF",
+                      "flexWrap": "wrap",
                       "fontSize": 18,
                     }
                   }

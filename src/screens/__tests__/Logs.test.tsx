@@ -2,7 +2,7 @@ import 'react-native'
 import React from 'react'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from '@apollo/react-testing'
-import Logs from '../Logs'
+import Logs from '../settings/Logs'
 import { LogMessage, LogMessageType, getLogsQuery } from '../../lib/Log'
 
 jest.useFakeTimers()

@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import { DidViewer } from '../DidViewer'
+import { DidViewer } from '../settings/DidViewer'
 import { MockedProvider } from '@apollo/react-testing'
 import { render } from 'react-native-testing-library'
 

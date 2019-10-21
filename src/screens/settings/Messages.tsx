@@ -5,9 +5,11 @@
 
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, Image } from 'react-native'
-import { Query, Mutation, MutationState, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../lib/serto-graph'
+import { FlatList, TextInput, Image } from 'react-native'
+import { Query, QueryResult } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
+import { getDidsQuery as GET_DIDS } from '../../lib/Signer'
+import { Queries, Types } from '../../lib/serto-graph'
 import {
   Container,
   Button,
@@ -17,28 +19,26 @@ import {
   Text,
   Section,
 } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 import moment from 'moment'
-import { withNavigation, NavigationScreenProps } from 'react-navigation'
 
 interface Result extends QueryResult {
-  data: { claims: Types.VerifiableClaim[] }
+  data: { messages: Types.Message[] }
 }
 
-interface Props extends NavigationScreenProps {}
-
-export const Credentials: React.FC<Props> = props => {
-  const { navigation } = props
-  const did = navigation.getParam('did', 'Did does not exist anymore')
+export default () => {
   const { t } = useTranslation()
+  const didsQuery = useQuery(GET_DIDS)
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
-          query={Queries.findClaims}
-          variables={{ sub: did }}
+          query={Queries.findMessages}
+          variables={{
+            sub: didsQuery.data.selectedDid,
+          }}
           onError={console.log}
-          fetchPolicy={'network-only'}
+          fetchPolicy={'cache-and-network'}
         >
           {({ data, loading, refetch, error }: Result) =>
             error ? (
@@ -46,7 +46,7 @@ export const Credentials: React.FC<Props> = props => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.claims}
+                data={data && data.messages}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -55,15 +55,17 @@ export const Credentials: React.FC<Props> = props => {
                         style={{ width: 32, height: 32 }}
                       />
                     }
-                    last={index === data.claims.length - 1}
+                    last={index === data.messages.length - 1}
                   >
-                    {item.fields.map(field => field.type + ' = ' + field.value)}
+                    <Text>{item.iss.shortId}</Text>
+                    <Text type={Constants.TextTypes.Summary}>
+                      {moment.unix(item.iat).calendar()}
+                    </Text>
                   </ListItem>
                 )}
                 keyExtractor={item => item.rowId}
                 onRefresh={refetch}
                 refreshing={loading}
-                ListEmptyComponent={<Text>No credentials</Text>}
               />
             )
           }
@@ -72,5 +74,3 @@ export const Credentials: React.FC<Props> = props => {
     </Screen>
   )
 }
-
-export default withNavigation(Credentials)

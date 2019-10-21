@@ -38,17 +38,6 @@ target 'Serto' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  # # Packages
-  # pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
-  # pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-  # pod 'RNScreens', :path => '../node_modules/react-native-screens'
-  # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-  # pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
-  # pod 'RNLocalize', :path => '../node_modules/react-native-localize'
-
-  # pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
-  # pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
-
   target 'SertoTests' do
     inherit! :search_paths
     # Pods for testing

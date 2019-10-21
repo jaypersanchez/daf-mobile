@@ -1,8 +1,6 @@
 import React from 'react'
 import { Animated, Easing } from 'react-native'
 import {
-  createDrawerNavigator,
-  createStackNavigator,
   createAppContainer,
   NavigationParams,
   NavigationScreenProp,
@@ -11,39 +9,19 @@ import {
 } from 'react-navigation'
 import i18n from '../lib/I18n'
 
-import { Container, Icon, Button, Constants } from '@kancha/kancha-ui'
+import {
+  createStackNavigator,
+  StackViewTransitionConfigs,
+} from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { Container, Icon, Avatar, FabButton } from '@kancha/kancha-ui'
 import { Icons, Colors } from '../theme'
 
-// Main Screens
-import Welcome from '../screens/main/Welcome'
-import Scanner from '../screens/main/Scanner'
-import DrawerRight from './DrawerRight'
-import DrawerLeft from './DrawerLeft'
-import Request from '../screens/main/Request'
-import Onboarding from '../screens/main/Onboarding'
-import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
-import Credential from '../screens/main/Credential'
-
-// Developer Screens
-import Developer from '../screens/Developer'
-import Logs from '../screens/Logs'
-import Codepush from '../screens/Codepush'
-import Signer from '../screens/Signer'
-import Config from '../screens/Config'
-import Crash from '../screens/Crash'
-import Messages from '../screens/Messages'
-import Connections from '../screens/Connections'
-import DidViewer from '../screens/DidViewer'
-import ModalDemo from '../screens/ModalDemo'
-import Claim from '../screens/Claim'
-import DisclosureRequest from '../screens/DisclosureRequest'
-import SignJwt from '../screens/SignJwt'
-import TrustGraphEdges from '../screens/TrustGraphEdges'
-import Credentials from '../screens/Credentials'
+const avatar = require('../assets/images/kitten-avatar.jpg')
 
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
-  Developer: { screen: 'Developer', title: 'Developer' },
+  Settings: { screen: 'Settings', title: 'Settings' },
   Logs: { screen: 'Logs', title: 'Logs' },
   Codepush: { screen: 'Codepush', title: 'Codepush' },
   Signer: { screen: 'Signer', title: 'Signer' },
@@ -72,32 +50,39 @@ export const Screens = {
   Credential: { screen: 'Credential', title: 'Credential' },
 }
 
-export interface NavigationScreen {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-}
+// Main Screens
+import Activity from '../screens/main/Activity'
+import Explore from '../screens/main/Explore'
+import Profile from '../screens/main/Profile'
+import Onboarding from '../screens/main/Onboarding'
 
-// Use MORE for slack style example and import drawer right
-// Use MENU for material design example and import drawer left
-const DrawerMenuButton = (navigation: any) => (
-  <Container paddingLeft paddingRight>
-    <Button
-      onPress={() => navigation.openDrawer()}
-      block={Constants.ButtonBlocks.Clear}
-      iconButton
-      icon={<Icon icon={Icons.MENU} size={32} color={Colors.CHARCOAL} />}
-    />
-  </Container>
-)
+import Scanner from '../screens/main/Scanner'
+// import DrawerRight from './DrawerRight'
+// import DrawerLeft from './DrawerLeft'
+import Request from '../screens/main/Request'
+// import IdentitySelectModal from '../screens/main/IdentitySelectionModal'
+import Credential from '../screens/main/Credential'
 
-const DeveloperNavigator = createStackNavigator({
-  [Screens.Developer.screen]: {
-    screen: Developer,
-    navigationOptions: ({ navigation }: any) => {
-      return {
-        title: i18n.t('Developer'),
-        headerLeft: DrawerMenuButton(navigation),
-      }
-    },
+// Settings & Internal Demo Screens
+import Settings from '../screens/settings/Settings'
+import Logs from '../screens/settings/Logs'
+import Codepush from '../screens/settings/Codepush'
+import Signer from '../screens/settings/Signer'
+import Config from '../screens/settings/Config'
+import Crash from '../screens/settings/Crash'
+import Messages from '../screens/settings/Messages'
+import Connections from '../screens/settings/Connections'
+import DidViewer from '../screens/settings/DidViewer'
+import Claim from '../screens/settings/Claim'
+import SignJwt from '../screens/settings/SignJwt'
+import TrustGraphEdges from '../screens/settings/TrustGraphEdges'
+import Credentials from '../screens/settings/Credentials'
+import DisclosureRequest from '../screens/settings/DisclosureRequest'
+import ModalDemo from '../screens/settings/ModalDemo'
+
+const SettingsNavigator = createStackNavigator({
+  [Screens.Settings.screen]: {
+    screen: Settings,
   },
   [Screens.Messages.screen]: {
     screen: Messages,
@@ -179,101 +164,127 @@ const DeveloperNavigator = createStackNavigator({
   },
 })
 
-const HomeNavigator = createStackNavigator({
-  [Screens.Home.screen]: {
-    screen: Welcome,
-    navigationOptions: ({ navigation }: any) => {
-      return {
-        title: 'Serto',
-        headerLeft: DrawerMenuButton(navigation),
-      }
-    },
-  },
+const ActivityNavigator = createStackNavigator({
+  Activity,
 })
 
-const DrawerNavigator = createDrawerNavigator(
+const ExploreNavigator = createStackNavigator({
+  Explore,
+})
+
+const ProfileNavigator = createStackNavigator({
+  Profile,
+})
+
+/**
+ * Main TabNavigator
+ */
+const TabNavigator = createBottomTabNavigator(
   {
-    [Screens.Home.screen]: HomeNavigator,
-    Developer: DeveloperNavigator,
+    Activity: {
+      screen: ActivityNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Icon icon={{ name: 'md-heart', iconFamily: 'Ionicons' }} />
+        },
+      },
+    },
+    Explore: {
+      screen: ExploreNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Icon icon={{ name: 'ios-search', iconFamily: 'Ionicons' }} />
+        },
+      },
+    },
+    Scan: {
+      screen: () => null, // Empty screen
+      navigationOptions: props => ({
+        tabBarVisible: false,
+        tabBarIcon: (
+          <FabButton
+            shadowOpacity={0.1}
+            onPress={() => props.navigation.navigate('Scanner')}
+            icon={{ name: 'ios-qr-scanner', iconFamily: 'Ionicons' }}
+          />
+        ),
+      }),
+    },
+    Settings: {
+      screen: SettingsNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return (
+            <Icon icon={{ name: 'ios-settings', iconFamily: 'Ionicons' }} />
+          )
+        },
+      },
+    },
+    Profile: {
+      screen: ProfileNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Avatar source={avatar} />
+        },
+      },
+    },
   },
   {
-    // Use for slack style example and import drawer right
-    // drawerPosition: 'right',
-    contentComponent: props => (
-      <DrawerLeft
-        navigation={props.navigation}
-        activeItemkey={props.activeItemKey}
-        onItemPress={props.onItemPress}
-      />
-    ),
+    initialRouteName: 'Activity',
+    backBehavior: 'initialRoute',
+    tabBarOptions: {
+      showLabel: false,
+    },
   },
 )
 
 /**
- * Define custom transitions for views based on routenames
+ * Remove modal animation from these screens
  */
-const handleCustomTransition = ({ scenes }: any) => {
-  // const prevScene = scenes[scenes.length - 2]
-  // const nextScene = scenes[scenes.length - 1]
-  const defaultDuration = 500
+const NO_MODAL_ANIM = ['Scanner']
 
-  return {
-    transitionSpec: {
-      duration: defaultDuration,
-      timing: Animated.timing,
-      easing: Easing.out(Easing.poly(5)),
-      useNativeDriver: true,
-    },
-  }
+let dynamicModalTransition = (
+  transitionProps: any,
+  prevTransitionProps: any,
+) => {
+  const notModal = NO_MODAL_ANIM.some(
+    screenName =>
+      screenName === transitionProps.scene.route.routeName ||
+      (prevTransitionProps &&
+        screenName === prevTransitionProps.scene.route.routeName),
+  )
+  return notModal
+    ? StackViewTransitionConfigs.NoAnimation
+    : StackViewTransitionConfigs.ModalSlideFromBottomIOS
 }
 
-const AppNavigator = createStackNavigator(
+const App = createStackNavigator(
   {
-    Drawer: DrawerNavigator,
-    [Screens.ModalDemo.screen]: {
-      screen: ModalDemo,
-    },
-    [Screens.IdentitySelectModal.screen]: {
-      screen: IdentitySelectModal,
-    },
-    [Screens.DisclosureRequest.screen]: {
-      screen: DisclosureRequest,
-    },
-    [Screens.Request.screen]: {
-      screen: Request,
-    },
-    [Screens.Credential.screen]: {
-      screen: Credential,
-    },
+    Tabs: TabNavigator,
+    ModalDemo: ModalDemo,
+    DisclosureRequest: DisclosureRequest,
+    Request: Request,
+    Credential: Credential,
+    Scanner: Scanner,
   },
   {
     headerMode: 'none',
-    mode: 'modal',
     transparentCard: true,
-    transitionConfig: nav => handleCustomTransition(nav),
-  },
-)
-
-const OnboardingNavigator = createStackNavigator(
-  {
-    [Screens.Onboarding.screen]: {
-      screen: Onboarding,
-    },
-  },
-  {
-    headerMode: 'none',
+    mode: 'modal',
+    transitionConfig: dynamicModalTransition,
   },
 )
 
 const RootNavigator = createSwitchNavigator(
   {
-    App: AppNavigator,
-    Onboarding: OnboardingNavigator,
-    [Screens.Scanner.screen]: Scanner,
+    App,
+    Onboarding,
   },
-  {
-    initialRouteName: 'Onboarding',
-  },
+  { initialRouteName: 'Onboarding' },
 )
+
+export interface NavigationScreen {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
 
 export default createAppContainer(RootNavigator)

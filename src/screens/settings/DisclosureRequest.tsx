@@ -7,19 +7,18 @@ import {
   Banner,
   RequestItem,
 } from '@kancha/kancha-ui'
-import { NavigationScreenProps } from 'react-navigation'
-import { Colors } from '../theme'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
+import { Colors } from '../../theme'
 
 // tslint:disable-next-line:no-var-requires
-const avatar1 = require('../assets/images/space-x-logo.jpg')
+const avatar1 = require('../../assets/images/space-x-logo.jpg')
 
 // tslint:disable-next-line:no-var-requires
-const bannerImage = require('../assets/images/space-x-banner.jpg')
+const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
-const Component: React.FC<NavigationScreenProps> = ({ navigation }) => {
+const Component: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   return (
     <Screen
-      statusBarHidden={true}
       safeAreaBottom={true}
       safeAreaBottomBackground={Colors.WHITE}
       scrollEnabled={true}

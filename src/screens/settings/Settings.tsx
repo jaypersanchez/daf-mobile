@@ -3,14 +3,14 @@
  *
  */
 import * as React from 'react'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useTranslation } from 'react-i18next'
 import { Switch } from 'react-native'
 import { Container, Text, Screen, ListItem, Section } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 import Config from 'react-native-config'
 
-const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
+const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const { t, i18n } = useTranslation()
   return (
     <Screen scrollEnabled={true}>
@@ -89,4 +89,4 @@ const Developer: React.FC<NavigationScreenProps> = ({ navigation }) => {
   )
 }
 
-export default Developer
+export default Settings

@@ -34,7 +34,9 @@ export const resolvers: Resolvers = {
   Query: {},
   Mutation: {
     log: (_, { type, message, category }, context) => {
-      const previous = context.cache.readQuery({ query: getLogsQuery })
+      const previous = context.cache.readQuery({ query: getLogsQuery }) || {
+        logs: [],
+      }
       const timestamp = new Date().getTime() / 1000
       const logItem = {
         id: `${timestamp}`,

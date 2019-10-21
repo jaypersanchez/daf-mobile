@@ -3,29 +3,20 @@
  *
  */
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
-import { Query, Mutation, MutationState, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../lib/serto-graph'
-import {
-  Container,
-  Button,
-  Constants,
-  Screen,
-  ListItem,
-  Text,
-  Section,
-} from '@kancha/kancha-ui'
-import { Colors } from '../theme'
-import moment from 'moment'
-import { NavigationScreenProps } from 'react-navigation'
+import { Query, QueryResult } from 'react-apollo'
+import { Queries, Types } from '../../lib/serto-graph'
+import { Container, Screen, ListItem, Text } from '@kancha/kancha-ui'
+import { Colors } from '../../theme'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 
 interface Result extends QueryResult {
   data: { identities: Types.Identity[] }
 }
 
-interface Props extends NavigationScreenProps {}
+interface Props extends NavigationStackScreenProps {}
 
 const Connections: React.FC<Props> = props => {
   const { t } = useTranslation()

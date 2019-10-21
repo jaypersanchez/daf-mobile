@@ -7,13 +7,14 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation } from 'react-apollo'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
+// import { useQuery, useApolloClient } from '@apollo/react-hooks'
 import {
   Did,
   getDidsQuery,
   createDidMutation,
   importSeedMutation,
-} from '../lib/Signer'
+} from '../../lib/Signer'
 import {
   Container,
   Button,
@@ -22,13 +23,15 @@ import {
   ListItem,
   Text,
 } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 
-interface SignerProps extends NavigationScreenProps {}
+interface SignerProps extends NavigationStackScreenProps {}
 
 const Signer: React.FC<SignerProps> = props => {
   const { t } = useTranslation()
   const [seed, setSeed] = useState('')
+  // const client = useApolloClient()
+  // const { data, loading, error } = useQuery(getDidsQuery)
   return (
     <Screen
       safeArea={true}

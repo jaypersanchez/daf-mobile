@@ -6,7 +6,7 @@ import {
   ClaimExplore,
   Typings,
 } from '@kancha/kancha-ui'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
@@ -14,7 +14,7 @@ const avatar1 = require('../../assets/images/space-x-logo.jpg')
 // tslint:disable-next-line:no-var-requires
 const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
-interface Props extends NavigationScreenProps {}
+interface Props extends NavigationStackScreenProps {}
 
 const Credential: React.FC<Props> = ({ navigation }) => {
   const vc: Typings.VerifiableCredential = navigation.getParam('vc', null)

@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import DisclosureRequest from '../DisclosureRequest'
+import DisclosureRequest from '../settings/DisclosureRequest'
 import { render } from 'react-native-testing-library'
 
 const navigation = {

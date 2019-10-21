@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import Developer from '../Developer'
+import Settings from '../settings/Settings'
 import { render } from 'react-native-testing-library'
 
 const navigation = {
@@ -9,6 +9,6 @@ const navigation = {
 
 it('renders correctly', () => {
   // @ts-ignore
-  const tree = render(<Developer navigation={navigation} />).toJSON()
+  const tree = render(<Settings navigation={navigation} />).toJSON()
   expect(tree).toMatchSnapshot()
 })

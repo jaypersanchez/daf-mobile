@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import Claim from '../Claim'
+import Claim from '../settings/Claim'
 import { render } from 'react-native-testing-library'
 
 const navigation = {

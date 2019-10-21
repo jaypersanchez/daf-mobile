@@ -4,7 +4,7 @@ import Scanner from '../Scanner'
 import { render, fireEvent } from 'react-native-testing-library'
 
 const navigation = {
-  navigate: jest.fn(),
+  goBack: jest.fn(),
 }
 
 describe('Scanner', () => {
@@ -21,6 +21,6 @@ describe('Scanner', () => {
 
     fireEvent.press(getByTestId('CANCEL_SCAN_BTN'))
 
-    expect(navigation.navigate).toBeCalled()
+    expect(navigation.goBack).toBeCalled()
   })
 })

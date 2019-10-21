@@ -7,7 +7,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Query, Mutation } from 'react-apollo'
 import { NavigationScreenProps } from 'react-navigation'
-import { Did, getDidsQuery, signJwtMutation } from '../lib/Signer'
+import { Did, getDidsQuery, signJwtMutation } from '../../lib/Signer'
 import {
   Container,
   Button,
@@ -16,7 +16,7 @@ import {
   ListItem,
   Text,
 } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 
 interface SignJwtProps extends NavigationScreenProps {}
 

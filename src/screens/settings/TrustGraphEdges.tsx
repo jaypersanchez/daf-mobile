@@ -18,11 +18,11 @@ import {
   Text,
   Section,
 } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 import moment from 'moment'
 import gql from 'graphql-tag'
-import { trustGraphClient } from '../lib/GraphQL'
-import { getDidsQuery as GET_DIDS } from '../lib/Signer'
+import { trustGraphClient } from '../../lib/GraphQL'
+import { getDidsQuery as GET_DIDS } from '../../lib/Signer'
 
 export const findEdges = gql`
   query findEdges($toDID: [String]) {

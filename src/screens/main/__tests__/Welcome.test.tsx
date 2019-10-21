@@ -18,17 +18,6 @@ describe('Welcome', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('navigates to scanner view after tap', () => {
-    //@ts-ignore
-    const { getByTestId } = render(<Welcome navigation={navigation} />)
-
-    expect(getByTestId('SCAN_BTN')).toBeDefined()
-
-    fireEvent.press(getByTestId('SCAN_BTN'))
-
-    expect(navigation.navigate).toBeCalled()
-  })
-
   it('shows the credentials and you can tap them', () => {
     //@ts-ignore
     const { getByText } = render(<Welcome navigation={navigation} />)

@@ -11,7 +11,7 @@ import {
   Screen,
   Credential,
 } from '@kancha/kancha-ui'
-import { NavigationScreen } from '../../navigators'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Icons } from '../../theme'
 
 const sertoVerifiableCredential = {
@@ -60,7 +60,7 @@ const bankVerifiableCredential = {
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
 
-export default (props: NavigationScreen) => {
+const Welcome: React.FC<NavigationStackScreenProps> = props => {
   const credentials = [
     {
       title: sertoVerifiableCredential.type,
@@ -92,22 +92,7 @@ export default (props: NavigationScreen) => {
   }
 
   return (
-    <Screen
-      scrollEnabled
-      fabButton={
-        <Container>
-          <FabButton
-            testID={'SCAN_BTN'}
-            onPress={() =>
-              props.navigation.navigate('Scanner', {
-                loadRequest,
-              })
-            }
-            icon={Icons.SCAN}
-          />
-        </Container>
-      }
-    >
+    <Screen scrollEnabled>
       <Container padding>
         <Container marginBottom>
           <Text type={Constants.TextTypes.H2} bold>
@@ -123,3 +108,5 @@ export default (props: NavigationScreen) => {
     </Screen>
   )
 }
+
+export default Welcome

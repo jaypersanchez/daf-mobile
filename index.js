@@ -1,6 +1,6 @@
 global.Buffer = global.Buffer || require('buffer/').Buffer
 
-// Temporary to top crashes
+// Temporary to stop crashes
 import 'react-native-gesture-handler'
 
 import { AppRegistry, NativeModules, Platform, YellowBox } from 'react-native'
@@ -13,7 +13,11 @@ import analytics from '@segment/analytics-react-native'
 import { useScreens } from 'react-native-screens'
 import Log from './src/lib/Log'
 
-YellowBox.ignoreWarnings(['componentWillUpdate', 'componentWillReceiveProps'])
+YellowBox.ignoreWarnings([
+  'componentWillUpdate',
+  'componentWillReceiveProps',
+  'RCTRootView cancelTouches',
+])
 
 const { UIManager } = NativeModules
 

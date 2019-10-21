@@ -28,6 +28,7 @@ const languageDetector = {
 }
 
 i18n
+  // @ts-ignore
   .use(languageDetector)
   .use(initReactI18next)
   .init(options)
