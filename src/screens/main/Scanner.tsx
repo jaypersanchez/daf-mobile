@@ -13,7 +13,7 @@ export default (props: any) => {
   return (
     <Screen
       fabButton={
-        <Container alignItems={'center'} justifyContent={'flex-end'}>
+        <Container marginBottom={-16}>
           <FabButton
             testID={'CANCEL_SCAN_BTN'}
             color={Colors.CHARCOAL}

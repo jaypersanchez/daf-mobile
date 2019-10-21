@@ -55,7 +55,7 @@ exports[`Onboarding renders the intermediate screen if dids are present 1`] = `
   >
     <ActivityIndicator
       animating={true}
-      color="#3A89C9"
+      color="#5952ff"
       hidesWhenStopped={true}
       size="large"
     />

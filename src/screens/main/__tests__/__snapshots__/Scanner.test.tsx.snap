@@ -104,15 +104,15 @@ Array [
       pointerEvents="auto"
       style={
         Object {
-          "alignItems": "center",
+          "alignItems": undefined,
           "backgroundColor": undefined,
           "borderRadius": undefined,
           "flex": undefined,
           "flexDirection": undefined,
           "height": undefined,
-          "justifyContent": "flex-end",
+          "justifyContent": undefined,
           "margin": undefined,
-          "marginBottom": undefined,
+          "marginBottom": -16,
           "marginLeft": undefined,
           "marginRight": undefined,
           "marginTop": undefined,
