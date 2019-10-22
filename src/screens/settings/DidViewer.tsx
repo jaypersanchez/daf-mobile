@@ -23,6 +23,8 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
   )
   const seed = navigation.getParam('seed', 'Seed does not exist anymore')
 
+  console.log(seed)
+
   return (
     <Screen
       scrollEnabled
