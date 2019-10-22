@@ -1,4 +1,5 @@
 import React from 'react'
+import i18n from '../lib/I18n'
 import { Image } from 'react-native'
 import {
   createAppContainer,
@@ -7,8 +8,6 @@ import {
   NavigationState,
   createSwitchNavigator,
 } from 'react-navigation'
-import i18n from '../lib/I18n'
-
 import {
   createStackNavigator,
   StackViewTransitionConfigs,
@@ -16,49 +15,22 @@ import {
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { Icon, Avatar, FabButton, ActivityItem } from '@kancha/kancha-ui'
 import { Colors } from '../theme'
+import { Screens } from './screens'
 
 const avatar = require('../assets/images/kitten-avatar.jpg')
-
-export const Screens = {
-  Home: { screen: 'Home', title: 'Serto' },
-  Settings: { screen: 'Settings', title: 'Settings' },
-  Logs: { screen: 'Logs', title: 'Logs' },
-  Codepush: { screen: 'Codepush', title: 'Codepush' },
-  Signer: { screen: 'Signer', title: 'Signer' },
-  Config: { screen: 'Config', title: 'Config' },
-  Crash: { screen: 'Crash', title: 'Crash Reporting' },
-  Scanner: { screen: 'Scanner', title: 'Scanner' },
-  Messages: { screen: 'Messages', title: 'Messages' },
-  Connections: { screen: 'Connections', title: 'Connections' },
-  DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
-  ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
-  IdentitySelectModal: { screen: 'IdentitySelectModal', title: 'Identities' },
-  Claim: { screen: 'Claim', title: 'Claim Demo' },
-  DisclosureRequest: {
-    screen: 'DisclosureRequest',
-    title: 'Disclosure Request',
-  },
-  Request: {
-    screen: 'Request',
-    title: 'Request',
-  },
-  SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
-  TrustGraphEdges: { screen: 'TrustGraphEdges', title: 'TG Edges' },
-  Credentials: { screen: 'Credentials', title: 'Credentials' },
-  Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
-  IdentityCheck: { screen: 'IdentityCheck', title: 'Identity Check' },
-  Credential: { screen: 'Credential', title: 'Credential' },
-}
 
 // Main Screens
 import Activity from '../screens/main/Activity'
 import Explore from '../screens/main/Explore'
 import Profile from '../screens/main/Profile'
 import Onboarding from '../screens/main/Onboarding'
+import Restore from '../screens/main/Restore'
+import Intro from '../screens/main/Intro'
 
 import Scanner from '../screens/main/Scanner'
 import Request from '../screens/main/Request'
 import Credential from '../screens/main/Credential'
+import CreatingWallet from '../screens/main/CreateIdentity'
 
 // Settings & Internal Demo Screens
 import Settings from '../screens/settings/Settings'
@@ -76,6 +48,14 @@ import TrustGraphEdges from '../screens/settings/TrustGraphEdges'
 import Credentials from '../screens/settings/Credentials'
 import DisclosureRequest from '../screens/settings/DisclosureRequest'
 import ModalDemo from '../screens/settings/ModalDemo'
+
+const headerLogo = () => (
+  <Image
+    source={require('../assets/images/uport_black_horizontal.png')}
+    style={{ height: 45 }}
+    resizeMode={'contain'}
+  />
+)
 
 const SettingsNavigator = createStackNavigator(
   {
@@ -177,16 +157,10 @@ const SettingsNavigator = createStackNavigator(
 
 const ActivityNavigator = createStackNavigator(
   {
-    Activity: {
+    [Screens.Activity.screen]: {
       screen: Activity,
       navigationOptions: {
-        headerTitle: () => (
-          <Image
-            source={require('../assets/images/uport_black_horizontal.png')}
-            style={{ height: 50 }}
-            resizeMode={'contain'}
-          />
-        ),
+        headerTitle: headerLogo,
       },
     },
     Profile,
@@ -205,7 +179,7 @@ const ActivityNavigator = createStackNavigator(
 
 const ExploreNavigator = createStackNavigator(
   {
-    Explore,
+    [Screens.Explore.screen]: Explore,
   },
   {
     defaultNavigationOptions: {
@@ -219,7 +193,7 @@ const ExploreNavigator = createStackNavigator(
 )
 
 const ProfileNavigator = createStackNavigator({
-  Profile,
+  [Screens.Profile.screen]: Profile,
 })
 
 /**
@@ -227,7 +201,7 @@ const ProfileNavigator = createStackNavigator({
  */
 const TabNavigator = createBottomTabNavigator(
   {
-    Activity: {
+    [Screens.Activity.screen]: {
       screen: ActivityNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -235,7 +209,7 @@ const TabNavigator = createBottomTabNavigator(
         },
       },
     },
-    Explore: {
+    [Screens.Explore.screen]: {
       screen: ExploreNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -256,7 +230,7 @@ const TabNavigator = createBottomTabNavigator(
         ),
       }),
     },
-    Settings: {
+    [Screens.Settings.screen]: {
       screen: SettingsNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -266,7 +240,7 @@ const TabNavigator = createBottomTabNavigator(
         },
       },
     },
-    Profile: {
+    [Screens.Profile.screen]: {
       screen: ProfileNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -321,12 +295,47 @@ const App = createStackNavigator(
   },
 )
 
+const Onboard = createStackNavigator(
+  {
+    Intro: {
+      screen: Intro,
+      navigationOptions: {
+        headerTitle: headerLogo,
+        headerStyle: { elevation: 0, shadowOpacity: 0 },
+      },
+    },
+    Onboarding: {
+      screen: Onboarding,
+      navigationOptions: {
+        headerTitle: headerLogo,
+        headerStyle: { elevation: 0, shadowOpacity: 0 },
+      },
+    },
+    Restore: {
+      screen: Restore,
+      navigationOptions: {
+        headerTitle: headerLogo,
+        headerStyle: { elevation: 0, shadowOpacity: 0 },
+      },
+    },
+    CreatingWallet: {
+      screen: CreatingWallet,
+      navigationOptions: {
+        headerLeft: null,
+      },
+    },
+  },
+  {
+    initialRouteName: 'Intro',
+  },
+)
+
 const RootNavigator = createSwitchNavigator(
   {
     App,
-    Onboarding,
+    Onboard,
   },
-  { initialRouteName: 'Onboarding' },
+  { initialRouteName: 'Onboard' },
 )
 
 export interface NavigationScreen {
