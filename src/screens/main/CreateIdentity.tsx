@@ -17,11 +17,16 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
     },
     refetchQueries: ['getDids'],
   })
+  const importingSeed = navigation.getParam('import', false)
 
   useEffect(() => {
     setTimeout(() => {
-      createDid()
-    }, 800)
+      if (!importingSeed) {
+        createDid()
+      } else {
+        navigation.navigate('App')
+      }
+    }, 1100)
   }, [])
 
   return (
@@ -31,7 +36,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       </Container>
       <Container marginTop={30} alignItems={'center'}>
         <Text type={Constants.TextTypes.H3} bold>
-          Creating your identity...
+          {importingSeed ? 'Importing seed...' : 'Creating your identity...'}
         </Text>
         <Container marginTop={10}>
           <Text type={Constants.TextTypes.Body} textAlign={'center'}>
