@@ -12,3 +12,9 @@ jest.mock('@segment/analytics-react-native', () => mockAnalytics)
 
 const mockImpl = new MockAsyncStorage()
 jest.mock('@react-native-community/async-storage', () => mockImpl)
+
+jest.mock('react-native-reanimated', () => {
+  return {
+    set: jest.fn(),
+  }
+})

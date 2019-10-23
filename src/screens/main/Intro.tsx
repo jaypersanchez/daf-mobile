@@ -26,7 +26,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
     },
   })
 
-  const hasIdentityAndNotLoading = !loading && data && data.dids.length === 0
+  const hasNoIdentityAndNotLoading = !loading && data && data.dids.length === 0
 
   return (
     <Screen
@@ -34,7 +34,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       safeAreaBottomBackground={Colors.WHITE}
       background={'primary'}
       footerComponent={
-        hasIdentityAndNotLoading && (
+        hasNoIdentityAndNotLoading && (
           <Container
             paddingHorizontal={true}
             paddingBottom={true}
@@ -56,7 +56,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       }
     >
       {loading && <ActivityIndicator size={'large'} color={Colors.BRAND} />}
-      {hasIdentityAndNotLoading && (
+      {hasNoIdentityAndNotLoading && (
         <Container>
           <Container padding alignItems={'center'} marginTop={50}>
             <Text type={Constants.TextTypes.H2} bold>
