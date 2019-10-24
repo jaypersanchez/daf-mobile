@@ -225,7 +225,7 @@ const TabNavigator = createBottomTabNavigator(
           <FabButton
             shadowOpacity={0.1}
             onPress={() => navigation.navigate('Scanner')}
-            icon={Icons.SEARCH}
+            icon={Icons.SCAN}
           />
         ),
       }),
