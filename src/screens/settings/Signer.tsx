@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation } from 'react-apollo'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-// import { useQuery, useApolloClient } from '@apollo/react-hooks'
 import {
   Did,
   getDidsQuery,
@@ -30,8 +29,7 @@ interface SignerProps extends NavigationStackScreenProps {}
 const Signer: React.FC<SignerProps> = props => {
   const { t } = useTranslation()
   const [seed, setSeed] = useState('')
-  // const client = useApolloClient()
-  // const { data, loading, error } = useQuery(getDidsQuery)
+
   return (
     <Screen
       safeArea={true}
@@ -39,7 +37,7 @@ const Signer: React.FC<SignerProps> = props => {
         <Container padding>
           <Mutation
             mutation={importSeedMutation}
-            refetchQueries={['getDids']}
+            refetchQueries={[{ query: getDidsQuery }]}
             // tslint:disable-next-line:no-console
             onError={(e: any) => console.log('Error: ', e)}
           >
@@ -68,7 +66,10 @@ const Signer: React.FC<SignerProps> = props => {
               )
             }}
           </Mutation>
-          <Mutation mutation={createDidMutation} refetchQueries={['getDids']}>
+          <Mutation
+            mutation={createDidMutation}
+            refetchQueries={[{ query: getDidsQuery }]}
+          >
             {(mutate: any) => (
               <Button
                 fullWidth

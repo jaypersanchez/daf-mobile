@@ -4,6 +4,7 @@ import Provider from './lib/GraphQL'
 import './lib/I18n'
 
 import { ThemeProvider, Toast } from '@kancha/kancha-ui'
+import IDSwitcher from './navigators/Switcher'
 import { Theme } from './theme'
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
       <ThemeProvider theme={Theme}>
         <Toast />
         <Navigation />
+        <IDSwitcher id={'SWITCH_IDENTITY'} />
       </ThemeProvider>
     </Provider>
   )

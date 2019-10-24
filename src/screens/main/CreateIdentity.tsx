@@ -5,8 +5,11 @@ import React, { useEffect } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { Container, Text, Screen, Constants } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useMutation, useApolloClient } from '@apollo/react-hooks'
-import { createDidMutation as CREATE_DID } from '../../lib/Signer'
+import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks'
+import {
+  createDidMutation as CREATE_DID,
+  getDidsQuery as GET_DIDS,
+} from '../../lib/Signer'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const client = useApolloClient()
@@ -15,7 +18,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       client.writeData({ data: { selectedDid: response.createDid.did } })
       navigation.navigate('App')
     },
-    refetchQueries: ['getDids'],
+    refetchQueries: [{ query: GET_DIDS }],
   })
   const importingSeed = navigation.getParam('import', false)
 

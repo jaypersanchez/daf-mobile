@@ -8,11 +8,12 @@ import {
   Section,
 } from '@kancha/kancha-ui'
 import { Mutation } from 'react-apollo'
-import { withNavigation, NavigationScreenProps } from 'react-navigation'
-import { deleteSeedMutation } from '../../lib/Signer'
+import { withNavigation } from 'react-navigation'
+import { deleteSeedMutation, getDidsQuery } from '../../lib/Signer'
 import { ApolloConsumer } from 'react-apollo'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 
-interface DidViewerProps extends NavigationScreenProps {}
+interface DidViewerProps extends NavigationStackScreenProps {}
 
 export const DidViewer: React.FC<DidViewerProps> = props => {
   const { navigation } = props
@@ -22,8 +23,6 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
     'Address does not exist anymore',
   )
   const seed = navigation.getParam('seed', 'Seed does not exist anymore')
-
-  console.log(seed)
 
   return (
     <Screen
@@ -51,7 +50,7 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
           <Container>
             <Mutation
               mutation={deleteSeedMutation}
-              refetchQueries={['getDids']}
+              refetchQueries={[{ query: getDidsQuery }]}
             >
               {(mutate: any) => (
                 <Button

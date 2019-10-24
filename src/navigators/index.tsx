@@ -14,7 +14,7 @@ import {
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { Icon, Avatar, FabButton, ActivityItem } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors, Icons } from '../theme'
 import { Screens } from './screens'
 
 const avatar = require('../assets/images/kitten-avatar.jpg')
@@ -204,16 +204,16 @@ const TabNavigator = createBottomTabNavigator(
     [Screens.Activity.screen]: {
       screen: ActivityNavigator,
       navigationOptions: {
-        tabBarIcon: () => {
-          return <Icon icon={{ name: 'md-heart', iconFamily: 'Ionicons' }} />
+        tabBarIcon: ({ tintColor }) => {
+          return <Icon icon={Icons.HEART} color={tintColor} />
         },
       },
     },
     [Screens.Explore.screen]: {
       screen: ExploreNavigator,
       navigationOptions: {
-        tabBarIcon: () => {
-          return <Icon icon={{ name: 'ios-search', iconFamily: 'Ionicons' }} />
+        tabBarIcon: ({ tintColor }) => {
+          return <Icon icon={Icons.SEARCH} color={tintColor} />
         },
       },
     },
@@ -225,7 +225,7 @@ const TabNavigator = createBottomTabNavigator(
           <FabButton
             shadowOpacity={0.1}
             onPress={() => navigation.navigate('Scanner')}
-            icon={{ name: 'ios-qr-scanner', iconFamily: 'Ionicons' }}
+            icon={Icons.SEARCH}
           />
         ),
       }),
@@ -233,18 +233,16 @@ const TabNavigator = createBottomTabNavigator(
     [Screens.Settings.screen]: {
       screen: SettingsNavigator,
       navigationOptions: {
-        tabBarIcon: () => {
-          return (
-            <Icon icon={{ name: 'ios-settings', iconFamily: 'Ionicons' }} />
-          )
+        tabBarIcon: ({ tintColor }) => {
+          return <Icon icon={Icons.SETTINGS} color={tintColor} />
         },
       },
     },
     [Screens.Profile.screen]: {
       screen: ProfileNavigator,
       navigationOptions: {
-        tabBarIcon: () => {
-          return <Avatar source={avatar} />
+        tabBarIcon: ({ tintColor }) => {
+          return <Avatar source={avatar} backgroundColor={tintColor} border />
         },
       },
     },
@@ -254,6 +252,10 @@ const TabNavigator = createBottomTabNavigator(
     backBehavior: 'initialRoute',
     tabBarOptions: {
       showLabel: false,
+      activeTintColor: {
+        light: Colors.DARK_GREY,
+        dark: Colors.BRAND,
+      },
     },
   },
 )
@@ -301,27 +303,29 @@ const Onboard = createStackNavigator(
       screen: Intro,
       navigationOptions: {
         headerTitle: headerLogo,
-        headerStyle: { elevation: 0, shadowOpacity: 0 },
+        headerStyle: { borderBottomWidth: 0 },
       },
     },
     Onboarding: {
       screen: Onboarding,
       navigationOptions: {
         headerTitle: headerLogo,
-        headerStyle: { elevation: 0, shadowOpacity: 0 },
+        headerStyle: { borderBottomWidth: 0 },
       },
     },
     Restore: {
       screen: Restore,
       navigationOptions: {
         headerTitle: headerLogo,
-        headerStyle: { elevation: 0, shadowOpacity: 0 },
+        headerStyle: { borderBottomWidth: 0 },
       },
     },
     CreatingWallet: {
       screen: CreatingWallet,
       navigationOptions: {
         headerLeft: null,
+        headerTitle: headerLogo,
+        headerStyle: { borderBottomWidth: 0 },
       },
     },
   },

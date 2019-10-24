@@ -1,4 +1,5 @@
 import React from 'react'
+import { ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { persistCache } from 'apollo-cache-persist'
 import { ApolloProvider } from 'react-apollo'
@@ -169,9 +170,9 @@ class CustomProvider extends React.Component<Props, State> {
   render() {
     if (this.state.isRunningMigrations) {
       return (
-        <Screen safeArea={true}>
+        <Screen>
           <Container flex={1} alignItems={'center'} justifyContent={'center'}>
-            <Text>Updating data...</Text>
+            <ActivityIndicator size={'large'} />
           </Container>
         </Screen>
       )

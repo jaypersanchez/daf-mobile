@@ -20,6 +20,8 @@ import { ActivityIndicator } from 'react-native'
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const { data, loading } = useQuery(GET_DIDS, {
     onCompleted(response) {
+      console.log(response)
+
       if (response.dids.length > 0) {
         navigation.navigate('App')
       }

@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Container,
   Text,
@@ -6,24 +6,18 @@ import {
   Avatar,
   Constants,
   Button,
-  RequestItem,
-  BottomSheet,
-  ListItem,
+  BottomSnap,
 } from '@kancha/kancha-ui'
-import { ScrollView } from 'react-native-gesture-handler'
 import {
   NavigationStackScreenProps,
   NavigationStackOptions,
 } from 'react-navigation-stack'
-import { useQuery, useApolloClient } from '@apollo/react-hooks'
-import { getDidsQuery as GET_DIDS, Did } from '../../lib/Signer'
-import { Theme } from '../../theme'
+import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { getSelectedDidQuery } from '../../lib/Signer'
 
+const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
-
-// tslint:disable-next-line:no-var-requires
-const avatar2 = require('../../assets/images/kitten-avatar.jpg')
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -31,60 +25,27 @@ const Profile: React.FC<Props> & {
   navigationOptions: NavigationStackOptions
 } = ({ navigation }) => {
   const id = navigation.getParam('id', null)
-  const bottomDrawer = createRef<any>()
-  const { data, loading } = useQuery(GET_DIDS)
-  const client = useApolloClient()
-  const hasIdentityAndNotLoading = !loading && data && data.dids.length > 0
+  const {
+    data: { selectedDid },
+  }: any = useQuery(getSelectedDidQuery)
+
+  useEffect(() => {
+    navigation.setParams({ selectedDid })
+  }, [selectedDid])
 
   return (
-    <Screen
-      scrollEnabled
-      background={'primary'}
-      bottomSheet={
-        <BottomSheet
-          ref={bottomDrawer}
-          snapPoints={[-10, 200, 400]}
-          initialSnap={0}
-        >
-          <ScrollView
-            style={{
-              backgroundColor: Theme.colors.primary.background,
-              height: 400,
-            }}
-          >
-            {hasIdentityAndNotLoading &&
-              data.dids.map((identity: Did, index: number) => {
-                return (
-                  <ListItem
-                    key={identity.did}
-                    hideForwardArrow
-                    onPress={() => {
-                      client.writeData({
-                        data: { selectedDid: identity.did },
-                      })
-                      client.reFetchObservableQueries()
-                    }}
-                    subTitle={identity.did.substring(0, 25) + '...'}
-                    selected={identity.isSelected}
-                    iconLeft={
-                      <Avatar
-                        border={!identity.isSelected}
-                        address={identity.did}
-                        type={'circle'}
-                        gravatarType={'robohash'}
-                      />
-                    }
-                  >
-                    Identity {index + 1}
-                  </ListItem>
-                )
-              })}
-          </ScrollView>
-        </BottomSheet>
-      }
-    >
+    <Screen scrollEnabled background={'primary'}>
       <Container padding flex={1}>
-        <Avatar source={id ? avatar1 : avatar2} type={'rounded'} size={60} />
+        {id ? (
+          <Avatar type={'rounded'} size={60} source={avatar1} />
+        ) : (
+          <Avatar
+            type={'rounded'}
+            size={60}
+            address={selectedDid}
+            gravatarType={'retro'}
+          />
+        )}
         <Container marginTop={8}>
           <Text type={Constants.TextTypes.H3} bold>
             {id ? 'Space X' : 'Sarah Macintosh'}
@@ -95,15 +56,23 @@ const Profile: React.FC<Props> & {
             </Text>
           </Container>
           {!id && (
-            <Container flexDirection={'row'} flex={1} paddingTop>
-              <Button
-                small
-                type={Constants.BrandOptions.Primary}
-                block={Constants.ButtonBlocks.Outlined}
-                buttonText="Switch Identity"
-                onPress={() => bottomDrawer.current.snapTo(1)}
-              />
-            </Container>
+            <>
+              <Container flexDirection={'row'} flex={1} paddingTop>
+                <Button
+                  small
+                  type={Constants.BrandOptions.Primary}
+                  block={Constants.ButtonBlocks.Outlined}
+                  buttonText="Switch Identity"
+                  onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
+                />
+              </Container>
+              <Container marginTop>
+                <Text type={Constants.TextTypes.Body}>
+                  The identity switcher is a global component and can be called
+                  from anywhere.
+                </Text>
+              </Container>
+            </>
           )}
         </Container>
       </Container>
@@ -112,12 +81,15 @@ const Profile: React.FC<Props> & {
 }
 
 Profile.navigationOptions = ({ navigation }: any) => {
+  /**
+   * Conditionally show elements depending on profile type
+   */
   const params = navigation.state.params || {}
   return {
-    headerRight: !params.id && (
+    headerRight: params.id == null && (
       <Button
-        onPress={() => {}}
-        icon={<Avatar source={avatar2} />}
+        onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
+        icon={<Avatar address={params.selectedDid} gravatarType={'retro'} />}
         iconButton
       />
     ),
