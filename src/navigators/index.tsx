@@ -221,13 +221,10 @@ const TabNavigator = createBottomTabNavigator(
       screen: () => null,
       navigationOptions: ({ navigation }) => ({
         tabBarVisible: false,
-        tabBarIcon: (
-          <FabButton
-            shadowOpacity={0.1}
-            onPress={() => navigation.navigate('Scanner')}
-            icon={Icons.SCAN}
-          />
-        ),
+        tabBarOnPress: () => navigation.navigate('Scanner'),
+        tabBarIcon: ({ tintColor }) => {
+          return <Icon icon={Icons.SCAN} color={tintColor} />
+        },
       }),
     },
     [Screens.Settings.screen]: {
@@ -263,7 +260,7 @@ const TabNavigator = createBottomTabNavigator(
 /**
  * Remove modal animation from these screens
  */
-const NO_MODAL_ANIM = ['Scanner']
+const NO_MODAL_ANIM = ['']
 
 let dynamicModalTransition = (
   transitionProps: any,
