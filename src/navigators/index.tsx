@@ -223,7 +223,7 @@ const TabNavigator = createBottomTabNavigator(
         tabBarVisible: false,
         tabBarOnPress: () => navigation.navigate('Scanner'),
         tabBarIcon: ({ tintColor }) => {
-          return <Icon icon={Icons.SCAN} color={tintColor} />
+          return <Icon icon={Icons.SCAN} color={Colors.BRAND} />
         },
       }),
     },
