@@ -56,20 +56,23 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Screen scrollEnabled>
-      {/* <Container padding>
+      <Container padding background={'primary'}>
         <Text type={Constants.TextTypes.H3} bold>
-          Activity
+          Recent Activity
         </Text>
-      </Container> */}
+      </Container>
       <Container>
         <Container>
           {
             // @ts-ignore
             <LineChart
+              style={{
+                marginLeft: -30,
+              }}
               withInnerLines={false}
               withOuterLines={false}
               withHorizontalLabels={false}
-              width={Device.width}
+              width={Device.width + 60}
               data={data}
               height={220}
               chartConfig={chartConfig}
