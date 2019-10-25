@@ -6,7 +6,9 @@ import {
   ClaimExplore,
   Typings,
 } from '@kancha/kancha-ui'
+import { ScrollView } from 'react-native'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import Swiper from 'react-native-swiper'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
@@ -17,10 +19,11 @@ const bannerImage = require('../../assets/images/space-x-banner.jpg')
 interface Props extends NavigationStackScreenProps {}
 
 const Credential: React.FC<Props> = ({ navigation }) => {
+  const vp: Typings.VerifiableCredential[] = navigation.getParam('vp', null)
   const vc: Typings.VerifiableCredential = navigation.getParam('vc', null)
 
   return (
-    <Modal scrollEnabled={true}>
+    <Modal scrollEnabled={vc !== null}>
       {vc && (
         <Container>
           <Banner
@@ -32,6 +35,25 @@ const Credential: React.FC<Props> = ({ navigation }) => {
           />
           <ClaimExplore claim={vc.claim} />
         </Container>
+      )}
+      {vp && (
+        <Swiper removeClippedSubviews={false}>
+          {vp &&
+            vp.map((vc, i) => {
+              return (
+                <ScrollView key={i}>
+                  <Banner
+                    size={'small'}
+                    title={vc.type || ''}
+                    subTitle={vc.iss}
+                    avatar={avatar1}
+                    backgroundImage={bannerImage}
+                  />
+                  <ClaimExplore claim={vc.claim} />
+                </ScrollView>
+              )
+            })}
+        </Swiper>
       )}
     </Modal>
   )
