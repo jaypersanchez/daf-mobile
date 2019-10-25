@@ -18,14 +18,18 @@ const chartConfig = {
   backgroundGradientFromOpacity: 1,
   backgroundGradientTo: '#FFFFFF',
   backgroundGradientToOpacity: 1,
-  color: (opacity = 1) => hexToRgba(Colors.BLACK, opacity),
-  strokeWidth: 1, // optional, default 3
+  color: (opacity = 1) => hexToRgba(Colors.WHITE, opacity),
+  labelColor: (opacity = 0.5) => hexToRgba(Colors.MEDIUM_GREY, opacity),
+  propsForLabels: {
+    fontWeight: 'bold',
+  },
+  strokeWidth: 3, // optional, default 3
   barPercentage: 0.5,
   strokeColor: Colors.BRAND,
 }
 
 const data = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  labels: ['J', 'F', 'M', 'A', 'M', 'J'],
   datasets: [
     {
       data: [20, 45, 28, 80, 99, 43],
@@ -52,20 +56,26 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Screen scrollEnabled>
-      <Container padding>
+      {/* <Container padding>
         <Text type={Constants.TextTypes.H3} bold>
           Activity
         </Text>
-      </Container>
+      </Container> */}
       <Container>
         <Container>
-          <LineChart
-            width={Device.width}
-            data={data}
-            height={220}
-            chartConfig={chartConfig}
-            bezier
-          />
+          {
+            // @ts-ignore
+            <LineChart
+              withInnerLines={false}
+              withOuterLines={false}
+              withHorizontalLabels={false}
+              width={Device.width}
+              data={data}
+              height={220}
+              chartConfig={chartConfig}
+              bezier
+            />
+          }
         </Container>
       </Container>
       <Container>
