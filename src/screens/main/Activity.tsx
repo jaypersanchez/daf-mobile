@@ -10,6 +10,10 @@ import {
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { LineChart } from 'react-native-chart-kit'
+import {
+  sertoVerifiableCredential,
+  bankVerifiableCredential,
+} from '../../data/credentials'
 
 import hexToRgba from 'hex-to-rgba'
 
@@ -18,14 +22,18 @@ const chartConfig = {
   backgroundGradientFromOpacity: 1,
   backgroundGradientTo: '#FFFFFF',
   backgroundGradientToOpacity: 1,
-  color: (opacity = 1) => hexToRgba(Colors.BLACK, opacity),
-  strokeWidth: 1, // optional, default 3
+  color: (opacity = 1) => hexToRgba(Colors.WHITE, opacity),
+  labelColor: (opacity = 0.5) => hexToRgba(Colors.MEDIUM_GREY, opacity),
+  propsForLabels: {
+    fontWeight: 'bold',
+  },
+  strokeWidth: 3, // optional, default 3
   barPercentage: 0.5,
   strokeColor: Colors.BRAND,
 }
 
 const data = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  labels: ['J', 'F', 'M', 'A', 'M', 'J'],
   datasets: [
     {
       data: [20, 45, 28, 80, 99, 43],
@@ -46,26 +54,44 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const showAttachments = (attachment: any) => {
-    console.log(attachment)
-    navigation.navigate('Credential')
+    let params
+    if (attachment.length > 1) {
+      params = {
+        vp: [sertoVerifiableCredential, sertoVerifiableCredential],
+      }
+    } else if (attachment.length === 1) {
+      params = {
+        vc: sertoVerifiableCredential,
+      }
+    }
+    navigation.navigate('Credential', { ...params })
   }
 
   return (
     <Screen scrollEnabled>
-      <Container padding>
+      <Container padding background={'primary'}>
         <Text type={Constants.TextTypes.H3} bold>
-          Activity
+          Recent Activity
         </Text>
       </Container>
       <Container>
         <Container>
-          <LineChart
-            width={Device.width}
-            data={data}
-            height={220}
-            chartConfig={chartConfig}
-            bezier
-          />
+          {
+            // @ts-ignore
+            <LineChart
+              style={{
+                marginLeft: -30,
+              }}
+              withInnerLines={false}
+              withOuterLines={false}
+              withHorizontalLabels={false}
+              width={Device.width + 60}
+              data={data}
+              height={220}
+              chartConfig={chartConfig}
+              bezier
+            />
+          }
         </Container>
       </Container>
       <Container>
@@ -87,26 +113,20 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           attachments={[
             {
               key: '01',
-              title: 'Spacer',
-              issuer: {
-                name: 'Space X',
-                did: '1234',
-                logo: avatar1,
-              },
+              title: sertoVerifiableCredential.type,
+              issuer: sertoVerifiableCredential.iss,
+              logo: avatar1,
             },
             {
               key: '02',
-              title: 'Moon Walker',
-              issuer: {
-                name: 'Space X',
-                did: '1234',
-                logo: avatar1,
-              },
+              title: bankVerifiableCredential.type,
+              issuer: bankVerifiableCredential.iss,
+              logo: avatar1,
             },
           ]}
         />
         <ActivityItem
-          id={'000001'}
+          id={'000002'}
           date={new Date().getTime() - 1000000}
           incoming={false}
           issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
@@ -116,7 +136,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           profileAction={(id: string) => viewProfile(id)}
         />
         <ActivityItem
-          id={'000001'}
+          id={'000003'}
           date={new Date().getTime() - 5000000}
           incoming
           issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
@@ -126,7 +146,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           profileAction={(id: string) => viewProfile(id)}
         />
         <ActivityItem
-          id={'000001'}
+          id={'000004'}
           date={new Date().getTime() - 15000000}
           incoming
           issuer={{
@@ -141,12 +161,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           attachments={[
             {
               key: '01',
-              title: 'Bravery',
-              issuer: {
-                name: 'The Red Cross',
-                did: '1234',
-                avatar: { uri: '' },
-              },
+              title: sertoVerifiableCredential.type,
+              issuer: sertoVerifiableCredential.iss,
+              logo: avatar1,
             },
           ]}
         />
