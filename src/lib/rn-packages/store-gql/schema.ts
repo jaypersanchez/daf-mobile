@@ -1,6 +1,4 @@
-import Api from './api'
-import { Viewer } from './types'
-import { SertoMessage } from '../../serto-credentials'
+import { Store } from '../../packages/store'
 
 export const typeDefs = `
   type Query {
@@ -81,19 +79,18 @@ export const typeDefs = `
   `
 /// isObj => type
 
-type Context = {
-  api: Api
-  viewer: Viewer
+interface Context {
+  api: Store
 }
 
 export const resolvers = {
   Message: {
     vc: async (message: any, {}, { api }: Context) =>
-      api.claimsForMessageHash(message.hash),
+      api.credentialsForMessageHash(message.hash),
   },
   VerifiableClaim: {
     fields: async (vc: any, {}, { api }: Context) =>
-      api.claimsFieldsForClaimHash(vc.hash),
+      api.credentialsFieldsForClaimHash(vc.hash),
   },
   Identity: {
     shortId: async (identity: any, {}, { api }: Context) =>
@@ -120,12 +117,15 @@ export const resolvers = {
       api.popularClaimForDid(identity.did, 'url'),
     description: async (identity: any, {}, { api }: Context) =>
       api.popularClaimForDid(identity.did, 'description'),
-    interactionCount: async (identity: any, {}, { api, viewer }: Context) =>
-      api.interactionCount(identity.did, viewer),
+    interactionCount: async (
+      identity: any,
+      { did }: { did: string },
+      { api }: Context,
+    ) => api.interactionCount(identity.did, did),
     claims: async (
       identity: any,
       { edgeType }: { edgeType: string },
-      { api, viewer }: Context,
+      { api }: Context,
     ) => {
       switch (edgeType) {
         case 'ISSUER':
@@ -138,7 +138,7 @@ export const resolvers = {
     messages: async (
       identity: any,
       { edgeType }: { edgeType: string },
-      { api, viewer }: Context,
+      { api }: Context,
     ) => {
       switch (edgeType) {
         case 'ISSUER':
@@ -150,8 +150,6 @@ export const resolvers = {
     },
   },
   Query: {
-    viewer: async (_: any, {}, { api, viewer }: Context) =>
-      api.findIdentityByDid(viewer.did),
     identity: async (_: any, { did }: { did: string }, { api }: Context) =>
       api.findIdentityByDid(did),
     identities: async (
@@ -173,27 +171,22 @@ export const resolvers = {
     ) => {
       return api.findMessages({ iss, sub, tag, limit })
     },
-    message: async (
-      _: any,
-      { hash }: { hash: string },
-      { api, viewer }: Context,
-    ) => api.findMessage(hash, viewer),
+    message: async (_: any, { hash }: { hash: string }, { api }: Context) =>
+      api.findMessage(hash),
     claims: async (
       _: any,
       { iss, sub }: { iss: string; sub: string },
-      { api, viewer }: Context,
+      { api }: Context,
     ) => {
       const res = await api.findClaims({ iss, sub })
       return res
     },
   },
   Mutation: {
-    newMessage: async (_: any, { jwt }: { jwt: string }, { api }: Context) =>
-      api.saveMessage(jwt),
     deleteMessage: async (
       _: any,
       { hash }: { hash: string },
-      { api, viewer }: Context,
-    ) => api.deleteMessage(hash, viewer),
+      { api }: Context,
+    ) => api.deleteMessage(hash),
   },
 }

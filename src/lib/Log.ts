@@ -86,16 +86,16 @@ export const configure = (gqlClient: any) => {
 export default {
   info: (message: string, category?: string) => {
     console.log(category && `[${category}]`, message)
-    writeLogItemToCache(message, LogMessageType.Info, category)
+    // writeLogItemToCache(message, LogMessageType.Info, category)
   },
 
   warning: (message: string, category?: string) => {
     console.log(category && `[${category}]`, '⚠️ Warning:', message)
-    writeLogItemToCache(message, LogMessageType.Warning, category)
+    // writeLogItemToCache(message, LogMessageType.Warning, category)
   },
 
   error: (message: string, category?: string) => {
     console.log(category && `[${category}]`, '🛑 Error:', message)
-    writeLogItemToCache(message, LogMessageType.Error, category)
+    // writeLogItemToCache(message, LogMessageType.Error, category)
   },
 }

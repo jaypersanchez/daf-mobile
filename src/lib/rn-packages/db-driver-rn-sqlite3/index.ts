@@ -1,10 +1,15 @@
 import { openDatabase } from 'react-native-sqlite-storage'
-import { Types } from './serto-graph'
+import { Types } from '../../packages/store'
 
-export class RnSqlite implements Types.DbDriver {
+class RnSqlite3 implements Types.DbDriver {
   private db: any
+  private filename: string
 
-  initialize(): Promise<any> {
+  constructor(filename: string) {
+    this.filename = filename
+  }
+
+  async initialize() {
     let setDb = (db: any) => {
       this.db = db
     }
@@ -12,7 +17,7 @@ export class RnSqlite implements Types.DbDriver {
 
     return new Promise((resolve, reject) => {
       const db = openDatabase(
-        { name: 'test', location: 'default' },
+        { name: this.filename, location: 'default' },
         () => {
           setDb(db)
           resolve()
@@ -42,3 +47,5 @@ export class RnSqlite implements Types.DbDriver {
     })
   }
 }
+
+export default RnSqlite3

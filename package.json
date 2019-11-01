@@ -24,7 +24,8 @@
     "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight",
     "release": "semantic-release",
     "postversion": "react-native-version --never-amend",
-    "encode-env": "openssl base64 -A -in .env_template"
+    "encode-env": "openssl base64 -A -in .env_template",
+    "cp-local": "cp -R ../mouro-cli-client/src/packages/* src/lib/packages/ && rm -rf src/lib/packages/db-driver-node-sqlite3"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -32,6 +33,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "@segment/analytics-react-native": "^1.1.0-beta.2",
     "@sentry/react-native": "^1.0.4",
+    "@types/debug": "^4.1.5",
     "add": "^2.0.6",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-cache-persist": "^0.1.1",
@@ -45,10 +47,12 @@
     "apollo-link-ws": "^1.0.19",
     "blakejs": "^1.1.0",
     "buffer": "^5.2.1",
+    "debug": "^4.1.1",
     "did-jwt": "^3.0.0",
     "did-jwt-vc": "^0.1.1",
     "did-resolver": "^1.0.0",
     "ethr-did-resolver": "^1.0.1",
+    "faker": "^4.1.0",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
@@ -56,6 +60,8 @@
     "i18next": "^17.2.0",
     "jest-junit": "^6.3.0",
     "moment": "^2.24.0",
+    "nacl-did": "^1.0.0",
+    "pubsub-js": "^1.7.0",
     "react": "^16.9.0",
     "react-apollo": "3.0.1",
     "react-i18next": "^10.13.1",
@@ -82,8 +88,10 @@
     "reanimated-bottom-sheet": "^1.0.0-alpha.14",
     "sql-bricks-sqlite": "^0.1.0",
     "subscriptions-transport-ws": "^0.9.16",
+    "supports-color": "^7.1.0",
     "uport-did-resolver": "^0.0.7",
     "url-parse": "^1.4.7",
+    "web-did-resolver": "^1.2.0",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
