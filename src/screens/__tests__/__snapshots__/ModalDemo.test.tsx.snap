@@ -19,6 +19,7 @@ exports[`renders correctly 1`] = `
         "borderRadius": undefined,
         "borderTopLeftRadius": 10,
         "borderTopRightRadius": 10,
+        "elevation": 2,
         "flex": 1,
         "flexDirection": undefined,
         "height": undefined,

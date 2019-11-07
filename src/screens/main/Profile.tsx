@@ -7,6 +7,8 @@ import {
   Constants,
   Button,
   BottomSnap,
+  RequestItem,
+  Typings,
 } from '@kancha/kancha-ui'
 import {
   NavigationStackScreenProps,
@@ -18,6 +20,78 @@ import { getSelectedDidQuery } from '../../lib/Signer'
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
+
+const nameOptions: Typings.RequestItemSelectable[] = [
+  {
+    id: '0001',
+    iss: 'Self signed',
+    property: 'name',
+    value: 'Sarah',
+    selected: true,
+  },
+  {
+    id: '0002',
+    iss: 'Self signed',
+    property: 'name',
+    value: 'Sara',
+    selected: false,
+  },
+  {
+    id: '0003',
+    iss: 'Self signed',
+    property: 'name',
+    value: 'Saz',
+    selected: false,
+  },
+]
+
+const lastNameOptions: Typings.RequestItemSelectable[] = [
+  {
+    id: '0001',
+    iss: 'Self signed',
+    property: 'lastName',
+    value: 'Macintosh',
+    selected: true,
+  },
+  {
+    id: '0002',
+    iss: 'Self signed',
+    property: 'lastName',
+    value: 'Mac',
+    selected: false,
+  },
+  {
+    id: '0003',
+    iss: 'Self signed',
+    property: 'lastName',
+    value: 'Maco',
+    selected: false,
+  },
+]
+
+const locationOptions: Typings.RequestItemSelectable[] = [
+  {
+    id: '0001',
+    iss: 'Self signed',
+    property: 'location',
+    value: 'Ireland',
+    selected: true,
+  },
+  {
+    id: '0002',
+    iss: 'Self signed',
+    property: 'location',
+    value: 'Dublin, Ireland',
+    selected: false,
+  },
+  {
+    id: '0003',
+    iss: 'Self signed',
+    property: 'location',
+    value: 'Dublin',
+    selected: false,
+  },
+]
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -37,13 +111,19 @@ const Profile: React.FC<Props> & {
     <Screen scrollEnabled background={'primary'}>
       <Container padding flex={1}>
         {id ? (
-          <Avatar type={'rounded'} size={60} source={avatar1} />
+          <Avatar
+            type={'rounded'}
+            size={60}
+            source={avatar1}
+            backgroundColor={'white'}
+          />
         ) : (
           <Avatar
             type={'rounded'}
             size={60}
             address={selectedDid}
             gravatarType={'retro'}
+            backgroundColor={'white'}
           />
         )}
         <Container marginTop={8}>
@@ -76,6 +156,25 @@ const Profile: React.FC<Props> & {
           )}
         </Container>
       </Container>
+      {!id && (
+        <Container>
+          <RequestItem
+            subTitle={'Firstname'}
+            options={nameOptions}
+            required={true}
+          />
+          <RequestItem
+            subTitle={'Lastname'}
+            options={lastNameOptions}
+            required={true}
+          />
+          <RequestItem
+            subTitle={'Location'}
+            options={locationOptions}
+            required={true}
+          />
+        </Container>
+      )}
     </Screen>
   )
 }
@@ -89,7 +188,13 @@ Profile.navigationOptions = ({ navigation }: any) => {
     headerRight: params.id == null && (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
-        icon={<Avatar address={params.selectedDid} gravatarType={'retro'} />}
+        icon={
+          <Avatar
+            address={params.selectedDid}
+            gravatarType={'retro'}
+            backgroundColor={'white'}
+          />
+        }
         iconButton
       />
     ),
