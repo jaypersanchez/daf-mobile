@@ -3,24 +3,18 @@ import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
 // import { resolver as naclDidResolver } from 'nacl-did'
 // import webDidResolver from 'web-did-resolver'
 
-import Core, { EventTypes } from './packages/core/core'
-import * as Types from './packages/core/types'
-import DidJwtValidationManager from './packages/plugin-did-jwt-validator'
+import * as Daf from './packages/daf-core'
+import * as DidJwt from './packages/daf-did-jwt'
 import RnEthrDidController from './rn-packages/rn-identity-controller'
 
-import * as Rnd from './packages/plugin-random-msg'
-import * as W3c from './packages/plugin-w3c'
-import * as Sdr from './packages/plugin-sdr'
-import * as TG from './packages/plugin-trust-graph'
-
-import DebugActionHandler from './packages/plugin-debug-action-handler'
-import DidCommActionHandler, {
-  ActionTypes as MessagingActionTypes,
-  ActionSendJWT,
-} from './packages/plugin-did-comm'
+import * as W3c from './packages/daf-w3c'
+import * as SD from './packages/daf-selective-disclosure'
+import * as TG from './packages/daf-trust-graph'
+import * as DBG from './packages/daf-debug'
+// import * as DIDComm from './packages/daf-did-comm'
 
 import RnSqlite from './rn-packages/db-driver-rn-sqlite3'
-import { Store } from './packages/store'
+import { DataStore } from './packages/daf-data-store'
 
 import Debug from 'debug'
 Debug.enable('*')
@@ -39,20 +33,33 @@ const didResolver = new Resolver({
 
 const identityControllers = [new RnEthrDidController()]
 
-const messageValidators = [
-  new Rnd.RandomMessageValidator(),
-  new DidJwtValidationManager({
-    payloadValidators: [
-      new W3c.W3cJwtPayloadValidator(),
-      new Sdr.SDRJwtPayloadValidator(),
-    ],
-  }),
-]
+const messageValidator = new DBG.MessageValidator()
+messageValidator
+  // .setNext(new DIDComm.MessageValidator())
+  .setNext(
+    new DidJwt.MessageValidator({
+      payloadValidators: [
+        new W3c.PayloadValidator(),
+        new SD.PayloadValidator(),
+      ],
+    }),
+  )
+
+const actionHandler = new DBG.ActionHandler()
+actionHandler
+  // .setNext(new DIDComm.ActionHandler())
+  .setNext(
+    new TG.ActionHandler({
+      uri: 'http://0.0.0.0:3000/graphql',
+    }),
+  )
+  .setNext(new W3c.ActionHandler())
+  .setNext(new SD.ActionHandler())
 
 const serviceControllersWithConfig = [
   // { controller: Rnd.RandomMessageService, config: {}},
   {
-    controller: TG.TrustGraphMessageService,
+    controller: TG.TrustGraphServiceController,
     config: {
       uri: 'https://mouro.eu.ngrok.io/graphql',
       wsUri: 'wss://mouro.eu.ngrok.io/graphql',
@@ -60,32 +67,21 @@ const serviceControllersWithConfig = [
   },
 ]
 
-const actionHandler = new DebugActionHandler()
-actionHandler
-  .setNext(new DidCommActionHandler())
-  .setNext(
-    new TG.TrustGraphActionHandler({
-      uri: 'https://mouro.eu.ngrok.io/graphql',
-    }),
-  )
-  .setNext(new W3c.W3cActionHandler())
-  .setNext(new Sdr.SDRActionHandler())
-
-export const core = new Core({
+export const core = new Daf.Core({
   identityControllers,
   serviceControllersWithConfig,
   didResolver,
-  messageValidators,
+  messageValidator,
   actionHandler,
 })
 
 export const db = new RnSqlite('database.sqlite3')
-export const store = new Store(db)
+export const dataStore = new DataStore(db)
 
 core.on(
-  EventTypes.validatedMessage,
-  async (eventType: string, message: Types.ValidatedMessage) => {
+  Daf.EventTypes.validatedMessage,
+  async (eventType: string, message: Daf.Types.ValidatedMessage) => {
     debug('New message %O', message)
-    await store.saveMessage(message)
+    await dataStore.saveMessage(message)
   },
 )

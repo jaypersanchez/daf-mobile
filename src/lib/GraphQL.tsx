@@ -12,7 +12,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
 import { typeDefs, resolvers } from './rn-packages/store-gql'
 
-import { core, store, db } from './setup'
+import { core, dataStore, db } from './setup'
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -21,7 +21,7 @@ export const schema = makeExecutableSchema({
 
 const contextLink = new SchemaLink({
   schema,
-  context: { api: store },
+  context: { api: dataStore },
 })
 
 const link = from([contextLink])
@@ -64,7 +64,7 @@ class CustomProvider extends React.Component<Props, State> {
 
   async componentDidMount() {
     await db.initialize()
-    await store.initialize()
+    await dataStore.initialize()
     await core.startServices()
 
     this.setState({ isRunningMigrations: false })
