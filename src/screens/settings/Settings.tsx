@@ -71,9 +71,9 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           </ListItem>
         </Section>
         <Section title={'UI'}>
-          <ListItem onPress={() => navigation.navigate('Claim')}>
+          {/* <ListItem onPress={() => navigation.navigate('Claim')}>
             Claim Viewer (Debug Version)
-          </ListItem>
+          </ListItem> */}
           <ListItem onPress={() => navigation.navigate('ModalDemo')}>
             Show Modal Demo
           </ListItem>

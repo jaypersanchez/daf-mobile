@@ -114,13 +114,21 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             {
               key: '01',
               title: sertoVerifiableCredential.type,
-              issuer: sertoVerifiableCredential.iss,
+              issuer: {
+                name: sertoVerifiableCredential.iss,
+                did: '0fxx',
+                avatar: { uri: '' },
+              },
               logo: avatar1,
             },
             {
               key: '02',
               title: bankVerifiableCredential.type,
-              issuer: bankVerifiableCredential.iss,
+              issuer: {
+                name: bankVerifiableCredential.iss,
+                did: '0fxx',
+                avatar: { uri: '' },
+              },
               logo: avatar1,
             },
           ]}
@@ -162,7 +170,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             {
               key: '01',
               title: sertoVerifiableCredential.type,
-              issuer: sertoVerifiableCredential.iss,
+              issuer: {
+                name: sertoVerifiableCredential.iss,
+                did: '0fxx',
+                avatar: { uri: '' },
+              },
               logo: avatar1,
             },
           ]}

@@ -287,9 +287,13 @@ const App = createStackNavigator(
     Scanner: Scanner,
   },
   {
+    mode: 'modal',
     headerMode: 'none',
     transparentCard: true,
-    mode: 'modal',
+    cardStyle: {
+      // makes transparentCard work for android
+      opacity: 1.0,
+    },
     transitionConfig: dynamicModalTransition,
   },
 )
