@@ -10,41 +10,45 @@ import { from } from 'apollo-link'
 import { SchemaLink } from 'apollo-link-schema'
 import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen, Text } from '@kancha/kancha-ui'
-import { typeDefs, resolvers } from './rn-packages/store-gql'
+import merge from 'lodash.merge'
 
 import { core, dataStore, db } from './setup'
+import * as Gql from './packages/daf-graphql'
+import * as LocalGql from './rn-packages/rn-graphql'
 
 export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+  typeDefs: [
+    Gql.Base.typeDefs,
+    Gql.Core.typeDefs,
+    Gql.DataStore.typeDefs,
+    // Gql.DIDComm.typeDefs,
+    Gql.IdentityManager.typeDefs,
+    Gql.W3c.typeDefs,
+    LocalGql.typeDefs,
+  ],
+  resolvers: merge(
+    Gql.Core.resolvers,
+    Gql.DataStore.resolvers,
+    // Gql.DIDComm.resolvers,
+    Gql.IdentityManager.resolvers,
+    Gql.W3c.resolvers,
+    LocalGql.resolvers,
+  ),
 })
 
 const contextLink = new SchemaLink({
   schema,
-  context: { api: dataStore },
+  context: { core, dataStore },
 })
 
 const link = from([contextLink])
 
 export const cache = new InMemoryCache({})
 
-persistCache({
-  cache,
-  // @ts-ignore
-  storage: AsyncStorage,
-})
-
 export const client = new ApolloClient({
   connectToDevTools: true,
   cache,
   link,
-})
-
-cache.writeData({
-  data: {
-    selectedDid: null,
-    logs: [],
-  },
 })
 
 // Log config

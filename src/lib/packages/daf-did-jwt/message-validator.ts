@@ -1,6 +1,6 @@
 import { Core, AbstractMessageValidator, Types } from '../daf-core'
 import { Resolver } from 'did-resolver'
-import { verifyJWT } from 'did-jwt'
+import { verifyJWT, decodeJWT } from 'did-jwt'
 import Debug from 'debug'
 const debug = Debug('did-jwt-validator')
 
@@ -39,7 +39,9 @@ export class MessageValidator extends AbstractMessageValidator {
 
     let verified
     try {
-      verified = await verifyJWT(jwt, { resolver: core.didResolver })
+      const decoded = decodeJWT(jwt)
+      const audience = decoded.payload.aud
+      verified = await verifyJWT(jwt, { resolver: core.didResolver, audience })
       debug('Valid JWT.')
 
       for (const payloadValidator of this.payloadValidators) {

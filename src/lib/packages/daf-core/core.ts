@@ -68,7 +68,9 @@ export class Core {
     await this.serviceManager.syncServices(since)
   }
 
-  public async onRawMessage(rawMessage: RawMessage) {
+  public async onRawMessage(
+    rawMessage: RawMessage,
+  ): Promise<ValidatedMessage | null> {
     debug('Raw message %O', rawMessage)
     try {
       const preValidatedMessage = await this.messageValidator.validate(
@@ -84,10 +86,12 @@ export class Core {
           hash: blake.blake2bHex(preValidatedMessage.raw),
         }
         this.onValidatedMessage(validatedMessage)
+        return validatedMessage
       }
     } catch (error) {
       this.onMessageValidationError(error, rawMessage)
     }
+    return null
   }
 
   private isValidatedMessage(message: PreValidatedMessage): boolean {

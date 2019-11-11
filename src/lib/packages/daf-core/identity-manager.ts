@@ -21,7 +21,7 @@ export interface IdentityController {
   listIssuers: () => Promise<Issuer[]>
   issuer: (did: string) => Promise<Issuer>
   export?: (did: string) => Promise<string>
-  import?: (seed: string) => Promise<Issuer>
+  import?: (secret: string) => Promise<Issuer>
 }
 
 interface Options {
@@ -87,6 +87,34 @@ export class IdentityManager {
     for (const identityController of this.identityControllers) {
       if (identityController.type === type) {
         return identityController.delete(did)
+      }
+    }
+
+    return Promise.reject('IdentityController not found for type: ' + type)
+  }
+
+  import(type: string, secret: string): Promise<Issuer> {
+    for (const identityController of this.identityControllers) {
+      if (identityController.type === type) {
+        if (identityController.import) {
+          return identityController.import(secret)
+        } else {
+          return Promise.reject(type + ' does not support import')
+        }
+      }
+    }
+
+    return Promise.reject('IdentityController not found for type: ' + type)
+  }
+
+  export(type: string, did: string): Promise<string> {
+    for (const identityController of this.identityControllers) {
+      if (identityController.type === type) {
+        if (identityController.export) {
+          return identityController.export(did)
+        } else {
+          return Promise.reject(type + ' does not support export')
+        }
       }
     }
 

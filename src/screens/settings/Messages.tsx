@@ -9,7 +9,7 @@ import { FlatList, TextInput, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
 import { useQuery } from '@apollo/react-hooks'
 import { getDidsQuery as GET_DIDS } from '../../lib/Signer'
-import { Queries, Types } from '../../lib/rn-packages/store-gql'
+import { Queries, Types } from '../../lib/packages/daf-graphql'
 import {
   Container,
   Button,

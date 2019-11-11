@@ -136,7 +136,6 @@ export class TrustGraphServiceController implements ServiceController {
 
   async init() {
     const { options, wsUri } = this
-    debug(options, wsUri)
 
     if (wsUri) {
       debug('Subscribing to edgeAdded for', options.issuer.did)
