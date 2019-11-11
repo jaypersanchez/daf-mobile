@@ -291,137 +291,6 @@ Array [
                   }
                 }
               >
-                Address
-              </Text>
-            </View>
-            <View
-              pointerEvents="auto"
-              style={
-                Object {
-                  "alignItems": undefined,
-                  "backgroundColor": "#FFFFFF",
-                  "borderBottomColor": "#CCCCCC",
-                  "borderBottomWidth": 0.5,
-                  "borderRadius": undefined,
-                  "borderTopColor": "#CCCCCC",
-                  "borderTopWidth": 0.5,
-                  "flex": undefined,
-                  "flexDirection": undefined,
-                  "height": undefined,
-                  "justifyContent": undefined,
-                  "margin": undefined,
-                  "marginBottom": undefined,
-                  "marginLeft": undefined,
-                  "marginRight": undefined,
-                  "marginTop": undefined,
-                  "padding": undefined,
-                  "paddingBottom": undefined,
-                  "paddingHorizontal": undefined,
-                  "paddingLeft": undefined,
-                  "paddingRight": undefined,
-                  "paddingTop": undefined,
-                  "width": undefined,
-                }
-              }
-            >
-              <View
-                pointerEvents="auto"
-                style={
-                  Object {
-                    "alignItems": undefined,
-                    "backgroundColor": undefined,
-                    "borderRadius": undefined,
-                    "flex": undefined,
-                    "flexDirection": undefined,
-                    "height": undefined,
-                    "justifyContent": undefined,
-                    "margin": undefined,
-                    "marginBottom": undefined,
-                    "marginLeft": undefined,
-                    "marginRight": undefined,
-                    "marginTop": undefined,
-                    "padding": 15,
-                    "paddingBottom": undefined,
-                    "paddingHorizontal": undefined,
-                    "paddingLeft": undefined,
-                    "paddingRight": undefined,
-                    "paddingTop": undefined,
-                    "width": undefined,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "flexWrap": "wrap",
-                    }
-                  }
-                />
-              </View>
-            </View>
-          </View>
-          <View
-            pointerEvents="auto"
-            style={
-              Object {
-                "alignItems": undefined,
-                "backgroundColor": undefined,
-                "borderRadius": undefined,
-                "flex": undefined,
-                "flexDirection": undefined,
-                "height": undefined,
-                "justifyContent": undefined,
-                "margin": undefined,
-                "marginBottom": undefined,
-                "marginLeft": undefined,
-                "marginRight": undefined,
-                "marginTop": 20,
-                "padding": undefined,
-                "paddingBottom": undefined,
-                "paddingHorizontal": undefined,
-                "paddingLeft": undefined,
-                "paddingRight": undefined,
-                "paddingTop": undefined,
-                "width": undefined,
-              }
-            }
-          >
-            <View
-              pointerEvents="auto"
-              style={
-                Object {
-                  "alignItems": undefined,
-                  "backgroundColor": undefined,
-                  "borderRadius": undefined,
-                  "flex": undefined,
-                  "flexDirection": undefined,
-                  "height": undefined,
-                  "justifyContent": undefined,
-                  "margin": undefined,
-                  "marginBottom": undefined,
-                  "marginLeft": undefined,
-                  "marginRight": undefined,
-                  "marginTop": undefined,
-                  "padding": undefined,
-                  "paddingBottom": undefined,
-                  "paddingHorizontal": undefined,
-                  "paddingLeft": 15,
-                  "paddingRight": undefined,
-                  "paddingTop": undefined,
-                  "width": undefined,
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#BBBBBB",
-                    "flexWrap": "wrap",
-                    "fontSize": 14,
-                    "paddingBottom": 15,
-                  }
-                }
-              >
                 Seed
               </Text>
             </View>
@@ -487,7 +356,9 @@ Array [
                       "flexWrap": "wrap",
                     }
                   }
-                />
+                >
+                  seed
+                </Text>
               </View>
             </View>
           </View>
@@ -654,7 +525,7 @@ Array [
                   }
                 }
               >
-                Make Default
+                Make default
               </Text>
             </View>
           </View>

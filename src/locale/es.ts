@@ -4,7 +4,6 @@ export default {
     Settings: 'Ajustes',
     'Welcome to Serto': 'Bienvenido a Serto',
     change: 'Alternar idioma',
-    Logs: 'Troncos',
     Codepush: 'Codepush',
     Configuration: 'Configuración',
     Environment: 'Entorno',

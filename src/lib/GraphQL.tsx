@@ -51,8 +51,6 @@ export const client = new ApolloClient({
   link,
 })
 
-// Log config
-
 interface Props {}
 interface State {
   isRunningMigrations: boolean

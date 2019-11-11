@@ -8,39 +8,53 @@ import {
   Button,
 } from '@kancha/kancha-ui'
 import { Query } from 'react-apollo'
-import { getDidsQuery, Did } from '../../lib/Signer'
+import {
+  GET_MANAGED_IDENTITIES,
+  SET_VIEWER,
+} from '../../lib/rn-packages/rn-graphql/queries'
+import { useMutation } from '@apollo/react-hooks'
 
 interface IdentitySelectModalProps {}
 
+interface Identity {
+  did: string
+  shortId: string
+  isSelected: boolean
+  profileImage?: string
+}
+
 interface Resp {
-  data: { dids: Did[] }
+  data: { managedIdentities: Identity[] }
   loading: boolean
   refetch: () => void
   client: any
 }
 
 const IdentitySelectModal: React.FC<IdentitySelectModalProps> = ({}) => {
+  const [setViewer] = useMutation(SET_VIEWER)
   return (
     <Container>
       <Container marginBottom paddingTop>
-        <Query query={getDidsQuery}>
-          {({ data, client }: Resp) => {
+        <Query query={GET_MANAGED_IDENTITIES}>
+          {({ data }: Resp) => {
             return (
               <Section>
                 {data &&
-                  data.dids &&
-                  data.dids.map((identity, index) => {
+                  data.managedIdentities &&
+                  data.managedIdentities.map((identity, index) => {
                     return (
                       <ListItem
                         key={identity.did}
                         hideForwardArrow
                         onPress={() => {
-                          client.writeData({
-                            data: { selectedDid: identity.did },
+                          setViewer({
+                            variables: {
+                              did: identity.did,
+                            },
+                            refetchQueries: [{ query: GET_MANAGED_IDENTITIES }],
                           })
-                          client.reFetchObservableQueries()
                         }}
-                        subTitle={identity.did.substring(0, 25) + '...'}
+                        subTitle={identity.shortId}
                         selected={identity.isSelected}
                         iconLeft={
                           <Avatar
@@ -51,7 +65,7 @@ const IdentitySelectModal: React.FC<IdentitySelectModalProps> = ({}) => {
                           />
                         }
                       >
-                        Identity {index + 1}
+                        Identity sss {index + 1}
                       </ListItem>
                     )
                   })}

@@ -4,7 +4,7 @@ import DrawerLeft from '../DrawerLeft'
 import DrawerRight from '../DrawerRight'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from '@apollo/react-testing'
-import { getSelectedDidQuery } from '../../lib/Signer'
+import { GET_VIEWER } from '../../lib/rn-packages/rn-graphql/queries'
 
 jest.useFakeTimers()
 jest.runAllTimers()
@@ -12,12 +12,15 @@ jest.runAllTimers()
 const mocks = [
   {
     request: {
-      query: getSelectedDidQuery,
+      query: GET_VIEWER,
       variables: {},
     },
     result: {
       data: {
-        selectedDid: 'did:ethr:123456789',
+        viewer: {
+          did: 'did:ethr:123456789',
+          shortId: 'did:ethr:123...789',
+        },
       },
     },
   },

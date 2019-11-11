@@ -61,7 +61,7 @@ class RnEthrDidController implements IdentityController {
     try {
       const result = await RNUportHDSigner.deleteSeed(address)
       debug('Deleted', did)
-      return result
+      return true
     } catch (e) {
       debug(e)
       return false

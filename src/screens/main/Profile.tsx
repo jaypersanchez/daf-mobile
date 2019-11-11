@@ -15,7 +15,7 @@ import {
   NavigationStackOptions,
 } from 'react-navigation-stack'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
-import { getSelectedDidQuery } from '../../lib/Signer'
+import { GET_VIEWER } from '../../lib/rn-packages/rn-graphql/queries'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
@@ -100,12 +100,14 @@ const Profile: React.FC<Props> & {
 } = ({ navigation }) => {
   const id = navigation.getParam('id', null)
   const {
-    data: { selectedDid },
-  }: any = useQuery(getSelectedDidQuery)
-
+    data: {
+      viewer: { did },
+    },
+  }: any = useQuery(GET_VIEWER)
+  const selectedDid = did
   useEffect(() => {
     navigation.setParams({ selectedDid })
-  }, [selectedDid])
+  }, [did])
 
   return (
     <Screen scrollEnabled background={'primary'}>

@@ -12,7 +12,6 @@ import * as Sentry from '@sentry/react-native'
 import analytics from '@segment/analytics-react-native'
 import { enableScreens } from 'react-native-screens'
 import { Device } from '@kancha/kancha-ui'
-import Log from './src/lib/Log'
 
 YellowBox.ignoreWarnings([
   'componentWillUpdate',

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { Query } from 'react-apollo'
-import { getSelectedDidQuery } from '../lib/Signer'
+import { GET_VIEWER } from '../lib/rn-packages/rn-graphql/queries'
 import {
   Text,
   Container,
@@ -22,7 +22,10 @@ interface DrawerProps extends NavigationScreen {
 
 interface Resp {
   data: {
-    selectedDid: string
+    viewer: {
+      did: string
+      shortId: string
+    }
   }
   loading: boolean
 }
@@ -38,7 +41,7 @@ const Drawer: React.FC<DrawerProps> = props => {
       <TouchableOpacity
         onPress={() => props.navigation.navigate('IdentitySelectModal')}
       >
-        <Query query={getSelectedDidQuery}>
+        <Query query={GET_VIEWER}>
           {({ data }: Resp) => {
             return (
               <Container
@@ -56,9 +59,7 @@ const Drawer: React.FC<DrawerProps> = props => {
                   </Text>
                   <Container>
                     <Text type={Constants.TextTypes.SubTitle}>
-                      {data &&
-                        data.selectedDid &&
-                        data.selectedDid.substring(0, 20) + '...'}
+                      {data && data.viewer && data.viewer.shortId}
                     </Text>
                   </Container>
                 </Container>

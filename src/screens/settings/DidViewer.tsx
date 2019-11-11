@@ -9,9 +9,13 @@ import {
 } from '@kancha/kancha-ui'
 import { Mutation } from 'react-apollo'
 import { withNavigation } from 'react-navigation'
-import { deleteSeedMutation, getDidsQuery } from '../../lib/Signer'
 import { ApolloConsumer } from 'react-apollo'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import {
+  GET_MANAGED_IDENTITIES,
+  DELETE_IDENTITY,
+  SET_VIEWER,
+} from '../../lib/rn-packages/rn-graphql/queries'
 
 interface DidViewerProps extends NavigationStackScreenProps {}
 
@@ -32,25 +36,31 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
       footerComponent={
         <Container padding>
           <Container marginBottom>
-            <ApolloConsumer>
-              {client => (
+            <Mutation
+              mutation={SET_VIEWER}
+              refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
+            >
+              {(mutate: any) => (
                 <Button
                   fullWidth
                   type={Constants.BrandOptions.Primary}
                   block={Constants.ButtonBlocks.Filled}
-                  buttonText={'Make Default'}
+                  buttonText={'Make default'}
                   onPress={() => {
-                    client.writeData({ data: { selectedDid: did } })
-                    client.reFetchObservableQueries()
+                    mutate({
+                      variables: {
+                        did,
+                      },
+                    }).then(() => props.navigation.goBack())
                   }}
                 />
               )}
-            </ApolloConsumer>
+            </Mutation>
           </Container>
           <Container>
             <Mutation
-              mutation={deleteSeedMutation}
-              refetchQueries={[{ query: getDidsQuery }]}
+              mutation={DELETE_IDENTITY}
+              refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
             >
               {(mutate: any) => (
                 <Button
@@ -61,7 +71,8 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
                   onPress={() => {
                     mutate({
                       variables: {
-                        address,
+                        type: 'rnEthr',
+                        did,
                       },
                     }).then(() => props.navigation.goBack())
                   }}
@@ -78,14 +89,9 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
             <Text>{did}</Text>
           </Container>
         </Section>
-        <Section title={'Address'}>
-          <Container padding>
-            <Text>{address}</Text>
-          </Container>
-        </Section>
         <Section title={'Seed'}>
           <Container padding>
-            <Text>{seed}</Text>
+            <Text>seed</Text>
           </Container>
         </Section>
       </Container>

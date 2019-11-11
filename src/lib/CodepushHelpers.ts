@@ -1,22 +1,24 @@
 import codePush, { DownloadProgress } from 'react-native-code-push'
-import Log from './Log'
+import Debug from 'debug'
+
+const debug = Debug('codepush')
 
 export const handleCodePushStatusChange = (status: codePush.SyncStatus) => {
   switch (status) {
     case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-      Log.info('Checking for updates.', 'Codepush')
+      debug('Checking for updates.')
       break
     case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-      Log.info('Downloading package.', 'Codepush')
+      debug('Downloading package.')
       break
     case codePush.SyncStatus.INSTALLING_UPDATE:
-      Log.info('Installing update.', 'Codepush')
+      debug('Installing update.')
       break
     case codePush.SyncStatus.UP_TO_DATE:
-      Log.info('Up-to-date.', 'Codepush')
+      debug('Up-to-date.')
       break
     case codePush.SyncStatus.UPDATE_INSTALLED:
-      Log.info('Update installed.', 'Codepush')
+      debug('Update installed.')
       break
   }
 }

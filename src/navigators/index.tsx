@@ -34,7 +34,6 @@ import CreatingWallet from '../screens/main/CreateIdentity'
 
 // Settings & Internal Demo Screens
 import Settings from '../screens/settings/Settings'
-import Logs from '../screens/settings/Logs'
 import Codepush from '../screens/settings/Codepush'
 import Signer from '../screens/settings/Signer'
 import Config from '../screens/settings/Config'
@@ -43,8 +42,6 @@ import Messages from '../screens/settings/Messages'
 import Connections from '../screens/settings/Connections'
 import DidViewer from '../screens/settings/DidViewer'
 import Claim from '../screens/settings/Claim'
-import SignJwt from '../screens/settings/SignJwt'
-import TrustGraphEdges from '../screens/settings/TrustGraphEdges'
 import Credentials from '../screens/settings/Credentials'
 import DisclosureRequest from '../screens/settings/DisclosureRequest'
 import ModalDemo from '../screens/settings/ModalDemo'
@@ -71,22 +68,10 @@ const SettingsNavigator = createStackNavigator(
         title: i18n.t('Messages'),
       },
     },
-    [Screens.TrustGraphEdges.screen]: {
-      screen: TrustGraphEdges,
-      navigationOptions: {
-        title: i18n.t('Trust Graph Edges'),
-      },
-    },
     [Screens.Connections.screen]: {
       screen: Connections,
       navigationOptions: {
         title: i18n.t('Connections'),
-      },
-    },
-    [Screens.Logs.screen]: {
-      screen: Logs,
-      navigationOptions: {
-        title: i18n.t('Logs'),
       },
     },
     [Screens.Codepush.screen]: {
@@ -135,12 +120,6 @@ const SettingsNavigator = createStackNavigator(
       screen: Claim,
       navigationOptions: {
         title: i18n.t('Claim Viewer'),
-      },
-    },
-    [Screens.SignJwt.screen]: {
-      screen: SignJwt,
-      navigationOptions: {
-        title: i18n.t('Sign Jwt'),
       },
     },
   },

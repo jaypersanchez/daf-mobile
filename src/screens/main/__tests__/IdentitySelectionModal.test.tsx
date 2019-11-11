@@ -3,7 +3,7 @@ import React from 'react'
 import IdentitySelectionModal from '../IdentitySelectionModal'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from '@apollo/react-testing'
-import { getDidsQuery } from '../../../lib/Signer'
+import { GET_MANAGED_IDENTITIES } from '../../../lib/rn-packages/rn-graphql/queries'
 
 jest.useFakeTimers()
 jest.runAllTimers()
@@ -14,20 +14,19 @@ const navigation = {
 
 const mockDid = {
   did: 'did:ethr:123456',
-  address: '123456',
+  shortId: 'did:ethr:123.56',
   isSelected: true,
 }
 
 const mocks = [
   {
     request: {
-      query: getDidsQuery,
+      query: GET_MANAGED_IDENTITIES,
       variables: {},
     },
     result: {
       data: {
-        dids: [mockDid],
-        selectedDid: mockDid.did,
+        managedIdentities: [mockDid],
       },
     },
   },
