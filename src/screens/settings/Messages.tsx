@@ -24,22 +24,24 @@ import moment from 'moment'
 import gql from 'graphql-tag'
 
 interface Result extends QueryResult {
-  data: { messages: Types.Message[] }
+  data: { viewer: { messagesReceived: Types.Message[] } }
 }
 
-const findMessages = gql`
-  query FindMessages($iss: ID, $sub: ID, $tag: String, $limit: Int) {
-    messages(iss: $iss, sub: $sub, tag: $tag, limit: $limit) {
-      iss {
-        did
-        shortId
-        profileImage
+const viewerMessages = gql`
+  query ViewerMessages {
+    viewer {
+      messagesReceived {
+        iss {
+          did
+          shortId
+          profileImage
+        }
+        type
+        rowId
+        hash
+        iat
+        nbf
       }
-      type
-      rowId
-      hash
-      iat
-      nbf
     }
   }
 `
@@ -50,7 +52,7 @@ export default () => {
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
-          query={findMessages}
+          query={viewerMessages}
           variables={
             {
               // sub: didsQuery.data.selectedDid,
@@ -65,7 +67,7 @@ export default () => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.messages}
+                data={data && data.viewer && data.viewer.messagesReceived}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -82,7 +84,7 @@ export default () => {
                         />
                       )
                     }
-                    last={index === data.messages.length - 1}
+                    last={index === data.viewer.messagesReceived.length - 1}
                   >
                     <Text>{item.iss.shortId}</Text>
                     <Text type={Constants.TextTypes.Summary}>
