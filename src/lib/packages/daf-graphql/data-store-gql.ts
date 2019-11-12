@@ -108,12 +108,12 @@ export const resolvers = {
       { hash }: { hash: string },
       { dataStore }: Context,
     ) => dataStore.findMessage(hash),
-    claims: async (
+    credentials: async (
       _: any,
       { iss, sub }: { iss: string; sub: string },
       { dataStore }: Context,
     ) => {
-      const res = await dataStore.findClaims({ iss, sub })
+      const res = await dataStore.findCredentials({ iss, sub })
       return res
     },
   },
@@ -132,17 +132,11 @@ export const typeDefs = `
     identities(dids: [ID!]): [Identity]
     messages(iss: ID, sub: ID, tag: String, limit: Int): [Message]
     message(hash: ID!): Message!
-    claims(iss: ID, sub: ID): [VerifiableClaim]
+    credentials(iss: ID, sub: ID): [VerifiableClaim]
   }
 
   extend type Mutation {
     deleteMessage(hash: ID!): Boolean
-  }
-  
-  enum EdgeType {
-    ISSUER
-    SUBJECT
-    ALL
   }
 
   extend type Identity {
