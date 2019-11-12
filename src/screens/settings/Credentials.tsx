@@ -6,11 +6,43 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../../lib/packages/daf-graphql'
+import { Types } from '../../lib/packages/daf-data-store'
 import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import gql from 'graphql-tag'
+
+export const findCredentials = gql`
+  query FindCredentials($iss: ID, $sub: ID) {
+    credentials(iss: $iss, sub: $sub) {
+      rowId
+      hash
+      parentHash
+      iss {
+        did
+        shortId
+        firstName
+        lastName
+        profileImage
+      }
+      sub {
+        did
+        shortId
+        firstName
+        lastName
+        profileImage
+      }
+      jwt
+      nbf
+      fields {
+        type
+        value
+        isObj
+      }
+    }
+  }
+`
 
 interface Result extends QueryResult {
   data: { credentials: Types.VerifiableClaim[] }
@@ -26,7 +58,7 @@ export const Credentials: React.FC<Props> = props => {
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
-          query={Queries.findClaims}
+          query={findCredentials}
           variables={{ sub: did }}
           onError={console.log}
           fetchPolicy={'network-only'}

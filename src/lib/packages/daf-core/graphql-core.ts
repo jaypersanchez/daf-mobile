@@ -1,6 +1,6 @@
 import { Core } from '../daf-core'
 
-export interface Context {
+interface Context {
   core: Core
 }
 

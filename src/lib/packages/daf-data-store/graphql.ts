@@ -1,4 +1,4 @@
-import { DataStore } from '../daf-data-store'
+import { DataStore } from './data-store'
 
 interface Context {
   dataStore: DataStore

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
 import { useQuery } from '@apollo/react-hooks'
-import { Queries, Types } from '../../lib/packages/daf-graphql'
+import { Types } from '../../lib/packages/daf-data-store'
 import {
   Container,
   Button,

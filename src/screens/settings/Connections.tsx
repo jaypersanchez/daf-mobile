@@ -7,10 +7,23 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../../lib/packages/daf-graphql'
+import { Types } from '../../lib/packages/daf-data-store'
 import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import gql from 'graphql-tag'
+
+export const getAllIdentities = gql`
+  query GetAllIdentities {
+    identities {
+      did
+      shortId
+      firstName
+      lastName
+      profileImage
+    }
+  }
+`
 
 interface Result extends QueryResult {
   data: { identities: Types.Identity[] }
@@ -23,7 +36,7 @@ const Connections: React.FC<Props> = props => {
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query query={Queries.getAllIdentities} onError={console.log}>
+        <Query query={getAllIdentities} onError={console.log}>
           {({ data, loading, refetch, error }: Result) =>
             error ? (
               <Text>{error.message}</Text>

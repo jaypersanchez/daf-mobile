@@ -14,11 +14,34 @@ import * as DBG from './packages/daf-debug'
 // import * as DIDComm from './packages/daf-did-comm'
 
 import RnSqlite from './rn-packages/db-driver-rn-sqlite3'
-import { DataStore } from './packages/daf-data-store'
+import { DataStore, Gql as DataGql } from './packages/daf-data-store'
+
+import merge from 'lodash.merge'
 
 import Debug from 'debug'
 Debug.enable('*')
 const debug = Debug('main')
+
+import * as LocalGql from './rn-packages/rn-graphql'
+
+export const typeDefs = [
+  Daf.Gql.baseTypeDefs,
+  Daf.Gql.Core.typeDefs,
+  Daf.Gql.IdentityManager.typeDefs,
+  DataGql.typeDefs,
+  // DIDComm.Gql.typeDefs,
+  W3c.Gql.typeDefs,
+  LocalGql.typeDefs,
+]
+
+export const resolvers = merge(
+  Daf.Gql.Core.resolvers,
+  DataGql.resolvers,
+  // DIDComm.Gql.resolvers,
+  Daf.Gql.IdentityManager.resolvers,
+  W3c.Gql.resolvers,
+  LocalGql.resolvers,
+)
 
 // DID Document Resolver
 // const web = webDidResolver.getResolver()

@@ -5,3 +5,5 @@ export {
   ActionSignW3cVp,
   ActionSignW3cVc,
 } from './action-handler'
+import * as Gql from './graphql'
+export { Gql }

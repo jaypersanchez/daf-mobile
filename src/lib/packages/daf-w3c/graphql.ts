@@ -1,7 +1,7 @@
 import { Core } from '../daf-core'
-import { ActionTypes } from '../daf-w3c'
+import { ActionTypes } from './action-handler'
 
-export interface Context {
+interface Context {
   core: Core
 }
 

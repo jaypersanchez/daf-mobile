@@ -10,4 +10,14 @@ export {
   ServiceInstanceId,
 } from './service-manager'
 import * as Types from './types'
-export { Types }
+import { baseTypeDefs } from './graphql-base-type-defs'
+import * as GqlCore from './graphql-core'
+import * as GqlIdentityManager from './graphql-identity-manager'
+
+const Gql = {
+  baseTypeDefs,
+  Core: GqlCore,
+  IdentityManager: GqlIdentityManager,
+}
+
+export { Types, Gql }
