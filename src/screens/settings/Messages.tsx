@@ -17,6 +17,7 @@ import {
   ListItem,
   Text,
   Section,
+  Avatar,
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import moment from 'moment'
@@ -50,10 +51,18 @@ export default () => {
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
-                      <Image
-                        source={{ uri: item.iss.profileImage }}
-                        style={{ width: 32, height: 32 }}
-                      />
+                      item.iss.profileImage ? (
+                        <Image
+                          source={{ uri: item.iss.profileImage }}
+                          style={{ width: 32, height: 32 }}
+                        />
+                      ) : (
+                        <Avatar
+                          address={item.iss.did}
+                          type={'circle'}
+                          gravatarType={'retro'}
+                        />
+                      )
                     }
                     last={index === data.messages.length - 1}
                   >

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
 import { Queries, Types } from '../../lib/packages/daf-graphql'
-import { Container, Screen, ListItem, Text } from '@kancha/kancha-ui'
+import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 
@@ -34,10 +34,18 @@ const Connections: React.FC<Props> = props => {
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
-                      <Image
-                        source={{ uri: item.profileImage }}
-                        style={{ width: 32, height: 32 }}
-                      />
+                      item.profileImage ? (
+                        <Image
+                          source={{ uri: item.profileImage }}
+                          style={{ width: 32, height: 32 }}
+                        />
+                      ) : (
+                        <Avatar
+                          address={item.did}
+                          type={'circle'}
+                          gravatarType={'retro'}
+                        />
+                      )
                     }
                     onPress={() => {
                       props.navigation.push('Credentials', {
