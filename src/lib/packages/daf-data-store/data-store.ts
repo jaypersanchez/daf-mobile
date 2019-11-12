@@ -16,11 +16,15 @@ export class DataStore {
     return runMigrations(this.db)
   }
 
-  async findClaims({ iss, sub }: { iss?: string; sub?: string }) {
+  async findCredentials({ iss, sub }: { iss?: string; sub?: string }) {
     let where = {}
 
-    if (iss) where = sql.and(where, { iss })
-    if (sub) where = sql.and(where, { sub })
+    if (iss && sub) {
+      where = sql.or(where, { iss, sub })
+    } else {
+      if (iss) where = sql.and(where, { iss })
+      if (sub) where = sql.and(where, { sub })
+    }
 
     const query = sql
       .select('rowid', '*')
@@ -97,8 +101,12 @@ export class DataStore {
   }) {
     let where = {}
 
-    if (iss) where = sql.and(where, { iss })
-    if (sub) where = sql.and(where, { sub })
+    if (iss && sub) {
+      where = sql.or(where, { iss, sub })
+    } else {
+      if (iss) where = sql.and(where, { iss })
+      if (sub) where = sql.and(where, { sub })
+    }
     if (tag) where = sql.and(where, { tag })
 
     let query = sql

@@ -43,30 +43,38 @@ export const resolvers = {
       { did }: { did: string },
       { dataStore }: Context,
     ) => dataStore.interactionCount(identity.did, did),
-    claims: async (
+    credentialsIssued: async (
       identity: any,
-      { edgeType }: { edgeType: string },
+      args: any,
       { dataStore }: Context,
     ) => {
-      switch (edgeType) {
-        case 'ISSUER':
-          return dataStore.findClaims({ iss: identity.did })
-        case 'SUBJECT':
-          return dataStore.findClaims({ sub: identity.did })
-      }
-      return dataStore.findClaims({ iss: identity.did, sub: identity.did })
+      return dataStore.findCredentials({ iss: identity.did })
     },
-    messages: async (
+    credentialsReceived: async (
       identity: any,
-      { edgeType }: { edgeType: string },
+      args: any,
       { dataStore }: Context,
     ) => {
-      switch (edgeType) {
-        case 'ISSUER':
-          return dataStore.findMessages({ iss: identity.did })
-        case 'SUBJECT':
-          return dataStore.findMessages({ sub: identity.did })
-      }
+      return dataStore.findCredentials({ sub: identity.did })
+    },
+    credentialsAll: async (
+      identity: any,
+      args: any,
+      { dataStore }: Context,
+    ) => {
+      return dataStore.findCredentials({ iss: identity.did, sub: identity.did })
+    },
+    messagesSent: async (identity: any, args: any, { dataStore }: Context) => {
+      return dataStore.findMessages({ iss: identity.did })
+    },
+    messagesReceived: async (
+      identity: any,
+      args: any,
+      { dataStore }: Context,
+    ) => {
+      return dataStore.findMessages({ sub: identity.did })
+    },
+    messagesAll: async (identity: any, args: any, { dataStore }: Context) => {
       return dataStore.findMessages({ iss: identity.did, sub: identity.did })
     },
   },
@@ -145,8 +153,12 @@ export const typeDefs = `
     url: String
     description: String
     interactionCount: Int!
-    messages(edgeType: EdgeType): [Message]
-    claims(edgeType: EdgeType): [VerifiableClaim]
+    messagesSent: [Message]
+    messagesReceived: [Message]
+    messagesAll: [Message]
+    credentialsIssued: [VerifiableClaim]
+    credentialsReceived: [VerifiableClaim]
+    credentialsAll: [VerifiableClaim]
   }
   
   extend type Message {
