@@ -20,6 +20,16 @@ export const second: Migration = {
     )
 
     await db.run(
+      `CREATE INDEX IF NOT EXISTS "messages_source_type" ON "messages" ("source_type");`,
+      [],
+    )
+
+    await db.run(
+      `CREATE INDEX IF NOT EXISTS "messages_source_id" ON "messages" ("source_id");`,
+      [],
+    )
+
+    await db.run(
       `CREATE INDEX IF NOT EXISTS "verifiable_credentials_parent_hash" ON "verifiable_credentials" ("parent_hash");`,
       [],
     )

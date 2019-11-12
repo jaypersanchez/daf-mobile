@@ -1,8 +1,8 @@
 import { Types } from '../daf-core'
 import { DbDriver } from './types'
 import { runMigrations } from './migrations'
-import * as sql from 'sql-bricks'
 
+const sql = require('sql-bricks-sqlite')
 const blake = require('blakejs')
 
 export class DataStore {
@@ -106,13 +106,12 @@ export class DataStore {
       .from('messages')
       .where(where)
       .orderBy('nbf desc')
-      .toParams()
 
-    // if (limit) { //TODO: fix this
-    //   query = query.limit(limit)
-    // }
+    if (limit) {
+      query = query.limit(limit)
+    }
 
-    // query = query.toParams()
+    query = query.toParams()
 
     const rows = await this.db.rows(query.text, query.values)
     return rows.map((row: any) => ({
@@ -210,6 +209,13 @@ export class DataStore {
     return rows[0] && rows[0].count
   }
 
+  async latestMessageTimestamps() {
+    let query =
+      'SELECT * from (select sub as did, nbf as timestamp, source_type as sourceType FROM messages ORDER BY nbf desc) GROUP BY did, sourceType'
+
+    return await this.db.rows(query, [])
+  }
+
   async shortId(did: string) {
     const name = await this.popularClaimForDid(did, 'name')
     if (name) {
@@ -224,6 +230,8 @@ export class DataStore {
   }
 
   async saveMessage(message: Types.ValidatedMessage) {
+    const source_type = message.meta && message.meta[0].sourceType
+    const source_id = message.meta && message.meta[0].sourceId
     const query = sql
       .insert('messages', {
         hash: message.hash,
@@ -233,6 +241,8 @@ export class DataStore {
         type: message.type,
         jwt: message.raw,
         meta: message.meta && JSON.stringify(message.meta),
+        source_type,
+        source_id,
       })
       .toParams()
 

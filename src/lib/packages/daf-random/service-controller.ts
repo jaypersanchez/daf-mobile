@@ -8,13 +8,20 @@ export class MessageService implements ServiceController {
     this.options = options
   }
 
+  instanceId() {
+    return {
+      did: this.options.issuer.did,
+      sourceType: 'random',
+    }
+  }
+
   async sync(since: number) {
     setTimeout(() => {
       this.options.onRawMessage({
         raw: `From sync: ${faker.random.words(1)}`,
         meta: [
           {
-            sourceType: 'random',
+            sourceType: this.instanceId().sourceType,
             sourceId: faker.random.uuid(),
             data: { subject: this.options.issuer.did },
           },
@@ -56,7 +63,7 @@ export class MessageService implements ServiceController {
         raw: `From init: ${faker.random.words(4)}`,
         meta: [
           {
-            sourceType: 'random',
+            sourceType: this.instanceId().sourceType,
             sourceId: faker.random.uuid(),
             data: { subject: this.options.issuer.did },
           },

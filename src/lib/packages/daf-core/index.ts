@@ -7,6 +7,7 @@ export {
   ServiceController,
   ServiceControllerOptions,
   ServiceControllerWithConfig,
+  ServiceInstanceId,
 } from './service-manager'
 import * as Types from './types'
 export { Types }

@@ -1,7 +1,11 @@
 import PubSub from 'pubsub-js'
 import { Resolver } from 'did-resolver'
 import { IdentityManager, IdentityController } from './identity-manager'
-import { ServiceManager, ServiceControllerWithConfig } from './service-manager'
+import {
+  ServiceManager,
+  ServiceControllerWithConfig,
+  LastMessageTimestamp,
+} from './service-manager'
 import { MessageValidator } from './message-validator'
 import { ActionHandler } from './action-handler'
 import {
@@ -64,8 +68,8 @@ export class Core {
     await this.serviceManager.initServices()
   }
 
-  async syncServices(since: number) {
-    await this.serviceManager.syncServices(since)
+  async syncServices(lastMessageTimestamps: LastMessageTimestamp[]) {
+    await this.serviceManager.syncServices(lastMessageTimestamps)
   }
 
   public async onRawMessage(

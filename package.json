@@ -50,7 +50,7 @@
     "buffer": "^5.2.1",
     "debug": "^4.1.1",
     "did-jwt": "^3.0.0",
-    "did-jwt-vc": "^0.1.1",
+    "did-jwt-vc": "^0.1.2",
     "did-resolver": "^1.0.0",
     "ethr-did-resolver": "^1.0.1",
     "faker": "^4.1.0",

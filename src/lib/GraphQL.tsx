@@ -70,7 +70,7 @@ class CustomProvider extends React.Component<Props, State> {
     await core.startServices()
 
     this.setState({ isRunningMigrations: false })
-    await core.syncServices(0)
+    await core.syncServices(await dataStore.latestMessageTimestamps())
   }
 
   render() {

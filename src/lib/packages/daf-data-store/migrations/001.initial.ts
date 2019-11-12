@@ -15,6 +15,8 @@ export const initial: Migration = {
       nbf NUMERIC,
       jwt TEXT,
       meta TEXT,
+      source_type TEXT,
+      source_id TEXT,
       internal NUMERIC NOT NULL default 1
     );`,
       [],

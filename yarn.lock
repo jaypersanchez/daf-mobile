@@ -1518,11 +1518,6 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/libsodium-wrappers@^0.7.5":
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/@types/libsodium-wrappers/-/libsodium-wrappers-0.7.7.tgz#cdb25e85458612ec80f0157c3815fac187d0b6d2"
-  integrity sha512-Li91pVKcLvQJK3ZolwCPo85oxf2gKBCApgnesRxYg4OVYchLXcJB2eivX8S87vfQVv6ZRnyCO1lLDosZGJfpRg==
-
 "@types/lodash.merge@^4.6.6":
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.merge/-/lodash.merge-4.6.6.tgz#b84b403c1d31bc42d51772d1cd5557fa008cd3d6"
@@ -1646,13 +1641,6 @@
   integrity sha512-mB6ceGjpMGz1ZTza8HYnrPGos2mC6So4NhS1PtZ8s4Qt0K7fBiIGhpSxUbQmhwcSWE3no+bYxmI2OL6KuXYmoQ==
   dependencies:
     tslib "^1.9.3"
-
-"DIDComm-js@file:../../decentralized-identity/DIDComm-js":
-  version "0.6.0"
-  dependencies:
-    "@types/libsodium-wrappers" "^0.7.5"
-    base-58 "0.0.1"
-    libsodium-wrappers "^0.7.5"
 
 JSONStream@^1.0.4, JSONStream@^1.3.4, JSONStream@^1.3.5:
   version "1.3.5"
@@ -2346,11 +2334,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
-
-base-58@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/base-58/-/base-58-0.0.1.tgz#85d3e70251075661933388f831d1eb8b8f6314e3"
-  integrity sha1-hdPnAlEHVmGTM4j4MdHri49jFOM=
 
 base-x@^3.0.0:
   version "3.0.7"
@@ -3506,10 +3489,10 @@ dezalgo@^1.0.0, dezalgo@~1.0.3:
     asap "^2.0.0"
     wrappy "1"
 
-did-jwt-vc@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/did-jwt-vc/-/did-jwt-vc-0.1.1.tgz#2b7c6c1a60e35b9fdc8ffa4645fb918c4257b29a"
-  integrity sha512-4/w2cYXoYXV1B9W5hNxqvAV2I7ncMn0NMct4iNC8oAo5BSZnpwFiXugj26374c/zzE4Zb2dTog2pHs+bZIRkhQ==
+did-jwt-vc@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/did-jwt-vc/-/did-jwt-vc-0.1.2.tgz#bcaea103316b4fa48433100b93295c2f284e9593"
+  integrity sha512-NwTt0g9t1eA/x5LT9zvFmo6EWRJvDKAQGjv+bcXKrr3ri6gq1IwUHsBEHgl9LPMFdfSr1dsK3bUdjwTraBebRw==
   dependencies:
     did-jwt "^3.0.0"
 
@@ -6334,18 +6317,6 @@ libnpx@^10.2.0:
     which "^1.3.0"
     y18n "^4.0.0"
     yargs "^11.0.0"
-
-libsodium-wrappers@^0.7.5:
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/libsodium-wrappers/-/libsodium-wrappers-0.7.6.tgz#baed4c16d4bf9610104875ad8a8e164d259d48fb"
-  integrity sha512-OUO2CWW5bHdLr6hkKLHIKI4raEkZrf3QHkhXsJ1yCh6MZ3JDA7jFD3kCATNquuGSG6MjjPHQIQms0y0gBDzjQg==
-  dependencies:
-    libsodium "0.7.6"
-
-libsodium@0.7.6:
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/libsodium/-/libsodium-0.7.6.tgz#018b80c5728054817845fbffa554274441bda277"
-  integrity sha512-hPb/04sEuLcTRdWDtd+xH3RXBihpmbPCsKW/Jtf4PsvdyKh+D6z2D2gvp/5BfoxseP+0FCOg66kE+0oGUE/loQ==
 
 lines-and-columns@^1.1.6:
   version "1.1.6"

@@ -9,10 +9,20 @@ export interface ServiceControllerOptions {
   onRawMessage: (rawMessage: RawMessage) => void
 }
 
+export interface ServiceInstanceId {
+  sourceType: string
+  did: string
+}
+
+export interface LastMessageTimestamp extends ServiceInstanceId {
+  timestamp: number
+}
+
 export declare class ServiceController {
   constructor(options: ServiceControllerOptions)
   sync: (since: number) => Promise<void>
   init: () => Promise<boolean>
+  instanceId: () => ServiceInstanceId
 }
 
 export type ServiceControllerWithConfig = {
@@ -64,8 +74,15 @@ export class ServiceManager {
     }
   }
 
-  async syncServices(since: number) {
+  async syncServices(lastMessageTimestamps: LastMessageTimestamp[]) {
     for (const serviceController of this.serviceControllers) {
+      const instanceId = serviceController.instanceId()
+      const lastMessage = lastMessageTimestamps.find(
+        item =>
+          item.did === instanceId.did &&
+          item.sourceType === instanceId.sourceType,
+      )
+      let since = lastMessage ? lastMessage.timestamp : 0
       await serviceController.sync(since)
     }
   }

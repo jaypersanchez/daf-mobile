@@ -1,5 +1,8 @@
 import { openDatabase } from 'react-native-sqlite-storage'
-import { Types } from '../../packages/store'
+import { Types } from '../../packages/daf-data-store'
+import Debug from 'debug'
+
+const debug = Debug('rn-sqlite3')
 
 class RnSqlite3 implements Types.DbDriver {
   private db: any
@@ -28,6 +31,7 @@ class RnSqlite3 implements Types.DbDriver {
   }
 
   run(sql: string, params: any): Promise<any> {
+    debug('run', sql, params)
     return new Promise((resolve, reject) => {
       this.db.transaction((tx: any) => {
         tx.executeSql(sql, params || [], (t: any, result: any) => {
@@ -38,6 +42,7 @@ class RnSqlite3 implements Types.DbDriver {
   }
 
   rows(sql: string, params: any): Promise<any> {
+    debug('rows', sql, params)
     return new Promise((resolve, reject) => {
       this.db.transaction((tx: any) => {
         tx.executeSql(sql, params || [], (t: any, result: any) => {

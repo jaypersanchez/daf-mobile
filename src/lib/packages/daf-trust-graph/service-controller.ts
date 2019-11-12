@@ -8,7 +8,11 @@ import { getMainDefinition } from 'apollo-utilities'
 import { split } from 'apollo-link'
 import { createJWT } from 'did-jwt'
 
-import { ServiceController, ServiceControllerOptions } from '../daf-core'
+import {
+  ServiceController,
+  ServiceControllerOptions,
+  ServiceInstanceId,
+} from '../daf-core'
 import * as queries from './queries'
 
 import { defaultTrustGraphUri, defaultTrustGraphWsUri } from './config'
@@ -21,6 +25,13 @@ export class TrustGraphServiceController implements ServiceController {
 
   private uri: string
   private wsUri?: string
+
+  public instanceId(): ServiceInstanceId {
+    return {
+      did: this.options.issuer.did,
+      sourceType: 'trustGraph',
+    }
+  }
 
   constructor(options: ServiceControllerOptions) {
     debug('Initializing for', options.issuer.did)
@@ -111,7 +122,7 @@ export class TrustGraphServiceController implements ServiceController {
   }
 
   async sync(since: number) {
-    debug('Syncing data for', this.options.issuer.did)
+    debug('Syncing data for %s since %d', this.options.issuer.did, since)
 
     const { data } = await this.client.query({
       query: queries.findEdges,
@@ -126,7 +137,7 @@ export class TrustGraphServiceController implements ServiceController {
         raw: edge.jwt,
         meta: [
           {
-            sourceType: 'trustGraph',
+            sourceType: this.instanceId().sourceType,
             sourceId: this.uri,
           },
         ],
@@ -136,6 +147,7 @@ export class TrustGraphServiceController implements ServiceController {
 
   async init() {
     const { options, wsUri } = this
+    const sourceType = this.instanceId().sourceType
 
     if (wsUri) {
       debug('Subscribing to edgeAdded for', options.issuer.did)
@@ -151,7 +163,7 @@ export class TrustGraphServiceController implements ServiceController {
               raw: result.data.edgeAdded.jwt,
               meta: [
                 {
-                  sourceType: 'trustGraph',
+                  sourceType,
                   sourceId: wsUri,
                 },
               ],

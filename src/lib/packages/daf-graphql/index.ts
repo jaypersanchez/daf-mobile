@@ -8,13 +8,4 @@ import * as W3c from './w3c-gql'
 import * as Types from './types'
 import * as Queries from './queries'
 
-export {
-  Base,
-  Types,
-  Queries,
-  Core,
-  DataStore,
-  // DIDComm,
-  IdentityManager,
-  W3c,
-}
+export { Base, Types, Queries, Core, DataStore, IdentityManager, W3c }
