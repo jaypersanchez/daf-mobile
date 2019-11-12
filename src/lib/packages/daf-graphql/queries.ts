@@ -79,7 +79,7 @@ export const findMessages = gql`
 
 export const findClaims = gql`
   query FindClaims($iss: ID, $sub: ID) {
-    claims(iss: $iss, sub: $sub) {
+    credentials(iss: $iss, sub: $sub) {
       rowId
       hash
       parentHash

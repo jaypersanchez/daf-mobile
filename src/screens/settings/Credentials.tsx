@@ -13,7 +13,7 @@ import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 
 interface Result extends QueryResult {
-  data: { claims: Types.VerifiableClaim[] }
+  data: { credentials: Types.VerifiableClaim[] }
 }
 
 interface Props extends NavigationStackScreenProps {}
@@ -37,7 +37,7 @@ export const Credentials: React.FC<Props> = props => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.claims}
+                data={data && data.credentials}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
@@ -54,7 +54,7 @@ export const Credentials: React.FC<Props> = props => {
                         />
                       )
                     }
-                    last={index === data.claims.length - 1}
+                    last={index === data.credentials.length - 1}
                   >
                     {item.fields.map(field => field.type + ' = ' + field.value)}
                   </ListItem>
