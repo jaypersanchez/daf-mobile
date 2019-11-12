@@ -21,10 +21,28 @@ import {
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import moment from 'moment'
+import gql from 'graphql-tag'
 
 interface Result extends QueryResult {
   data: { messages: Types.Message[] }
 }
+
+const findMessages = gql`
+  query FindMessages($iss: ID, $sub: ID, $tag: String, $limit: Int) {
+    messages(iss: $iss, sub: $sub, tag: $tag, limit: $limit) {
+      iss {
+        did
+        shortId
+        profileImage
+      }
+      type
+      rowId
+      hash
+      iat
+      nbf
+    }
+  }
+`
 
 export default () => {
   const { t } = useTranslation()
@@ -32,7 +50,7 @@ export default () => {
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
-          query={Queries.findMessages}
+          query={findMessages}
           variables={
             {
               // sub: didsQuery.data.selectedDid,
