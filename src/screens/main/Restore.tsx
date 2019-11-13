@@ -6,17 +6,15 @@ import { TextInput } from 'react-native'
 import { Container, Text, Screen, Constants, Button } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
-import { useMutation, useApolloClient } from '@apollo/react-hooks'
-import { Did, importSeedMutation as IMPORT_SEED } from '../../lib/Signer'
+import { useMutation } from '@apollo/react-hooks'
+import { IMPORT_IDENTITY } from '../../lib/graphql/queries'
 
 const Restore: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
-  const client = useApolloClient()
   const [seed, setSeed] = useState('')
   const [errorState, setError] = useState(false)
-  const [importSeed] = useMutation(IMPORT_SEED, {
+  const [importSeed] = useMutation(IMPORT_IDENTITY, {
     onCompleted(resp) {
-      if (resp.importSeed && resp.importSeed.did) {
-        client.writeData({ data: { selectedDid: resp.importSeed.did } })
+      if (resp.importIdentity && resp.importIdentity.did) {
         navigation.navigate('CreatingWallet', { import: true })
       }
     },
@@ -79,7 +77,8 @@ const Restore: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
               onPress={() =>
                 importSeed({
                   variables: {
-                    seed,
+                    type: 'rnEthr',
+                    secret: seed,
                   },
                 })
               }

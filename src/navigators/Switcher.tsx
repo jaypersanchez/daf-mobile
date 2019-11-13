@@ -2,13 +2,20 @@ import React, { createRef, useEffect } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheet, ListItem, Avatar } from '@kancha/kancha-ui'
 import { Theme } from '../theme'
-import {
-  getSelectedDidQuery,
-  getDidsQuery as GET_DIDS,
-  Did,
-} from '../lib/Signer'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import { useApolloClient } from '@apollo/react-hooks'
+import {
+  GET_MANAGED_IDENTITIES,
+  SET_VIEWER,
+  GET_VIEWER,
+} from '../lib/graphql/queries'
+
+interface Identity {
+  did: string
+  shortId: string
+  isSelected: boolean
+  profileImage?: string
+}
 
 interface SwitcherProps {
   id: string
@@ -16,7 +23,8 @@ interface SwitcherProps {
 
 const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const client = useApolloClient()
-  const { data, refetch } = useQuery(GET_DIDS)
+  const { data, refetch } = useQuery(GET_MANAGED_IDENTITIES)
+  const [setViewer] = useMutation(SET_VIEWER)
 
   return (
     <BottomSheet
@@ -34,20 +42,24 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
           }}
         >
           {data &&
-            data.dids &&
-            data.dids.map((identity: Did, index: number) => {
+            data.managedIdentities &&
+            data.managedIdentities.map((identity: Identity, index: number) => {
               return (
                 <ListItem
                   key={identity.did}
                   hideForwardArrow
                   onPress={() => {
-                    client.writeQuery({
-                      query: getSelectedDidQuery,
-                      data: { selectedDid: identity.did },
+                    setViewer({
+                      variables: {
+                        did: identity.did,
+                      },
+                      refetchQueries: [
+                        { query: GET_MANAGED_IDENTITIES },
+                        { query: GET_VIEWER },
+                      ],
                     })
-                    refetch()
                   }}
-                  subTitle={identity.did.substring(0, 25) + '...'}
+                  subTitle={identity.shortId}
                   selected={identity.isSelected}
                   iconLeft={
                     <Avatar

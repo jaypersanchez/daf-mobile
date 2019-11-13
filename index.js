@@ -12,7 +12,8 @@ import * as Sentry from '@sentry/react-native'
 import analytics from '@segment/analytics-react-native'
 import { enableScreens } from 'react-native-screens'
 import { Device } from '@kancha/kancha-ui'
-import Log from './src/lib/Log'
+import Debug from 'debug'
+const debug = Debug('index')
 
 YellowBox.ignoreWarnings([
   'componentWillUpdate',
@@ -37,7 +38,7 @@ const defaultHandler =
 
 if (defaultHandler) {
   ErrorUtils.setGlobalHandler((error, isFatal) => {
-    Log.error(error.stack ? error.stack : error.message, 'System')
+    debug(error.stack ? error.stack : error.message)
     if (Config.SENTRY_DSN) {
       Sentry.captureException(error)
     }

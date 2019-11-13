@@ -1,7 +1,6 @@
 export const Screens = {
   Home: { screen: 'Home', title: 'Serto' },
   Settings: { screen: 'Settings', title: 'Settings' },
-  Logs: { screen: 'Logs', title: 'Logs' },
   Codepush: { screen: 'Codepush', title: 'Codepush' },
   Signer: { screen: 'Signer', title: 'Signer' },
   Config: { screen: 'Config', title: 'Config' },
@@ -21,8 +20,6 @@ export const Screens = {
     screen: 'Request',
     title: 'Request',
   },
-  SignJwt: { screen: 'SignJwt', title: 'SignJwt' },
-  TrustGraphEdges: { screen: 'TrustGraphEdges', title: 'TG Edges' },
   Credentials: { screen: 'Credentials', title: 'Credentials' },
   Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
   Restore: { screen: 'Restore', title: 'Restore' },

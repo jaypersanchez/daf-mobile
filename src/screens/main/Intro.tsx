@@ -14,21 +14,19 @@ import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 import { Image } from 'react-native'
 import { useQuery } from '@apollo/react-hooks'
-import { getDidsQuery as GET_DIDS } from '../../lib/Signer'
+import { GET_VIEWER } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
-  const { data, loading } = useQuery(GET_DIDS, {
+  const { data, loading } = useQuery(GET_VIEWER, {
     onCompleted(response) {
-      console.log(response)
-
-      if (response.dids.length > 0) {
+      if (response.viewer !== null) {
         navigation.navigate('App')
       }
     },
   })
 
-  const hasNoIdentityAndNotLoading = !loading && data && data.dids.length === 0
+  const hasNoIdentityAndNotLoading = !loading && data && data.viewer === null
 
   return (
     <Screen

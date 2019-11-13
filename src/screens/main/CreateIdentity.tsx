@@ -7,25 +7,27 @@ import { Container, Text, Screen, Constants } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks'
 import {
-  createDidMutation as CREATE_DID,
-  getDidsQuery as GET_DIDS,
-} from '../../lib/Signer'
+  CREATE_IDENTITY,
+  GET_MANAGED_IDENTITIES,
+} from '../../lib/graphql/queries'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
-  const client = useApolloClient()
-  const [createDid] = useMutation(CREATE_DID, {
+  const [createDid] = useMutation(CREATE_IDENTITY, {
     onCompleted(response) {
-      client.writeData({ data: { selectedDid: response.createDid.did } })
       navigation.navigate('App')
     },
-    refetchQueries: [{ query: GET_DIDS }],
+    refetchQueries: [{ query: GET_MANAGED_IDENTITIES }],
   })
   const importingSeed = navigation.getParam('import', false)
 
   useEffect(() => {
     setTimeout(() => {
       if (!importingSeed) {
-        createDid()
+        createDid({
+          variables: {
+            type: 'rnEthr',
+          },
+        })
       } else {
         navigation.navigate('App')
       }

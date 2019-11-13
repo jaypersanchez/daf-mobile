@@ -6,14 +6,39 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { Queries, Types } from '../../lib/serto-graph'
-import { Container, Screen, ListItem, Text } from '@kancha/kancha-ui'
+import { Types } from 'daf-data-store'
+import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import gql from 'graphql-tag'
+
+export const findCredentials = gql`
+  query FindCredentials($iss: ID, $sub: ID) {
+    credentials(iss: $iss, sub: $sub) {
+      rowId
+      hash
+      parentHash
+      iss {
+        did
+        shortId
+        profileImage
+      }
+      sub {
+        did
+      }
+      nbf
+      fields {
+        type
+        value
+        isObj
+      }
+    }
+  }
+`
 
 interface Result extends QueryResult {
-  data: { claims: Types.VerifiableClaim[] }
+  data: { credentials: Types.VerifiableClaim[] }
 }
 
 interface Props extends NavigationStackScreenProps {}
@@ -26,7 +51,7 @@ export const Credentials: React.FC<Props> = props => {
     <Screen safeArea={true}>
       <Container flex={1}>
         <Query
-          query={Queries.findClaims}
+          query={findCredentials}
           variables={{ sub: did }}
           onError={console.log}
           fetchPolicy={'network-only'}
@@ -37,16 +62,24 @@ export const Credentials: React.FC<Props> = props => {
             ) : (
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.claims}
+                data={data && data.credentials}
                 renderItem={({ item, index }) => (
                   <ListItem
                     iconLeft={
-                      <Image
-                        source={{ uri: item.iss.profileImage }}
-                        style={{ width: 32, height: 32 }}
-                      />
+                      item.iss.profileImage ? (
+                        <Image
+                          source={{ uri: item.iss.profileImage }}
+                          style={{ width: 32, height: 32 }}
+                        />
+                      ) : (
+                        <Avatar
+                          address={item.iss.did}
+                          type={'circle'}
+                          gravatarType={'retro'}
+                        />
+                      )
                     }
-                    last={index === data.claims.length - 1}
+                    last={index === data.credentials.length - 1}
                   >
                     {item.fields.map(field => field.type + ' = ' + field.value)}
                   </ListItem>

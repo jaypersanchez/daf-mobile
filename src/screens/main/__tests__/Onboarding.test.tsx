@@ -3,27 +3,26 @@ import React from 'react'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from '@apollo/react-testing'
 import Onboarding from '../Onboarding'
-import { Did, getDidsQuery } from '../../../lib/Signer'
+import { GET_MANAGED_IDENTITIES } from '../../../lib/graphql/queries'
 
 jest.useFakeTimers()
 jest.runAllTimers()
 
-const mockDidItem: Did = {
+const mockDidItem = {
   did: 'did:ethr:123456',
-  address: '123456',
+  shortId: 'did:ethr:12..3',
   isSelected: true,
-  seed: 'winkle berry boojam',
 }
 
 const mocks = [
   {
     request: {
-      query: getDidsQuery,
+      query: GET_MANAGED_IDENTITIES,
       variables: {},
     },
     result: {
       data: {
-        dids: [mockDidItem],
+        managedIdentities: [mockDidItem],
       },
     },
   },

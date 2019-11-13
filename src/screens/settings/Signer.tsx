@@ -8,12 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput } from 'react-native'
 import { Query, Mutation } from 'react-apollo'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import {
-  Did,
-  getDidsQuery,
-  createDidMutation,
-  importSeedMutation,
-} from '../../lib/Signer'
+
 import {
   Container,
   Button,
@@ -23,6 +18,19 @@ import {
   Text,
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
+
+import {
+  GET_MANAGED_IDENTITIES,
+  IMPORT_IDENTITY,
+  CREATE_IDENTITY,
+} from '../../lib/graphql/queries'
+
+interface Identity {
+  did: string
+  shortId: string
+  isSelected: boolean
+  profileImage?: string
+}
 
 interface SignerProps extends NavigationStackScreenProps {}
 
@@ -36,8 +44,8 @@ const Signer: React.FC<SignerProps> = props => {
       footerComponent={
         <Container padding>
           <Mutation
-            mutation={importSeedMutation}
-            refetchQueries={[{ query: getDidsQuery }]}
+            mutation={IMPORT_IDENTITY}
+            refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
             // tslint:disable-next-line:no-console
             onError={(e: any) => console.log('Error: ', e)}
           >
@@ -53,7 +61,8 @@ const Signer: React.FC<SignerProps> = props => {
                     onPress={() => {
                       mutate({
                         variables: {
-                          seed,
+                          type: 'rnEthr',
+                          secret: seed,
                         },
                       })
                     }}
@@ -67,8 +76,8 @@ const Signer: React.FC<SignerProps> = props => {
             }}
           </Mutation>
           <Mutation
-            mutation={createDidMutation}
-            refetchQueries={[{ query: getDidsQuery }]}
+            mutation={CREATE_IDENTITY}
+            refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
           >
             {(mutate: any) => (
               <Button
@@ -77,7 +86,11 @@ const Signer: React.FC<SignerProps> = props => {
                 block={Constants.ButtonBlocks.Filled}
                 buttonText={t('Create New Identity')}
                 onPress={() => {
-                  mutate()
+                  mutate({
+                    variables: {
+                      type: 'rnEthr',
+                    },
+                  })
                 }}
                 navButton
               />
@@ -87,32 +100,30 @@ const Signer: React.FC<SignerProps> = props => {
       }
     >
       <Container flex={1}>
-        <Query query={getDidsQuery}>
+        <Query query={GET_MANAGED_IDENTITIES}>
           {({
             data,
             loading,
             refetch,
           }: {
-            data: { dids: Did[]; selectedDid: string }
+            data: { managedIdentities: Identity[] }
             loading: boolean
             refetch: () => void
           }) => (
             <FlatList
               style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-              data={data && data.dids}
+              data={data && data.managedIdentities}
               renderItem={({ item, index }) => (
                 <ListItem
-                  last={index === data.dids.length - 1}
+                  last={index === data.managedIdentities.length - 1}
                   selected={item.isSelected}
                   onPress={() => {
                     props.navigation.push('DidViewer', {
                       did: item.did,
-                      address: item.address,
-                      seed: item.seed,
                     })
                   }}
                 >
-                  {item.did.substring(0, 20) + '...'}
+                  {item.shortId}
                 </ListItem>
               )}
               keyExtractor={item => item.did}
