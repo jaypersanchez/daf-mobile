@@ -7,7 +7,7 @@ import { Container, Text, Screen, Constants, Button } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 import { useMutation } from '@apollo/react-hooks'
-import { IMPORT_IDENTITY } from '../../lib/rn-packages/rn-graphql/queries'
+import { IMPORT_IDENTITY } from '../../lib/graphql/queries'
 
 const Restore: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const [seed, setSeed] = useState('')

@@ -4,7 +4,7 @@ import DrawerLeft from '../DrawerLeft'
 import DrawerRight from '../DrawerRight'
 import { render } from 'react-native-testing-library'
 import { MockedProvider } from '@apollo/react-testing'
-import { GET_VIEWER } from '../../lib/rn-packages/rn-graphql/queries'
+import { GET_VIEWER } from '../../lib/graphql/queries'
 
 jest.useFakeTimers()
 jest.runAllTimers()

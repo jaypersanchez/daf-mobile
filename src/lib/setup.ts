@@ -22,7 +22,7 @@ import Debug from 'debug'
 Debug.enable('*')
 const debug = Debug('main')
 
-import * as LocalGql from './rn-packages/rn-graphql'
+import * as LocalGql from './graphql'
 
 export const typeDefs = [
   Daf.Gql.baseTypeDefs,

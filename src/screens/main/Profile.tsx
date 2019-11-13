@@ -15,7 +15,7 @@ import {
   NavigationStackOptions,
 } from 'react-navigation-stack'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER } from '../../lib/rn-packages/rn-graphql/queries'
+import { GET_VIEWER } from '../../lib/graphql/queries'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires

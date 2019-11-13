@@ -7,8 +7,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, TextInput, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { useQuery } from '@apollo/react-hooks'
-import { Types } from '../../lib/packages/daf-data-store'
 import {
   Container,
   Button,
@@ -23,8 +21,18 @@ import { Colors } from '../../theme'
 import moment from 'moment'
 import gql from 'graphql-tag'
 
+interface Message {
+  iss: {
+    did: string
+    shortId: string
+    profileImage: string
+  }
+  type: string
+  rowId: string
+  iat: number
+}
 interface Result extends QueryResult {
-  data: { viewer: { messagesReceived: Types.Message[] } }
+  data: { viewer: { messagesReceived: Message[] } }
 }
 
 const viewerMessages = gql`

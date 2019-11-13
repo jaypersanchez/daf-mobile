@@ -6,7 +6,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { Types } from '../../lib/packages/daf-data-store'
+import { Types } from 'daf-data-store'
 import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
@@ -22,18 +22,11 @@ export const findCredentials = gql`
       iss {
         did
         shortId
-        firstName
-        lastName
         profileImage
       }
       sub {
         did
-        shortId
-        firstName
-        lastName
-        profileImage
       }
-      jwt
       nbf
       fields {
         type

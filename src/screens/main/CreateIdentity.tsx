@@ -9,7 +9,7 @@ import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks'
 import {
   CREATE_IDENTITY,
   GET_MANAGED_IDENTITIES,
-} from '../../lib/rn-packages/rn-graphql/queries'
+} from '../../lib/graphql/queries'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const [createDid] = useMutation(CREATE_IDENTITY, {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Navigation from './navigators'
-import Provider from './lib/GraphQL'
+import Provider from './lib/ApolloProvider'
 import './lib/I18n'
 
 import { ThemeProvider, Toast } from '@kancha/kancha-ui'

@@ -15,7 +15,7 @@ import {
   GET_MANAGED_IDENTITIES,
   DELETE_IDENTITY,
   SET_VIEWER,
-} from '../../lib/rn-packages/rn-graphql/queries'
+} from '../../lib/graphql/queries'
 
 interface DidViewerProps extends NavigationStackScreenProps {}
 

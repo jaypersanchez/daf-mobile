@@ -8,10 +8,7 @@ import {
   Button,
 } from '@kancha/kancha-ui'
 import { Query } from 'react-apollo'
-import {
-  GET_MANAGED_IDENTITIES,
-  SET_VIEWER,
-} from '../../lib/rn-packages/rn-graphql/queries'
+import { GET_MANAGED_IDENTITIES, SET_VIEWER } from '../../lib/graphql/queries'
 import { useMutation } from '@apollo/react-hooks'
 
 interface IdentitySelectModalProps {}

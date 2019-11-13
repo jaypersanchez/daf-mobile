@@ -14,7 +14,7 @@ import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 import { Image } from 'react-native'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER } from '../../lib/rn-packages/rn-graphql/queries'
+import { GET_VIEWER } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {

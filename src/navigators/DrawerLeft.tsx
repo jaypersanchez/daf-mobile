@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { Query } from 'react-apollo'
-import { GET_VIEWER } from '../lib/rn-packages/rn-graphql/queries'
+import { GET_VIEWER } from '../lib/graphql/queries'
 import {
   Text,
   Container,

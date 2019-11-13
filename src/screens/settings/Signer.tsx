@@ -23,7 +23,7 @@ import {
   GET_MANAGED_IDENTITIES,
   IMPORT_IDENTITY,
   CREATE_IDENTITY,
-} from '../../lib/rn-packages/rn-graphql/queries'
+} from '../../lib/graphql/queries'
 
 interface Identity {
   did: string

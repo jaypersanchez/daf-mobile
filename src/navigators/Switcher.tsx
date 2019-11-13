@@ -8,7 +8,7 @@ import {
   GET_MANAGED_IDENTITIES,
   SET_VIEWER,
   GET_VIEWER,
-} from '../lib/rn-packages/rn-graphql/queries'
+} from '../lib/graphql/queries'
 
 interface Identity {
   did: string
