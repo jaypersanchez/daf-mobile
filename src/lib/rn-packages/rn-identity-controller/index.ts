@@ -1,7 +1,4 @@
-import {
-  IdentityController,
-  Issuer,
-} from '../../packages/core/identity-manager'
+import { IdentityController, Issuer } from 'daf-core'
 import { RNUportHDSigner, getSignerForHDPath } from 'react-native-uport-signer'
 
 import Debug from 'debug'

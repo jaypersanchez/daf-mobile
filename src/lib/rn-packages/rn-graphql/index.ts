@@ -1,4 +1,4 @@
-import { Core } from '../../packages/daf-core'
+import { Core } from 'daf-core'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export interface Context {

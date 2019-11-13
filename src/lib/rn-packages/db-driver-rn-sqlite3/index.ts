@@ -1,5 +1,5 @@
 import { openDatabase } from 'react-native-sqlite-storage'
-import { Types } from '../../packages/daf-data-store'
+import { Types } from 'daf-data-store'
 import Debug from 'debug'
 
 const debug = Debug('rn-sqlite3')

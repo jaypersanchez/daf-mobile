@@ -24,8 +24,7 @@
     "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight",
     "release": "semantic-release",
     "postversion": "react-native-version --never-amend",
-    "encode-env": "openssl base64 -A -in .env_template",
-    "cp-local": "cp -R ../mouro-cli-client/src/packages/* src/lib/packages/ && rm -rf src/lib/packages/daf-db-node-sqlite3 && rm -rf src/lib/packages/daf-sodium && rm -rf src/lib/packages/daf-ethr-did-fs"
+    "encode-env": "openssl base64 -A -in .env_template"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -48,6 +47,13 @@
     "apollo-link-ws": "^1.0.19",
     "blakejs": "^1.1.0",
     "buffer": "^5.2.1",
+    "daf-core": "^0.0.13",
+    "daf-data-store": "^0.0.13",
+    "daf-debug": "^0.0.13",
+    "daf-did-jwt": "^0.0.13",
+    "daf-selective-disclosure": "^0.0.13",
+    "daf-trust-graph": "^0.0.13",
+    "daf-w3c": "^0.0.13",
     "debug": "^4.1.1",
     "did-jwt": "^3.0.0",
     "did-jwt-vc": "^0.1.2",
@@ -132,7 +138,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
-    "typescript": "^3.4.4",
+    "typescript": "^3.7.2",
     "ws": "^7.1.2"
   },
   "husky": {
