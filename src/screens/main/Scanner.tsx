@@ -6,12 +6,19 @@ import React from 'react'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { Colors, Icons } from '../../theme'
-import { saveMessage } from '../../lib/Messages'
+import { core } from '../../lib/setup'
 import lodash from 'lodash'
 
 export default (props: any) => {
   const onBarCodeRead = (e: any) => {
-    saveMessage(e.data)
+    core.onRawMessage({
+      raw: e.data,
+      meta: [
+        {
+          sourceType: 'qrCode',
+        },
+      ],
+    })
     props.navigation.goBack()
   }
 

@@ -14,8 +14,6 @@ import {
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 
-import { saveMessage } from '../../lib/Messages'
-
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
 
@@ -141,12 +139,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
   const [saving, setSaving] = useState(true)
   const [messageHash, setMessageHash] = useState('')
 
-  useEffect(() => {
-    saveMessage(requestData.data).then(message => {
-      setMessageHash(message.hash)
-      setSaving(false)
-    })
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <Screen

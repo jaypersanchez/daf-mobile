@@ -5,7 +5,7 @@ import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
 
 import * as Daf from 'daf-core'
 import * as DidJwt from 'daf-did-jwt'
-import RnEthrDidController from './rn-packages/rn-identity-controller'
+import EthrDidRnController from 'daf-ethr-did-react-native'
 
 import * as W3c from 'daf-w3c'
 import * as SD from 'daf-selective-disclosure'
@@ -13,7 +13,7 @@ import * as TG from 'daf-trust-graph'
 import * as DBG from 'daf-debug'
 // import * as DIDComm from './packages/daf-did-comm'
 
-import RnSqlite from './rn-packages/db-driver-rn-sqlite3'
+import RnSqlite from 'daf-react-native-sqlite3'
 import { DataStore, Gql as DataGql } from 'daf-data-store'
 
 import merge from 'lodash.merge'
@@ -54,7 +54,7 @@ const didResolver = new Resolver({
   // nacl: naclDidResolver
 })
 
-const identityControllers = [new RnEthrDidController()]
+const identityControllers = [new EthrDidRnController()]
 
 const messageValidator = new DBG.MessageValidator()
 messageValidator
