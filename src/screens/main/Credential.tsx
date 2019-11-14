@@ -37,9 +37,7 @@ const Credential: React.FC<Props> = ({ navigation }) => {
             claim={vc.claim}
             jwt={'jwt.jwt.jwt'}
             qrText={'Present for scanning'}
-            // @ts-ignore - Need to fix these
             revoked={vc.revoked}
-            // @ts-ignore
             exp={vc.exp}
           />
         </Container>
@@ -47,7 +45,7 @@ const Credential: React.FC<Props> = ({ navigation }) => {
       {vp && (
         <Swiper removeClippedSubviews={false}>
           {vp &&
-            vp.map((vc, i) => {
+            vp.map((vc, i: number) => {
               return (
                 <ScrollView key={i}>
                   <Banner
@@ -62,9 +60,7 @@ const Credential: React.FC<Props> = ({ navigation }) => {
                       claim={vc.claim}
                       jwt={'jwt.jwt.jwt'}
                       qrText={'Present for scanning'}
-                      // @ts-ignore - Need to fix these
                       revoked={vc.revoked}
-                      // @ts-ignore
                       exp={vc.exp}
                     />
                   }
