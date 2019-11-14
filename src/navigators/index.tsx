@@ -13,7 +13,7 @@ import {
   StackViewTransitionConfigs,
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { Icon, Avatar, FabButton, ActivityItem } from '@kancha/kancha-ui'
+import { Icon, Avatar } from '@kancha/kancha-ui'
 import { Colors, Icons } from '../theme'
 import { Screens } from './screens'
 
@@ -28,6 +28,7 @@ import Restore from '../screens/main/Restore'
 import Intro from '../screens/main/Intro'
 
 import Scanner from '../screens/main/Scanner'
+import MessageProcess from '../screens/main/MessageProcess'
 import Request from '../screens/main/Request'
 import Credential from '../screens/main/Credential'
 import CreatingWallet from '../screens/main/CreateIdentity'
@@ -175,6 +176,16 @@ const ProfileNavigator = createStackNavigator({
   [Screens.Profile.screen]: Profile,
 })
 
+const ScannerNavigator = createStackNavigator(
+  {
+    [Screens.Scanner.screen]: Scanner,
+    [Screens.MessageProcess.screen]: MessageProcess,
+  },
+  {
+    headerMode: 'none',
+  },
+)
+
 /**
  * Main TabNavigator
  */
@@ -263,7 +274,7 @@ const App = createStackNavigator(
     DisclosureRequest: DisclosureRequest,
     Request: Request,
     Credential: Credential,
-    Scanner: Scanner,
+    Scanner: ScannerNavigator,
   },
   {
     mode: 'modal',

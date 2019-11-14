@@ -1032,10 +1032,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.27":
-  version "1.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.27.tgz#4898355e15af7539b5b22806aa744e78ed5ec40f"
-  integrity sha512-T6Pc+ih8IyULAYirjkiAM6KIP8qgB+Ymz9Okpv2V+CUDGuniRwUdmczEG96TIB8naQkMKwUZtwn0xEsV26E6Xw==
+"@kancha/kancha-ui@^1.0.0-beta.30":
+  version "1.0.0-beta.30"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.30.tgz#1718693d693da3c61fc0a6117dd497256ef14572"
+  integrity sha512-CO8bk9OVUAPzMlq0xQ40DEojE0+xlYvPiLTrlDT5pRyW6PhHJaeckS6oKR46L/688kRpxQZ1wfwYNFawhndnrw==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     date-fns "^2.5.0"
@@ -1046,6 +1046,7 @@
     react-native-gesture-handler "^1.4.1"
     react-native-json-tree "^1.2.0"
     react-native-keyboard-aware-scroll-view "^0.9.1"
+    react-native-qrcode-svg "^5.3.2"
     react-native-reanimated "^1.3.0"
     react-native-vector-icons "^6.6.0"
     react-navigation "^4.0.10"
@@ -2660,6 +2661,13 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
+can-promise@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/can-promise/-/can-promise-0.0.1.tgz#7a7597ad801fb14c8b22341dfec314b6bd6ad8d3"
+  integrity sha512-gzVrHyyrvgt0YpDm7pn04MQt8gjh0ZAhN4ZDyCRtGl6YnuuK6b4aiUTD7G52r9l4YNmxfTtEscb92vxtAlL6XQ==
+  dependencies:
+    window-or-global "^1.0.1"
+
 capture-exit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/capture-exit/-/capture-exit-2.0.0.tgz#fb953bfaebeb781f62898239dabb426d08a509a4"
@@ -3255,74 +3263,76 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-daf-core@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-core/-/daf-core-0.0.15.tgz#dbbc35ab38a0e57d2a710a9289aa46ef66ce74fa"
-  integrity sha512-L/z0NrMbdog2ArQt9GVaTEaImnvsYwvi1M6bR9Jwb00Az328H9u6ryB6/kAB/He7oD5pHKO0w9NbNsu7Hnc9NQ==
+daf-core@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-core/-/daf-core-0.0.21.tgz#e20c1570f341b3fca0617cf5c9ce822ec7b01a7d"
+  integrity sha512-O71ZZ3qxoaSBVmaocAmhdEyuCwLpshczomR0jEYIzuahD+qs88UVvJbvvUnjFktDLREOL8dTnHuHeMFhpfEPlw==
   dependencies:
     blakejs "^1.1.0"
     debug "^4.1.1"
     did-resolver "^1.1.0"
     pubsub-js "^1.7.0"
 
-daf-data-store@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-data-store/-/daf-data-store-0.0.15.tgz#ca18e6dbe54363d98ee095eb58ca11f0af49a02f"
-  integrity sha512-OIeojZkUWjPq7SICiPx53fuH/wsjx2apwWl4pT6UtTDUR5jV/Xn4aitb+DrJl+wOGnPI7IdxcDF1joHgEKvZ+g==
+daf-data-store@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-data-store/-/daf-data-store-0.0.21.tgz#a87a3ab173805eed4f9a7fb478eeda91c4e2e6e8"
+  integrity sha512-txhsNFCUKIumFjyHhliN43Xas20B9vpmJLjDoEZrmHOB3zjM5jl0a7eA21MBgEyvhimW8WxryLlKu/vcJpllvQ==
   dependencies:
-    daf-core "^0.0.15"
+    blakejs "^1.1.0"
+    daf-core "^0.0.21"
+    debug "^4.1.1"
+    sql-bricks-sqlite "^0.1.0"
+
+daf-debug@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-debug/-/daf-debug-0.0.21.tgz#ec804536f48b17bd73f3dcf3dcd61e9e140bbf28"
+  integrity sha512-fcLwFmPaGeXrxDmyrxo46UPM3+nz9mQ3k/SRYmnC/txXr2BiZw6/6G7ICxdDWOgh4ui8qeDqbGqVClMGr7yShQ==
+  dependencies:
+    daf-core "^0.0.21"
     debug "^4.1.1"
 
-daf-debug@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-debug/-/daf-debug-0.0.15.tgz#80bdba3277018a488bc3e172e331d843c1d4d87b"
-  integrity sha512-uFo/ChTg7F19YPF9nPVGZbljZrsH58oGTr5grVCVQQ443Da2whlJwdCbmTTOA0vorSmIAUQ7hW67DFU4RH5VIQ==
+daf-did-jwt@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-did-jwt/-/daf-did-jwt-0.0.21.tgz#dda7c4feb817720643775275f14b5daaf368e3d3"
+  integrity sha512-Kteq0HaJ6qcUPmGV1z/RjDMVqyhaoaucEzOtEDu/K7JNJEbU22J6SFv7ceYy80q7BPpCeoaOCf1GOzgPl9d3Xg==
   dependencies:
-    daf-core "^0.0.15"
-    debug "^4.1.1"
-
-daf-did-jwt@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-did-jwt/-/daf-did-jwt-0.0.15.tgz#25fc3bf475ce584f88a0eb11790f6611ecf3995a"
-  integrity sha512-grv+IvbL0H6IE8rUsk1GZ+It0s0EI6vvcIP3tuQdJ97Pmna+2fDssJQL0PofMKb2lnA4FJ9I8GXokk5nFAjVZg==
-  dependencies:
-    daf-core "^0.0.15"
+    daf-core "^0.0.21"
     debug "^4.1.1"
     did-jwt "^3.0.0"
     did-resolver "^1.1.0"
 
-daf-ethr-did-react-native@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-ethr-did-react-native/-/daf-ethr-did-react-native-0.0.15.tgz#a6bb3c779bcbbd81a6e024de57d5798164d7a62c"
-  integrity sha512-41pdH3/v0NpWgnvaur3o6+8Kq+pZVQNK3nsK7gqmg4iitYTZxo2db6Lx6/tgZBd1/rurg4VRjXLJXa5sUT3FAw==
+daf-ethr-did-react-native@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-ethr-did-react-native/-/daf-ethr-did-react-native-0.0.21.tgz#e663846887396d57bdd37983e7bfa33229383638"
+  integrity sha512-UR8BQhzoe0PPM84LweutKhjIL/nzCHrEm3xPNgo1mBGZQZm6OvLrIXP6kzFUj4Y6HWa1OwTVWhzDNi6A4n3J1A==
   dependencies:
-    daf-core "^0.0.15"
+    daf-core "^0.0.21"
     debug "^4.1.1"
     react-native-uport-signer "^1.6.1"
 
-daf-react-native-sqlite3@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.0.15.tgz#7621c38621b1cbfdfab04e1dfab260ff179cce5f"
-  integrity sha512-cLVqXs7pL8UCohG7NayxkAZxOJw3+BB7hoKKOD9/F6DoAlMhmtSa46Bbst5pUIr3cGND6ydGfsq0Dfqj4GYfJg==
+daf-react-native-sqlite3@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.0.21.tgz#c7b3befc91a64bab5cd72a441c9babaf95cf8744"
+  integrity sha512-S+Ohf/zqTnLvwQxdA01LJQuNaTojkywLjNYEYp+lYpmQGmeT5paTx2YCD05oRL6YMkmLorz1J/CkD2vTJknOrw==
   dependencies:
-    daf-data-store "^0.0.15"
+    daf-data-store "^0.0.21"
     debug "^4.1.1"
     react-native-sqlite-storage "^4.1.0"
 
-daf-selective-disclosure@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-selective-disclosure/-/daf-selective-disclosure-0.0.15.tgz#407d534bb184bf7aacb27ab11156b933d6c9a18a"
-  integrity sha512-9k05nXNfWodulnZPuAjh1IO8N0W4YdjtAjQgycKkLgObcApwGXIg9gcW8/JtHyNhCABkKmOV9geYxRDsYEgq4g==
+daf-selective-disclosure@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-selective-disclosure/-/daf-selective-disclosure-0.0.21.tgz#239bfbe11ca135d1392950cfa29aceb69841b3ce"
+  integrity sha512-s58FfRirNcMhbxvbQQhZZ6TAtECuibhAF8whrU4F9kX+qsQ/zPmRrDkYV9YTef8QLOfm4q0N1lOUThY6nqlpCw==
   dependencies:
-    daf-core "^0.0.15"
-    daf-did-jwt "^0.0.15"
+    daf-core "^0.0.21"
+    daf-did-jwt "^0.0.21"
     debug "^4.1.1"
     did-jwt "^3.0.0"
 
-daf-trust-graph@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-trust-graph/-/daf-trust-graph-0.0.15.tgz#54a1a040bc6e12535580376437f08780fdf8e28e"
-  integrity sha512-+f1KH8U4FYJOGwsLGpm9ucBEtI8RkBtLjgXFs5HINUnMeO1dG3cClMDhRjlqmTXS6AfDqOjOsnG6AysPYIE9VQ==
+daf-trust-graph@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-trust-graph/-/daf-trust-graph-0.0.21.tgz#0e1c7340fc4a2004d9164bc769916b2678c7675b"
+  integrity sha512-vxGPkidLzn7WNIX+Ms1Futd3cBa+HQLSg5iviWoKGTaHN3JLxSeM2tboIScQovwIpEWw9MvKFITKLq2SeFhFCQ==
   dependencies:
     apollo-cache-inmemory "^1.6.3"
     apollo-client "^2.6.4"
@@ -3332,18 +3342,20 @@ daf-trust-graph@^0.0.15:
     apollo-link-ws "^1.0.19"
     apollo-utilities "^1.3.2"
     cross-fetch "^3.0.4"
-    daf-core "^0.0.15"
+    daf-core "^0.0.21"
     debug "^4.1.1"
     did-jwt "^3.0.0"
+    graphql "^14.0.0"
     graphql-tag "^2.10.1"
+    subscriptions-transport-ws "^0.9.0"
 
-daf-w3c@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-0.0.15.tgz#e8bff33aee1fe41030dcf0345c08104c01f01f1c"
-  integrity sha512-zaKbpKgA1NICNLKZuwthvVGHFX0Ath+dpkO6fbsE+s1RZADKKUq2ZFTld6yt95TgDpeaBLmmt6+11OHR+YtYMg==
+daf-w3c@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-0.0.21.tgz#f4a3008ffe0f27a374d2520a88dcb8dc18b05144"
+  integrity sha512-5iyT7/8LBGxvtMOixdVgRaw/pwT3Ug1kWjthcyrchmx+owQTV/vTqJ6K/xHbGV67GFAFL6FDP4wghBrcQFZNwQ==
   dependencies:
-    daf-core "^0.0.15"
-    daf-did-jwt "^0.0.15"
+    daf-core "^0.0.21"
+    daf-did-jwt "^0.0.21"
     debug "^4.1.1"
     did-jwt-vc "^0.1.2"
     did-resolver "^1.1.0"
@@ -3628,6 +3640,11 @@ diff@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.1.tgz#0c667cb467ebbb5cea7f14f135cc2dba7780a8ff"
   integrity sha512-s2+XdvhPCOF01LRQBC8hf4vhbVmI2CGS5aZnxLJlT5FtdhPCDFq80q++zK2KlrVorVDdL5BOGZ/VfLrVtYNF+Q==
+
+dijkstrajs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dijkstrajs/-/dijkstrajs-1.0.1.tgz#d3cd81221e3ea40742cfcde556d4e99e98ddc71b"
+  integrity sha1-082BIh4+pAdCz83lVtTpnpjdxxs=
 
 dir-glob@^3.0.0, dir-glob@^3.0.1:
   version "3.0.1"
@@ -4782,7 +4799,7 @@ graphql-tools@^4.0.5:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
-graphql@^14.3.1:
+graphql@^14.0.0, graphql@^14.3.1:
   version "14.5.8"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.8.tgz#504f3d3114cb9a0a3f359bbbcf38d9e5bf6a6b3c"
   integrity sha512-MMwmi0zlVLQKLdGiMfWkgQD7dY/TUKt4L+zgJ/aR0Howebod3aNgP5JkgvAULiR2HPVZaP2VEElqtdidHweLkg==
@@ -5542,6 +5559,11 @@ isarray@1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+
+isarray@^2.0.1:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.5.tgz#8af1e4c1221244cc62459faf38940d4e644a5723"
+  integrity sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -8440,6 +8462,11 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
+pngjs@^3.3.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
+  integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
+
 point-in-polygon@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/point-in-polygon/-/point-in-polygon-1.0.1.tgz#d59b64e8fee41c49458aac82b56718c5957b2af7"
@@ -8655,6 +8682,17 @@ qrcode-terminal@^0.12.0:
   resolved "https://registry.yarnpkg.com/qrcode-terminal/-/qrcode-terminal-0.12.0.tgz#bb5b699ef7f9f0505092a3748be4464fe71b5819"
   integrity sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==
 
+qrcode@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.2.0.tgz#330d24313fbf8d429a806091af9525250239e44a"
+  integrity sha512-wZK0Z0eYmOUDP2tOGzmLdeBn5Npa+4wms9GdvzH7HrywvGUq/Stz0BKUhW4DfmBf1PSrm9dNfdnVDq683Zxvag==
+  dependencies:
+    can-promise "^0.0.1"
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^3.3.0"
+    yargs "^8.0.2"
+
 qs@^6.7.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
@@ -8854,6 +8892,14 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
   integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
+
+react-native-qrcode-svg@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-qrcode-svg/-/react-native-qrcode-svg-5.3.2.tgz#6d82c50f4bd264e8eecc08533b0ac2fade8178d3"
+  integrity sha512-qXujuIqog2PQ0jLa88emqDy8NcDBF41jRf5Rm/7DEY5wFnIiLrN3p7X+ucFDIIUqWuKB2gKdrb7HDs0eK2aryQ==
+  dependencies:
+    prop-types "^15.5.10"
+    qrcode "1.2.0"
 
 react-native-reanimated@^1.3.0:
   version "1.3.0"
@@ -10299,7 +10345,7 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-subscriptions-transport-ws@^0.9.16:
+subscriptions-transport-ws@^0.9.0, subscriptions-transport-ws@^0.9.16:
   version "0.9.16"
   resolved "https://registry.yarnpkg.com/subscriptions-transport-ws/-/subscriptions-transport-ws-0.9.16.tgz#90a422f0771d9c32069294c08608af2d47f596ec"
   integrity sha512-pQdoU7nC+EpStXnCfh/+ho0zE0Z+ma+i7xvj7bkXKb1dvYHSZxgRPaU6spRP+Bjzow67c/rRDoix5RT0uU9omw==
@@ -11109,6 +11155,11 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
+window-or-global@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/window-or-global/-/window-or-global-1.0.1.tgz#dbe45ba2a291aabc56d62cf66c45b7fa322946de"
+  integrity sha1-2+RboqKRqrxW1iz2bEW3+jIpRt4=
+
 windows-release@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/windows-release/-/windows-release-3.2.0.tgz#8122dad5afc303d833422380680a79cdfa91785f"
@@ -11422,6 +11473,25 @@ yargs@^14.0.0:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^13.1.1"
+
+yargs@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
+  integrity sha1-YpmpBVsc78lp/355wdkY3Osiw2A=
+  dependencies:
+    camelcase "^4.1.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^2.0.0"
+    read-pkg-up "^2.0.0"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^2.0.0"
+    which-module "^2.0.0"
+    y18n "^3.2.1"
+    yargs-parser "^7.0.0"
 
 yargs@^9.0.0:
   version "9.0.1"

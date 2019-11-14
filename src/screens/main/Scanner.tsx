@@ -2,24 +2,21 @@
  * Serto Mobile App
  *
  */
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { Colors, Icons } from '../../theme'
-import { core } from '../../lib/setup'
-import lodash from 'lodash'
 
 export default (props: any) => {
+  const [scannerActive, toggleScanner] = useState(true)
+
   const onBarCodeRead = (e: any) => {
-    core.onRawMessage({
-      raw: e.data,
-      meta: [
-        {
-          sourceType: 'qrCode',
-        },
-      ],
-    })
-    props.navigation.goBack()
+    if (scannerActive) {
+      props.navigation.navigate('MessageProcess', {
+        message: e.data,
+      })
+    }
+    toggleScanner(false)
   }
 
   return (
@@ -29,7 +26,7 @@ export default (props: any) => {
           <FabButton
             testID={'CANCEL_SCAN_BTN'}
             color={Colors.CHARCOAL}
-            onPress={() => props.navigation.goBack()}
+            onPress={() => props.navigation.dismiss()}
             icon={Icons.CLOSE}
           />
         </Container>
@@ -39,7 +36,7 @@ export default (props: any) => {
         <RNCamera
           captureAudio={false}
           style={{ flex: 1 }}
-          onBarCodeRead={lodash.debounce(onBarCodeRead, 1000)}
+          onBarCodeRead={onBarCodeRead}
         />
       </Container>
     </Screen>

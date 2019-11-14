@@ -55,7 +55,11 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         )
       }
     >
-      {loading && <ActivityIndicator size={'large'} color={Colors.BRAND} />}
+      {loading && (
+        <Container flex={1} alignItems={'center'} justifyContent={'center'}>
+          <ActivityIndicator size={'large'} />
+        </Container>
+      )}
       {hasNoIdentityAndNotLoading && (
         <Container>
           <Container padding alignItems={'center'} marginTop={50}>

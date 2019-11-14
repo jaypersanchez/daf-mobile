@@ -6,6 +6,7 @@ export const Screens = {
   Config: { screen: 'Config', title: 'Config' },
   Crash: { screen: 'Crash', title: 'Crash Reporting' },
   Scanner: { screen: 'Scanner', title: 'Scanner' },
+  MessageProcess: { screen: 'MessageProcess', title: 'Message Process' },
   Messages: { screen: 'Messages', title: 'Messages' },
   Connections: { screen: 'Connections', title: 'Connections' },
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },

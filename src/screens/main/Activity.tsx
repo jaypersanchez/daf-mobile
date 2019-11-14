@@ -13,6 +13,7 @@ import { LineChart } from 'react-native-chart-kit'
 import {
   sertoVerifiableCredential,
   bankVerifiableCredential,
+  galleryAdmission,
 } from '../../data/credentials'
 
 import hexToRgba from 'hex-to-rgba'
@@ -57,11 +58,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     let params
     if (attachment.length > 1) {
       params = {
-        vp: [sertoVerifiableCredential, sertoVerifiableCredential],
+        vp: [sertoVerifiableCredential, bankVerifiableCredential],
       }
     } else if (attachment.length === 1) {
       params = {
-        vc: sertoVerifiableCredential,
+        vc: galleryAdmission,
       }
     }
     navigation.navigate('Credential', { ...params })
@@ -101,12 +102,38 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           </Text>
         </Container>
         <ActivityItem
+          id={'000000'}
+          date={new Date().getTime()}
+          incoming
+          issuer={{
+            name: 'The Guggenheim Museum',
+            did: '1234',
+            avatar: avatar1,
+          }}
+          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
+          activity={'sent you a day pass'}
+          profileAction={(id: string) => viewProfile(id)}
+          attachmentsAction={(attachment: any) => showAttachments(attachment)}
+          attachments={[
+            {
+              key: '01',
+              title: galleryAdmission.type,
+              issuer: {
+                name: galleryAdmission.iss,
+                did: '0fxx',
+                avatar: { uri: '' },
+              },
+              logo: avatar1,
+            },
+          ]}
+        />
+        <ActivityItem
           id={'000001'}
           date={new Date().getTime()}
           incoming
           issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
           subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'sent you 5 credentials'}
+          activity={'sent you 5 health certificates'}
           reason={'can go to the Moon'}
           profileAction={(id: string) => viewProfile(id)}
           attachmentsAction={(attachment: any) => showAttachments(attachment)}
@@ -163,7 +190,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             avatar: { uri: 'http://' },
           }}
           subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'sent you a credential'}
+          activity={'sent you a reward for bravery'}
           profileAction={(id: string) => viewProfile(id)}
           attachmentsAction={(attachment: any) => showAttachments(attachment)}
           attachments={[

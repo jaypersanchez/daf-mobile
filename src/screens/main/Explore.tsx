@@ -55,7 +55,7 @@ const Explore: React.FC<Props> & {
   }, [searchActive])
 
   return (
-    <Screen scrollEnabled>
+    <Screen scrollEnabled background={searchActive ? 'secondary' : 'primary'}>
       {searchActive ? (
         <Container>
           <Container>
@@ -95,19 +95,32 @@ const Explore: React.FC<Props> & {
       ) : (
         <Container padding>
           <Text type={Constants.TextTypes.H3} bold>
-            Pinned
+            Favourites
           </Text>
           <Container marginTop>
             {credentials.map((credential, index) => {
-              return <Credential key={index} {...credential} />
+              return (
+                <Credential
+                  key={index}
+                  {...credential}
+                  shadow={0}
+                  background={'secondary'}
+                />
+              )
             })}
           </Container>
           <Text type={Constants.TextTypes.H3} bold>
-            Recent
+            Highlights
           </Text>
           <Container marginTop>
             {credentials.map((credential, index) => {
-              return <Credential key={index} {...credential} />
+              return (
+                <Credential
+                  key={index}
+                  {...credential}
+                  background={'secondary'}
+                />
+              )
             })}
           </Container>
         </Container>

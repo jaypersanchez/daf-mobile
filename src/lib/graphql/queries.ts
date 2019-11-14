@@ -39,6 +39,12 @@ export const DELETE_IDENTITY = gql`
   }
 `
 
+export const NEW_MESSAGE = gql`
+  mutation newMessage($raw: String!, $sourceType: String!, $sourceId: String) {
+    newMessage(raw: $raw, sourceType: $sourceType, sourceId: $sourceId)
+  }
+`
+
 export const GET_MANAGED_IDENTITIES = gql`
   query managedIdentities {
     managedIdentities {
