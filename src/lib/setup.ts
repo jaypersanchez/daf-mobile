@@ -18,6 +18,8 @@ import { DataStore, Gql as DataGql } from 'daf-data-store'
 
 import merge from 'lodash.merge'
 
+import Config from 'react-native-config'
+
 import Debug from 'debug'
 Debug.enable('*')
 const debug = Debug('main')
@@ -73,7 +75,7 @@ actionHandler
   // .setNext(new DIDComm.ActionHandler())
   .setNext(
     new TG.ActionHandler({
-      uri: 'http://0.0.0.0:3000/graphql',
+      uri: Config.TGE_URI,
     }),
   )
   .setNext(new W3c.ActionHandler())
@@ -84,8 +86,8 @@ const serviceControllersWithConfig = [
   {
     controller: TG.TrustGraphServiceController,
     config: {
-      uri: 'https://mouro.eu.ngrok.io/graphql',
-      wsUri: 'wss://mouro.eu.ngrok.io/graphql',
+      uri: Config.TGE_URI,
+      wsUri: Config.TGE_WS_URI,
     },
   },
 ]
