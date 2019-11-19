@@ -41,7 +41,10 @@ export const DELETE_IDENTITY = gql`
 
 export const NEW_MESSAGE = gql`
   mutation newMessage($raw: String!, $sourceType: String!, $sourceId: String) {
-    newMessage(raw: $raw, sourceType: $sourceType, sourceId: $sourceId)
+    newMessage(raw: $raw, sourceType: $sourceType, sourceId: $sourceId) {
+      hash
+      type
+    }
   }
 `
 
