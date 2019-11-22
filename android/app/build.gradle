@@ -142,8 +142,8 @@ android {
         applicationId "com.serto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4194326
-        versionName "1.13.1"
+        versionCode 4194327
+        versionName "1.14.0"
         missingDimensionStrategy 'react-native-camera', 'general'
     }
     
