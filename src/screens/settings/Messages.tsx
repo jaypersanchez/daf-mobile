@@ -3,39 +3,24 @@
  *
  */
 
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { FlatList, TextInput, Image } from 'react-native'
-import { Query, QueryResult } from 'react-apollo'
+import React from 'react'
 import {
   Container,
-  Button,
-  Constants,
   Screen,
-  ListItem,
   Text,
-  Section,
-  Avatar,
+  MessageItem,
+  DAFMessage,
+  Constants,
 } from '@kancha/kancha-ui'
+import { FlatList } from 'react-native'
+import { useQuery } from 'react-apollo'
 import { Colors } from '../../theme'
-import moment from 'moment'
+import { core, dataStore } from '../../lib/setup'
+import { useNavigation } from 'react-navigation-hooks'
 import gql from 'graphql-tag'
+import { Screens } from '../../navigators/screens'
 
-interface Message {
-  iss: {
-    did: string
-    shortId: string
-    profileImage: string
-  }
-  type: string
-  rowId: string
-  iat: number
-}
-interface Result extends QueryResult {
-  data: { viewer: { messagesReceived: Message[] } }
-}
-
-const viewerMessages = gql`
+const VIEWER_MESSAGES = gql`
   query ViewerMessages {
     viewer {
       messagesReceived {
@@ -44,69 +29,84 @@ const viewerMessages = gql`
           shortId
           profileImage
         }
+        sub {
+          did
+          shortId
+          profileImage
+        }
+        aud {
+          did
+        }
+        jwt
         type
-        rowId
         hash
         iat
         nbf
+        vc {
+          fields {
+            type
+            value
+            isObj
+          }
+        }
       }
     }
   }
 `
 
 export default () => {
-  const { t } = useTranslation()
+  const navigation = useNavigation()
+  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES)
+
+  const viewProfile = (did: string) => {
+    navigation.navigate(Screens.Credentials.screen, {
+      did,
+    })
+  }
+
+  const viewMessage = (msg: DAFMessage) => {
+    navigation.navigate(Screens.MessageDetail.screen, {
+      message: msg,
+    })
+  }
+
+  const syncAndRefetch = async () => {
+    await core.syncServices(await dataStore.latestMessageTimestamps())
+    refetch()
+  }
+
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query
-          query={viewerMessages}
-          variables={
-            {
-              // sub: didsQuery.data.selectedDid,
-            }
-          }
-          onError={console.log}
-          fetchPolicy={'cache-and-network'}
-        >
-          {({ data, loading, refetch, error }: Result) =>
-            error ? (
-              <Text>{error.message}</Text>
-            ) : (
-              <FlatList
-                style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.viewer && data.viewer.messagesReceived}
-                renderItem={({ item, index }) => (
-                  <ListItem
-                    iconLeft={
-                      item.iss.profileImage ? (
-                        <Image
-                          source={{ uri: item.iss.profileImage }}
-                          style={{ width: 32, height: 32 }}
-                        />
-                      ) : (
-                        <Avatar
-                          address={item.iss.did}
-                          type={'circle'}
-                          gravatarType={'retro'}
-                        />
-                      )
-                    }
-                    last={index === data.viewer.messagesReceived.length - 1}
-                  >
-                    <Text>{item.iss.shortId}</Text>
-                    <Text type={Constants.TextTypes.Summary}>
-                      {moment.unix(item.iat).calendar()}
-                    </Text>
-                  </ListItem>
-                )}
-                keyExtractor={item => item.rowId}
-                onRefresh={refetch}
-                refreshing={loading}
+        {error ? (
+          <Text>Error</Text>
+        ) : (
+          <FlatList
+            style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
+            data={data && data.viewer && data.viewer.messagesReceived}
+            renderItem={({ item }: { item: DAFMessage }) => (
+              <MessageItem
+                message={item}
+                viewMessage={viewMessage}
+                viewProfile={viewProfile}
               />
-            )
-          }
-        </Query>
+            )}
+            keyExtractor={(item, index) => item.hash + index}
+            onRefresh={syncAndRefetch}
+            refreshing={loading}
+            ListEmptyComponent={
+              <Container padding>
+                <Text
+                  type={Constants.TextTypes.H3}
+                  bold
+                  textColor={Colors.DARK_GREY}
+                >
+                  No messages
+                </Text>
+              </Container>
+            }
+          />
+        )}
       </Container>
     </Screen>
   )

@@ -96,7 +96,7 @@ const locationOptions: Typings.RequestItemSelectable[] = [
 interface Props extends NavigationStackScreenProps {}
 
 const Profile: React.FC<Props> & {
-  navigationOptions: NavigationStackOptions
+  navigationOptions: any
 } = ({ navigation }) => {
   const id = navigation.getParam('id', null)
   const {

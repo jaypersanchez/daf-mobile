@@ -7,7 +7,14 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
 import { Types } from 'daf-data-store'
-import { Container, Screen, ListItem, Text, Avatar } from '@kancha/kancha-ui'
+import {
+  Container,
+  Screen,
+  ListItem,
+  Text,
+  Avatar,
+  Constants,
+} from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
@@ -63,31 +70,46 @@ export const Credentials: React.FC<Props> = props => {
               <FlatList
                 style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
                 data={data && data.credentials}
-                renderItem={({ item, index }) => (
-                  <ListItem
-                    iconLeft={
-                      item.iss.profileImage ? (
-                        <Image
-                          source={{ uri: item.iss.profileImage }}
-                          style={{ width: 32, height: 32 }}
-                        />
-                      ) : (
+                renderItem={({ item, index }) => {
+                  const imgSrc = item.iss.profileImage
+                    ? { source: { uri: item.iss.profileImage } }
+                    : {}
+                  const fields = item.fields.map(field => field)
+                  return (
+                    <ListItem
+                      subTitle={fields[0].type}
+                      iconLeft={
                         <Avatar
+                          {...imgSrc}
                           address={item.iss.did}
                           type={'circle'}
                           gravatarType={'retro'}
                         />
-                      )
-                    }
-                    last={index === data.credentials.length - 1}
-                  >
-                    {item.fields.map(field => field.type + ' = ' + field.value)}
-                  </ListItem>
-                )}
+                      }
+                      last={index === data.credentials.length - 1}
+                    >
+                      {fields[0].value}
+                    </ListItem>
+                  )
+                }}
                 keyExtractor={item => item.rowId}
                 onRefresh={refetch}
                 refreshing={loading}
-                ListEmptyComponent={<Text>No credentials</Text>}
+                ListEmptyComponent={
+                  !loading ? (
+                    <Container padding>
+                      <Text
+                        type={Constants.TextTypes.H3}
+                        bold
+                        textColor={Colors.DARK_GREY}
+                      >
+                        No Credentials
+                      </Text>
+                    </Container>
+                  ) : (
+                    <Container />
+                  )
+                }
               />
             )
           }

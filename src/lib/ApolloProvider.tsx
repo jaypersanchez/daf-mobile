@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
@@ -7,9 +7,12 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { from } from 'apollo-link'
 import { SchemaLink } from 'apollo-link-schema'
 import { makeExecutableSchema } from 'graphql-tools'
-import { Container, Screen, Text } from '@kancha/kancha-ui'
-
+import { Container, Screen } from '@kancha/kancha-ui'
+import * as Daf from 'daf-core'
 import { core, dataStore, db, resolvers, typeDefs } from './setup'
+import Debug from 'debug'
+Debug.enable('*')
+const debug = Debug('Provider')
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -31,47 +34,46 @@ export const client = new ApolloClient({
   link,
 })
 
+core.on(
+  Daf.EventTypes.validatedMessage,
+  async (eventType: string, message: Daf.Types.ValidatedMessage) => {
+    debug('New message %O', message)
+    await dataStore.saveMessage(message)
+
+    client.reFetchObservableQueries()
+  },
+)
+
 interface Props {}
-interface State {
-  isRunningMigrations: boolean
-}
 
-class CustomProvider extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      isRunningMigrations: true,
-    }
-  }
+const CustomProvider: React.FC<Props> = ({ children }) => {
+  const [isRunningMigrations, setIsRuning] = useState(true)
 
-  async componentDidMount() {
+  const syncDaf = async () => {
     await db.initialize()
     await dataStore.initialize()
     await core.startServices()
 
-    this.setState({ isRunningMigrations: false })
+    setIsRuning(false)
+
     await core.syncServices(await dataStore.latestMessageTimestamps())
   }
 
-  render() {
-    if (this.state.isRunningMigrations) {
-      return (
-        <Screen>
-          <Container flex={1} alignItems={'center'} justifyContent={'center'}>
-            <ActivityIndicator size={'large'} />
-          </Container>
-        </Screen>
-      )
-    } else {
-      return (
-        <ApolloProvider client={client}>
-          <ApolloHooksProvider client={client}>
-            {this.props.children}
-          </ApolloHooksProvider>
-        </ApolloProvider>
-      )
-    }
-  }
+  useEffect(() => {
+    syncDaf()
+  }, [])
+
+  return isRunningMigrations ? (
+    <Screen>
+      <Container flex={1} alignItems={'center'} justifyContent={'center'}>
+        <ActivityIndicator size={'large'} />
+      </Container>
+    </Screen>
+  ) : (
+    <ApolloProvider client={client}>
+      <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
+    </ApolloProvider>
+  )
 }
 
 export default CustomProvider

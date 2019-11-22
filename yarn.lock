@@ -1032,10 +1032,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.31":
-  version "1.0.0-beta.31"
-  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.31.tgz#3f7a097b2764c139844cec9a1a2ca304ed9cff57"
-  integrity sha512-vhKOwrQTH8stKpqoaDLiK3fidVmJ6crpHaM1IHp1Mw/q1hh4GsoLWOWi3whuEEzpN17mfQko8rLzq2Um9ajXyA==
+"@kancha/kancha-ui@^1.0.0-beta.34":
+  version "1.0.0-beta.34"
+  resolved "https://registry.yarnpkg.com/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.34.tgz#01889429907ff4b11f22a93d755e170ade159f8a"
+  integrity sha512-gcilX/52kVpF1Ywzpaph0btYpTbP4cWt7US0Diu03vQIJvkOJLLGhi7j3yfeSzv2gOI5EKFvOEjsvwL7qOciKA==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     date-fns "^2.5.0"
@@ -3263,76 +3263,75 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-daf-core@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-core/-/daf-core-0.0.21.tgz#e20c1570f341b3fca0617cf5c9ce822ec7b01a7d"
-  integrity sha512-O71ZZ3qxoaSBVmaocAmhdEyuCwLpshczomR0jEYIzuahD+qs88UVvJbvvUnjFktDLREOL8dTnHuHeMFhpfEPlw==
+daf-core@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-core/-/daf-core-0.0.26.tgz#97e8dbbae30b0df82fa431395986197414ec798e"
+  integrity sha512-YBRR1FXctTUMxZ4J8P3Mqkem4F/Qg6arXRKwjZTP71ClyUfGB+CV+0L4btcqmqwONGWoq2cA3wEvbI4UPwxxNA==
   dependencies:
     blakejs "^1.1.0"
     debug "^4.1.1"
-    did-resolver "^1.1.0"
     pubsub-js "^1.7.0"
 
-daf-data-store@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-data-store/-/daf-data-store-0.0.21.tgz#a87a3ab173805eed4f9a7fb478eeda91c4e2e6e8"
-  integrity sha512-txhsNFCUKIumFjyHhliN43Xas20B9vpmJLjDoEZrmHOB3zjM5jl0a7eA21MBgEyvhimW8WxryLlKu/vcJpllvQ==
+daf-data-store@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-data-store/-/daf-data-store-0.0.26.tgz#ac4b6665b285924c01b336856b5f0000ec436e2c"
+  integrity sha512-dkHBVJfcTgXbHnJzUamXWd1OzRaFTRyz6rnBXewYYXdLclYb8XMfrdqPesPvv8Nl7bYQp0uoE/JDenG8KlT8Jw==
   dependencies:
     blakejs "^1.1.0"
-    daf-core "^0.0.21"
+    daf-core "^0.0.26"
     debug "^4.1.1"
     sql-bricks-sqlite "^0.1.0"
 
-daf-debug@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-debug/-/daf-debug-0.0.21.tgz#ec804536f48b17bd73f3dcf3dcd61e9e140bbf28"
-  integrity sha512-fcLwFmPaGeXrxDmyrxo46UPM3+nz9mQ3k/SRYmnC/txXr2BiZw6/6G7ICxdDWOgh4ui8qeDqbGqVClMGr7yShQ==
+daf-debug@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-debug/-/daf-debug-0.0.26.tgz#26dc93629b3170d4e5b5236c7f63db406ef1115b"
+  integrity sha512-PQDz77WdzmrGTHBh2tHjCNnso3wXg/0s/6pPhJYAXjWM45Vti/4txFVTj7Ng+rvaaqOLQrr2JbQJrSNWtWwq7Q==
   dependencies:
-    daf-core "^0.0.21"
+    daf-core "^0.0.26"
     debug "^4.1.1"
 
-daf-did-jwt@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-did-jwt/-/daf-did-jwt-0.0.21.tgz#dda7c4feb817720643775275f14b5daaf368e3d3"
-  integrity sha512-Kteq0HaJ6qcUPmGV1z/RjDMVqyhaoaucEzOtEDu/K7JNJEbU22J6SFv7ceYy80q7BPpCeoaOCf1GOzgPl9d3Xg==
+daf-did-jwt@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-did-jwt/-/daf-did-jwt-0.0.26.tgz#32a908290448b16cb38fc064128098b4c95819af"
+  integrity sha512-tqKqjEAEWKmuDXzEQVwiGw8vCgkFC0L0UNRNnx7qQKMy5tPHKk7T+I4wh3WSBY1LV9brOwbFv/guRq2Js4qJjQ==
   dependencies:
-    daf-core "^0.0.21"
+    daf-core "^0.0.26"
     debug "^4.1.1"
     did-jwt "^3.0.0"
     did-resolver "^1.1.0"
 
-daf-ethr-did-react-native@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-ethr-did-react-native/-/daf-ethr-did-react-native-0.0.21.tgz#e663846887396d57bdd37983e7bfa33229383638"
-  integrity sha512-UR8BQhzoe0PPM84LweutKhjIL/nzCHrEm3xPNgo1mBGZQZm6OvLrIXP6kzFUj4Y6HWa1OwTVWhzDNi6A4n3J1A==
+daf-ethr-did-react-native@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-ethr-did-react-native/-/daf-ethr-did-react-native-0.0.26.tgz#175783b6d07609ed641c362077205a451add9751"
+  integrity sha512-XX2mJ0l5K53/bbHKjjIj00HOiOk1g2SagK4k86+EizrnXdx8CSByQCWHg9OVsS7bsDZTeIpJRCilWxpREwXT6A==
   dependencies:
-    daf-core "^0.0.21"
+    daf-core "^0.0.26"
     debug "^4.1.1"
     react-native-uport-signer "^1.6.1"
 
-daf-react-native-sqlite3@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.0.21.tgz#c7b3befc91a64bab5cd72a441c9babaf95cf8744"
-  integrity sha512-S+Ohf/zqTnLvwQxdA01LJQuNaTojkywLjNYEYp+lYpmQGmeT5paTx2YCD05oRL6YMkmLorz1J/CkD2vTJknOrw==
+daf-react-native-sqlite3@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.0.26.tgz#4dc782d3d7c66e2955853b7f28a09e3ec2d8a1c4"
+  integrity sha512-5Ev7x/DGPA2VeYYnrEMzgd1e+UB8F6MQAMlXi6Wv6jBrV8pqg2VExyzvClYzrDZz8jbRftOdB1yLpFpO4oeQoA==
   dependencies:
-    daf-data-store "^0.0.21"
+    daf-data-store "^0.0.26"
     debug "^4.1.1"
     react-native-sqlite-storage "^4.1.0"
 
-daf-selective-disclosure@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-selective-disclosure/-/daf-selective-disclosure-0.0.21.tgz#239bfbe11ca135d1392950cfa29aceb69841b3ce"
-  integrity sha512-s58FfRirNcMhbxvbQQhZZ6TAtECuibhAF8whrU4F9kX+qsQ/zPmRrDkYV9YTef8QLOfm4q0N1lOUThY6nqlpCw==
+daf-selective-disclosure@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-selective-disclosure/-/daf-selective-disclosure-0.0.26.tgz#0603c2dbcd2d02efb4b373910f50b6fe82188f8f"
+  integrity sha512-kh035XOgVmQgGHdpQWs9MmveKBd/YfZxm1uGEUyr+P5MnSzoiT5wTOcr28QrFVnFJ7foROBsQsuajlEoJVkwtA==
   dependencies:
-    daf-core "^0.0.21"
-    daf-did-jwt "^0.0.21"
+    daf-core "^0.0.26"
+    daf-did-jwt "^0.0.26"
     debug "^4.1.1"
     did-jwt "^3.0.0"
 
-daf-trust-graph@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-trust-graph/-/daf-trust-graph-0.0.21.tgz#0e1c7340fc4a2004d9164bc769916b2678c7675b"
-  integrity sha512-vxGPkidLzn7WNIX+Ms1Futd3cBa+HQLSg5iviWoKGTaHN3JLxSeM2tboIScQovwIpEWw9MvKFITKLq2SeFhFCQ==
+daf-trust-graph@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-trust-graph/-/daf-trust-graph-0.0.26.tgz#8f5a3f9a93c5ce41062f2d0517ebd831faa39f73"
+  integrity sha512-K4033/H1B9tcqtSnmdz3jxmixgXcinPQyUyX+rY7aXZh1SclpfPa1yXlLlzs1tmgBVL3n7k+r4lmJ+nuVWg1PQ==
   dependencies:
     apollo-cache-inmemory "^1.6.3"
     apollo-client "^2.6.4"
@@ -3342,20 +3341,20 @@ daf-trust-graph@^0.0.21:
     apollo-link-ws "^1.0.19"
     apollo-utilities "^1.3.2"
     cross-fetch "^3.0.4"
-    daf-core "^0.0.21"
+    daf-core "^0.0.26"
     debug "^4.1.1"
     did-jwt "^3.0.0"
     graphql "^14.0.0"
     graphql-tag "^2.10.1"
     subscriptions-transport-ws "^0.9.0"
 
-daf-w3c@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-0.0.21.tgz#f4a3008ffe0f27a374d2520a88dcb8dc18b05144"
-  integrity sha512-5iyT7/8LBGxvtMOixdVgRaw/pwT3Ug1kWjthcyrchmx+owQTV/vTqJ6K/xHbGV67GFAFL6FDP4wghBrcQFZNwQ==
+daf-w3c@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-0.0.26.tgz#76834e1b861c7977f17b7a2845c4a06c6a895f13"
+  integrity sha512-MTl0xZL1hCMWdpZfKWA2G1jhEQuUPYU5tw9VJuX1D83DDUNu0/O53ZTHtPLuYXdRGc1qmHmvvOus6e5ds4Cr4A==
   dependencies:
-    daf-core "^0.0.21"
-    daf-did-jwt "^0.0.21"
+    daf-core "^0.0.26"
+    daf-did-jwt "^0.0.26"
     debug "^4.1.1"
     did-jwt-vc "^0.1.2"
     did-resolver "^1.1.0"

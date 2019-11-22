@@ -40,6 +40,7 @@ import Signer from '../screens/settings/Signer'
 import Config from '../screens/settings/Config'
 import Crash from '../screens/settings/Crash'
 import Messages from '../screens/settings/Messages'
+import MessageDetail from '../screens/settings/MessageDetail'
 import Connections from '../screens/settings/Connections'
 import DidViewer from '../screens/settings/DidViewer'
 import Claim from '../screens/settings/Claim'
@@ -67,6 +68,12 @@ const SettingsNavigator = createStackNavigator(
       screen: Messages,
       navigationOptions: {
         title: i18n.t('Messages'),
+      },
+    },
+    [Screens.MessageDetail.screen]: {
+      screen: MessageDetail,
+      navigationOptions: {
+        title: i18n.t('Messages Detail'),
       },
     },
     [Screens.Connections.screen]: {

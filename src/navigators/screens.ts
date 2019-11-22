@@ -8,6 +8,7 @@ export const Screens = {
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   MessageProcess: { screen: 'MessageProcess', title: 'Message Process' },
   Messages: { screen: 'Messages', title: 'Messages' },
+  MessageDetail: { screen: 'MessageDetail', title: 'Message Detail' },
   Connections: { screen: 'Connections', title: 'Connections' },
   DidViewer: { screen: 'DidViewer', title: 'DidViewer' },
   ModalDemo: { screen: 'ModalDemo', title: 'Modal Demo' },
