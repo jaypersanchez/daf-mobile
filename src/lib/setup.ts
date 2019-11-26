@@ -32,6 +32,7 @@ export const typeDefs = [
   Daf.Gql.IdentityManager.typeDefs,
   DataGql.typeDefs,
   // DIDComm.Gql.typeDefs,
+  TG.Gql.typeDefs,
   W3c.Gql.typeDefs,
   LocalGql.typeDefs,
 ]
@@ -40,6 +41,7 @@ export const resolvers = merge(
   Daf.Gql.Core.resolvers,
   DataGql.resolvers,
   // DIDComm.Gql.resolvers,
+  TG.Gql.resolvers,
   Daf.Gql.IdentityManager.resolvers,
   W3c.Gql.resolvers,
   LocalGql.resolvers,

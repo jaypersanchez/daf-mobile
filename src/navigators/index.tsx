@@ -41,7 +41,10 @@ import Config from '../screens/settings/Config'
 import Crash from '../screens/settings/Crash'
 import Messages from '../screens/settings/Messages'
 import MessageDetail from '../screens/settings/MessageDetail'
+import CreateCredential from '../screens/settings/CreateCredential'
+import ShareCredential from '../screens/settings/ShareCredential'
 import Connections from '../screens/settings/Connections'
+import CredentialField from '../screens/settings/CredentialField'
 import DidViewer from '../screens/settings/DidViewer'
 import Claim from '../screens/settings/Claim'
 import Credentials from '../screens/settings/Credentials'
@@ -76,10 +79,28 @@ const SettingsNavigator = createStackNavigator(
         title: i18n.t('Messages Detail'),
       },
     },
+    [Screens.CreateClaim.screen]: {
+      screen: CreateCredential,
+      navigationOptions: {
+        title: i18n.t('Create Claim'),
+      },
+    },
+    [Screens.ShareClaim.screen]: {
+      screen: ShareCredential,
+      navigationOptions: {
+        title: i18n.t('Share Claim'),
+      },
+    },
     [Screens.Connections.screen]: {
       screen: Connections,
       navigationOptions: {
         title: i18n.t('Connections'),
+      },
+    },
+    [Screens.CredentialField.screen]: {
+      screen: CredentialField,
+      navigationOptions: {
+        title: i18n.t(Screens.CredentialField.title),
       },
     },
     [Screens.Codepush.screen]: {

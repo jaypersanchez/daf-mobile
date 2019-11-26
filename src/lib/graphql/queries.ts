@@ -58,3 +58,20 @@ export const GET_MANAGED_IDENTITIES = gql`
     }
   }
 `
+
+export const GET_ALL_IDENTITIES = gql`
+  query GetAllIdentities {
+    identities {
+      did
+      shortId
+    }
+  }
+`
+
+export const GET_MESSAGE = gql`
+  query GetMessage($hash: String!) {
+    message(hash: $hash) {
+      jwt
+    }
+  }
+`

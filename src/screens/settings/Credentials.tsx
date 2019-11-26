@@ -77,6 +77,11 @@ export const Credentials: React.FC<Props> = props => {
                   const fields = item.fields.map(field => field)
                   return (
                     <ListItem
+                      onPress={() =>
+                        navigation.navigate('CredentialField', {
+                          hash: item.parentHash,
+                        })
+                      }
                       subTitle={fields[0].type}
                       iconLeft={
                         <Avatar

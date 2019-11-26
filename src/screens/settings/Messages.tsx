@@ -23,7 +23,7 @@ import { Screens } from '../../navigators/screens'
 const VIEWER_MESSAGES = gql`
   query ViewerMessages {
     viewer {
-      messagesReceived {
+      messagesAll {
         iss {
           did
           shortId
@@ -83,7 +83,7 @@ export default () => {
         ) : (
           <FlatList
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={data && data.viewer && data.viewer.messagesReceived}
+            data={data && data.viewer && data.viewer.messagesAll}
             renderItem={({ item }: { item: DAFMessage }) => (
               <MessageItem
                 message={item}
