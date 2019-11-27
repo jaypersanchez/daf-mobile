@@ -9,13 +9,12 @@ import {
   BottomSnap,
   RequestItem,
   Typings,
+  ListItem,
 } from '@kancha/kancha-ui'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import TabAvatar from '../../navigators/TabAvatar'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER } from '../../lib/graphql/queries'
+import { GET_VIEWER_PROFILE } from '../../lib/graphql/queries'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
@@ -99,15 +98,20 @@ const Profile: React.FC<Props> & {
   navigationOptions: any
 } = ({ navigation }) => {
   const id = navigation.getParam('id', null)
-  const {
-    data: {
-      viewer: { did },
-    },
-  }: any = useQuery(GET_VIEWER)
-  const selectedDid = did
+  const { data } = useQuery(GET_VIEWER_PROFILE)
+  const [viewer, setViewer] = useState<any>({})
+
   useEffect(() => {
-    navigation.setParams({ selectedDid })
-  }, [did])
+    if (data && data.viewer && data.viewer.did) {
+      setViewer(data.viewer)
+      navigation.setParams({ selectedDid: data.viewer.did })
+    }
+  }, [data])
+
+  const source =
+    data && data.viewer && data.viewer.profileImage
+      ? { source: { uri: data.viewer.profileImage } }
+      : {}
 
   return (
     <Screen scrollEnabled background={'primary'}>
@@ -121,38 +125,25 @@ const Profile: React.FC<Props> & {
           />
         ) : (
           <Avatar
+            {...source}
             type={'rounded'}
             size={60}
-            address={selectedDid}
+            address={viewer.did}
             gravatarType={'retro'}
             backgroundColor={'white'}
           />
         )}
         <Container marginTop={8}>
           <Text type={Constants.TextTypes.H3} bold>
-            {id ? 'Space X' : 'Sarah Macintosh'}
+            {id ? 'Space X' : viewer.shortId}
           </Text>
           <Container marginTop={4}>
-            <Text type={Constants.TextTypes.SubTitle}>
-              Standard profile screen
-            </Text>
+            <Text type={Constants.TextTypes.SubTitle}>{viewer.did}</Text>
           </Container>
           {!id && (
             <>
-              <Container flexDirection={'row'} flex={1} paddingTop>
-                <Button
-                  small
-                  type={Constants.BrandOptions.Primary}
-                  block={Constants.ButtonBlocks.Outlined}
-                  buttonText="Switch Identity"
-                  onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
-                />
-              </Container>
               <Container marginTop>
-                <Text type={Constants.TextTypes.Body}>
-                  The identity switcher is a global component and can be called
-                  from anywhere.
-                </Text>
+                <Text type={Constants.TextTypes.Body}></Text>
               </Container>
             </>
           )}
@@ -160,21 +151,24 @@ const Profile: React.FC<Props> & {
       </Container>
       {!id && (
         <Container>
-          <RequestItem
-            subTitle={'Firstname'}
-            options={nameOptions}
-            required={true}
-          />
-          <RequestItem
-            subTitle={'Lastname'}
-            options={lastNameOptions}
-            required={true}
-          />
-          <RequestItem
-            subTitle={'Location'}
-            options={locationOptions}
-            required={true}
-          />
+          <Container paddingLeft>
+            <Text type={Constants.TextTypes.H3} bold>
+              Credentials
+            </Text>
+          </Container>
+          <Container>
+            {viewer.credentialsReceived &&
+              viewer.credentialsReceived.map((credential: any) => {
+                return (
+                  credential &&
+                  credential.fields.map((field: any, index: number) => (
+                    <ListItem key={index} subTitle={field.type}>
+                      {field.value}
+                    </ListItem>
+                  ))
+                )
+              })}
+          </Container>
         </Container>
       )}
     </Screen>
@@ -190,13 +184,7 @@ Profile.navigationOptions = ({ navigation }: any) => {
     headerRight: params.id == null && (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
-        icon={
-          <Avatar
-            address={params.selectedDid}
-            gravatarType={'retro'}
-            backgroundColor={'white'}
-          />
-        }
+        icon={<TabAvatar />}
         iconButton
       />
     ),
