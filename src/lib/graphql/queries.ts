@@ -5,6 +5,22 @@ export const GET_VIEWER = gql`
     viewer {
       did
       shortId
+      profileImage
+    }
+  }
+`
+export const GET_VIEWER_PROFILE = gql`
+  query getViewer {
+    viewer {
+      did
+      shortId
+      profileImage
+      credentialsReceived {
+        fields {
+          type
+          value
+        }
+      }
     }
   }
 `

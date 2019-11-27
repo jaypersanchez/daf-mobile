@@ -14,6 +14,7 @@ import {
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { Icon, Avatar } from '@kancha/kancha-ui'
+import TabAvatar from './TabAvatar'
 import { Colors, Icons } from '../theme'
 import { Screens } from './screens'
 
@@ -257,7 +258,7 @@ const TabNavigator = createBottomTabNavigator(
       screen: ProfileNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => {
-          return <Avatar source={avatar} backgroundColor={tintColor} border />
+          return <TabAvatar tintColor={tintColor} />
         },
       },
     },
