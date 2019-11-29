@@ -9,13 +9,16 @@ export const GET_VIEWER = gql`
     }
   }
 `
-export const GET_VIEWER_PROFILE = gql`
+export const GET_VIEWER_CREDENTIALS = gql`
   query getViewer {
     viewer {
       did
       shortId
       profileImage
       credentialsReceived {
+        iss {
+          shortId
+        }
         fields {
           type
           value
@@ -88,6 +91,39 @@ export const GET_MESSAGE = gql`
   query GetMessage($hash: String!) {
     message(hash: $hash) {
       jwt
+    }
+  }
+`
+export const VIEWER_MESSAGES = gql`
+  query ViewerMessages {
+    viewer {
+      messagesAll {
+        iss {
+          did
+          shortId
+          profileImage
+        }
+        sub {
+          did
+          shortId
+          profileImage
+        }
+        aud {
+          did
+        }
+        jwt
+        type
+        hash
+        iat
+        nbf
+        vc {
+          fields {
+            type
+            value
+            isObj
+          }
+        }
+      }
     }
   }
 `

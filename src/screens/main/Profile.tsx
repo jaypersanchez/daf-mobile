@@ -14,83 +14,11 @@ import {
 import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER_PROFILE } from '../../lib/graphql/queries'
+import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
-
-const nameOptions: Typings.RequestItemSelectable[] = [
-  {
-    id: '0001',
-    iss: 'Self signed',
-    property: 'name',
-    value: 'Sarah',
-    selected: true,
-  },
-  {
-    id: '0002',
-    iss: 'Self signed',
-    property: 'name',
-    value: 'Sara',
-    selected: false,
-  },
-  {
-    id: '0003',
-    iss: 'Self signed',
-    property: 'name',
-    value: 'Saz',
-    selected: false,
-  },
-]
-
-const lastNameOptions: Typings.RequestItemSelectable[] = [
-  {
-    id: '0001',
-    iss: 'Self signed',
-    property: 'lastName',
-    value: 'Macintosh',
-    selected: true,
-  },
-  {
-    id: '0002',
-    iss: 'Self signed',
-    property: 'lastName',
-    value: 'Mac',
-    selected: false,
-  },
-  {
-    id: '0003',
-    iss: 'Self signed',
-    property: 'lastName',
-    value: 'Maco',
-    selected: false,
-  },
-]
-
-const locationOptions: Typings.RequestItemSelectable[] = [
-  {
-    id: '0001',
-    iss: 'Self signed',
-    property: 'location',
-    value: 'Ireland',
-    selected: true,
-  },
-  {
-    id: '0002',
-    iss: 'Self signed',
-    property: 'location',
-    value: 'Dublin, Ireland',
-    selected: false,
-  },
-  {
-    id: '0003',
-    iss: 'Self signed',
-    property: 'location',
-    value: 'Dublin',
-    selected: false,
-  },
-]
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -98,7 +26,7 @@ const Profile: React.FC<Props> & {
   navigationOptions: any
 } = ({ navigation }) => {
   const id = navigation.getParam('id', null)
-  const { data } = useQuery(GET_VIEWER_PROFILE)
+  const { data } = useQuery(GET_VIEWER_CREDENTIALS)
   const [viewer, setViewer] = useState<any>({})
 
   useEffect(() => {

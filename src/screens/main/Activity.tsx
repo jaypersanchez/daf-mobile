@@ -4,17 +4,16 @@ import {
   Text,
   Screen,
   ActivityItem,
+  DAFMessage,
   Constants,
   Device,
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { LineChart } from 'react-native-chart-kit'
-import {
-  sertoVerifiableCredential,
-  bankVerifiableCredential,
-  galleryAdmission,
-} from '../../data/credentials'
+import { selectiveDisclosureRequest } from '../../data/credentials'
+import { useQuery } from 'react-apollo'
+import { VIEWER_MESSAGES } from '../../lib/graphql/queries'
 
 import hexToRgba from 'hex-to-rgba'
 
@@ -33,7 +32,7 @@ const chartConfig = {
   strokeColor: Colors.BRAND,
 }
 
-const data = {
+const chartData = {
   labels: ['J', 'F', 'M', 'A', 'M', 'J'],
   datasets: [
     {
@@ -50,22 +49,16 @@ const avatar1 = require('../../assets/images/space-x-logo.jpg')
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
+  const { data, loading } = useQuery(VIEWER_MESSAGES)
+
   const viewProfile = (id: any) => {
     navigation.navigate('Profile', { id })
   }
 
-  const showAttachments = (attachment: any) => {
-    let params
-    if (attachment.length > 1) {
-      params = {
-        vp: [sertoVerifiableCredential, bankVerifiableCredential],
-      }
-    } else if (attachment.length === 1) {
-      params = {
-        vc: galleryAdmission,
-      }
-    }
-    navigation.navigate('Credential', { ...params })
+  const confirmRequest = (id: any) => {
+    navigation.navigate('Request', {
+      requestMessage: selectiveDisclosureRequest,
+    })
   }
 
   return (
@@ -85,9 +78,10 @@ const Activity: React.FC<Props> = ({ navigation }) => {
               }}
               withInnerLines={false}
               withOuterLines={false}
+              // @ts-ignore
               withHorizontalLabels={false}
               width={Device.width + 60}
-              data={data}
+              data={chartData}
               height={220}
               chartConfig={chartConfig}
               bezier
@@ -101,111 +95,37 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             Today
           </Text>
         </Container>
-        <ActivityItem
-          id={'000000'}
-          date={new Date().getTime()}
-          incoming
-          issuer={{
-            name: 'The Guggenheim Museum',
-            did: '1234',
-            avatar: avatar1,
-          }}
-          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'sent you a day pass'}
-          profileAction={(id: string) => viewProfile(id)}
-          attachmentsAction={(attachment: any) => showAttachments(attachment)}
-          attachments={[
-            {
-              key: '01',
-              title: galleryAdmission.type,
-              issuer: {
-                name: galleryAdmission.iss,
-                did: '0fxx',
-                avatar: { uri: '' },
-              },
-              logo: avatar1,
-            },
-          ]}
-        />
-        <ActivityItem
-          id={'000001'}
-          date={new Date().getTime()}
-          incoming
-          issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
-          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'sent you 5 health certificates'}
-          reason={'can go to the Moon'}
-          profileAction={(id: string) => viewProfile(id)}
-          attachmentsAction={(attachment: any) => showAttachments(attachment)}
-          attachments={[
-            {
-              key: '01',
-              title: sertoVerifiableCredential.type,
-              issuer: {
-                name: sertoVerifiableCredential.iss,
-                did: '0fxx',
-                avatar: { uri: '' },
-              },
-              logo: avatar1,
-            },
-            {
-              key: '02',
-              title: bankVerifiableCredential.type,
-              issuer: {
-                name: bankVerifiableCredential.iss,
-                did: '0fxx',
-                avatar: { uri: '' },
-              },
-              logo: avatar1,
-            },
-          ]}
-        />
-        <ActivityItem
-          id={'000002'}
-          date={new Date().getTime() - 1000000}
-          incoming={false}
-          issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
-          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'shared information with'}
-          reason={'can go to Mars'}
-          profileAction={(id: string) => viewProfile(id)}
-        />
-        <ActivityItem
-          id={'000003'}
-          date={new Date().getTime() - 5000000}
-          incoming
-          issuer={{ name: 'Space X', did: '1234', avatar: avatar1 }}
-          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'requested information from you'}
-          reason={'can go to Mars'}
-          profileAction={(id: string) => viewProfile(id)}
-        />
-        <ActivityItem
-          id={'000004'}
-          date={new Date().getTime() - 15000000}
-          incoming
-          issuer={{
-            name: 'The Red Cross',
-            did: '1234',
-            avatar: { uri: 'http://' },
-          }}
-          subject={{ name: 'you', did: '1234', avatar: { uri: '' } }}
-          activity={'sent you a reward for bravery'}
-          profileAction={(id: string) => viewProfile(id)}
-          attachmentsAction={(attachment: any) => showAttachments(attachment)}
-          attachments={[
-            {
-              key: '01',
-              title: sertoVerifiableCredential.type,
-              issuer: {
-                name: sertoVerifiableCredential.iss,
-                did: '0fxx',
-                avatar: { uri: '' },
-              },
-              logo: avatar1,
-            },
-          ]}
-        />
+
+        {data &&
+          data.viewer &&
+          data.viewer.messagesAll &&
+          [selectiveDisclosureRequest]
+            .concat(data.viewer.messagesAll)
+            .map((message: any, index: number) => {
+              const actions =
+                message.type === 'sdr' ? { actions: ['Approve'] } : {}
+              return (
+                <ActivityItem
+                  id={message.hash}
+                  key={message.hash + index}
+                  activity={'sent a message'}
+                  profileAction={viewProfile}
+                  date={message.nbf}
+                  issuer={{
+                    name: message.iss.shortId,
+                    did: message.iss.did,
+                    shortId: message.iss.shortId,
+                  }}
+                  subject={{
+                    name: message.sub.shortId,
+                    did: message.sub.did,
+                    shortId: message.sub.shortId,
+                  }}
+                  confirm={confirmRequest}
+                  {...actions}
+                />
+              )
+            })}
       </Container>
     </Screen>
   )

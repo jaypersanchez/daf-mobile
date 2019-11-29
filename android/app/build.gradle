@@ -146,6 +146,15 @@ android {
         versionName "1.16.2"
         missingDimensionStrategy 'react-native-camera', 'general'
     }
+
+    // signingConfigs {
+    //     release {
+    //         storeFile file("../release-key.keystore")
+    //         storePassword '123456'
+    //         keyAlias 'my-key-alias'
+    //         keyPassword '123456'
+    //     }
+    // }
     
     splits {
         abi {
@@ -166,6 +175,8 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            // signingConfig signingConfigs.release
         }
     }
 }

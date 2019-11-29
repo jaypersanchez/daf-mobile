@@ -5,6 +5,73 @@ import {
   endOfYesterday,
 } from 'date-fns'
 
+export const selectiveDisclosureRequest = {
+  type: 'sdr',
+  nbf: getTime(new Date()),
+  iss: {
+    shortId: 'Requestor',
+    did: '0x1323454',
+    avatar: { uri: '' },
+  },
+  sub: { name: 'Test', did: '0x1323454', avatar: { uri: '' }, shortId: 'test' },
+  sdr: [
+    {
+      iss: [],
+      reason: 'Tell us your name',
+      claimType: 'name',
+      essential: true,
+      vc: [
+        {
+          iss: { shortId: 'Jack' },
+          id: '01',
+          type: 'name',
+          value: 'Jack',
+          selected: true,
+        },
+        {
+          iss: { shortId: 'Onfido' },
+          id: '02',
+          type: 'name',
+          value: 'Joe',
+        },
+        {
+          iss: { shortId: 'The Pope' },
+          id: '03',
+          type: 'name',
+          value: 'Jimmy',
+        },
+      ],
+    },
+    {
+      iss: [],
+      reason: 'Tell us your phone number',
+      claimType: 'phone',
+      essential: true,
+      vc: [
+        {
+          iss: { shortId: 'Jack' },
+          id: '01',
+          type: 'phone',
+          value: '009823-28292',
+          selected: true,
+        },
+        {
+          iss: { shortId: 'Onfido' },
+          id: '02',
+          type: 'name',
+          value: '0098272829-2',
+        },
+        {
+          iss: { shortId: 'The Pope' },
+          id: '03',
+          type: 'name',
+          value: '002893736',
+        },
+      ],
+    },
+  ],
+}
+
 export const sertoVerifiableCredential = {
   iss: 'Serto Identity Platform',
   sub: 'did:ethr:0xf3beac30c498d9e26865f34fcaa57dbb935b0d74',
