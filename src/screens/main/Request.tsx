@@ -13,130 +13,43 @@ import {
 } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
+import { useMutation } from 'react-apollo'
+import { SIGN_VP } from '../../lib/graphql/queries'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
 // tslint:disable-next-line:no-var-requires
 const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
-/**
- * Hardcoded data
- */
-// const nameOptions: Typings.RequestItemSelectable[] = [
-//   {
-//     id: '0001',
-//     iss: 'Deutsche Bank',
-//     property: 'name',
-//     value: 'Jane',
-//     selected: true,
-//   },
-//   {
-//     id: '0002',
-//     iss: 'Onfido',
-//     property: 'name',
-//     value: 'Jenny',
-//     selected: false,
-//   },
-//   {
-//     id: '0003',
-//     iss: 'Serto ID',
-//     property: 'name',
-//     value: 'Jill',
-//     selected: false,
-//   },
-// ]
-
-// const lastNameOptions: Typings.RequestItemSelectable[] = [
-//   {
-//     id: '0001',
-//     iss: 'Deutsche Bank',
-//     property: 'lastName',
-//     value: 'Morrison',
-//     selected: true,
-//   },
-//   {
-//     id: '0002',
-//     iss: 'Onfido',
-//     property: 'lastName',
-//     value: 'Kennedy',
-//     selected: false,
-//   },
-//   {
-//     id: '0003',
-//     iss: 'Onfido',
-//     property: 'lastName',
-//     value: 'Morrison',
-//     selected: false,
-//   },
-// ]
-
-// const locationOptions: Typings.RequestItemSelectable[] = [
-//   {
-//     id: '0001',
-//     iss: 'Deutsche Bank',
-//     property: 'location',
-//     value: 'Ireland',
-//     selected: true,
-//   },
-//   {
-//     id: '0002',
-//     iss: 'Onfido',
-//     property: 'location',
-//     value: 'Dublin, Ireland',
-//     selected: false,
-//   },
-//   {
-//     id: '0003',
-//     iss: 'Onfido',
-//     property: 'location',
-//     value: 'Dublin',
-//     selected: false,
-//   },
-// ]
-
-// const emailOptions: Typings.RequestItemSelectable[] = [
-//   {
-//     id: '0001',
-//     iss: 'Deutsche Bank',
-//     property: 'location',
-//     value: 'jack@mymail.com',
-//     selected: true,
-//   },
-//   {
-//     id: '0002',
-//     iss: 'Onfido',
-//     property: 'name',
-//     value: 'jacky@mymail.com',
-//     selected: false,
-//   },
-//   {
-//     id: '0003',
-//     iss: 'Serto Verified',
-//     property: 'name',
-//     value: 'jackie_1234@mymail.com',
-//     selected: false,
-//   },
-// ]
-
-// const phoneOptions: Typings.RequestItemSelectable[] = [
-//   {
-//     id: '0001',
-//     iss: 'Serto Verified',
-//     property: 'phone',
-//     value: '+555-321-8763',
-//     selected: true,
-//   },
-// ]
-
 const Component: React.FC<NavigationStackScreenProps> = props => {
+  const requestMessage = props.navigation.getParam('requestMessage')
+  const [selected, updateSelected] = useState<{ [index: string]: string }>({})
+  const [actionSignVp] = useMutation(SIGN_VP)
   const accept = () => {
+    // actionSignVp({variables: {
+
+    // }})
+
     props.navigation.goBack()
   }
 
-  const requestMessage = props.navigation.getParam('requestMessage')
-  console.log('!REQUEST_MESSAGE', requestMessage)
+  // console.log('!REQUEST_MESSAGE', requestMessage)
 
-  useEffect(() => {}, [])
+  const selectItem = (jwt: string, claimType: string) => {
+    // console.log(jwt, claimType)
+    const updatedSelection = { ...selected, [claimType]: jwt }
+
+    updateSelected(updatedSelection)
+  }
+
+  useEffect(() => {
+    console.log(
+      'SELECTED_ITEMS',
+      Object.keys(selected)
+        .map(key => selected[key])
+        .filter(item => item !== 'NOSHARE'),
+    )
+  }, [selected])
 
   return (
     <Screen
@@ -185,17 +98,19 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
             return (
               <RequestItem
                 key={index}
-                subTitle={requestField.claimType}
-                options={requestField.vc.map((vc: any) => {
+                claimType={requestField.claimType}
+                options={requestField.vc.map((vc: any, index: number) => {
                   return {
-                    id: vc.id,
+                    id: vc.jwt,
                     iss: vc.iss.shortId,
                     property: vc.type,
                     value: vc.value,
-                    selected: vc.selected,
+                    selected: requestField.essential && index === 0,
                   }
                 })}
-                // onSelect={(id, claimType, value) => selectItem(id, claimType, value)}
+                onSelectItem={(jwt: string, claimType: string) =>
+                  selectItem(jwt, claimType)
+                }
                 required={requestField.essential}
               />
             )

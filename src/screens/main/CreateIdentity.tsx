@@ -9,14 +9,19 @@ import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks'
 import {
   CREATE_IDENTITY,
   GET_MANAGED_IDENTITIES,
+  GET_VIEWER,
 } from '../../lib/graphql/queries'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
+  const refetchQueries = [
+    { query: GET_MANAGED_IDENTITIES },
+    { query: GET_VIEWER },
+  ]
   const [createDid] = useMutation(CREATE_IDENTITY, {
     onCompleted(response) {
       navigation.navigate('App')
     },
-    refetchQueries: [{ query: GET_MANAGED_IDENTITIES }],
+    refetchQueries,
   })
   const importingSeed = navigation.getParam('import', false)
 

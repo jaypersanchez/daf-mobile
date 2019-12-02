@@ -11,7 +11,7 @@ import {
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { LineChart } from 'react-native-chart-kit'
-import { selectiveDisclosureRequest } from '../../data/credentials'
+// import { selectiveDisclosureRequest } from '../../data/credentials'
 import { useQuery } from 'react-apollo'
 import { VIEWER_MESSAGES } from '../../lib/graphql/queries'
 
@@ -56,9 +56,16 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const confirmRequest = (id: any) => {
-    navigation.navigate('Request', {
-      requestMessage: selectiveDisclosureRequest,
-    })
+    if (data.viewer.messagesAll) {
+      const requestMessage = data.viewer.messagesAll.find((message: any) => {
+        return id === message.hash
+      })
+
+      console.log(requestMessage)
+      // navigation.navigate('Request', {
+      //   requestMessage,
+      // })
+    }
   }
 
   return (
@@ -95,37 +102,36 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             Today
           </Text>
         </Container>
-
         {data &&
           data.viewer &&
           data.viewer.messagesAll &&
-          [selectiveDisclosureRequest]
-            .concat(data.viewer.messagesAll)
-            .map((message: any, index: number) => {
-              const actions =
-                message.type === 'sdr' ? { actions: ['Approve'] } : {}
-              return (
-                <ActivityItem
-                  id={message.hash}
-                  key={message.hash + index}
-                  activity={'sent a message'}
-                  profileAction={viewProfile}
-                  date={message.nbf}
-                  issuer={{
-                    name: message.iss.shortId,
-                    did: message.iss.did,
-                    shortId: message.iss.shortId,
-                  }}
-                  subject={{
-                    name: message.sub.shortId,
-                    did: message.sub.did,
-                    shortId: message.sub.shortId,
-                  }}
-                  confirm={confirmRequest}
-                  {...actions}
-                />
-              )
-            })}
+          data.viewer.messagesAll.map((message: any, index: number) => {
+            const actions =
+              message.type === 'sdr' ? { actions: ['Approve'] } : {}
+            return (
+              <ActivityItem
+                id={message.hash}
+                key={message.hash + index}
+                activity={'sent a message'}
+                profileAction={viewProfile}
+                date={message.nbf * 1000}
+                issuer={{
+                  name: message.sub.shortId,
+                  did: message.sub.did,
+                  shortId: message.sub.shortId,
+                  profileImage: message.sub.profileImage,
+                }}
+                subject={{
+                  name: message.iss.shortId,
+                  did: message.iss.did,
+                  shortId: message.iss.shortId,
+                  profileImage: message.iss.profileImage,
+                }}
+                confirm={confirmRequest}
+                {...actions}
+              />
+            )
+          })}
       </Container>
     </Screen>
   )

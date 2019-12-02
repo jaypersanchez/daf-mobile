@@ -108,6 +108,18 @@ export const VIEWER_MESSAGES = gql`
           shortId
           profileImage
         }
+        sdr {
+          claimType
+          reason
+          essential
+          vc {
+            fields {
+              type
+              value
+              isObj
+            }
+          }
+        }
         aud {
           did
         }
@@ -125,5 +137,11 @@ export const VIEWER_MESSAGES = gql`
         }
       }
     }
+  }
+`
+
+export const SIGN_VP = gql`
+  mutation signVp($did: String!, $data: SDRInput!) {
+    actionSignVp(did: $did, data: $data)
   }
 `
