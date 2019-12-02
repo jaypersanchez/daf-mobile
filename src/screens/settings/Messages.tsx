@@ -23,6 +23,7 @@ import { Screens } from '../../navigators/screens'
 const VIEWER_MESSAGES = gql`
   query ViewerMessages {
     viewer {
+      did @export(as: "selectedDid")
       messagesAll {
         iss {
           did
@@ -47,6 +48,25 @@ const VIEWER_MESSAGES = gql`
             type
             value
             isObj
+          }
+        }
+        sdr(sub: $selectedDid) {
+          iss {
+            did {
+              did
+              shortId
+            }
+            url
+          }
+          claimType
+          reason
+          essential
+          vc {
+            fields {
+              type
+              value
+              isObj
+            }
           }
         }
       }
