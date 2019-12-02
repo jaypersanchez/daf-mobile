@@ -35,9 +35,6 @@ const VIEWER_MESSAGES = gql`
           shortId
           profileImage
         }
-        aud {
-          did
-        }
         jwt
         type
         hash
@@ -104,13 +101,15 @@ export default () => {
           <FlatList
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
             data={data && data.viewer && data.viewer.messagesAll}
-            renderItem={({ item }: { item: DAFMessage }) => (
-              <MessageItem
-                message={item}
-                viewMessage={viewMessage}
-                viewProfile={viewProfile}
-              />
-            )}
+            renderItem={({ item }: { item: DAFMessage }) => {
+              return (
+                <MessageItem
+                  message={item}
+                  viewMessage={viewMessage}
+                  viewProfile={viewProfile}
+                />
+              )
+            }}
             keyExtractor={(item, index) => item.hash + index}
             onRefresh={syncAndRefetch}
             refreshing={loading}

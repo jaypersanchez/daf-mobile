@@ -5,6 +5,106 @@ import {
   endOfYesterday,
 } from 'date-fns'
 
+export const selectiveDisclosureRequest = {
+  type: 'sdr',
+  nbf: getTime(new Date()),
+  iss: {
+    shortId: 'Dummy Requestor',
+    did: '0x1323454',
+    avatar: { uri: '' },
+  },
+  sub: { name: 'Test', did: '0x1323454', avatar: { uri: '' }, shortId: 'test' },
+  sdr: [
+    {
+      iss: [],
+      reason: 'Tell us your name',
+      claimType: 'name',
+      essential: true,
+      vc: [
+        {
+          iss: { shortId: 'Jack' },
+          jwt: 'fyjsryksyjwryjh',
+          id: '01',
+          type: 'name',
+          value: 'Jack',
+        },
+        {
+          iss: { shortId: 'Onfido' },
+          jwt: 'yuktyjhtr',
+          id: '02',
+          type: 'name',
+          value: 'Joe',
+        },
+        {
+          iss: { shortId: 'The Pope' },
+          jwt: '23r2efwe',
+          id: '03',
+          type: 'name',
+          value: 'Jimmy',
+        },
+      ],
+    },
+    {
+      iss: [],
+      reason: 'Tell us your birth date',
+      claimType: 'dateOfBirth',
+      essential: true,
+      vc: [
+        {
+          iss: { shortId: 'Jack' },
+          jwt: 'asrgaerverf',
+          id: '01',
+          type: 'dateOfBirth',
+          value: '11/02/1981',
+        },
+        {
+          iss: { shortId: 'Onfido' },
+          jwt: 'yuktyjhtr',
+          id: '02',
+          type: 'dateOfBirth',
+          value: '11/02/1980',
+        },
+        {
+          iss: { shortId: 'The Pope' },
+          jwt: '23r2efwe',
+          id: '03',
+          type: 'dateOfBirth',
+          value: '11/02/1983',
+        },
+      ],
+    },
+    {
+      iss: [],
+      reason: 'Tell us your phone number',
+      claimType: 'phone',
+      essential: false,
+      vc: [
+        {
+          iss: { shortId: 'Jack' },
+          jwt: 'ddddd',
+          id: '01',
+          type: 'phone',
+          value: '009823-28292',
+        },
+        {
+          iss: { shortId: 'Onfido' },
+          jwt: 'ssssss',
+          id: '02',
+          type: 'name',
+          value: '0098272829-2',
+        },
+        {
+          iss: { shortId: 'The Pope' },
+          jwt: 'eeeee',
+          id: '03',
+          type: 'name',
+          value: '002893736',
+        },
+      ],
+    },
+  ],
+}
+
 export const sertoVerifiableCredential = {
   iss: 'Serto Identity Platform',
   sub: 'did:ethr:0xf3beac30c498d9e26865f34fcaa57dbb935b0d74',

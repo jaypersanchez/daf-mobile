@@ -99,30 +99,28 @@ export default () => {
             ></TextInput>
             {identityBrowseOpen && (
               <Container marginTop dividerBottom>
-                {getAllIdentitiesResp &&
-                  getAllIdentitiesResp.data &&
-                  getAllIdentitiesResp.data.identities.map((id: any) => {
-                    return (
-                      <TouchableHighlight
-                        underlayColor={Colors.LIGHTEST_GREY}
-                        key={id.did}
-                        onPress={() => {
-                          updateSubject(id)
-                          toggleIdentityBrowse(false)
-                        }}
-                      >
-                        <Container dividerTop padding>
-                          <Text>{id.shortId}</Text>
-                          <Text
-                            type={Constants.TextTypes.SubTitle}
-                            textStyle={{ fontSize: 12 }}
-                          >
-                            {id.did}
-                          </Text>
-                        </Container>
-                      </TouchableHighlight>
-                    )
-                  })}
+                {identities.map((id: any) => {
+                  return (
+                    <TouchableHighlight
+                      underlayColor={Colors.LIGHTEST_GREY}
+                      key={id.did}
+                      onPress={() => {
+                        updateSubject(id)
+                        toggleIdentityBrowse(false)
+                      }}
+                    >
+                      <Container dividerTop padding>
+                        <Text>{id.shortId}</Text>
+                        <Text
+                          type={Constants.TextTypes.SubTitle}
+                          textStyle={{ fontSize: 12 }}
+                        >
+                          {id.did}
+                        </Text>
+                      </Container>
+                    </TouchableHighlight>
+                  )
+                })}
               </Container>
             )}
           </Container>

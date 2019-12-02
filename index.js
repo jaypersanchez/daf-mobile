@@ -6,7 +6,7 @@ import 'react-native-gesture-handler'
 import { AppRegistry, Platform, YellowBox } from 'react-native'
 import App from './src/App'
 import { name as appName } from './app.json'
-// import codePush from 'react-native-code-push'
+import codePush from 'react-native-code-push'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
 import analytics from '@segment/analytics-react-native'
@@ -58,14 +58,14 @@ if (Config.SEGMENT_IOS && Config.SEGMENT_ANDROID) {
   )
 }
 
-// codePush.getUpdateMetadata().then(update => {
-//   if (update) {
-//     // Sentry.setVersion(update.appVersion + '-codepush:' + update.label)
-//   }
-// })
+codePush.getUpdateMetadata().then(update => {
+  if (update) {
+    // Sentry.setVersion(update.appVersion + '-codepush:' + update.label)
+  }
+})
 
-// const codePushOptions = {
-//   checkFrequency: codePush.CheckFrequency.ON_APP_START,
-// }
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+}
 
-AppRegistry.registerComponent(appName, () => App)
+AppRegistry.registerComponent(appName, () => codePush(codePushOptions)(App))
