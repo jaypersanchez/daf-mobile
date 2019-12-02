@@ -6,7 +6,7 @@ import { Theme } from '../theme'
 import {
   GET_MANAGED_IDENTITIES,
   SET_VIEWER,
-  GET_VIEWER_PROFILE,
+  GET_VIEWER_CREDENTIALS,
 } from '../lib/graphql/queries'
 
 interface Identity {
@@ -56,7 +56,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
                       },
                       refetchQueries: [
                         { query: GET_MANAGED_IDENTITIES },
-                        { query: GET_VIEWER_PROFILE },
+                        { query: GET_VIEWER_CREDENTIALS },
                       ],
                     })
                   }}
