@@ -362,18 +362,6 @@ Array [
                       }
                     }
                   >
-                    <Text
-                      style={
-                        Object {
-                          "color": "#BBBBBB",
-                          "flexWrap": "wrap",
-                          "fontSize": 14,
-                        }
-                      }
-                    >
-                      Name
-                      
-                    </Text>
                     <View
                       pointerEvents="auto"
                       style={
@@ -557,18 +545,6 @@ Array [
                       }
                     }
                   >
-                    <Text
-                      style={
-                        Object {
-                          "color": "#BBBBBB",
-                          "flexWrap": "wrap",
-                          "fontSize": 14,
-                        }
-                      }
-                    >
-                      Date of Birth
-                      
-                    </Text>
                     <View
                       pointerEvents="auto"
                       style={
@@ -752,18 +728,6 @@ Array [
                       }
                     }
                   >
-                    <Text
-                      style={
-                        Object {
-                          "color": "#BBBBBB",
-                          "flexWrap": "wrap",
-                          "fontSize": 14,
-                        }
-                      }
-                    >
-                      Location
-                      
-                    </Text>
                     <View
                       pointerEvents="auto"
                       style={
@@ -947,18 +911,6 @@ Array [
                       }
                     }
                   >
-                    <Text
-                      style={
-                        Object {
-                          "color": "#BBBBBB",
-                          "flexWrap": "wrap",
-                          "fontSize": 14,
-                        }
-                      }
-                    >
-                      Phone
-                      
-                    </Text>
                     <View
                       pointerEvents="auto"
                       style={
