@@ -9,7 +9,7 @@ export const selectiveDisclosureRequest = {
   type: 'sdr',
   nbf: getTime(new Date()),
   iss: {
-    shortId: 'Requestor',
+    shortId: 'Dummy Requestor',
     did: '0x1323454',
     avatar: { uri: '' },
   },
@@ -23,7 +23,7 @@ export const selectiveDisclosureRequest = {
       vc: [
         {
           iss: { shortId: 'Jack' },
-          jwt: 'asrgaerverf',
+          jwt: 'fyjsryksyjwryjh',
           id: '01',
           type: 'name',
           value: 'Jack',

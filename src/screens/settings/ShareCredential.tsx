@@ -7,26 +7,16 @@ import React, { useState, useEffect } from 'react'
 import { Container, Screen, Text, Constants, Device } from '@kancha/kancha-ui'
 import { useNavigationParam } from 'react-navigation-hooks'
 import gql from 'graphql-tag'
-import { useMutation, useQuery } from 'react-apollo'
+import { useMutation } from 'react-apollo'
 import QRCode from 'react-native-qrcode-svg'
 import { ActivityIndicator } from 'react-native'
-import { dataStore } from 'Serto/src/lib/setup'
+import {
+  SIGN_VP,
+  SEND_JWT_MUTATION,
+  SIGN_VC_MUTATION,
+} from '../../lib/graphql/queries'
 
-const SIGN_VC_MUTATION = gql`
-  mutation sign($did: String!, $data: VerifiableCredentialInput!) {
-    actionSignVc(did: $did, data: $data)
-  }
-`
-
-const SEND_CLAIM = gql`
-  mutation send($from: String!, $to: String!, $jwt: String!) {
-    actionSendJwt(from: $from, to: $to, jwt: $jwt)
-  }
-`
-
-var claimToObject = (arr: any[]) => {
-  console.log(arr)
-
+const claimToObject = (arr: any[]) => {
   return arr.reduce(
     (obj, item) => Object.assign(obj, { [item.type]: item.value }),
     {},
@@ -41,7 +31,7 @@ export default () => {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [jwt, setJwt] = useState()
-  const [actionSendJwt] = useMutation(SEND_CLAIM, {
+  const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
     onCompleted: response => {
       if (response && response.actionSendJwt) {
         setSending(false)

@@ -14,7 +14,7 @@ import {
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 import { useMutation } from 'react-apollo'
-import { SIGN_VP } from '../../lib/graphql/queries'
+import { SIGN_VP, SEND_JWT_MUTATION } from '../../lib/graphql/queries'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
@@ -23,14 +23,61 @@ const bannerImage = require('../../assets/images/space-x-banner.jpg')
 
 const Component: React.FC<NavigationStackScreenProps> = props => {
   const requestMessage = props.navigation.getParam('requestMessage')
+  const viewerDid = props.navigation.getParam('viewerDid')
+  const [sending, updateSending] = useState(false)
   const [selected, updateSelected] = useState<{ [index: string]: string }>({})
-  const [actionSignVp] = useMutation(SIGN_VP)
+  const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
+    onCompleted: response => {
+      // console.log(response.actionSendJwt)
+      if (response.actionSendJwt) {
+        updateSending(false)
+        props.navigation.goBack()
+      }
+    },
+  })
+  const [actionSignVp] = useMutation(SIGN_VP, {
+    onCompleted: response => {
+      // console.log(response.actionSignVp)
+
+      if (response.actionSignVp) {
+        updateSending(true)
+
+        actionSendJwt({
+          variables: {
+            to: requestMessage.iss.did,
+            from: viewerDid,
+            jwt: response.actionSignVp,
+          },
+        })
+      }
+    },
+  })
+
   const accept = () => {
-    // actionSignVp({variables: {
+    // console.log('SIGNING__', requestMessage)
 
-    // }})
+    const selectedVp = Object.keys(selected)
+      .map(key => selected[key])
+      .filter(item => item !== 'NOSHARE')
 
-    props.navigation.goBack()
+    const payload = {
+      variables: {
+        did: viewerDid,
+        data: {
+          aud: requestMessage.iss.did,
+          tag: requestMessage.tag,
+          vp: {
+            context: ['https://www.w3.org/2018/credentials/v1'],
+            type: ['VerifiableCredential'],
+            verifiableCredential: selectedVp,
+          },
+        },
+      },
+    }
+
+    // console.log('SIGNING__PAYLOAD', payload)
+
+    actionSignVp(payload)
   }
 
   // console.log('!REQUEST_MESSAGE', requestMessage)
@@ -43,13 +90,17 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
   }
 
   useEffect(() => {
-    console.log(
-      'SELECTED_ITEMS',
-      Object.keys(selected)
-        .map(key => selected[key])
-        .filter(item => item !== 'NOSHARE'),
-    )
-  }, [selected])
+    /**
+     * Hacking to make work
+     */
+    let defaultSelected: { [index: string]: string } = {}
+    requestMessage.sdr.map((sdr: any) => {
+      if (sdr.essential) {
+        defaultSelected[sdr.claimType] = sdr.vc[0].fields[0].jwt
+      }
+    })
+    updateSelected(defaultSelected)
+  }, [])
 
   return (
     <Screen
@@ -63,6 +114,9 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
           paddingBottom={true}
           backgroundColor={Colors.WHITE}
         >
+          <Container alignItems={'center'} paddingBottom>
+            <Text>{sending ? 'Sending...Todo: make prettier ;)' : ''}</Text>
+          </Container>
           <Container flexDirection={'row'}>
             <Container flex={1}>
               <Button
@@ -76,7 +130,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
               <Button
                 block={Constants.ButtonBlocks.Filled}
                 type={Constants.BrandOptions.Primary}
-                buttonText={'Accept'}
+                buttonText={'Share'}
                 onPress={accept}
                 shadowOpacity={0.2}
               />
@@ -95,21 +149,34 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
         <Indicator text={'Share your data ' + requestMessage.iss.shortId} />
         <Container>
           {requestMessage.sdr.map((requestField: any, index: number) => {
+            /**
+             * Hacking to make work. RequestItem needs refactoring to handle fields array
+             */
+            let requestFields: any = []
+            requestField.vc.map((vc: any, vcIndex: number) => {
+              vc.fields.map((field: any, fieldIndex: number) => {
+                requestFields.push({
+                  id: vc.jwt + fieldIndex + vcIndex,
+                  iss: vc.iss.shortId,
+                  property: field.type,
+                  value: field.value,
+                  selected:
+                    requestField.essential && vcIndex === 0 && fieldIndex === 0,
+                })
+              })
+            })
+
             return (
               <RequestItem
                 key={index}
                 claimType={requestField.claimType}
-                options={requestField.vc.map((vc: any, index: number) => {
-                  return {
-                    id: vc.jwt,
-                    iss: vc.iss.shortId,
-                    property: vc.type,
-                    value: vc.value,
-                    selected: requestField.essential && index === 0,
-                  }
-                })}
+                options={requestFields}
                 onSelectItem={(jwt: string, claimType: string) =>
-                  selectItem(jwt, claimType)
+                  /**
+                   * Hacking to make work
+                   */
+
+                  selectItem(jwt.slice(0, jwt.length - 2), claimType)
                 }
                 required={requestField.essential}
               />

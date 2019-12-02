@@ -11,7 +11,6 @@ import {
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { LineChart } from 'react-native-chart-kit'
-// import { selectiveDisclosureRequest } from '../../data/credentials'
 import { useQuery } from 'react-apollo'
 import { VIEWER_MESSAGES } from '../../lib/graphql/queries'
 
@@ -56,15 +55,18 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const confirmRequest = (id: any) => {
+    /**
+     * Hacky hacky hacky
+     */
     if (data.viewer.messagesAll) {
       const requestMessage = data.viewer.messagesAll.find((message: any) => {
         return id === message.hash
       })
-
-      console.log(requestMessage)
-      // navigation.navigate('Request', {
-      //   requestMessage,
-      // })
+      // console.log(requestMessage)
+      navigation.navigate('Request', {
+        requestMessage,
+        viewerDid: data.viewer.did,
+      })
     }
   }
 
@@ -108,11 +110,19 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           data.viewer.messagesAll.map((message: any, index: number) => {
             const actions =
               message.type === 'sdr' ? { actions: ['Approve'] } : {}
+            const act: { [index: string]: string } = {
+              sdr: 'has requested information from',
+              'w3c.vp': 'sent an SDR response to',
+              'w3c.vc': 'made claims about',
+            }
+            /**
+             * Hacky hacky hacky. ActivityItem needs refactor
+             */
             return (
               <ActivityItem
                 id={message.hash}
                 key={message.hash + index}
-                activity={'sent a message'}
+                activity={act[message.type]}
                 profileAction={viewProfile}
                 date={message.nbf * 1000}
                 issuer={{

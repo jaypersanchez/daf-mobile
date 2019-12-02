@@ -97,7 +97,14 @@ export const GET_MESSAGE = gql`
 export const VIEWER_MESSAGES = gql`
   query ViewerMessages {
     viewer {
+      did @export(as: "selectedDid")
       messagesAll {
+        jwt
+        tag
+        type
+        hash
+        iat
+        nbf
         iss {
           did
           shortId
@@ -108,31 +115,34 @@ export const VIEWER_MESSAGES = gql`
           shortId
           profileImage
         }
-        sdr {
-          claimType
-          reason
-          essential
-          vc {
-            fields {
-              type
-              value
-              isObj
-            }
-          }
-        }
-        aud {
-          did
-        }
-        jwt
-        type
-        hash
-        iat
-        nbf
         vc {
           fields {
             type
             value
             isObj
+          }
+        }
+        sdr(sub: $selectedDid) {
+          iss {
+            did {
+              did
+              shortId
+            }
+            url
+          }
+          claimType
+          reason
+          essential
+          vc {
+            iss {
+              shortId
+            }
+            jwt
+            fields {
+              type
+              value
+              isObj
+            }
           }
         }
       }
@@ -141,7 +151,19 @@ export const VIEWER_MESSAGES = gql`
 `
 
 export const SIGN_VP = gql`
-  mutation signVp($did: String!, $data: SDRInput!) {
+  mutation signVp($did: String!, $data: VerifiablePresentationInput!) {
     actionSignVp(did: $did, data: $data)
+  }
+`
+
+export const SIGN_VC_MUTATION = gql`
+  mutation sign($did: String!, $data: VerifiableCredentialInput!) {
+    actionSignVc(did: $did, data: $data)
+  }
+`
+
+export const SEND_JWT_MUTATION = gql`
+  mutation send($from: String!, $to: String!, $jwt: String!) {
+    actionSendJwt(from: $from, to: $to, jwt: $jwt)
   }
 `
