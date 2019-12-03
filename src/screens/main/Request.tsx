@@ -19,7 +19,7 @@ import { SIGN_VP, SEND_JWT_MUTATION } from '../../lib/graphql/queries'
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
 // tslint:disable-next-line:no-var-requires
-const bannerImage = require('../../assets/images/space-x-banner.jpg')
+const bannerImage = require('../../assets/images/pop-banner.jpg')
 
 const Component: React.FC<NavigationStackScreenProps> = props => {
   const requestMessage = props.navigation.getParam('requestMessage')
@@ -80,22 +80,17 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
     actionSignVp(payload)
   }
 
-  // console.log('!REQUEST_MESSAGE', requestMessage)
+  console.log('!REQUEST_MESSAGE', requestMessage)
 
   const selectItem = (jwt: string, claimType: string) => {
-    // console.log(jwt, claimType)
     const updatedSelection = { ...selected, [claimType]: jwt }
-
     updateSelected(updatedSelection)
   }
 
   useEffect(() => {
-    /**
-     * Hacking to make work
-     */
     let defaultSelected: { [index: string]: string } = {}
     requestMessage.sdr.map((sdr: any) => {
-      if (sdr.essential) {
+      if (sdr && sdr.essential && sdr.vc && sdr.vc.fields) {
         defaultSelected[sdr.claimType] = sdr.vc[0].fields[0].jwt
       }
     })
@@ -143,7 +138,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
         <Banner
           title={requestMessage.iss.shortId}
           subTitle={'Blast off to the Moon'}
-          avatar={avatar1}
+          avatar={requestMessage.iss.profileImage}
           backgroundImage={bannerImage}
         />
         <Indicator text={'Share your data ' + requestMessage.iss.shortId} />
@@ -172,10 +167,6 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
                 claimType={requestField.claimType}
                 options={requestFields}
                 onSelectItem={(jwt: string, claimType: string) =>
-                  /**
-                   * Hacking to make work
-                   */
-
                   selectItem(jwt.slice(0, jwt.length - 2), claimType)
                 }
                 required={requestField.essential}

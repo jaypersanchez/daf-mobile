@@ -100,7 +100,7 @@ export default () => {
         ) : (
           <FlatList
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={data && data.viewer && data.viewer.messagesAll}
+            data={data.viewer.messagesAll}
             renderItem={({ item }: { item: DAFMessage }) => {
               return (
                 <MessageItem
