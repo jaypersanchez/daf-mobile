@@ -10,138 +10,105 @@ import {
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { LineChart } from 'react-native-chart-kit'
 import { useQuery } from 'react-apollo'
+import { core, dataStore } from '../../lib/setup'
 import { VIEWER_MESSAGES } from '../../lib/graphql/queries'
-
-import hexToRgba from 'hex-to-rgba'
-
-const chartConfig = {
-  backgroundGradientFrom: '#FFFFFF',
-  backgroundGradientFromOpacity: 1,
-  backgroundGradientTo: '#FFFFFF',
-  backgroundGradientToOpacity: 1,
-  color: (opacity = 1) => hexToRgba(Colors.WHITE, opacity),
-  labelColor: (opacity = 0.5) => hexToRgba(Colors.MEDIUM_GREY, opacity),
-  propsForLabels: {
-    fontWeight: 'bold',
-  },
-  strokeWidth: 3, // optional, default 3
-  barPercentage: 0.5,
-  strokeColor: Colors.BRAND,
-}
-
-const chartData = {
-  labels: ['J', 'F', 'M', 'A', 'M', 'J'],
-  datasets: [
-    {
-      data: [20, 45, 28, 80, 99, 43],
-      color: (opacity = 1) => hexToRgba(Colors.BRAND, opacity),
-      strokeWidth: 2, // optional
-    },
-  ],
-}
-
-// tslint:disable-next-line:no-var-requires
-const avatar1 = require('../../assets/images/space-x-logo.jpg')
+import { FlatList } from 'react-native-gesture-handler'
+import { ActivityIndicator } from 'react-native'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
-  const { data, loading } = useQuery(VIEWER_MESSAGES)
+  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES)
 
   const viewProfile = (id: any) => {
     navigation.navigate('Profile', { id })
   }
 
-  const confirmRequest = (id: any) => {
-    /**
-     * Hacky hacky hacky
-     */
-    if (data.viewer.messagesAll) {
-      const requestMessage = data.viewer.messagesAll.find((message: any) => {
-        return id === message.hash
-      })
-      // console.log(requestMessage)
-      navigation.navigate('Request', {
-        requestMessage,
-        viewerDid: data.viewer.did,
-      })
-    }
+  const syncAndRefetch = async () => {
+    await core.syncServices(await dataStore.latestMessageTimestamps())
+    refetch()
+  }
+
+  const confirmRequest = (msg: any) => {
+    navigation.navigate('Request', {
+      requestMessage: msg,
+      viewerDid: data && data.viewer && data.viewer.did,
+    })
   }
 
   return (
-    <Screen scrollEnabled>
-      <Container padding background={'primary'}>
-        <Text type={Constants.TextTypes.H3} bold>
-          Recent Activity
-        </Text>
-      </Container>
+    <Screen background={'secondary'}>
       <Container>
-        <Container>
-          {
-            // @ts-ignore
-            <LineChart
-              style={{
-                marginLeft: -30,
-              }}
-              withInnerLines={false}
-              withOuterLines={false}
-              // @ts-ignore
-              withHorizontalLabels={false}
-              width={Device.width + 60}
-              data={chartData}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-            />
-          }
-        </Container>
-      </Container>
-      <Container>
-        <Container padding>
-          <Text type={Constants.TextTypes.H3} bold>
-            Today
-          </Text>
-        </Container>
-        {data &&
-          data.viewer &&
-          data.viewer.messagesAll &&
-          data.viewer.messagesAll.map((message: any, index: number) => {
-            const actions =
-              message.type === 'sdr' ? { actions: ['Approve'] } : {}
-            const act: { [index: string]: string } = {
-              sdr: 'has requested information from',
-              'w3c.vp': 'sent an SDR response to',
-              'w3c.vc': 'made claims about',
-            }
-            /**
-             * Hacky hacky hacky. ActivityItem needs refactor
-             */
-            return (
+        {loading && (
+          <Container
+            flexDirection={'row'}
+            alignItems={'center'}
+            padding={10}
+            br={8}
+            viewStyle={{
+              position: 'absolute',
+              top: 50,
+              zIndex: 100,
+              left: Device.width / 2 - 100,
+              width: 200,
+              backgroundColor: 'rgba(0,0,0,0.8)',
+            }}
+          >
+            <Container marginRight={8}>
+              <ActivityIndicator />
+            </Container>
+            <Text textColor={Colors.WHITE}>Loading activity...</Text>
+          </Container>
+        )}
+        {loading ? (
+          [0, 1, 2, 3].map((fakeItem: any) => (
+            <Container
+              background={'primary'}
+              padding
+              marginBottom={5}
+              key={fakeItem}
+            >
+              <Container
+                background={'secondary'}
+                viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
+              ></Container>
+              <Container
+                background={'secondary'}
+                h={90}
+                br={10}
+                marginTop={20}
+              ></Container>
+            </Container>
+          ))
+        ) : (
+          <FlatList
+            data={data.viewer.messagesAll}
+            onRefresh={syncAndRefetch}
+            renderItem={({ item }: { item: DAFMessage }) => (
               <ActivityItem
-                id={message.hash}
-                key={message.hash + index}
-                activity={act[message.type]}
+                id={item.hash}
+                type={item.type}
+                message={item}
                 profileAction={viewProfile}
-                date={message.nbf * 1000}
-                issuer={{
-                  name: message.sub.shortId,
-                  did: message.sub.did,
-                  shortId: message.sub.shortId,
-                  profileImage: message.sub.profileImage,
+                // @ts-ignore
+                date={item.nbf * 1000}
+                viewer={{
+                  did: data && data.viewer && data.viewer.did,
+                  shortId: data && data.viewer && data.viewer.shortId,
+                  profileImage: data && data.viewer && data.viewer.profileImage,
                 }}
-                subject={{
-                  name: message.iss.shortId,
-                  did: message.iss.did,
-                  shortId: message.iss.shortId,
-                  profileImage: message.iss.profileImage,
-                }}
+                issuer={item.iss}
+                subject={item.sub}
                 confirm={confirmRequest}
-                {...actions}
+                attachments={item.vc}
+                attachmentsAction={() => {}}
+                actions={['Share']}
               />
-            )
-          })}
+            )}
+            keyExtractor={(item, index) => item.hash + index}
+          />
+        )}
       </Container>
     </Screen>
   )

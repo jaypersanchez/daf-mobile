@@ -30,11 +30,9 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('Connections')}>
             {t('Connections')}
           </ListItem>
-
-          <ListItem onPress={() => navigation.navigate('Config')}>
+          {/* <ListItem onPress={() => navigation.navigate('Config')}>
             {t('Configuration')}
-          </ListItem>
-
+          </ListItem> */}
           <ListItem onPress={() => navigation.navigate('Signer')}>
             {t('Signer')}
           </ListItem>
@@ -64,9 +62,6 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           </ListItem>
         </Section>
         <Section title={'UI'}>
-          {/* <ListItem onPress={() => navigation.navigate('Claim')}>
-            Claim Viewer (Debug Version)
-          </ListItem> */}
           <ListItem onPress={() => navigation.navigate('ModalDemo')}>
             Show Modal Demo
           </ListItem>
