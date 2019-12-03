@@ -1,7 +1,7 @@
 import { Resolver } from 'did-resolver'
 import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
 // import { resolver as naclDidResolver } from 'nacl-did'
-// import webDidResolver from 'web-did-resolver'
+import { getResolver as webDidResolver } from 'web-did-resolver'
 
 import * as Daf from 'daf-core'
 import * as DidJwt from 'daf-did-jwt'
@@ -50,13 +50,13 @@ export const resolvers = merge(
 )
 
 // DID Document Resolver
-// const web = webDidResolver.getResolver()
+const web = webDidResolver()
 const didResolver = new Resolver({
   ...ethrDidResolver({
     rpcUrl: 'https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
   }),
-  // ...web,
-  // https: web.web,
+  ...web,
+  https: web.web,
   // nacl: naclDidResolver
 })
 
