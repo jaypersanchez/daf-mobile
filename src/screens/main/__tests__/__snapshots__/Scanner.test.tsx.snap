@@ -108,7 +108,7 @@ Array [
           "backgroundColor": undefined,
           "borderRadius": undefined,
           "flex": undefined,
-          "flexDirection": undefined,
+          "flexDirection": "row",
           "height": undefined,
           "justifyContent": undefined,
           "margin": undefined,
@@ -127,54 +127,184 @@ Array [
       }
     >
       <View
-        accessibilityLabel="CANCEL_SCAN_BTN"
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        pointerEvents="auto"
+        style={
+          Object {
+            "alignItems": undefined,
+            "backgroundColor": undefined,
+            "borderRadius": undefined,
+            "flex": 1,
+            "flexDirection": undefined,
+            "height": undefined,
+            "justifyContent": undefined,
+            "margin": undefined,
+            "marginBottom": undefined,
+            "marginLeft": undefined,
+            "marginRight": undefined,
+            "marginTop": undefined,
+            "padding": undefined,
+            "paddingBottom": undefined,
+            "paddingHorizontal": undefined,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": undefined,
+            "width": undefined,
+          }
+        }
+      />
+      <View
+        pointerEvents="auto"
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#333333",
-            "borderRadius": 50,
-            "elevation": 3,
-            "height": 70,
-            "justifyContent": "center",
-            "opacity": 1,
-            "shadowColor": "#000000",
-            "shadowOpacity": 0.3,
-            "shadowRadius": 20,
-            "width": 70,
+            "backgroundColor": undefined,
+            "borderRadius": undefined,
+            "flex": 1,
+            "flexDirection": undefined,
+            "height": undefined,
+            "justifyContent": undefined,
+            "margin": undefined,
+            "marginBottom": undefined,
+            "marginLeft": undefined,
+            "marginRight": undefined,
+            "marginTop": undefined,
+            "padding": undefined,
+            "paddingBottom": undefined,
+            "paddingHorizontal": undefined,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": undefined,
+            "width": undefined,
           }
         }
-        testID="CANCEL_SCAN_BTN"
       >
-        <Text
-          allowFontScaling={false}
+        <View
+          accessibilityLabel="CANCEL_SCAN_BTN"
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "color": "#FFFFFF",
-                "fontSize": 35,
-              },
-              undefined,
-              Object {
-                "fontFamily": "Ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#333333",
+              "borderRadius": 50,
+              "elevation": 3,
+              "height": 70,
+              "justifyContent": "center",
+              "opacity": 1,
+              "shadowColor": "#000000",
+              "shadowOpacity": 0.3,
+              "shadowRadius": 20,
+              "width": 70,
+            }
           }
+          testID="CANCEL_SCAN_BTN"
         >
-          
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#FFFFFF",
+                  "fontSize": 35,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+      <View
+        pointerEvents="auto"
+        style={
+          Object {
+            "alignItems": undefined,
+            "backgroundColor": undefined,
+            "borderRadius": undefined,
+            "flex": 1,
+            "flexDirection": undefined,
+            "height": undefined,
+            "justifyContent": "flex-start",
+            "margin": undefined,
+            "marginBottom": undefined,
+            "marginLeft": undefined,
+            "marginRight": undefined,
+            "marginTop": undefined,
+            "padding": undefined,
+            "paddingBottom": undefined,
+            "paddingHorizontal": undefined,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": undefined,
+            "width": undefined,
+          }
+        }
+      >
+        <View
+          accessibilityLabel="ENABLE_PASTE"
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#333333",
+              "borderRadius": 50,
+              "elevation": 3,
+              "height": 50,
+              "justifyContent": "center",
+              "opacity": 1,
+              "shadowColor": "#000000",
+              "shadowOpacity": 0.3,
+              "shadowRadius": 20,
+              "width": 50,
+            }
+          }
+          testID="ENABLE_PASTE"
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#FFFFFF",
+                  "fontSize": 35,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>,
