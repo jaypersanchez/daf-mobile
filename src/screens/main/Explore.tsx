@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Text,
@@ -9,15 +9,8 @@ import {
   Avatar,
   Device,
 } from '@kancha/kancha-ui'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import SearchBar from '../../navigators/SearchBar'
-import {
-  sertoVerifiableCredential,
-  bankVerifiableCredential,
-} from '../../data/credentials'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
@@ -25,30 +18,9 @@ const avatar1 = require('../../assets/images/space-x-logo.jpg')
 interface Props extends NavigationStackScreenProps {}
 
 const Explore: React.FC<Props> & {
-  navigationOptions: NavigationStackOptions
+  navigationOptions: any
 } = ({ navigation }) => {
   const [searchActive, toggleSearch] = useState(false)
-
-  const credentials = [
-    {
-      title: sertoVerifiableCredential.type,
-      issuer: sertoVerifiableCredential.iss,
-      logo: avatar1,
-      onPress: () =>
-        navigation.navigate('Credential', {
-          vc: sertoVerifiableCredential,
-        }),
-    },
-    {
-      title: bankVerifiableCredential.type,
-      issuer: bankVerifiableCredential.iss,
-      logo: avatar1,
-      onPress: () =>
-        navigation.navigate('Credential', {
-          vc: bankVerifiableCredential,
-        }),
-    },
-  ]
 
   useEffect(() => {
     navigation.setParams({ searchActive, toggleSearch })
@@ -97,32 +69,11 @@ const Explore: React.FC<Props> & {
           <Text type={Constants.TextTypes.H3} bold>
             Favourites
           </Text>
-          <Container marginTop>
-            {credentials.map((credential, index) => {
-              return (
-                <Credential
-                  key={index}
-                  {...credential}
-                  shadow={0}
-                  background={'secondary'}
-                />
-              )
-            })}
-          </Container>
+          <Container marginTop></Container>
           <Text type={Constants.TextTypes.H3} bold>
             Highlights
           </Text>
-          <Container marginTop>
-            {credentials.map((credential, index) => {
-              return (
-                <Credential
-                  key={index}
-                  {...credential}
-                  background={'secondary'}
-                />
-              )
-            })}
-          </Container>
+          <Container marginTop></Container>
         </Container>
       )}
     </Screen>
