@@ -3274,7 +3274,7 @@ daf-core@^0.7.0:
 
 daf-data-store@^0.7.5:
   version "0.7.5"
-  resolved "https://registry.npmjs.org/daf-data-store/-/daf-data-store-0.7.5.tgz#66461bf3af007d18171fab3f8d3bcab2162fa1a5"
+  resolved "https://registry.yarnpkg.com/daf-data-store/-/daf-data-store-0.7.5.tgz#66461bf3af007d18171fab3f8d3bcab2162fa1a5"
   integrity sha512-ipqT/WRMpwVMiHkexsMbeniISJcBcfbI3I2fY22l1dXQ0Q2s/BYgPlZjtL41zgqbA8+0hjWzIfLvSSr5zIMrxg==
   dependencies:
     blakejs "^1.1.0"
@@ -3311,7 +3311,7 @@ daf-ethr-did-react-native@^0.7.0:
 
 daf-react-native-sqlite3@^0.7.5:
   version "0.7.5"
-  resolved "https://registry.npmjs.org/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.7.5.tgz#cdabbdf955915c0a9fb2bf3ad5bcc2a0e4d9c5a3"
+  resolved "https://registry.yarnpkg.com/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.7.5.tgz#cdabbdf955915c0a9fb2bf3ad5bcc2a0e4d9c5a3"
   integrity sha512-x7a1qU0kK8atgEohLXXVO5mrgFHNYl5kCekSO1aC9yuzBsZyHndZdwDanuefNHHc3x+YPxuNKA+mAUjjfu6I3w==
   dependencies:
     daf-data-store "^0.7.5"
@@ -3320,7 +3320,7 @@ daf-react-native-sqlite3@^0.7.5:
 
 daf-selective-disclosure@^0.7.4:
   version "0.7.4"
-  resolved "https://registry.npmjs.org/daf-selective-disclosure/-/daf-selective-disclosure-0.7.4.tgz#e8a7b110b210918e36682354f997c4d9356bda5c"
+  resolved "https://registry.yarnpkg.com/daf-selective-disclosure/-/daf-selective-disclosure-0.7.4.tgz#e8a7b110b210918e36682354f997c4d9356bda5c"
   integrity sha512-/TuBHSyAyPinBjF9yXAl+PKRG5lVAYaTCTfI0HJDetcTY2BnsZA4qwsJ7uWzOO0SXhEo3O++uJFjk+wbGIAwKQ==
   dependencies:
     daf-core "^0.7.0"
@@ -3328,10 +3328,10 @@ daf-selective-disclosure@^0.7.4:
     debug "^4.1.1"
     did-jwt "^3.0.0"
 
-daf-trust-graph@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.npmjs.org/daf-trust-graph/-/daf-trust-graph-0.7.4.tgz#2680f9240905aff4045f83dc9895f54ecfc5853f"
-  integrity sha512-H3MogjdviE+BHzy+Kt+eRSgufHokVUDqpOJ8x/oGltPUmUs+UTZ+7AGclf3ztlpozdP98DFA/36x4JxucZiX/g==
+daf-trust-graph@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/daf-trust-graph/-/daf-trust-graph-0.7.8.tgz#1c8f34b732a8f3b4d700db9611fdd3032daa90d3"
+  integrity sha512-bYsU7AoOMtpnECX2iwut/e0KQkjhYnbrz6AxB75x5w6C2XHg0PkNKl1DwSVn9rnXjVLEcLBPyo/xH8NlVZdOAA==
   dependencies:
     apollo-cache-inmemory "^1.6.3"
     apollo-client "^2.6.4"
@@ -3349,7 +3349,7 @@ daf-trust-graph@^0.7.4:
 
 daf-w3c@^0.7.5:
   version "0.7.5"
-  resolved "https://registry.npmjs.org/daf-w3c/-/daf-w3c-0.7.5.tgz#5891246cbfea9802108777947853cef635ceb703"
+  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-0.7.5.tgz#5891246cbfea9802108777947853cef635ceb703"
   integrity sha512-fQOtwUIrJwK9q3W9IPU6MqFqtXv9Slg4EgiJbCMonQBUXQnUOIQYfjkHvkQKJAuRqkaviPlL1vP6wcGPICjdZg==
   dependencies:
     daf-core "^0.7.0"

@@ -55,7 +55,7 @@
     "daf-ethr-did-react-native": "^0.7.0",
     "daf-react-native-sqlite3": "^0.7.5",
     "daf-selective-disclosure": "^0.7.4",
-    "daf-trust-graph": "^0.7.4",
+    "daf-trust-graph": "^0.7.8",
     "daf-w3c": "^0.7.5",
     "debug": "^4.1.1",
     "did-jwt": "^3.0.0",
