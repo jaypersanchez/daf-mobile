@@ -7,6 +7,7 @@ import { from } from 'apollo-link'
 import { SchemaLink } from 'apollo-link-schema'
 import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen } from '@kancha/kancha-ui'
+import {} from 'react-navigation'
 import * as Daf from 'daf-core'
 import { core, dataStore, db, resolvers, typeDefs } from './setup'
 import Debug from 'debug'
@@ -63,7 +64,8 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
   }, [])
 
   return isRunningMigrations ? (
-    <Screen safeArea>
+    <Screen safeArea background={'secondary'}>
+      <Container h={45} dividerBottom background={'primary'} />
       <Container flex={1}>
         <Container>
           {[1, 2, 3, 4].map((fakeItem: number) => (
@@ -87,6 +89,7 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
           ))}
         </Container>
       </Container>
+      <Container h={50} dividerTop background={'primary'} />
     </Screen>
   ) : (
     <ApolloProvider client={client}>
