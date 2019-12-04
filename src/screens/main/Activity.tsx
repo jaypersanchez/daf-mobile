@@ -12,14 +12,17 @@ import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
-import { VIEWER_MESSAGES } from '../../lib/graphql/queries'
+import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native-gesture-handler'
 import { ActivityIndicator } from 'react-native'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
-  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES)
+  const viewerResult = useQuery(GET_VIEWER)
+  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES, {
+    variables: { selectedDid: viewerResult.data.viewer.did },
+  })
 
   const viewProfile = (id: any) => {
     navigation.navigate('Profile', { id })

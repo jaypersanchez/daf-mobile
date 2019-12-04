@@ -20,10 +20,20 @@ import { useNavigation } from 'react-navigation-hooks'
 import gql from 'graphql-tag'
 import { Screens } from '../../navigators/screens'
 
-const VIEWER_MESSAGES = gql`
-  query ViewerMessages {
+export const GET_VIEWER = gql`
+  query getViewer {
     viewer {
-      did @export(as: "selectedDid")
+      did
+      shortId
+      profileImage
+    }
+  }
+`
+
+const VIEWER_MESSAGES = gql`
+  query ViewerMessages($selectedDid: String!) {
+    viewer {
+      did
       messagesAll {
         iss {
           did
@@ -73,7 +83,10 @@ const VIEWER_MESSAGES = gql`
 
 export default () => {
   const navigation = useNavigation()
-  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES)
+  const viewerResult = useQuery(GET_VIEWER)
+  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES, {
+    variables: { selectedDid: viewerResult.data.viewer.did },
+  })
 
   const viewProfile = (did: string) => {
     navigation.navigate(Screens.Credentials.screen, {

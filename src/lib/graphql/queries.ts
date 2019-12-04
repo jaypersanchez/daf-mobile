@@ -95,9 +95,9 @@ export const GET_MESSAGE = gql`
   }
 `
 export const VIEWER_MESSAGES = gql`
-  query ViewerMessages {
+  query ViewerMessages($selectedDid: String!) {
     viewer {
-      did @export(as: "selectedDid")
+      did
       messagesAll {
         jwt
         tag
