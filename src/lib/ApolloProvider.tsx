@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
@@ -64,9 +63,29 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
   }, [])
 
   return isRunningMigrations ? (
-    <Screen>
-      <Container flex={1} alignItems={'center'} justifyContent={'center'}>
-        <ActivityIndicator size={'large'} />
+    <Screen safeArea>
+      <Container flex={1}>
+        <Container>
+          {[1, 2, 3, 4].map((fakeItem: number) => (
+            <Container
+              background={'primary'}
+              padding
+              marginBottom={5}
+              key={fakeItem}
+            >
+              <Container
+                background={'secondary'}
+                viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
+              ></Container>
+              <Container
+                background={'secondary'}
+                h={90}
+                br={10}
+                marginTop={20}
+              ></Container>
+            </Container>
+          ))}
+        </Container>
       </Container>
     </Screen>
   ) : (

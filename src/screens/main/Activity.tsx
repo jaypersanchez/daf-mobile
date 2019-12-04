@@ -8,13 +8,13 @@ import {
   Constants,
   Device,
 } from '@kancha/kancha-ui'
+import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
 import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
-import { FlatList } from 'react-native-gesture-handler'
-import { ActivityIndicator } from 'react-native'
+import { FlatList } from 'react-native'
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -40,54 +40,40 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     })
   }
 
+  const loader = (
+    <Container
+      flexDirection={'row'}
+      alignItems={'center'}
+      padding={10}
+      br={20}
+      viewStyle={{
+        position: 'absolute',
+        bottom: 50,
+        zIndex: 100,
+        left: Device.width / 2 - 100,
+        width: 200,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+      }}
+    >
+      <Container marginRight={10}>
+        <ActivityIndicator />
+      </Container>
+      <Text textColor={Colors.WHITE}>Loading activity...</Text>
+    </Container>
+  )
+
   return (
-    <Screen background={'secondary'}>
-      <Container>
-        {loading && (
-          <Container
-            flexDirection={'row'}
-            alignItems={'center'}
-            padding={10}
-            br={8}
-            viewStyle={{
-              position: 'absolute',
-              top: 50,
-              zIndex: 100,
-              left: Device.width / 2 - 100,
-              width: 200,
-              backgroundColor: 'rgba(0,0,0,0.8)',
-            }}
-          >
-            <Container marginRight={8}>
-              <ActivityIndicator />
-            </Container>
-            <Text textColor={Colors.WHITE}>Loading activity...</Text>
-          </Container>
-        )}
-        {loading ? (
-          [0, 1, 2, 3].map((fakeItem: any) => (
-            <Container
-              background={'primary'}
-              padding
-              marginBottom={5}
-              key={fakeItem}
-            >
-              <Container
-                background={'secondary'}
-                viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
-              ></Container>
-              <Container
-                background={'secondary'}
-                h={90}
-                br={10}
-                marginTop={20}
-              ></Container>
-            </Container>
-          ))
+    <Screen background={'secondary'} safeArea={true}>
+      <Container flex={1}>
+        {loading && loader}
+        {error ? (
+          <Text>Error</Text>
         ) : (
           <FlatList
-            data={data.viewer.messagesAll}
+            style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
+            data={data && data.viewer && data.viewer.messagesAll}
             onRefresh={syncAndRefetch}
+            refreshing={loading}
             renderItem={({ item }: { item: DAFMessage }) => (
               <ActivityItem
                 id={item.hash}
@@ -110,6 +96,29 @@ const Activity: React.FC<Props> = ({ navigation }) => {
               />
             )}
             keyExtractor={(item, index) => item.hash + index}
+            ListEmptyComponent={
+              <Container>
+                {[1, 2, 3, 4].map((fakeItem: number) => (
+                  <Container
+                    background={'primary'}
+                    padding
+                    marginBottom={5}
+                    key={fakeItem}
+                  >
+                    <Container
+                      background={'secondary'}
+                      viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
+                    ></Container>
+                    <Container
+                      background={'secondary'}
+                      h={90}
+                      br={10}
+                      marginTop={20}
+                    ></Container>
+                  </Container>
+                ))}
+              </Container>
+            }
           />
         )}
       </Container>
