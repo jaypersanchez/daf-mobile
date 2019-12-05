@@ -35,7 +35,7 @@ export const client = new ApolloClient({
 
 core.on(
   Daf.EventTypes.validatedMessage,
-  async (eventType: string, message: Daf.Types.ValidatedMessage) => {
+  async (message: Daf.Types.ValidatedMessage) => {
     debug('New message %O', message)
     await dataStore.saveMessage(message)
 
