@@ -61,17 +61,6 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
             {i18n.language === 'en' ? t('English') : t('Spanish')}
           </ListItem>
         </Section>
-        <Section title={'UI'}>
-          <ListItem onPress={() => navigation.navigate('ModalDemo')}>
-            Show Modal Demo
-          </ListItem>
-          <ListItem
-            last
-            onPress={() => navigation.navigate('DisclosureRequest')}
-          >
-            Disclosure Request (Full Screen)
-          </ListItem>
-        </Section>
       </Container>
     </Screen>
   )

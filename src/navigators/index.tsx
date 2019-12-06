@@ -13,12 +13,10 @@ import {
   StackViewTransitionConfigs,
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { Icon, Avatar } from '@kancha/kancha-ui'
+import { Icon } from '@kancha/kancha-ui'
 import TabAvatar from './TabAvatar'
 import { Colors, Icons } from '../theme'
 import { Screens } from './screens'
-
-const avatar = require('../assets/images/kitten-avatar.jpg')
 
 // Main Screens
 import Activity from '../screens/main/Activity'
@@ -47,9 +45,7 @@ import ShareCredential from '../screens/settings/ShareCredential'
 import Connections from '../screens/settings/Connections'
 import CredentialField from '../screens/settings/CredentialField'
 import DidViewer from '../screens/settings/DidViewer'
-import Claim from '../screens/settings/Claim'
 import Credentials from '../screens/settings/Credentials'
-import DisclosureRequest from '../screens/settings/DisclosureRequest'
 import ModalDemo from '../screens/settings/ModalDemo'
 
 const headerLogo = () => (
@@ -144,12 +140,6 @@ const SettingsNavigator = createStackNavigator(
       screen: Credentials,
       navigationOptions: {
         title: i18n.t('Credentials'),
-      },
-    },
-    [Screens.Claim.screen]: {
-      screen: Claim,
-      navigationOptions: {
-        title: i18n.t('Claim Viewer'),
       },
     },
   },
@@ -300,7 +290,6 @@ const App = createStackNavigator(
   {
     Tabs: TabNavigator,
     ModalDemo: ModalDemo,
-    DisclosureRequest: DisclosureRequest,
     Request: Request,
     Credential: Credential,
     Scanner: ScannerNavigator,
