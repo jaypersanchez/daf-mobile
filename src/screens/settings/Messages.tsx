@@ -17,69 +17,8 @@ import { useQuery } from 'react-apollo'
 import { Colors } from '../../theme'
 import { core, dataStore } from '../../lib/setup'
 import { useNavigation } from 'react-navigation-hooks'
-import gql from 'graphql-tag'
 import { Screens } from '../../navigators/screens'
-
-export const GET_VIEWER = gql`
-  query getViewer {
-    viewer {
-      did
-      shortId
-      profileImage
-    }
-  }
-`
-
-const VIEWER_MESSAGES = gql`
-  query ViewerMessages($selectedDid: String!) {
-    viewer {
-      did
-      messagesAll {
-        iss {
-          did
-          shortId
-          profileImage
-        }
-        sub {
-          did
-          shortId
-          profileImage
-        }
-        jwt
-        type
-        hash
-        iat
-        nbf
-        vc {
-          fields {
-            type
-            value
-            isObj
-          }
-        }
-        sdr(sub: $selectedDid) {
-          iss {
-            did {
-              did
-              shortId
-            }
-            url
-          }
-          claimType
-          reason
-          essential
-          vc {
-            fields {
-              type
-              value
-              isObj
-            }
-          }
-        }
-      }
-    }
-  }
-`
+import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 
 export default () => {
   const navigation = useNavigation()

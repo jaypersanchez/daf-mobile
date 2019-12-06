@@ -17,11 +17,19 @@ export const GET_VIEWER_CREDENTIALS = gql`
       profileImage
       credentialsReceived {
         iss {
+          did
           shortId
+          profileImage
+        }
+        sub {
+          did
+          shortId
+          profileImage
         }
         fields {
           type
           value
+          isObj
         }
       }
     }
@@ -116,6 +124,16 @@ export const VIEWER_MESSAGES = gql`
           profileImage
         }
         vc {
+          iss {
+            did
+            profileImage
+            shortId
+          }
+          sub {
+            did
+            profileImage
+            shortId
+          }
           fields {
             type
             value
@@ -134,8 +152,16 @@ export const VIEWER_MESSAGES = gql`
           reason
           essential
           vc {
+            hash
             iss {
+              did
               shortId
+              profileImage
+            }
+            sub {
+              did
+              shortId
+              profileImage
             }
             jwt
             fields {

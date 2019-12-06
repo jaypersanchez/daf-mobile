@@ -40,6 +40,8 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     })
   }
 
+  console.log(data)
+
   const loader = (
     <Container
       flexDirection={'row'}
