@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { Container, Text, Screen, Constants } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import {
   CREATE_IDENTITY,
   GET_MANAGED_IDENTITIES,
@@ -18,8 +18,8 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
     { query: GET_VIEWER },
   ]
   const [createDid] = useMutation(CREATE_IDENTITY, {
-    onCompleted(response) {
-      navigation.navigate('App')
+    onCompleted({ createIdentity }) {
+      navigation.navigate('CreateFirstCredential', { did: createIdentity.did })
     },
     refetchQueries,
   })
@@ -34,7 +34,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           },
         })
       } else {
-        navigation.navigate('App')
+        // navigation.navigate('App')
       }
     }, 1100)
   }, [])

@@ -27,6 +27,10 @@ export const Screens = {
   },
   Credentials: { screen: 'Credentials', title: 'Credentials' },
   Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
+  CreateFirstCredential: {
+    screen: 'CreateFirstCredential',
+    title: 'Create First Credential',
+  },
   Restore: { screen: 'Restore', title: 'Restore' },
   Intro: { screen: 'Intro', title: 'Intro' },
   CreatingWallet: { screen: 'CreatingWallet', title: 'Creating Wallet' },

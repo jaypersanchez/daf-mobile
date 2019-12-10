@@ -31,6 +31,7 @@ import MessageProcess from '../screens/main/MessageProcess'
 import Request from '../screens/main/Request'
 import Credential from '../screens/main/Credential'
 import CreatingWallet from '../screens/main/CreateIdentity'
+import CreateFirstCredential from '../screens/main/CreateFirstCredential'
 
 // Settings & Internal Demo Screens
 import Settings from '../screens/settings/Settings'
@@ -335,6 +336,13 @@ const Onboard = createStackNavigator(
         headerLeft: null,
         headerTitle: headerLogo,
         headerStyle: { borderBottomWidth: 0 },
+      },
+    },
+    CreateFirstCredential: {
+      screen: CreateFirstCredential,
+      navigationOptions: {
+        headerLeft: null,
+        headerTitle: headerLogo,
       },
     },
   },
