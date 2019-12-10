@@ -109,6 +109,7 @@ export const VIEWER_MESSAGES = gql`
       messagesAll {
         id
         raw
+        data
         threadId
         type
         timestamp
@@ -138,6 +139,12 @@ export const VIEWER_MESSAGES = gql`
             value
             isObj
           }
+        }
+        metaData {
+          rowId
+          type
+          id
+          data
         }
         sdr(sub: $selectedDid) {
           iss {
