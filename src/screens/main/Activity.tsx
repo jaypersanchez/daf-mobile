@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import {
   Container,
   Text,
@@ -11,18 +11,30 @@ import {
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useQuery } from 'react-apollo'
+import { useQuery, useLazyQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
 import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
+import * as Daf from 'daf-core'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
-  const viewerResult = useQuery(GET_VIEWER)
-  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES, {
-    variables: { selectedDid: viewerResult.data.viewer.did },
-  })
+  const viewerResponse = useQuery(GET_VIEWER)
+  const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
+  const fetchMessages = () => {
+    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
+      getMessages({
+        variables: {
+          selectedDid: viewerResponse.data.viewer.did,
+        },
+      })
+    }
+  }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [])
 
   const viewProfile = (id: any) => {
     navigation.navigate('Profile', { id })
@@ -30,13 +42,13 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   const syncAndRefetch = async () => {
     await core.syncServices(await dataStore.latestMessageTimestamps())
-    refetch()
+    fetchMessages()
   }
 
   const confirmRequest = (msg: any) => {
     navigation.navigate('Request', {
       requestMessage: msg,
-      viewerDid: data && data.viewer && data.viewer.did,
+      viewerDid: data.viewer.did,
     })
   }
 
@@ -76,28 +88,27 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             data={data && data.viewer && data.viewer.messagesAll}
             onRefresh={syncAndRefetch}
             refreshing={loading}
-            renderItem={({ item }: { item: DAFMessage }) => (
+            renderItem={({ item }: { item: any }) => (
               <ActivityItem
-                id={item.hash}
+                id={item.id}
                 type={item.type}
                 message={item}
                 profileAction={viewProfile}
-                // @ts-ignore
-                date={item.nbf * 1000}
+                date={item.timestamp * 1000}
                 viewer={{
                   did: data && data.viewer && data.viewer.did,
                   shortId: data && data.viewer && data.viewer.shortId,
                   profileImage: data && data.viewer && data.viewer.profileImage,
                 }}
-                issuer={item.iss}
-                subject={item.sub}
+                issuer={item.sender}
+                subject={item.receiver}
                 confirm={confirmRequest}
                 attachments={item.vc}
                 attachmentsAction={() => {}}
                 actions={['Share']}
               />
             )}
-            keyExtractor={(item, index) => item.hash + index}
+            keyExtractor={(item, index) => item.id + index}
             ListEmptyComponent={
               <Container>
                 {[1, 2, 3, 4].map((fakeItem: number) => (

@@ -3,7 +3,7 @@
  *
  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Container,
   Screen,
@@ -13,7 +13,7 @@ import {
   Constants,
 } from '@kancha/kancha-ui'
 import { FlatList } from 'react-native'
-import { useQuery } from 'react-apollo'
+import { useQuery, useLazyQuery } from 'react-apollo'
 import { Colors } from '../../theme'
 import { core, dataStore } from '../../lib/setup'
 import { useNavigation } from 'react-navigation-hooks'
@@ -22,10 +22,21 @@ import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 
 export default () => {
   const navigation = useNavigation()
-  const viewerResult = useQuery(GET_VIEWER)
-  const { data, loading, refetch, error } = useQuery(VIEWER_MESSAGES, {
-    variables: { selectedDid: viewerResult.data.viewer.did },
-  })
+  const viewerResponse = useQuery(GET_VIEWER)
+  const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
+  const fetchMessages = () => {
+    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
+      getMessages({
+        variables: {
+          selectedDid: viewerResponse.data.viewer.did,
+        },
+      })
+    }
+  }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [])
 
   const viewProfile = (did: string) => {
     navigation.navigate(Screens.Credentials.screen, {
@@ -41,7 +52,7 @@ export default () => {
 
   const syncAndRefetch = async () => {
     await core.syncServices(await dataStore.latestMessageTimestamps())
-    refetch()
+    fetchMessages()
   }
 
   return (
@@ -52,17 +63,30 @@ export default () => {
         ) : (
           <FlatList
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={data.viewer.messagesAll}
-            renderItem={({ item }: { item: DAFMessage }) => {
+            data={data && data.viewer && data.viewer.messagesAll}
+            renderItem={({ item }: { item: any }) => {
+              /**
+               * Temporary until messageItem is refactored
+               */
+              const msg = {
+                id: item.id,
+                type: item.type,
+                nbf: item.timestamp,
+                jwt: item.raw,
+                iss: item.sender,
+                sub: item.receiver,
+              }
+
               return (
                 <MessageItem
-                  message={item}
-                  viewMessage={viewMessage}
+                  // @ts-ignore
+                  message={msg}
+                  viewMessage={() => viewMessage(item)}
                   viewProfile={viewProfile}
                 />
               )
             }}
-            keyExtractor={(item, index) => item.hash + index}
+            keyExtractor={(item, index) => item.id + index}
             onRefresh={syncAndRefetch}
             refreshing={loading}
             ListEmptyComponent={

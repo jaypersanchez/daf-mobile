@@ -34,15 +34,12 @@ export const client = new ApolloClient({
   link,
 })
 
-core.on(
-  Daf.EventTypes.validatedMessage,
-  async (message: Daf.Types.ValidatedMessage) => {
-    debug('New message %O', message)
-    await dataStore.saveMessage(message)
+core.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
+  debug('New message %O', message)
+  await dataStore.saveMessage(message)
 
-    client.reFetchObservableQueries()
-  },
-)
+  client.reFetchObservableQueries()
+})
 
 interface Props {}
 

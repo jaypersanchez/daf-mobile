@@ -69,7 +69,7 @@ export const DELETE_IDENTITY = gql`
 export const NEW_MESSAGE = gql`
   mutation newMessage($raw: String!, $sourceType: String!, $sourceId: String) {
     newMessage(raw: $raw, sourceType: $sourceType, sourceId: $sourceId) {
-      hash
+      id
       type
     }
   }
@@ -107,18 +107,18 @@ export const VIEWER_MESSAGES = gql`
     viewer {
       did
       messagesAll {
-        jwt
-        tag
+        id
+        raw
+        data
+        threadId
         type
-        hash
-        iat
-        nbf
-        iss {
+        timestamp
+        sender {
           did
           shortId
           profileImage
         }
-        sub {
+        receiver {
           did
           shortId
           profileImage
@@ -139,6 +139,12 @@ export const VIEWER_MESSAGES = gql`
             value
             isObj
           }
+        }
+        metaData {
+          rowId
+          type
+          id
+          data
         }
         sdr(sub: $selectedDid) {
           iss {
