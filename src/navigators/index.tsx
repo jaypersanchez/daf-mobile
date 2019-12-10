@@ -31,6 +31,7 @@ import MessageProcess from '../screens/main/MessageProcess'
 import Request from '../screens/main/Request'
 import Credential from '../screens/main/Credential'
 import CreatingWallet from '../screens/main/CreateIdentity'
+import CreateFirstCredential from '../screens/main/CreateFirstCredential'
 
 // Settings & Internal Demo Screens
 import Settings from '../screens/settings/Settings'
@@ -293,6 +294,7 @@ const App = createStackNavigator(
     Request: Request,
     Credential: Credential,
     Scanner: ScannerNavigator,
+    CreateFirstCredential: CreateFirstCredential,
   },
   {
     mode: 'modal',
