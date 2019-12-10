@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Container,
   Text,
   Screen,
   ActivityItem,
-  DAFMessage,
-  Constants,
+  Button,
   Device,
+  Constants,
 } from '@kancha/kancha-ui'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
@@ -15,13 +15,13 @@ import { useQuery, useLazyQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
 import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
-import * as Daf from 'daf-core'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
   const viewerResponse = useQuery(GET_VIEWER)
   const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
+
   const fetchMessages = () => {
     if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
       getMessages({
@@ -30,6 +30,10 @@ const Activity: React.FC<Props> = ({ navigation }) => {
         },
       })
     }
+  }
+
+  const showFirstLoadModal = () => {
+    navigation.navigate('CreateFirstCredential', { did: data.viewer.did })
   }
 
   useEffect(() => {
@@ -51,8 +55,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
       viewerDid: data.viewer.did,
     })
   }
-
-  console.log(data)
 
   const loader = (
     <Container
@@ -111,6 +113,21 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             keyExtractor={(item, index) => item.id + index}
             ListEmptyComponent={
               <Container>
+                <Container padding>
+                  <Text bold type={Constants.TextTypes.H3}>
+                    Hello, Looks like you are new here?
+                  </Text>
+                  <Container marginBottom marginTop={5}>
+                    <Text>Let's create your first credential!</Text>
+                  </Container>
+                  <Button
+                    fullWidth
+                    buttonText={'Start'}
+                    onPress={showFirstLoadModal}
+                    type={Constants.BrandOptions.Primary}
+                    block={Constants.ButtonBlocks.Filled}
+                  />
+                </Container>
                 {[1, 2, 3, 4].map((fakeItem: number) => (
                   <Container
                     background={'primary'}

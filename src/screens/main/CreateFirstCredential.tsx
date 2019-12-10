@@ -1,17 +1,19 @@
 /**
  *
  */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TextInput, ActivityIndicator } from 'react-native'
-import { Container, Text, Screen, Constants, Button } from '@kancha/kancha-ui'
-import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { Colors } from '../../theme'
-import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
-  SIGN_VP,
-  SEND_JWT_MUTATION,
-  SIGN_VC_MUTATION,
-} from '../../lib/graphql/queries'
+  Container,
+  Text,
+  Screen,
+  Constants,
+  Button,
+  Modal,
+} from '@kancha/kancha-ui'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
+import { useMutation } from '@apollo/react-hooks'
+import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
 
 const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
   navigation,
@@ -24,7 +26,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
     onCompleted: response => {
       if (response && response.actionSendJwt) {
         setSending(false)
-        navigation.navigate('App')
+        navigation.goBack()
       }
     },
   })
@@ -62,7 +64,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
   }
 
   return (
-    <Screen safeArea scrollEnabled background={'primary'}>
+    <Modal scrollEnabled>
       <Container padding>
         <Text type={Constants.TextTypes.H3} bold>
           Success!
@@ -126,7 +128,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
           </Container>
         </Container>
       </Container>
-    </Screen>
+    </Modal>
   )
 }
 

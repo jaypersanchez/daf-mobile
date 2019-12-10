@@ -294,6 +294,7 @@ const App = createStackNavigator(
     Request: Request,
     Credential: Credential,
     Scanner: ScannerNavigator,
+    CreateFirstCredential: CreateFirstCredential,
   },
   {
     mode: 'modal',
@@ -336,13 +337,6 @@ const Onboard = createStackNavigator(
         headerLeft: null,
         headerTitle: headerLogo,
         headerStyle: { borderBottomWidth: 0 },
-      },
-    },
-    CreateFirstCredential: {
-      screen: CreateFirstCredential,
-      navigationOptions: {
-        headerLeft: null,
-        headerTitle: headerLogo,
       },
     },
   },

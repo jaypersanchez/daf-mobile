@@ -19,7 +19,9 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   ]
   const [createDid] = useMutation(CREATE_IDENTITY, {
     onCompleted({ createIdentity }) {
-      navigation.navigate('CreateFirstCredential', { did: createIdentity.did })
+      if (createIdentity) {
+        navigation.navigate('App')
+      }
     },
     refetchQueries,
   })
@@ -34,7 +36,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           },
         })
       } else {
-        // navigation.navigate('App')
+        navigation.navigate('App')
       }
     }, 1100)
   }, [])
