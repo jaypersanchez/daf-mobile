@@ -33,7 +33,12 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const showFirstLoadModal = () => {
-    navigation.navigate('CreateFirstCredential', { did: data.viewer.did })
+    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
+      navigation.navigate('CreateFirstCredential', {
+        did: viewerResponse.data.viewer.did,
+        fetchMessages,
+      })
+    }
   }
 
   useEffect(() => {

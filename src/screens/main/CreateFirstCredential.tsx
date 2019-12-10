@@ -19,6 +19,8 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
   navigation,
 }) => {
   const did = navigation.getParam('did')
+  const fetchMessages = navigation.getParam('fetchMessages')
+
   const [name, setName] = useState()
   const [sending, setSending] = useState(false)
 
@@ -26,6 +28,8 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
     onCompleted: response => {
       if (response && response.actionSendJwt) {
         setSending(false)
+
+        fetchMessages()
         navigation.goBack()
       }
     },
