@@ -51,7 +51,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
         updateSending(false)
         Toaster.confirm(
           'Response sent',
-          `Your response was sent to ${requestMessage.iss.shortId}`,
+          `Your response was sent to ${requestMessage.sender.shortId}`,
         )
         props.navigation.goBack()
       }
@@ -64,7 +64,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
 
         actionSendJwt({
           variables: {
-            to: requestMessage.iss.did,
+            to: requestMessage.sender.did,
             from: viewerDid,
             jwt: response.actionSignVp,
           },
@@ -83,7 +83,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
         variables: {
           did: viewerDid,
           data: {
-            aud: requestMessage.iss.did,
+            aud: requestMessage.sender.did,
             tag: requestMessage.tag,
             vp: {
               context: ['https://www.w3.org/2018/credentials/v1'],
@@ -191,12 +191,14 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
     >
       <Container>
         <Banner
-          title={requestMessage.iss.shortId}
-          subTitle={requestMessage.iss.did}
-          issuer={requestMessage.iss}
+          title={requestMessage.sender.shortId}
+          subTitle={'Subtitle'}
+          issuer={requestMessage.sender}
           backgroundImage={bannerImage}
         />
-        <Indicator text={'Share your data ' + requestMessage.iss.shortId} />
+        <Indicator
+          text={'Share your data with ' + requestMessage.sender.shortId}
+        />
         <Container>
           {requestMessage.sdr.map((sdrRequestField: any, index: number) => {
             return (

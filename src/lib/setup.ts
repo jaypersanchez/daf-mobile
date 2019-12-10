@@ -11,7 +11,7 @@ import * as W3c from 'daf-w3c'
 import * as SD from 'daf-selective-disclosure'
 import * as TG from 'daf-trust-graph'
 import * as DBG from 'daf-debug'
-// import * as DIDComm from './packages/daf-did-comm'
+import * as URL from 'daf-url'
 
 import RnSqlite from 'daf-react-native-sqlite3'
 import { DataStore, Gql as DataGql } from 'daf-data-store'
@@ -64,15 +64,10 @@ const identityControllers = [new EthrDidRnController()]
 
 const messageValidator = new DBG.MessageValidator()
 messageValidator
-  // .setNext(new DIDComm.MessageValidator())
-  .setNext(
-    new DidJwt.MessageValidator({
-      payloadValidators: [
-        new W3c.PayloadValidator(),
-        new SD.PayloadValidator(),
-      ],
-    }),
-  )
+  .setNext(new URL.MessageValidator())
+  .setNext(new DidJwt.MessageValidator())
+  .setNext(new W3c.MessageValidator())
+  .setNext(new SD.MessageValidator())
 
 const actionHandler = new DBG.ActionHandler()
 actionHandler
