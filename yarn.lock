@@ -1519,11 +1519,6 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/libsodium-wrappers@^0.7.5":
-  version "0.7.7"
-  resolved "https://registry.npmjs.org/@types/libsodium-wrappers/-/libsodium-wrappers-0.7.7.tgz#cdb25e85458612ec80f0157c3815fac187d0b6d2"
-  integrity sha512-Li91pVKcLvQJK3ZolwCPo85oxf2gKBCApgnesRxYg4OVYchLXcJB2eivX8S87vfQVv6ZRnyCO1lLDosZGJfpRg==
-
 "@types/lodash.merge@^4.6.6":
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.merge/-/lodash.merge-4.6.6.tgz#b84b403c1d31bc42d51772d1cd5557fa008cd3d6"
@@ -1647,14 +1642,6 @@
   integrity sha512-mB6ceGjpMGz1ZTza8HYnrPGos2mC6So4NhS1PtZ8s4Qt0K7fBiIGhpSxUbQmhwcSWE3no+bYxmI2OL6KuXYmoQ==
   dependencies:
     tslib "^1.9.3"
-
-"DIDComm-js@git://github.com/uport-project/DIDComm-js.git#fix/build-issues":
-  version "0.6.0"
-  resolved "git://github.com/uport-project/DIDComm-js.git#8f52f5ef195b47f1f6bb0d9869ecf287f2c7a5ee"
-  dependencies:
-    "@types/libsodium-wrappers" "^0.7.5"
-    base-58 "0.0.1"
-    libsodium-wrappers "^0.7.5"
 
 JSONStream@^1.0.4, JSONStream@^1.3.4, JSONStream@^1.3.5:
   version "1.3.5"
@@ -2348,11 +2335,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
-
-base-58@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/base-58/-/base-58-0.0.1.tgz#85d3e70251075661933388f831d1eb8b8f6314e3"
-  integrity sha1-hdPnAlEHVmGTM4j4MdHri49jFOM=
 
 base-x@^3.0.0:
   version "3.0.7"
@@ -3290,10 +3272,10 @@ daf-core@^0.10.0:
     debug "^4.1.1"
     events "^3.0.0"
 
-daf-data-store@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.npmjs.org/daf-data-store/-/daf-data-store-0.10.0.tgz#92f3ae76bc835a3bdb893c71247f69539c546c38"
-  integrity sha512-CAGknkL9DK/KO/G20e51Z2OSRMRVvSmH/TSX12+JCTQ/oo5xXu68r38CzgEznQjVjRFWrY2PrnSl5/xT6a2ITQ==
+daf-data-store@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.npmjs.org/daf-data-store/-/daf-data-store-0.10.1.tgz#0f38d48530bb0cce66fff17124156865cff73f1d"
+  integrity sha512-FXKvaPnFUja+nUepxfdNHlE6ZDWJfj0hyUu5B3B31jRCNjHPcLRNj/26tQ/YnMPY3Vn0gAT5dp0TVVz8JBQ4YA==
   dependencies:
     blakejs "^1.1.0"
     daf-core "^0.10.0"
@@ -3307,16 +3289,6 @@ daf-debug@^0.10.0:
   dependencies:
     daf-core "^0.10.0"
     debug "^4.1.1"
-
-daf-did-comm@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.npmjs.org/daf-did-comm/-/daf-did-comm-0.10.0.tgz#e909250a139290a4a559c60a6bda42ac8b5f6c80"
-  integrity sha512-e5hkMldGVbIUCr5T2I6vm9CVIrFwk8TyUM0LaYh4MDBEkDywqnDMzvB3BD3OdWfyxxyNd62+Rgp8zgHRXkHstg==
-  dependencies:
-    DIDComm-js "git://github.com/uport-project/DIDComm-js.git#fix/build-issues"
-    daf-core "^0.10.0"
-    debug "^4.1.1"
-    uuid "^3.3.3"
 
 daf-did-jwt@^0.10.0:
   version "0.10.0"
@@ -3337,12 +3309,12 @@ daf-ethr-did-react-native@^0.10.0:
     debug "^4.1.1"
     react-native-uport-signer "^1.6.1"
 
-daf-react-native-sqlite3@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.npmjs.org/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.10.0.tgz#c30e34bbbf79b97ed45e5bc0b3bde25578c7d5fa"
-  integrity sha512-Y+Pv1sP0WbRJv/Z8YI4a4Fwd5cX7wxjpLcb4/MgmSenYl2N133KVmpBB5p1cZNyWRb+IZAoUkBsIhI382KhCAw==
+daf-react-native-sqlite3@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.npmjs.org/daf-react-native-sqlite3/-/daf-react-native-sqlite3-0.10.1.tgz#1b72ca8d5f5a4b81994f3d7958e816db5b601b3c"
+  integrity sha512-yIvunrG3pO7PzMrZ5pCmrTp6qSvEHuLdbrSwo0tN2xHzGi1MObxj0Rqq2CbCPcs9EPxEZKkNb97SGGKI7V//mA==
   dependencies:
-    daf-data-store "^0.10.0"
+    daf-data-store "^0.10.1"
     debug "^4.1.1"
     react-native-sqlite-storage "^4.1.0"
 
@@ -6472,18 +6444,6 @@ libnpx@^10.2.0:
     which "^1.3.0"
     y18n "^4.0.0"
     yargs "^11.0.0"
-
-libsodium-wrappers@^0.7.5:
-  version "0.7.6"
-  resolved "https://registry.npmjs.org/libsodium-wrappers/-/libsodium-wrappers-0.7.6.tgz#baed4c16d4bf9610104875ad8a8e164d259d48fb"
-  integrity sha512-OUO2CWW5bHdLr6hkKLHIKI4raEkZrf3QHkhXsJ1yCh6MZ3JDA7jFD3kCATNquuGSG6MjjPHQIQms0y0gBDzjQg==
-  dependencies:
-    libsodium "0.7.6"
-
-libsodium@0.7.6:
-  version "0.7.6"
-  resolved "https://registry.npmjs.org/libsodium/-/libsodium-0.7.6.tgz#018b80c5728054817845fbffa554274441bda277"
-  integrity sha512-hPb/04sEuLcTRdWDtd+xH3RXBihpmbPCsKW/Jtf4PsvdyKh+D6z2D2gvp/5BfoxseP+0FCOg66kE+0oGUE/loQ==
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
@@ -11063,7 +11023,7 @@ uuid@3.0.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
   integrity sha1-ZUS7ot/ajBzxfmKaOjBeK7H+5sE=
 
-uuid@^3.1.0, uuid@^3.3.2, uuid@^3.3.3:
+uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
