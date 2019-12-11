@@ -4,8 +4,8 @@
  */
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, Image } from 'react-native'
-import { Query, QueryResult } from 'react-apollo'
+import { FlatList } from 'react-native'
+import { useQuery } from 'react-apollo'
 import { Types } from 'daf-data-store'
 import {
   Container,
@@ -19,13 +19,13 @@ import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import gql from 'graphql-tag'
+import { isTerminating } from 'apollo-link/lib/linkUtils'
 
-export const findCredentials = gql`
+export const GET_CREDENTIALS = gql`
   query FindCredentials($iss: ID, $sub: ID) {
     credentials(iss: $iss, sub: $sub) {
       rowId
       hash
-      parentHash
       iss {
         did
         shortId
@@ -40,85 +40,89 @@ export const findCredentials = gql`
         value
         isObj
       }
+      inMessages {
+        id
+      }
     }
   }
 `
-
-interface Result extends QueryResult {
-  data: { credentials: Types.VerifiableClaim[] }
-}
 
 interface Props extends NavigationStackScreenProps {}
 
 export const Credentials: React.FC<Props> = props => {
   const { navigation } = props
-  const did = navigation.getParam('did', 'Did does not exist anymore')
-  const { t } = useTranslation()
+  const did = navigation.getParam('did')
+
+  const { data, loading, error, refetch } = useQuery(GET_CREDENTIALS, {
+    variables: {
+      sub: did,
+    },
+  })
+
+  console.log(data)
+
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query
-          query={findCredentials}
-          variables={{ sub: did }}
-          onError={console.log}
-          fetchPolicy={'network-only'}
-        >
-          {({ data, loading, refetch, error }: Result) =>
-            error ? (
-              <Text>{error.message}</Text>
-            ) : (
-              <FlatList
-                style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-                data={data && data.credentials}
-                renderItem={({ item, index }) => {
-                  const imgSrc = item.iss.profileImage
-                    ? { source: { uri: item.iss.profileImage } }
-                    : {}
-                  const fields = item.fields.map(field => field)
-                  return (
-                    <ListItem
-                      onPress={() =>
-                        navigation.navigate('CredentialField', {
-                          hash: item.parentHash,
-                        })
-                      }
-                      subTitle={fields[0].type}
-                      iconLeft={
-                        <Avatar
-                          {...imgSrc}
-                          address={item.iss.did}
-                          type={'circle'}
-                          gravatarType={'retro'}
-                        />
-                      }
-                      last={index === data.credentials.length - 1}
-                    >
-                      {fields[0].value}
-                    </ListItem>
-                  )
-                }}
-                keyExtractor={item => item.rowId}
-                onRefresh={refetch}
-                refreshing={loading}
-                ListEmptyComponent={
-                  !loading ? (
-                    <Container padding>
-                      <Text
-                        type={Constants.TextTypes.H3}
-                        bold
-                        textColor={Colors.DARK_GREY}
-                      >
-                        No Credentials
-                      </Text>
-                    </Container>
-                  ) : (
-                    <Container />
-                  )
-                }
-              />
-            )
-          }
-        </Query>
+        {error ? (
+          <Text>Error</Text>
+        ) : (
+          <FlatList
+            style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
+            data={data && data.credentials}
+            renderItem={({ item, index }: { item: any; index: number }) => {
+              const imgSrc = item.iss.profileImage
+                ? { source: { uri: item.iss.profileImage } }
+                : {}
+              const fields = item.fields.map((field: any) => field)
+              return fields.map((field: any) => {
+                return (
+                  <ListItem
+                    subTitle={field.type}
+                    accessoryRight={
+                      item.iss.did === item.sub.did
+                        ? 'Self signed'
+                        : item.iss.shortId
+                    }
+                    iconLeft={
+                      <Avatar
+                        {...imgSrc}
+                        address={item.iss.did}
+                        type={'circle'}
+                        gravatarType={'retro'}
+                      />
+                    }
+                    last={index === data.credentials.length - 1}
+                  >
+                    {field.value.startsWith('https://images.app') ||
+                    field.value.endsWith('.jpg') ||
+                    field.value.endsWith('.png')
+                      ? '<image url>'
+                      : field.value}
+                  </ListItem>
+                )
+              })
+            }}
+            keyExtractor={(item, index) => item.rowId + index}
+            onRefresh={refetch}
+            refreshing={loading}
+            ListEmptyComponent={
+              !loading ? (
+                <Container padding>
+                  <Text
+                    type={Constants.TextTypes.H3}
+                    bold
+                    textColor={Colors.DARK_GREY}
+                  >
+                    No Credentials
+                  </Text>
+                </Container>
+              ) : (
+                <Container />
+              )
+            }
+          />
+        )}
       </Container>
     </Screen>
   )

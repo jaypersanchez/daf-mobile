@@ -27,20 +27,18 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('CreateCredential')}>
             {t('Create Credential')}
           </ListItem>
+          <ListItem onPress={() => navigation.navigate('CreateRequest')}>
+            {t('Request Data')}
+          </ListItem>
           <ListItem onPress={() => navigation.navigate('Connections')}>
             {t('Connections')}
           </ListItem>
-          {/* <ListItem onPress={() => navigation.navigate('Config')}>
-            {t('Configuration')}
-          </ListItem> */}
           <ListItem onPress={() => navigation.navigate('Signer')}>
             {t('Signer')}
           </ListItem>
-
           <ListItem onPress={() => navigation.navigate('Codepush')}>
             {t('CodePush')}
           </ListItem>
-
           <ListItem last onPress={() => navigation.navigate('Crash')}>
             {t('CrashReporting')}
           </ListItem>
