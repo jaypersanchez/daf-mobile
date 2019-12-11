@@ -194,6 +194,12 @@ export const SIGN_VC_MUTATION = gql`
   }
 `
 
+export const SIGN_SDR_MUTATION = gql`
+  mutation signSDR($did: String!, $data: SDRInput!) {
+    actionSignSDR(did: $did, data: $data)
+  }
+`
+
 export const SEND_JWT_MUTATION = gql`
   mutation send($from: String!, $to: String!, $jwt: String!) {
     actionSendJwt(from: $from, to: $to, jwt: $jwt)
