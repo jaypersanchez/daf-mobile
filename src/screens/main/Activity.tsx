@@ -118,21 +118,23 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             keyExtractor={(item, index) => item.id + index}
             ListEmptyComponent={
               <Container>
-                <Container padding>
-                  <Text bold type={Constants.TextTypes.H3}>
-                    Hello, Looks like you are new here?
-                  </Text>
-                  <Container marginBottom marginTop={5}>
-                    <Text>Let's create your first credential!</Text>
+                {!loading && (
+                  <Container padding>
+                    <Text bold type={Constants.TextTypes.H3}>
+                      Hello, It looks like you are new here?
+                    </Text>
+                    <Container marginBottom marginTop={5}>
+                      <Text>Let's create your first credential!</Text>
+                    </Container>
+                    <Button
+                      fullWidth
+                      buttonText={'Start'}
+                      onPress={showFirstLoadModal}
+                      type={Constants.BrandOptions.Primary}
+                      block={Constants.ButtonBlocks.Filled}
+                    />
                   </Container>
-                  <Button
-                    fullWidth
-                    buttonText={'Start'}
-                    onPress={showFirstLoadModal}
-                    type={Constants.BrandOptions.Primary}
-                    block={Constants.ButtonBlocks.Filled}
-                  />
-                </Container>
+                )}
                 {[1, 2, 3, 4].map((fakeItem: number) => (
                   <Container
                     background={'primary'}
