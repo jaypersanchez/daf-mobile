@@ -46,7 +46,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }, [])
 
   const viewProfile = (id: any) => {
-    navigation.navigate('Profile', { id })
+    console.log(id)
+
+    // navigation.navigate('Profile', { id })
   }
 
   const syncAndRefetch = async () => {

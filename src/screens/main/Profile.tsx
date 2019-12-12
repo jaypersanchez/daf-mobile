@@ -13,8 +13,8 @@ import {
 } from '@kancha/kancha-ui'
 import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
+import { useQuery } from '@apollo/react-hooks'
+import { GET_VIEWER_CREDENTIALS, GET_VIEWER } from '../../lib/graphql/queries'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 // tslint:disable-next-line:no-var-requires
@@ -25,80 +25,54 @@ interface Props extends NavigationStackScreenProps {}
 const Profile: React.FC<Props> & {
   navigationOptions: any
 } = ({ navigation }) => {
-  const id = navigation.getParam('id', null)
-  const { data } = useQuery(GET_VIEWER_CREDENTIALS)
-  const [viewer, setViewer] = useState<any>({})
-
-  useEffect(() => {
-    if (data && data.viewer && data.viewer.did) {
-      setViewer(data.viewer)
-      navigation.setParams({ selectedDid: data.viewer.did })
-    }
-  }, [data])
-
+  const { data, loading } = useQuery(GET_VIEWER_CREDENTIALS)
+  const viewer = data && data.viewer
   const source =
-    data && data.viewer && data.viewer.profileImage
-      ? { source: { uri: data.viewer.profileImage } }
+    viewer && data.viewer.profileImage
+      ? { source: { uri: viewer.profileImage } }
       : {}
-
   return (
     <Screen scrollEnabled background={'primary'}>
       <Container padding flex={1}>
-        {id ? (
-          <Avatar
-            type={'rounded'}
-            size={60}
-            source={avatar1}
-            backgroundColor={'white'}
-          />
-        ) : (
-          <Avatar
-            {...source}
-            type={'rounded'}
-            size={60}
-            address={viewer.did}
-            gravatarType={'retro'}
-            backgroundColor={'white'}
-          />
-        )}
-        <Container marginTop={8}>
+        <Avatar
+          {...source}
+          type={'rounded'}
+          size={100}
+          address={viewer.did}
+          gravatarType={'retro'}
+          backgroundColor={'white'}
+        />
+        <Container marginTop>
           <Text type={Constants.TextTypes.H3} bold>
-            {id ? 'Space X' : viewer.shortId}
+            {viewer.shortId}
           </Text>
-          <Container marginTop={4}>
-            <Text type={Constants.TextTypes.SubTitle}>{viewer.did}</Text>
+          <Container marginTop>
+            <Container backgroundColor={'#D3F4DF'} padding br={5}>
+              <Text textStyle={{ fontFamily: 'menlo' }}>{viewer.did}</Text>
+            </Container>
           </Container>
-          {!id && (
-            <>
-              <Container marginTop>
-                <Text type={Constants.TextTypes.Body}></Text>
-              </Container>
-            </>
-          )}
         </Container>
       </Container>
-      {!id && (
+      {/* <Container>
         <Container>
           <Container paddingLeft>
             <Text type={Constants.TextTypes.H3} bold>
               Credentials
             </Text>
           </Container>
-          <Container>
-            {viewer.credentialsReceived &&
-              viewer.credentialsReceived.map((credential: any) => {
-                return (
-                  credential &&
-                  credential.fields.map((field: any, index: number) => (
-                    <ListItem key={index} subTitle={field.type}>
-                      {field.value}
-                    </ListItem>
-                  ))
-                )
-              })}
-          </Container>
+          {viewer.credentialsReceived &&
+            viewer.credentialsReceived.map((credential: any) => {
+              return (
+                credential &&
+                credential.fields.map((field: any, index: number) => (
+                  <ListItem key={index} subTitle={field.type}>
+                    {field.value}
+                  </ListItem>
+                ))
+              )
+            })}
         </Container>
-      )}
+      </Container> */}
     </Screen>
   )
 }
