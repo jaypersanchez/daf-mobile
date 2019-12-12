@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheet, ListItem, Avatar } from '@kancha/kancha-ui'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import { Theme } from '../theme'
 import {
   GET_MANAGED_IDENTITIES,
@@ -21,8 +21,19 @@ interface SwitcherProps {
 }
 
 const Switcher: React.FC<SwitcherProps> = ({ id }) => {
+  const client = useApolloClient()
   const { data } = useQuery(GET_MANAGED_IDENTITIES)
   const [setViewer] = useMutation(SET_VIEWER)
+
+  const switchIdentity = async (identity: Identity) => {
+    await setViewer({
+      variables: {
+        did: identity.did,
+      },
+    })
+
+    client.reFetchObservableQueries()
+  }
 
   return (
     <BottomSheet
@@ -49,17 +60,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
                 <ListItem
                   key={identity.did}
                   hideForwardArrow
-                  onPress={() => {
-                    setViewer({
-                      variables: {
-                        did: identity.did,
-                      },
-                      refetchQueries: [
-                        { query: GET_MANAGED_IDENTITIES },
-                        { query: GET_VIEWER_CREDENTIALS },
-                      ],
-                    })
-                  }}
+                  onPress={() => switchIdentity(identity)}
                   subTitle={identity.shortId}
                   selected={identity.isSelected}
                   iconLeft={
