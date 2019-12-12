@@ -50,7 +50,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const syncAndRefetch = async () => {
-    await core.syncServices(await dataStore.latestMessageTimestamps())
+    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
     fetchMessages()
   }
 

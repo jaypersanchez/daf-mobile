@@ -49,11 +49,12 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
   const syncDaf = async () => {
     await db.initialize()
     await dataStore.initialize()
-    await core.startServices()
+    await core.setupServices()
+    await core.listen()
 
     setIsRuning(false)
 
-    await core.syncServices(await dataStore.latestMessageTimestamps())
+    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
   }
 
   useEffect(() => {

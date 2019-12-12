@@ -34,14 +34,14 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
             {t('Connections')}
           </ListItem>
           <ListItem onPress={() => navigation.navigate('Signer')}>
-            {t('Signer')}
+            {t('Identities')}
           </ListItem>
-          <ListItem onPress={() => navigation.navigate('Codepush')}>
+          {/* <ListItem onPress={() => navigation.navigate('Codepush')}>
             {t('CodePush')}
           </ListItem>
           <ListItem last onPress={() => navigation.navigate('Crash')}>
             {t('CrashReporting')}
-          </ListItem>
+          </ListItem> */}
         </Section>
         <Section title={'Language'}>
           <ListItem
