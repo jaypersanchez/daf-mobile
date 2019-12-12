@@ -26,6 +26,9 @@ const debug = Debug('main')
 
 import * as LocalGql from './graphql'
 
+if (Config.TGE_URI) TG.ServiceController.defaultUri = Config.TGE_URI
+if (Config.TGE_WS_URI) TG.ServiceController.defaultWsUri = Config.TGE_WS_URI
+
 export const typeDefs = [
   Daf.Gql.baseTypeDefs,
   Daf.Gql.Core.typeDefs,
@@ -72,28 +75,15 @@ messageValidator
 const actionHandler = new DBG.ActionHandler()
 actionHandler
   // .setNext(new DIDComm.ActionHandler())
-  .setNext(
-    new TG.ActionHandler({
-      uri: Config.TGE_URI,
-    }),
-  )
+  .setNext(new TG.ActionHandler())
   .setNext(new W3c.ActionHandler())
   .setNext(new SD.ActionHandler())
 
-const serviceControllersWithConfig = [
-  // { controller: Rnd.RandomMessageService, config: {}},
-  {
-    controller: TG.TrustGraphServiceController,
-    config: {
-      uri: Config.TGE_URI,
-      wsUri: Config.TGE_WS_URI,
-    },
-  },
-]
+const serviceControllers = [TG.ServiceController]
 
 export const core = new Daf.Core({
   identityControllers,
-  serviceControllersWithConfig,
+  serviceControllers,
   didResolver,
   messageValidator,
   actionHandler,

@@ -51,7 +51,7 @@ export default () => {
   }
 
   const syncAndRefetch = async () => {
-    await core.syncServices(await dataStore.latestMessageTimestamps())
+    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
     fetchMessages()
   }
 
