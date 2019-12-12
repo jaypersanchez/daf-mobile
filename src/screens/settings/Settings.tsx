@@ -33,15 +33,9 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           <ListItem onPress={() => navigation.navigate('Connections')}>
             {t('Connections')}
           </ListItem>
-          <ListItem onPress={() => navigation.navigate('Signer')}>
+          <ListItem last onPress={() => navigation.navigate('Signer')}>
             {t('Identities')}
           </ListItem>
-          {/* <ListItem onPress={() => navigation.navigate('Codepush')}>
-            {t('CodePush')}
-          </ListItem>
-          <ListItem last onPress={() => navigation.navigate('Crash')}>
-            {t('CrashReporting')}
-          </ListItem> */}
         </Section>
         <Section title={'Language'}>
           <ListItem

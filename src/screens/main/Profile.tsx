@@ -15,10 +15,9 @@ import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_VIEWER_CREDENTIALS, GET_VIEWER } from '../../lib/graphql/queries'
+import { ActivityIndicator } from 'react-native'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
-// tslint:disable-next-line:no-var-requires
-const avatar1 = require('../../assets/images/space-x-logo.jpg')
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -33,46 +32,80 @@ const Profile: React.FC<Props> & {
       : {}
   return (
     <Screen scrollEnabled background={'primary'}>
-      <Container padding flex={1}>
-        <Avatar
-          {...source}
-          type={'rounded'}
-          size={100}
-          address={viewer.did}
-          gravatarType={'retro'}
-          backgroundColor={'white'}
-        />
-        <Container marginTop>
-          <Text type={Constants.TextTypes.H3} bold>
-            {viewer.shortId}
-          </Text>
+      {loading && (
+        <Container padding flex={1}>
+          <Container
+            w={100}
+            h={100}
+            br={5}
+            background={'secondary'}
+            alignItems={'center'}
+            justifyContent={'center'}
+          >
+            <ActivityIndicator size={'large'} />
+          </Container>
           <Container marginTop>
-            <Container backgroundColor={'#D3F4DF'} padding br={5}>
-              <Text textStyle={{ fontFamily: 'menlo' }}>{viewer.did}</Text>
+            <Container h={23} br={5} background={'secondary'}></Container>
+            <Container marginTop>
+              <Container
+                h={60}
+                backgroundColor={'#D3F4DF'}
+                padding
+                br={5}
+              ></Container>
             </Container>
           </Container>
         </Container>
-      </Container>
-      {/* <Container>
-        <Container>
-          <Container paddingLeft>
+      )}
+
+      {!loading && (
+        <Container padding flex={1}>
+          <Avatar
+            {...source}
+            type={'rounded'}
+            size={100}
+            address={viewer && viewer.did}
+            gravatarType={'retro'}
+            backgroundColor={'white'}
+          />
+          <Container marginTop>
             <Text type={Constants.TextTypes.H3} bold>
-              Credentials
+              {viewer && viewer.shortId}
             </Text>
+            <Container marginTop>
+              <Container backgroundColor={'#D3F4DF'} padding br={5}>
+                <Text textStyle={{ fontFamily: 'menlo' }}>
+                  {viewer && viewer.did}
+                </Text>
+              </Container>
+            </Container>
           </Container>
-          {viewer.credentialsReceived &&
-            viewer.credentialsReceived.map((credential: any) => {
-              return (
-                credential &&
-                credential.fields.map((field: any, index: number) => (
-                  <ListItem key={index} subTitle={field.type}>
-                    {field.value}
-                  </ListItem>
-                ))
-              )
-            })}
         </Container>
-      </Container> */}
+      )}
+
+      <Container>
+        {!loading && (
+          <Container>
+            <Container paddingLeft>
+              <Text type={Constants.TextTypes.H3} bold>
+                Credentials
+              </Text>
+            </Container>
+            {viewer &&
+              viewer.credentialsReceived &&
+              viewer.credentialsReceived.map((credential: any) => {
+                return (
+                  credential &&
+                  credential.fields.map((field: any, index: number) => (
+                    <ListItem key={index} subTitle={field.type}>
+                      {field.value}
+                    </ListItem>
+                  ))
+                )
+              })}
+          </Container>
+        )}
+      </Container>
     </Screen>
   )
 }
