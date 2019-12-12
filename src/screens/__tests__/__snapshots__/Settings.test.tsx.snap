@@ -1238,8 +1238,6 @@ exports[`renders correctly 1`] = `
                     Object {
                       "alignItems": "center",
                       "backgroundColor": undefined,
-                      "borderBottomColor": "#CCCCCC",
-                      "borderBottomWidth": 0.5,
                       "borderRadius": undefined,
                       "flex": 1,
                       "flexDirection": "row",
