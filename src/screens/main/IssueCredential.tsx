@@ -343,7 +343,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
         <Container alignItems={'center'}>
           {errorMessage && <Text warn>{errorMessage}</Text>}
           {sending && (
-            <Container>
+            <Container flexDirection={'row'}>
               <Container marginRight>
                 <ActivityIndicator />
               </Container>
