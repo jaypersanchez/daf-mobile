@@ -84,15 +84,7 @@ const Profile: React.FC<Props> & {
           </Container>
         </Container>
       )}
-
       <Container padding>
-        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
-          <Container>
-            <Text type={Constants.TextTypes.Body}>
-              No credentials to show yet!
-            </Text>
-          </Container>
-        )}
         <Container flexDirection={'row'}>
           <Text type={Constants.TextTypes.H3} bold>
             Credentials
@@ -108,12 +100,21 @@ const Profile: React.FC<Props> & {
               }
               onPress={() =>
                 navigation.navigate('IssueCredential', {
-                  did: viewer.did,
+                  viewer: viewer,
                 })
               }
             />
           </Container>
         </Container>
+        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
+          <Container marginTop>
+            <Text type={Constants.TextTypes.Body}>
+              Start issuing credentials to yourself and others. Try starting
+              with a <Text bold>name</Text> credential to personalise this
+              profile.
+            </Text>
+          </Container>
+        )}
         {!loading && viewer && viewer.credentialsReceived.length > 0 && (
           <Container>
             <Container marginBottom>
