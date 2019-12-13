@@ -10,6 +10,7 @@ import {
   RequestItem,
   Typings,
   ListItem,
+  Credential,
 } from '@kancha/kancha-ui'
 import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
@@ -30,6 +31,8 @@ const Profile: React.FC<Props> & {
     viewer && data.viewer.profileImage
       ? { source: { uri: viewer.profileImage } }
       : {}
+
+  console.log(data)
   return (
     <Screen scrollEnabled background={'primary'}>
       {loading && (
@@ -69,7 +72,7 @@ const Profile: React.FC<Props> & {
             backgroundColor={'white'}
           />
           <Container marginTop>
-            <Text type={Constants.TextTypes.H3} bold>
+            <Text type={Constants.TextTypes.H2} bold>
               {viewer && viewer.shortId}
             </Text>
             <Container marginTop>
@@ -83,10 +86,10 @@ const Profile: React.FC<Props> & {
         </Container>
       )}
 
-      <Container>
+      <Container padding>
         {!loading && (
           <Container>
-            <Container paddingLeft>
+            <Container marginBottom>
               <Text type={Constants.TextTypes.H3} bold>
                 Credentials
               </Text>
@@ -95,12 +98,14 @@ const Profile: React.FC<Props> & {
               viewer.credentialsReceived &&
               viewer.credentialsReceived.map((credential: any) => {
                 return (
-                  credential &&
-                  credential.fields.map((field: any, index: number) => (
-                    <ListItem key={index} subTitle={field.type}>
-                      {field.value}
-                    </ListItem>
-                  ))
+                  <Credential
+                    background={'secondary'}
+                    key={credential.hash + credential.rowId}
+                    exp={credential.exp}
+                    issuer={credential.iss}
+                    subject={credential.sub}
+                    fields={credential.fields}
+                  />
                 )
               })}
           </Container>

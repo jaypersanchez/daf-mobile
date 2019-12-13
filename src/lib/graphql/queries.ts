@@ -15,7 +15,12 @@ export const GET_VIEWER_CREDENTIALS = gql`
       did
       shortId
       profileImage
+      interactionCount
+      url
+      description
       credentialsReceived {
+        hash
+        rowId
         iss {
           did
           shortId
