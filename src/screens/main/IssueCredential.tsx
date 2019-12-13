@@ -1,7 +1,7 @@
 /**
  *
  */
-import React, { useState } from 'react'
+import React, { useState, useEffect, createRef } from 'react'
 import { TextInput, ActivityIndicator } from 'react-native'
 import {
   Container,
@@ -11,6 +11,7 @@ import {
   Button,
   Icon,
 } from '@kancha/kancha-ui'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
 import { useMutation, useLazyQuery } from 'react-apollo'
@@ -22,6 +23,8 @@ import {
 } from '../../lib/graphql/queries'
 import { useTranslation } from 'react-i18next'
 import { TouchableHighlight } from 'react-native-gesture-handler'
+import { Identity } from '@kancha/kancha-ui/dist/types'
+import hexToRgba from 'hex-to-rgba'
 
 interface Field {
   type: string
@@ -35,9 +38,9 @@ const claimToObject = (arr: any[]) => {
   )
 }
 
-const IssueCredential: React.FC<NavigationStackScreenProps> = ({
-  navigation,
-}) => {
+const IssueCredential: React.FC<NavigationStackScreenProps> & {
+  navigationOptions: any
+} = ({ navigation }) => {
   const { t } = useTranslation()
   const viewer = navigation.getParam('viewer')
   const [claimType, setClaimType] = useState()
@@ -45,13 +48,33 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
   const [errorMessage, setErrorMessage] = useState()
   const [sending, setSending] = useState(false)
   const [subject, setSubject] = useState(viewer)
-  const [fields, updateFields] = useState<Field[]>([
-    // { type: 'name', value: 'Mozart' },
-  ])
+  const [fields, updateFields] = useState<Field[]>([])
   const [getKnownIdentities, { data, loading }] = useLazyQuery(
     GET_ALL_IDENTITIES,
   )
   const [identitySelectOpen, setIdentitySelect] = useState(false)
+
+  useEffect(() => {
+    navigation.setParams({ dismiss: navigation.dismiss })
+  }, [])
+
+  const inputSubject = (did: string) => {
+    /**
+     * If the user pastes in a did that is already in our known
+     * identities then we use that entry as it may have additional data associated
+     */
+    const matchedIdentity =
+      data && data.identities.find((identity: Identity) => identity.did === did)
+    if (matchedIdentity) {
+      setSubject(matchedIdentity)
+    } else {
+      const sub = {
+        did,
+        shortId: 'an unknown did',
+      }
+      setSubject(sub)
+    }
+  }
 
   const updateClaimFields = (field: Field) => {
     const claimTypes = fields.map((field: Field) => field.type)
@@ -106,7 +129,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
         actionSendJwt({
           variables: {
             from: viewer.did,
-            to: viewer.did,
+            to: subject.did,
             jwt: response.actionSignVc,
           },
         })
@@ -119,7 +142,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
       variables: {
         did: viewer.did,
         data: {
-          sub: viewer.did,
+          sub: subject.did,
           vc: {
             context: ['https://www.w3.org/2018/credentials/v1'],
             type: ['VerifiableCredential'],
@@ -145,9 +168,18 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
               {viewer.did === subject.did ? t('yourself') : subject.shortId}
             </Text>
           </Text>
+          {!subject.did && (
+            <Text warn type={Constants.TextTypes.Body}>
+              {t('You must enter a subject identity')}
+            </Text>
+          )}
         </Container>
         <Container
-          backgroundColor={'#D3F4DF'}
+          backgroundColor={
+            subject.did
+              ? hexToRgba(Colors.CONFIRM, 0.3)
+              : hexToRgba(Colors.WARN, 0.3)
+          }
           padding
           br={5}
           marginTop
@@ -160,16 +192,21 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
           >
             <Container flex={1}>
               <TextInput
+                autoCapitalize={'none'}
+                autoCompleteType={'off'}
+                autoCorrect={false}
                 onFocus={() => openIdentitySelection()}
                 onBlur={() => setIdentitySelect(false)}
                 clearButtonMode={'always'}
                 style={{ fontFamily: 'menlo' }}
-                value={subject.did}
-              ></TextInput>
+                onChangeText={inputSubject}
+              >
+                {subject.did}
+              </TextInput>
             </Container>
           </Container>
           {identitySelectOpen && (
-            <Container>
+            <Container marginTop>
               {loading && (
                 <Container
                   flexDirection={'row'}
@@ -182,23 +219,43 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
                   </Container>
                 </Container>
               )}
-              {data &&
-                data.identities &&
-                data.identities.map((identity: any) => {
-                  return (
-                    <TouchableHighlight
-                      key={identity.did}
-                      onPress={() => setSubject(identity)}
-                      underlayColor={'transparent'}
-                    >
-                      <Container paddingTop={10}>
-                        <Text textStyle={{ fontFamily: 'menlo' }}>
-                          {identity.shortId}
-                        </Text>
-                      </Container>
-                    </TouchableHighlight>
-                  )
-                })}
+              <Container>
+                <TouchableHighlight
+                  onPress={() => setSubject(viewer)}
+                  underlayColor={
+                    subject.did
+                      ? hexToRgba(Colors.CONFIRM, 0.4)
+                      : hexToRgba(Colors.WARN, 0.4)
+                  }
+                  style={{ padding: 10, borderRadius: 5 }}
+                >
+                  <Container>
+                    <Text textStyle={{ fontFamily: 'menlo' }}>
+                      {viewer.shortId} (you)
+                    </Text>
+                  </Container>
+                </TouchableHighlight>
+                {data &&
+                  data.identities &&
+                  data.identities
+                    .filter((i: Identity) => i.did !== viewer.did)
+                    .map((identity: any) => {
+                      return (
+                        <TouchableHighlight
+                          key={identity.did}
+                          onPress={() => setSubject(identity)}
+                          underlayColor={Colors.CONFIRM}
+                          style={{ padding: 10, borderRadius: 5 }}
+                        >
+                          <Container>
+                            <Text textStyle={{ fontFamily: 'menlo' }}>
+                              {identity.shortId}
+                            </Text>
+                          </Container>
+                        </TouchableHighlight>
+                      )
+                    })}
+              </Container>
             </Container>
           )}
         </Container>
@@ -286,7 +343,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
         <Container alignItems={'center'}>
           {errorMessage && <Text warn>{errorMessage}</Text>}
           {sending && (
-            <Container>
+            <Container flexDirection={'row'}>
               <Container marginRight>
                 <ActivityIndicator />
               </Container>
@@ -298,7 +355,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
           <Container>
             <Button
               fullWidth
-              disabled={sending || fields.length === 0}
+              disabled={sending || fields.length === 0 || !subject.did}
               block={Constants.ButtonBlocks.Filled}
               type={Constants.BrandOptions.Primary}
               buttonText={'Issue'}
@@ -309,6 +366,19 @@ const IssueCredential: React.FC<NavigationStackScreenProps> = ({
       </Container>
     </Screen>
   )
+}
+
+IssueCredential.navigationOptions = ({ navigation }: any) => {
+  const { dismiss } = navigation.state.params
+
+  return {
+    title: 'Issue credential',
+    headerLeft: (
+      <HeaderButtons>
+        <Item title={'Cancel'} onPress={dismiss} />
+      </HeaderButtons>
+    ),
+  }
 }
 
 export default IssueCredential

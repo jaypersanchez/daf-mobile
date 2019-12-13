@@ -16,7 +16,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
-import { NavigationActions } from 'react-navigation'
+import hexToRgba from 'hex-to-rgba'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
@@ -51,7 +51,7 @@ const Profile: React.FC<Props> & {
             <Container marginTop>
               <Container
                 h={60}
-                backgroundColor={'#D3F4DF'}
+                backgroundColor={hexToRgba(Colors.CONFIRM, 0.3)}
                 padding
                 br={5}
               ></Container>
@@ -75,7 +75,11 @@ const Profile: React.FC<Props> & {
               {viewer && viewer.shortId}
             </Text>
             <Container marginTop>
-              <Container backgroundColor={'#D3F4DF'} padding br={5}>
+              <Container
+                backgroundColor={hexToRgba(Colors.CONFIRM, 0.3)}
+                padding
+                br={5}
+              >
                 <Text textStyle={{ fontFamily: 'menlo' }} selectable>
                   {viewer && viewer.did}
                 </Text>
