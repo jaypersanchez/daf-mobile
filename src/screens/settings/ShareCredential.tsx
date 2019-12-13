@@ -2,19 +2,13 @@
  * Serto Mobile App
  *
  */
-
 import React, { useState, useEffect } from 'react'
 import { Container, Screen, Text, Constants, Device } from '@kancha/kancha-ui'
 import { useNavigationParam } from 'react-navigation-hooks'
-import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo'
 import QRCode from 'react-native-qrcode-svg'
 import { ActivityIndicator } from 'react-native'
-import {
-  SIGN_VP,
-  SEND_JWT_MUTATION,
-  SIGN_VC_MUTATION,
-} from '../../lib/graphql/queries'
+import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
 
 const claimToObject = (arr: any[]) => {
   return arr.reduce(

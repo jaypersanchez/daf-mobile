@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Container,
   Text,
@@ -7,16 +7,16 @@ import {
   Constants,
   Button,
   BottomSnap,
-  RequestItem,
-  Typings,
-  ListItem,
   Credential,
+  Icon,
 } from '@kancha/kancha-ui'
 import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER_CREDENTIALS, GET_VIEWER } from '../../lib/graphql/queries'
+import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
+import { Colors } from '../../theme'
+import { NavigationActions } from 'react-navigation'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
@@ -32,7 +32,6 @@ const Profile: React.FC<Props> & {
       ? { source: { uri: viewer.profileImage } }
       : {}
 
-  console.log(data)
   return (
     <Screen scrollEnabled background={'primary'}>
       {loading && (
@@ -77,7 +76,7 @@ const Profile: React.FC<Props> & {
             </Text>
             <Container marginTop>
               <Container backgroundColor={'#D3F4DF'} padding br={5}>
-                <Text textStyle={{ fontFamily: 'menlo' }}>
+                <Text textStyle={{ fontFamily: 'menlo' }} selectable>
                   {viewer && viewer.did}
                 </Text>
               </Container>
@@ -94,18 +93,35 @@ const Profile: React.FC<Props> & {
             </Text>
           </Container>
         )}
+        <Container flexDirection={'row'}>
+          <Text type={Constants.TextTypes.H3} bold>
+            Credentials
+          </Text>
+          <Container marginLeft>
+            <Button
+              iconButton
+              icon={
+                <Icon
+                  color={Colors.BRAND}
+                  icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
+                />
+              }
+              onPress={() =>
+                navigation.navigate('IssueCredential', {
+                  did: viewer.did,
+                })
+              }
+            />
+          </Container>
+        </Container>
         {!loading && viewer && viewer.credentialsReceived.length > 0 && (
           <Container>
             <Container marginBottom>
-              <Text type={Constants.TextTypes.H3} bold>
-                Credentials
-              </Text>
               <Container marginTop>
                 <Text type={Constants.TextTypes.Body}>
                   <Text bold>Received</Text> credentials are presented here as a
-                  plain list for now. The plan is to move these to the data
-                  explorer tab where we can explore all of our data and
-                  connections.
+                  plain list for now. Some will be moved to the data explorer
+                  tab where we can explore all of our data and connections.
                 </Text>
               </Container>
             </Container>
@@ -136,7 +152,7 @@ Profile.navigationOptions = ({ navigation }: any) => {
    */
   const params = navigation.state.params || {}
   return {
-    headerRight: params.id == null && (
+    headerRight: (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
         icon={<TabAvatar />}

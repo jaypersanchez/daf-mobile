@@ -32,6 +32,7 @@ import Request from '../screens/main/Request'
 import Credential from '../screens/main/Credential'
 import CreatingWallet from '../screens/main/CreateIdentity'
 import CreateFirstCredential from '../screens/main/CreateFirstCredential'
+import IssueCredentialScreen from '../screens/main/IssueCredential'
 
 // Settings & Internal Demo Screens
 import Settings from '../screens/settings/Settings'
@@ -220,6 +221,10 @@ const ScannerNavigator = createStackNavigator(
   },
 )
 
+const IssueCredential = createStackNavigator({
+  IssueCredentialScreen,
+})
+
 /**
  * Main TabNavigator
  */
@@ -309,6 +314,7 @@ const App = createStackNavigator(
     Credential: Credential,
     Scanner: ScannerNavigator,
     CreateFirstCredential: CreateFirstCredential,
+    IssueCredential,
   },
   {
     mode: 'modal',

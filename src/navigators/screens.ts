@@ -10,6 +10,7 @@ export const Screens = {
   Messages: { screen: 'Messages', title: 'Messages' },
   MessageDetail: { screen: 'MessageDetail', title: 'Message Detail' },
   CreateCredential: { screen: 'CreateCredential', title: 'Create Credential' },
+  IssueCredential: { screen: 'IssueCredential', title: 'Issue Credential' },
   CreateRequest: { screen: 'CreateRequest', title: 'Create Request' },
   ShareCredential: { screen: 'ShareCredential', title: 'Share Credential' },
   SendRequest: { screen: 'SendRequest', title: 'Send Request' },
