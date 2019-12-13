@@ -19,7 +19,6 @@ import { Colors } from '../../theme'
 import { withNavigation } from 'react-navigation'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import gql from 'graphql-tag'
-import { isTerminating } from 'apollo-link/lib/linkUtils'
 
 export const GET_CREDENTIALS = gql`
   query FindCredentials($iss: ID, $sub: ID) {
@@ -75,9 +74,10 @@ export const Credentials: React.FC<Props> = props => {
                 ? { source: { uri: item.iss.profileImage } }
                 : {}
               const fields = item.fields.map((field: any) => field)
-              return fields.map((field: any) => {
+              return fields.map((field: any, index: number) => {
                 return (
                   <ListItem
+                    key={item.hash + index}
                     subTitle={field.type}
                     accessoryRight={
                       item.iss.did === item.sub.did

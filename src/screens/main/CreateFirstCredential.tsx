@@ -20,6 +20,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
 }) => {
   const did = navigation.getParam('did')
   const fetchMessages = navigation.getParam('fetchMessages')
+  const isFirst = navigation.getParam('isFirstCredential')
 
   const [name, setName] = useState()
   const [sending, setSending] = useState(false)
@@ -71,15 +72,15 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
     <Modal scrollEnabled>
       <Container padding>
         <Text type={Constants.TextTypes.H3} bold>
-          Success!
+          {'Issue Credential'}
         </Text>
         <Container marginTop={10}>
           <Text type={Constants.TextTypes.Body}>
-            You created an <Text bold>ethr-did</Text> identity
+            You are issuing a credential to youself
           </Text>
         </Container>
 
-        <Container backgroundColor={'#D3F4DF'} padding br={5} margin>
+        <Container backgroundColor={'#D3F4DF'} padding br={5} marginTop>
           <Text textStyle={{ fontFamily: 'menlo' }}>{did}</Text>
         </Container>
         <Container marginTop marginBottom>
@@ -98,7 +99,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
             </Container>
           ) : (
             <Text type={Constants.TextTypes.Body}>
-              Now let's create your first credential by issuing a{' '}
+              Let's create your first credential by issuing a{' '}
               <Text textStyle={{ fontStyle: 'italic' }} bold>
                 name
               </Text>{' '}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Container,
   Text,
@@ -7,98 +7,142 @@ import {
   Constants,
   Button,
   BottomSnap,
-  RequestItem,
-  Typings,
-  ListItem,
+  Credential,
+  Icon,
 } from '@kancha/kancha-ui'
 import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
+import { ActivityIndicator } from 'react-native'
+import { Colors } from '../../theme'
+import { NavigationActions } from 'react-navigation'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
-// tslint:disable-next-line:no-var-requires
-const avatar1 = require('../../assets/images/space-x-logo.jpg')
 
 interface Props extends NavigationStackScreenProps {}
 
 const Profile: React.FC<Props> & {
   navigationOptions: any
 } = ({ navigation }) => {
-  const id = navigation.getParam('id', null)
-  const { data } = useQuery(GET_VIEWER_CREDENTIALS)
-  const [viewer, setViewer] = useState<any>({})
-
-  useEffect(() => {
-    if (data && data.viewer && data.viewer.did) {
-      setViewer(data.viewer)
-      navigation.setParams({ selectedDid: data.viewer.did })
-    }
-  }, [data])
-
+  const { data, loading } = useQuery(GET_VIEWER_CREDENTIALS)
+  const viewer = data && data.viewer
   const source =
-    data && data.viewer && data.viewer.profileImage
-      ? { source: { uri: data.viewer.profileImage } }
+    viewer && data.viewer.profileImage
+      ? { source: { uri: viewer.profileImage } }
       : {}
 
   return (
     <Screen scrollEnabled background={'primary'}>
-      <Container padding flex={1}>
-        {id ? (
-          <Avatar
-            type={'rounded'}
-            size={60}
-            source={avatar1}
-            backgroundColor={'white'}
-          />
-        ) : (
-          <Avatar
-            {...source}
-            type={'rounded'}
-            size={60}
-            address={viewer.did}
-            gravatarType={'retro'}
-            backgroundColor={'white'}
-          />
-        )}
-        <Container marginTop={8}>
-          <Text type={Constants.TextTypes.H3} bold>
-            {id ? 'Space X' : viewer.shortId}
-          </Text>
-          <Container marginTop={4}>
-            <Text type={Constants.TextTypes.SubTitle}>{viewer.did}</Text>
+      {loading && (
+        <Container padding flex={1}>
+          <Container
+            w={100}
+            h={100}
+            br={5}
+            background={'secondary'}
+            alignItems={'center'}
+            justifyContent={'center'}
+          >
+            <ActivityIndicator size={'large'} />
           </Container>
-          {!id && (
-            <>
-              <Container marginTop>
-                <Text type={Constants.TextTypes.Body}></Text>
-              </Container>
-            </>
-          )}
-        </Container>
-      </Container>
-      {!id && (
-        <Container>
-          <Container paddingLeft>
-            <Text type={Constants.TextTypes.H3} bold>
-              Credentials
-            </Text>
-          </Container>
-          <Container>
-            {viewer.credentialsReceived &&
-              viewer.credentialsReceived.map((credential: any) => {
-                return (
-                  credential &&
-                  credential.fields.map((field: any, index: number) => (
-                    <ListItem key={index} subTitle={field.type}>
-                      {field.value}
-                    </ListItem>
-                  ))
-                )
-              })}
+          <Container marginTop>
+            <Container h={23} br={5} background={'secondary'}></Container>
+            <Container marginTop>
+              <Container
+                h={60}
+                backgroundColor={'#D3F4DF'}
+                padding
+                br={5}
+              ></Container>
+            </Container>
           </Container>
         </Container>
       )}
+
+      {!loading && (
+        <Container padding flex={1}>
+          <Avatar
+            {...source}
+            type={'rounded'}
+            size={100}
+            address={viewer && viewer.did}
+            gravatarType={'retro'}
+            backgroundColor={'white'}
+          />
+          <Container marginTop>
+            <Text type={Constants.TextTypes.H2} bold>
+              {viewer && viewer.shortId}
+            </Text>
+            <Container marginTop>
+              <Container backgroundColor={'#D3F4DF'} padding br={5}>
+                <Text textStyle={{ fontFamily: 'menlo' }} selectable>
+                  {viewer && viewer.did}
+                </Text>
+              </Container>
+            </Container>
+          </Container>
+        </Container>
+      )}
+      <Container padding>
+        <Container flexDirection={'row'}>
+          <Text type={Constants.TextTypes.H3} bold>
+            Credentials
+          </Text>
+          <Container marginLeft>
+            <Button
+              iconButton
+              icon={
+                <Icon
+                  color={Colors.BRAND}
+                  icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
+                />
+              }
+              onPress={() =>
+                navigation.navigate('IssueCredential', {
+                  viewer: viewer,
+                })
+              }
+            />
+          </Container>
+        </Container>
+        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
+          <Container marginTop>
+            <Text type={Constants.TextTypes.Body}>
+              Start issuing credentials to yourself and others. Try starting
+              with a <Text bold>name</Text> credential to personalise this
+              profile.
+            </Text>
+          </Container>
+        )}
+        {!loading && viewer && viewer.credentialsReceived.length > 0 && (
+          <Container>
+            <Container marginBottom>
+              <Container marginTop>
+                <Text type={Constants.TextTypes.Body}>
+                  <Text bold>Received</Text> credentials are presented here as a
+                  plain list for now. Some will be moved to the data explorer
+                  tab where we can explore all of our data and connections.
+                </Text>
+              </Container>
+            </Container>
+            {viewer &&
+              viewer.credentialsReceived &&
+              viewer.credentialsReceived.map((credential: any) => {
+                return (
+                  <Credential
+                    background={'secondary'}
+                    key={credential.hash + credential.rowId}
+                    exp={credential.exp}
+                    issuer={credential.iss}
+                    subject={credential.sub}
+                    fields={credential.fields}
+                  />
+                )
+              })}
+          </Container>
+        )}
+      </Container>
     </Screen>
   )
 }
@@ -109,7 +153,7 @@ Profile.navigationOptions = ({ navigation }: any) => {
    */
   const params = navigation.state.params || {}
   return {
-    headerRight: params.id == null && (
+    headerRight: (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
         icon={<TabAvatar />}
