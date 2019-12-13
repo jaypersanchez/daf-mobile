@@ -72,12 +72,11 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
     <Modal scrollEnabled>
       <Container padding>
         <Text type={Constants.TextTypes.H3} bold>
-          Self Signed Credential
+          {'Issue Credential'}
         </Text>
         <Container marginTop={10}>
           <Text type={Constants.TextTypes.Body}>
-            You are signing a credential with your <Text bold>ethr-did</Text>{' '}
-            identity:
+            You are issuing a credential to youself
           </Text>
         </Container>
 

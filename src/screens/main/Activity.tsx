@@ -121,19 +121,23 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             ListEmptyComponent={
               <Container>
                 {!loading && (
-                  <Container padding>
+                  <Container padding background={'secondary'}>
                     <Text bold type={Constants.TextTypes.H3}>
-                      Hello, It looks like you are new here?
+                      Hey there,
                     </Text>
                     <Container marginBottom marginTop={5}>
-                      <Text>Let's create your first credential!</Text>
+                      <Text type={Constants.TextTypes.Body}>
+                        It looks like you are new here? You can start by issuing
+                        yourself a<Text bold> name </Text>
+                        credential!
+                      </Text>
                     </Container>
                     <Button
                       fullWidth
-                      buttonText={'Start'}
+                      buttonText={'Get started'}
                       onPress={showFirstLoadModal}
                       type={Constants.BrandOptions.Primary}
-                      block={Constants.ButtonBlocks.Filled}
+                      block={Constants.ButtonBlocks.Outlined}
                     />
                   </Container>
                 )}
