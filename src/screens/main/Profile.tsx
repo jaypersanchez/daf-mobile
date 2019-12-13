@@ -87,12 +87,27 @@ const Profile: React.FC<Props> & {
       )}
 
       <Container padding>
-        {!loading && (
+        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
+          <Container>
+            <Text type={Constants.TextTypes.Body}>
+              No credentials to show yet!
+            </Text>
+          </Container>
+        )}
+        {!loading && viewer && viewer.credentialsReceived.length > 0 && (
           <Container>
             <Container marginBottom>
               <Text type={Constants.TextTypes.H3} bold>
                 Credentials
               </Text>
+              <Container marginTop>
+                <Text type={Constants.TextTypes.Body}>
+                  <Text bold>Received</Text> credentials are presented here as a
+                  plain list for now. The plan is to move these to the data
+                  explorer tab where we can explore all of our data and
+                  connections.
+                </Text>
+              </Container>
             </Container>
             {viewer &&
               viewer.credentialsReceived &&
