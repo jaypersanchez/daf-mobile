@@ -17,6 +17,7 @@ import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import hexToRgba from 'hex-to-rgba'
+import { SharedElement } from 'react-navigation-shared-element'
 
 const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
@@ -134,14 +135,23 @@ const Profile: React.FC<Props> & {
               viewer.credentialsReceived &&
               viewer.credentialsReceived.map((credential: any) => {
                 return (
-                  <Credential
-                    background={'secondary'}
+                  <SharedElement
                     key={credential.hash + credential.rowId}
-                    exp={credential.exp}
-                    issuer={credential.iss}
-                    subject={credential.sub}
-                    fields={credential.fields}
-                  />
+                    id={credential.hash + credential.rowId}
+                  >
+                    <Credential
+                      onPress={() =>
+                        navigation.navigate('Credential', {
+                          credentials: [credential],
+                        })
+                      }
+                      background={'secondary'}
+                      exp={credential.exp}
+                      issuer={credential.iss}
+                      subject={credential.sub}
+                      fields={credential.fields}
+                    />
+                  </SharedElement>
                 )
               })}
           </Container>

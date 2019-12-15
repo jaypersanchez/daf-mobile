@@ -7,6 +7,7 @@ import {
   Button,
   Device,
   Constants,
+  Credential,
 } from '@kancha/kancha-ui'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
@@ -15,6 +16,7 @@ import { useQuery, useLazyQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
 import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -45,9 +47,16 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     fetchMessages()
   }, [])
 
+  const viewAttachments = (credentials: any[], credentialIndex: number) => {
+    navigation.navigate('CredentialDetail', {
+      credentials,
+      credentialIndex,
+      credentialStyle: { background: 'primary', shadow: 1.5 },
+    })
+  }
+
   const viewProfile = (id: any) => {
     console.log(id)
-
     // navigation.navigate('Profile', { id })
   }
 
@@ -104,16 +113,36 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                 message={item}
                 profileAction={viewProfile}
                 date={item.timestamp * 1000}
-                viewer={{
-                  did: data && data.viewer && data.viewer.did,
-                  shortId: data && data.viewer && data.viewer.shortId,
-                  profileImage: data && data.viewer && data.viewer.profileImage,
-                }}
-                issuer={item.sender}
-                subject={item.receiver}
+                viewer={viewerResponse && viewerResponse.data.viewer}
+                sender={item.sender}
+                receiver={item.receiver}
                 confirm={confirmRequest}
                 attachments={item.vc}
-                attachmentsAction={() => {}}
+                renderAttachment={(
+                  credential: any,
+                  credentialIndex: number,
+                ) => (
+                  <Container
+                    w={Device.width - 40}
+                    padding
+                    paddingRight={0}
+                    key={credential.hash + credential.rowId}
+                  >
+                    <SharedElement id={credential.hash + credential.rowId}>
+                      <Credential
+                        onPress={() =>
+                          viewAttachments(item.vc, credentialIndex)
+                        }
+                        exp={credential.exp}
+                        fields={credential.fields}
+                        subject={credential.sub}
+                        issuer={credential.iss}
+                        shadow={1.5}
+                        background={'primary'}
+                      />
+                    </SharedElement>
+                  </Container>
+                )}
                 actions={['Share']}
               />
             )}

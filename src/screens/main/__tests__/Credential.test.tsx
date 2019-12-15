@@ -59,6 +59,7 @@ describe('Credential', () => {
     const navigation = {
       navigate: jest.fn(),
       getParam: jest.fn().mockReturnValue(null),
+      setParams: jest.fn(),
     }
     //@ts-ignore
     const tree = render(<Credential navigation={navigation} />).toJSON()

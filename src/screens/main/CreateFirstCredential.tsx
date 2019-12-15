@@ -11,17 +11,16 @@ import {
   Button,
   Modal,
 } from '@kancha/kancha-ui'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useMutation } from '@apollo/react-hooks'
 import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
 
-const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
-  navigation,
-}) => {
+const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
+  navigationOptions: any
+} = ({ navigation }) => {
   const did = navigation.getParam('did')
   const fetchMessages = navigation.getParam('fetchMessages')
-  const isFirst = navigation.getParam('isFirstCredential')
-
   const [name, setName] = useState()
   const [sending, setSending] = useState(false)
 
@@ -69,7 +68,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
   }
 
   return (
-    <Modal scrollEnabled>
+    <Screen scrollEnabled background={'primary'}>
       <Container padding>
         <Text type={Constants.TextTypes.H3} bold>
           {'Issue Credential'}
@@ -133,8 +132,19 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> = ({
           </Container>
         </Container>
       </Container>
-    </Modal>
+    </Screen>
   )
+}
+
+CreateFirstCredential.navigationOptions = ({ navigation }: any) => {
+  return {
+    title: 'Issue credential',
+    headerLeft: (
+      <HeaderButtons>
+        <Item title={'Cancel'} onPress={navigation.dismiss} />
+      </HeaderButtons>
+    ),
+  }
 }
 
 export default CreateFirstCredential
