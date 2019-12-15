@@ -13,7 +13,7 @@ import {
   StackViewTransitionConfigs,
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { Icon } from '@kancha/kancha-ui'
 import TabAvatar from './TabAvatar'
 import { Colors, Icons } from '../theme'
@@ -51,7 +51,8 @@ import Connections from '../screens/settings/Connections'
 import CredentialField from '../screens/settings/CredentialField'
 import DidViewer from '../screens/settings/DidViewer'
 import Credentials from '../screens/settings/Credentials'
-import ModalDemo from '../screens/settings/ModalDemo'
+
+import { Animated, Easing } from 'react-native'
 
 const headerLogo = () => (
   <Image
@@ -171,7 +172,15 @@ const SettingsNavigator = createStackNavigator(
   },
 )
 
-const ActivityNavigator = createStackNavigator(
+const ProfileNavigator = createSharedElementStackNavigator(
+  createStackNavigator,
+  {
+    [Screens.Profile.screen]: Profile,
+  },
+)
+
+const ActivityNavigator = createSharedElementStackNavigator(
+  createStackNavigator,
   {
     [Screens.Activity.screen]: {
       screen: Activity,
@@ -179,7 +188,6 @@ const ActivityNavigator = createStackNavigator(
         headerTitle: headerLogo,
       },
     },
-    Profile,
   },
   {
     initialRouteName: 'Activity',
@@ -208,10 +216,6 @@ const ExploreNavigator = createStackNavigator(
   },
 )
 
-const ProfileNavigator = createStackNavigator({
-  [Screens.Profile.screen]: Profile,
-})
-
 const ScannerNavigator = createStackNavigator(
   {
     [Screens.Scanner.screen]: Scanner,
@@ -224,6 +228,10 @@ const ScannerNavigator = createStackNavigator(
 
 const IssueCredential = createStackNavigator({
   IssueCredentialScreen,
+})
+
+const IssueFirstCredential = createStackNavigator({
+  CreateFirstCredential,
 })
 
 /**
@@ -290,41 +298,70 @@ const TabNavigator = createBottomTabNavigator(
 /**
  * Remove modal animation from these screens
  */
-const NO_MODAL_ANIM = ['']
+const FADE_IN_MODALS = ['CredentialDetail']
 
 let dynamicModalTransition = (
   transitionProps: any,
   prevTransitionProps: any,
 ) => {
-  const notModal = NO_MODAL_ANIM.some(
+  const notModal = FADE_IN_MODALS.some(
     screenName =>
       screenName === transitionProps.scene.route.routeName ||
       (prevTransitionProps &&
         screenName === prevTransitionProps.scene.route.routeName),
   )
   return notModal
-    ? StackViewTransitionConfigs.NoAnimation
+    ? fadeIn()
     : StackViewTransitionConfigs.ModalSlideFromBottomIOS
 }
 
-const App = createStackNavigator(
+export function fadeIn(duration = 400) {
+  return {
+    transitionSpec: {
+      duration,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
+      useNativeDriver: true,
+    },
+    screenInterpolator: ({ position, scene }: any) => {
+      const { index } = scene
+
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index],
+        outputRange: [0, 1],
+      })
+
+      return { opacity }
+    },
+  }
+}
+
+const CredentialDetail = createSharedElementStackNavigator(
+  createStackNavigator,
+  {
+    Credential: {
+      screen: Credential,
+      navigationOptions: {
+        headerStyle: { borderBottomWidth: 0 },
+      },
+    },
+    SettingsDetail: Settings,
+  },
+)
+
+const App = createSharedElementStackNavigator(
+  createStackNavigator,
   {
     Tabs: TabNavigator,
-    ModalDemo: ModalDemo,
     Request: Request,
-    Credential: Credential,
     Scanner: ScannerNavigator,
-    CreateFirstCredential: CreateFirstCredential,
+    IssueFirstCredential,
     IssueCredential,
+    CredentialDetail,
   },
   {
     mode: 'modal',
     headerMode: 'none',
-    transparentCard: true,
-    cardStyle: {
-      // makes transparentCard work for android
-      opacity: 1.0,
-    },
     transitionConfig: dynamicModalTransition,
   },
 )

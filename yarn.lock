@@ -1032,10 +1032,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.38":
-  version "1.0.0-beta.38"
-  resolved "https://registry.npmjs.org/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.38.tgz#ea62fa99aea43b617d392b1a2fcb301eb18668ee"
-  integrity sha512-qBh/7GA8D+sIXfG/soEx7VqI64LdjprTn1suLjWWo0MfCYjRIlmF87DkeTkD4mccbiCzfD9aG0Jed7Pem7DlrA==
+"@kancha/kancha-ui@^1.0.0-beta.40":
+  version "1.0.0-beta.40"
+  resolved "https://registry.npmjs.org/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.40.tgz#9fc5ffdc84bf110ea938d1f960b325c21bfb9cd8"
+  integrity sha512-MwmlLBEmc1XcKzExCKVLept9VLpsY4nMBa/q3KRiIPVvgVg3wyVqAnocxjukwATQ/VK1NvNu+OvEitWdUqIuFg==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     date-fns "^2.5.0"
@@ -8934,6 +8934,11 @@ react-native-screens@^2.0.0-alpha.8:
   dependencies:
     debounce "^1.2.0"
 
+react-native-shared-element@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.npmjs.org/react-native-shared-element/-/react-native-shared-element-0.5.3.tgz#f857774c094535a8f869d7e34b239ce724b0d2a3"
+  integrity sha512-5PPbwMJNYhn3HEeV/mZX984aDYlcLE49vweci5+J6pdWQcEOlHzKh12HCAw3W9hvVH70WZ1t0INg4gU8G+WNPA==
+
 react-native-sqlite-storage@^3.3.10:
   version "3.3.11"
   resolved "https://registry.yarnpkg.com/react-native-sqlite-storage/-/react-native-sqlite-storage-3.3.11.tgz#834c26917f5b5c36a084a9e8d62b04109115422a"
@@ -9068,6 +9073,13 @@ react-navigation-hooks@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-navigation-hooks/-/react-navigation-hooks-1.0.3.tgz#8c203c1a4eff453d2cc07b33667abdd2a6417ab8"
   integrity sha512-w9H7hVJGS2rhonpnih4LgJ6Elrg2Xc41njvmwlI7ZwEo0JDJt/D4sulYvJcvrxhslmVNbu14F8KwgeCTwTWXjg==
+
+react-navigation-shared-element@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/react-navigation-shared-element/-/react-navigation-shared-element-0.5.0.tgz#b384dbf323dc2491c3e58b3aae1bb82054096ae0"
+  integrity sha512-RNIxqEGFYTKTR65FGHz+wP6DrdynbQHooy48irQBjygzPYgr1qBw48zJu6UV/STmFy1Iu/279JPZ+dm+hH36lg==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
 
 react-navigation-stack@^1.9.4:
   version "1.9.4"

@@ -19,7 +19,6 @@ const claimToObject = (arr: any[]) => {
 
 export default () => {
   const claim = useNavigationParam('claim')
-
   const claimFields = claimToObject(claim.fields)
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)

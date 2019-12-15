@@ -54,10 +54,6 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   )
   const [identitySelectOpen, setIdentitySelect] = useState(false)
 
-  useEffect(() => {
-    navigation.setParams({ dismiss: navigation.dismiss })
-  }, [])
-
   const inputSubject = (did: string) => {
     /**
      * If the user pastes in a did that is already in our known
@@ -369,13 +365,11 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
 }
 
 IssueCredential.navigationOptions = ({ navigation }: any) => {
-  const { dismiss } = navigation.state.params
-
   return {
     title: 'Issue credential',
     headerLeft: (
       <HeaderButtons>
-        <Item title={'Cancel'} onPress={dismiss} />
+        <Item title={'Cancel'} onPress={navigation.dismiss} />
       </HeaderButtons>
     ),
   }

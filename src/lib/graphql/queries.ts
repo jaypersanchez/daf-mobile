@@ -19,6 +19,7 @@ export const GET_VIEWER_CREDENTIALS = gql`
       url
       description
       credentialsReceived {
+        jwt
         hash
         rowId
         iss {
@@ -129,6 +130,9 @@ export const VIEWER_MESSAGES = gql`
           profileImage
         }
         vc {
+          hash
+          rowId
+          jwt
           iss {
             did
             profileImage
@@ -164,6 +168,7 @@ export const VIEWER_MESSAGES = gql`
           essential
           vc {
             hash
+            rowId
             iss {
               did
               shortId
