@@ -51,7 +51,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
   }, [sharingMode])
 
   return (
-    <Screen>
+    <Screen scrollEnabled background={'primary'}>
       <Container flex={1}>
         {sharingMode && (
           <Container padding>
@@ -67,6 +67,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
           }}
           horizontal
           pagingEnabled
+          showsHorizontalScrollIndicator={false}
           snapToAlignment={'center'}
           keyExtractor={(item: any) => item.hash}
           data={credentials}
