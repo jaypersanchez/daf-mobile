@@ -255,6 +255,8 @@ PODS:
   - RNSentry (1.0.6):
     - React
     - Sentry (~> 4.4.0)
+  - RNSharedElement (0.5.3):
+    - React
   - RNSVG (9.12.0):
     - React
   - RNUportSigner (1.6.1):
@@ -310,6 +312,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
+  - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNUportSigner (from `../node_modules/react-native-uport-signer`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -397,6 +400,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSentry:
     :path: "../node_modules/@sentry/react-native"
+  RNSharedElement:
+    :path: "../node_modules/react-native-shared-element"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNUportSigner:
@@ -447,6 +452,7 @@ SPEC CHECKSUMS:
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNScreens: bfa9143ca291bcf3804c932f77b9617ff324704f
   RNSentry: f1c8e34f9109a94b77e946d0ca50803375c1c19e
+  RNSharedElement: 4ad4e32e2a2b3c1c4171d46e97a38f25cdf3ca58
   RNSVG: 75670614bca635d3dd64bc267bc199e539cb4fa9
   RNUportSigner: 6f4968dd61b4e856bc6e93fa216b2a7268561923
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
