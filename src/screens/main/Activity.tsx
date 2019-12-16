@@ -10,6 +10,7 @@ import {
   Credential,
   Avatar,
   Typings,
+  Icon,
 } from '@kancha/kancha-ui'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
@@ -161,6 +162,29 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   >
                     <Container alignItems={'center'}>
                       <Container marginBottom={10}>
+                        <Container
+                          alignItems={'center'}
+                          justifyContent={'center'}
+                          backgroundColor={Colors.WHITE}
+                          viewStyle={{
+                            width: 23,
+                            height: 23,
+                            borderRadius: 12,
+                            position: 'absolute',
+                            zIndex: 100,
+                            top: 0,
+                            right: 0,
+                          }}
+                        >
+                          <Icon
+                            size={25}
+                            color={Colors.CONFIRM}
+                            icon={{
+                              name: 'ios-checkmark-circle',
+                              iconFamily: 'Ionicons',
+                            }}
+                          />
+                        </Container>
                         <Avatar
                           size={60}
                           address={identity.did}
