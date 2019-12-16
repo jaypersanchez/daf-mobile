@@ -41,5 +41,6 @@ export const Screens = {
   Credential: { screen: 'Credential', title: 'Credential' },
   Activity: { screen: 'Activity', title: 'Activity' },
   Explore: { screen: 'Explore', title: 'Explore' },
+  ViewerProfile: { screen: 'ViewerProfile', title: 'Profile' },
   Profile: { screen: 'Profile', title: 'Profile' },
 }

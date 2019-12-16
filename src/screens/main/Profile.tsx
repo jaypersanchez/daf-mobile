@@ -10,27 +10,24 @@ import {
   Credential,
   Icon,
 } from '@kancha/kancha-ui'
-import TabAvatar from '../../navigators/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
+import { SharedElement } from 'react-navigation-shared-element'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
+import { GET_IDENTITY } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import hexToRgba from 'hex-to-rgba'
-import { SharedElement } from 'react-navigation-shared-element'
-
-const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
 interface Props extends NavigationStackScreenProps {}
 
-const Profile: React.FC<Props> & {
-  navigationOptions: any
-} = ({ navigation }) => {
-  const { data, loading } = useQuery(GET_VIEWER_CREDENTIALS)
-  const viewer = data && data.viewer
+const Profile: React.FC<Props> = ({ navigation }) => {
+  const did = navigation.getParam('did')
+  const isViewer = navigation.getParam('isViewer')
+  const { data, loading } = useQuery(GET_IDENTITY, { variables: { did } })
+  const identity = data && data.identity
   const source =
-    viewer && data.viewer.profileImage
-      ? { source: { uri: viewer.profileImage } }
+    identity && data.identity.profileImage
+      ? { source: { uri: identity.profileImage } }
       : {}
 
   return (
@@ -67,13 +64,13 @@ const Profile: React.FC<Props> & {
             {...source}
             type={'rounded'}
             size={100}
-            address={viewer && viewer.did}
+            address={identity && identity.did}
             gravatarType={'retro'}
             backgroundColor={'white'}
           />
           <Container marginTop>
             <Text type={Constants.TextTypes.H2} bold>
-              {viewer && viewer.shortId}
+              {identity && identity.shortId}
             </Text>
             <Container marginTop>
               <Container
@@ -82,7 +79,7 @@ const Profile: React.FC<Props> & {
                 br={5}
               >
                 <Text textStyle={{ fontFamily: 'menlo' }} selectable>
-                  {viewer && viewer.did}
+                  {identity && identity.did}
                 </Text>
               </Container>
             </Container>
@@ -90,91 +87,22 @@ const Profile: React.FC<Props> & {
         </Container>
       )}
       <Container padding>
-        <Container flexDirection={'row'}>
-          <Text type={Constants.TextTypes.H3} bold>
-            Credentials
-          </Text>
-          <Container marginLeft>
-            <Button
-              iconButton
-              icon={
-                <Icon
-                  color={Colors.BRAND}
-                  icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
-                />
-              }
-              onPress={() =>
-                navigation.navigate('IssueCredential', {
-                  viewer: viewer,
-                })
-              }
-            />
-          </Container>
-        </Container>
-        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
-          <Container marginTop>
+        <Container>
+          {isViewer ? (
             <Text type={Constants.TextTypes.Body}>
-              Start issuing credentials to yourself and others. Try starting
-              with a <Text bold>name</Text> credential to personalise this
-              profile.
+              This is your own profile.
             </Text>
-          </Container>
-        )}
-        {!loading && viewer && viewer.credentialsReceived.length > 0 && (
-          <Container>
-            <Container marginBottom>
-              <Container marginTop>
-                <Text type={Constants.TextTypes.Body}>
-                  <Text bold>Received</Text> credentials are presented here as a
-                  plain list for now. Some will be moved to the data explorer
-                  tab where we can explore all of our data and connections.
-                </Text>
-              </Container>
-            </Container>
-            {viewer &&
-              viewer.credentialsReceived &&
-              viewer.credentialsReceived.map((credential: any) => {
-                return (
-                  <SharedElement
-                    key={credential.hash + credential.rowId}
-                    id={credential.hash + credential.rowId}
-                  >
-                    <Credential
-                      onPress={() =>
-                        navigation.navigate('Credential', {
-                          credentials: [credential],
-                        })
-                      }
-                      background={'secondary'}
-                      exp={credential.exp}
-                      issuer={credential.iss}
-                      subject={credential.sub}
-                      fields={credential.fields}
-                    />
-                  </SharedElement>
-                )
-              })}
-          </Container>
-        )}
+          ) : (
+            <Text type={Constants.TextTypes.Body}>
+              This is an identity profile where you will be able to see all the
+              interactions between you and them. Data share flows will also
+              start here.
+            </Text>
+          )}
+        </Container>
       </Container>
     </Screen>
   )
-}
-
-Profile.navigationOptions = ({ navigation }: any) => {
-  /**
-   * Conditionally show elements depending on profile type
-   */
-  const params = navigation.state.params || {}
-  return {
-    headerRight: (
-      <Button
-        onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
-        icon={<TabAvatar />}
-        iconButton
-      />
-    ),
-  }
 }
 
 export default Profile
