@@ -32,8 +32,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   const identitiesResponse = useQuery(GET_ALL_IDENTITIES)
   const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
 
-  console.log(identitiesResponse)
-
   const fetchMessages = () => {
     if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
       getMessages({
