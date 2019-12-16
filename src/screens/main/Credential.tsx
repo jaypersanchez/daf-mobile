@@ -9,10 +9,7 @@ import {
   Constants,
   Typings,
 } from '@kancha/kancha-ui'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { SharedElement } from 'react-navigation-shared-element'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { FlatList } from 'react-native'
@@ -63,7 +60,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
       {sharingMode && (
         <Container padding>
           <Text type={Constants.TextTypes.Body} textColor={Colors.LIGHT_GREY}>
-            Select credential(s) for sharing
+            Select credential(s) for sharing. Flow to be completed.
           </Text>
         </Container>
       )}
@@ -81,7 +78,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
         renderItem={({ item, index }: any) => {
           return (
             <Container w={Device.width - 10} padding paddingRight={10}>
-              <ScrollView>
+              <ScrollView scrollEventThrottle={16}>
                 <SharedElement id={item.hash + item.rowId}>
                   <Credential
                     onPress={() => sharingMode && selectCredential(index)}

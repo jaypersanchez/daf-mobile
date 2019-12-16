@@ -13,6 +13,7 @@ export const GET_VIEWER = gql`
 export const GET_IDENTITY = gql`
   query getIdentity($did: ID!) {
     identity(did: $did) {
+      isManaged
       did
       firstName
       lastName
@@ -25,6 +26,7 @@ export const GET_IDENTITY = gql`
 export const GET_ALL_IDENTITIES = gql`
   query GetAllIdentities {
     identities {
+      isManaged
       did
       shortId
       firstName

@@ -29,7 +29,6 @@ const Profile: React.FC<Props> = ({ navigation }) => {
     identity && data.identity.profileImage
       ? { source: { uri: identity.profileImage } }
       : {}
-
   return (
     <Screen scrollEnabled background={'primary'}>
       {loading && (
@@ -72,6 +71,29 @@ const Profile: React.FC<Props> = ({ navigation }) => {
             <Text type={Constants.TextTypes.H2} bold>
               {identity && identity.shortId}
             </Text>
+            <Container paddingTop flexDirection={'row'} alignItems={'center'}>
+              <Container
+                alignItems={'center'}
+                justifyContent={'center'}
+                br={10}
+                w={25}
+                h={25}
+                marginRight={5}
+                backgroundColor={Colors.WHITE}
+              >
+                <Icon
+                  size={25}
+                  color={Colors.CONFIRM}
+                  icon={{
+                    name: 'ios-checkmark-circle',
+                    iconFamily: 'Ionicons',
+                  }}
+                />
+              </Container>
+              <Text selectable type={Constants.TextTypes.SubTitle}>
+                This <Text bold>did</Text> is managed on this device
+              </Text>
+            </Container>
             <Container marginTop>
               <Container
                 backgroundColor={hexToRgba(Colors.CONFIRM, 0.3)}
@@ -93,11 +115,13 @@ const Profile: React.FC<Props> = ({ navigation }) => {
               This is your own profile.
             </Text>
           ) : (
-            <Text type={Constants.TextTypes.Body}>
-              This is an identity profile where you will be able to see all the
-              interactions between you and them. Data share flows will also
-              start here.
-            </Text>
+            <Container>
+              <Text type={Constants.TextTypes.Body}>
+                This is an identity profile where you will be able to see all
+                the interactions between you and them. Data share flows will
+                also start here.
+              </Text>
+            </Container>
           )}
         </Container>
       </Container>
