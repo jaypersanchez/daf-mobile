@@ -9,6 +9,31 @@ export const GET_VIEWER = gql`
     }
   }
 `
+
+export const GET_IDENTITY = gql`
+  query getIdentity($did: ID!) {
+    identity(did: $did) {
+      did
+      firstName
+      lastName
+      shortId
+      profileImage
+    }
+  }
+`
+
+export const GET_ALL_IDENTITIES = gql`
+  query GetAllIdentities {
+    identities {
+      did
+      shortId
+      firstName
+      lastName
+      profileImage
+    }
+  }
+`
+
 export const GET_VIEWER_CREDENTIALS = gql`
   query getViewer {
     viewer {
@@ -88,15 +113,6 @@ export const GET_MANAGED_IDENTITIES = gql`
       isSelected
       shortId
       profileImage
-    }
-  }
-`
-
-export const GET_ALL_IDENTITIES = gql`
-  query GetAllIdentities {
-    identities {
-      did
-      shortId
     }
   }
 `

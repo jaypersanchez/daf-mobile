@@ -22,6 +22,7 @@ import { Screens } from './screens'
 // Main Screens
 import Activity from '../screens/main/Activity'
 import Explore from '../screens/main/Explore'
+import ViewerProfile from '../screens/main/ViewerProfile'
 import Profile from '../screens/main/Profile'
 import Onboarding from '../screens/main/Onboarding'
 import Restore from '../screens/main/Restore'
@@ -175,7 +176,7 @@ const SettingsNavigator = createStackNavigator(
 const ProfileNavigator = createSharedElementStackNavigator(
   createStackNavigator,
   {
-    [Screens.Profile.screen]: Profile,
+    [Screens.ViewerProfile.screen]: ViewerProfile,
   },
 )
 
@@ -187,6 +188,9 @@ const ActivityNavigator = createSharedElementStackNavigator(
       navigationOptions: {
         headerTitle: headerLogo,
       },
+    },
+    [Screens.Profile.screen]: {
+      screen: Profile,
     },
   },
   {
@@ -273,7 +277,7 @@ const TabNavigator = createBottomTabNavigator(
         },
       },
     },
-    [Screens.Profile.screen]: {
+    [Screens.ViewerProfile.screen]: {
       screen: ProfileNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => {
@@ -342,7 +346,7 @@ const CredentialDetail = createSharedElementStackNavigator(
     Credential: {
       screen: Credential,
       navigationOptions: {
-        headerStyle: { borderBottomWidth: 0 },
+        headerStyle: { borderBottomWidth: 0, backgroundColor: '#000000' },
       },
     },
     SettingsDetail: Settings,

@@ -8,21 +8,31 @@ import {
   Device,
   Constants,
   Credential,
+  Avatar,
+  Typings,
 } from '@kancha/kancha-ui'
 import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery, useLazyQuery } from 'react-apollo'
 import { core, dataStore } from '../../lib/setup'
-import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
+import {
+  VIEWER_MESSAGES,
+  GET_VIEWER,
+  GET_ALL_IDENTITIES,
+} from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
   const viewerResponse = useQuery(GET_VIEWER)
+  const identitiesResponse = useQuery(GET_ALL_IDENTITIES)
   const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
+
+  console.log(identitiesResponse)
 
   const fetchMessages = () => {
     if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
@@ -55,13 +65,16 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     })
   }
 
-  const viewProfile = (id: any) => {
-    console.log(id)
-    // navigation.navigate('Profile', { id })
+  const viewProfile = (did: any) => {
+    navigation.navigate('Profile', {
+      did,
+      isViewer: viewerResponse.data.viewer.did === did,
+    })
   }
 
   const syncAndRefetch = async () => {
     await core.getMessagesSince(await dataStore.latestMessageTimestamps())
+    identitiesResponse.refetch()
     fetchMessages()
   }
 
@@ -94,6 +107,80 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     </Container>
   )
 
+  /**
+   * Moving to kancha when better defined
+   * */
+  const ContactsHeader = (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      style={{ backgroundColor: Colors.WHITE, marginBottom: 1 }}
+    >
+      <Container flexDirection={'row'}>
+        {identitiesResponse &&
+          identitiesResponse.data &&
+          identitiesResponse.data.identities &&
+          identitiesResponse.data.identities
+            .filter(
+              (identity: Typings.Identity) =>
+                identity.did !==
+                (viewerResponse &&
+                  viewerResponse.data &&
+                  viewerResponse.data.viewer.did),
+            )
+            .map((identity: Typings.Identity) => {
+              /**
+               * Need to extract some of this parsing logic somewhere. DAF perhaps?
+               * */
+              const displayDid = identity.shortId.startsWith('did:ethr:')
+                ? identity.shortId.slice(9, -4)
+                : identity.shortId
+              const source =
+                identity && identity.profileImage
+                  ? { source: { uri: identity.profileImage } }
+                  : {}
+              const gravatar: any = identity.shortId.startsWith('did:ethr:')
+                ? { gravatarType: 'retro' }
+                : {}
+
+              return (
+                <Container
+                  key={identity.did}
+                  w={90}
+                  padding={10}
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                  br={10}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('Profile', {
+                        did: identity.did,
+                        isViewer:
+                          identity.did === viewerResponse.data.viewer.did,
+                      })
+                    }
+                  >
+                    <Container alignItems={'center'}>
+                      <Container marginBottom={10}>
+                        <Avatar
+                          size={60}
+                          address={identity.did}
+                          title={identity.shortId}
+                          {...source}
+                          {...gravatar}
+                        />
+                      </Container>
+                      <Text textStyle={{ fontSize: 14 }}>{displayDid}</Text>
+                    </Container>
+                  </TouchableOpacity>
+                </Container>
+              )
+            })}
+      </Container>
+    </ScrollView>
+  )
+
   return (
     <Screen background={'secondary'} safeArea={true}>
       <Container flex={1}>
@@ -102,10 +189,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           <Text>Error</Text>
         ) : (
           <FlatList
+            ListHeaderComponent={ContactsHeader}
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
             data={data && data.viewer && data.viewer.messagesAll}
             onRefresh={syncAndRefetch}
-            refreshing={loading}
+            refreshing={loading || identitiesResponse.loading}
             renderItem={({ item }: { item: any }) => (
               <ActivityItem
                 id={item.id}
