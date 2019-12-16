@@ -32,6 +32,8 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   const identitiesResponse = useQuery(GET_ALL_IDENTITIES)
   const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
 
+  console.log(identitiesResponse)
+
   const fetchMessages = () => {
     if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
       getMessages({
@@ -72,6 +74,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   const syncAndRefetch = async () => {
     await core.getMessagesSince(await dataStore.latestMessageTimestamps())
+    identitiesResponse.refetch()
     fetchMessages()
   }
 
@@ -129,9 +132,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
               const displayDid = identity.shortId.startsWith('did:ethr:')
                 ? identity.shortId.slice(9, -4)
                 : identity.shortId
-              const identityProfileSource = identity.profileImage
-                ? { uri: identity.profileImage }
-                : {}
+              const source =
+                identity && identity.profileImage
+                  ? { source: { uri: identity.profileImage } }
+                  : {}
+
               return (
                 <Container
                   key={identity.did}
@@ -155,8 +160,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                         <Avatar
                           address={identity.did}
                           size={60}
+                          title={identity.shortId}
                           gravatarType={'retro'}
-                          {...identityProfileSource}
+                          {...source}
                         />
                       </Container>
                       <Text textStyle={{ fontSize: 14 }}>{displayDid}</Text>
@@ -181,7 +187,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
             data={data && data.viewer && data.viewer.messagesAll}
             onRefresh={syncAndRefetch}
-            refreshing={loading}
+            refreshing={loading || identitiesResponse.loading}
             renderItem={({ item }: { item: any }) => (
               <ActivityItem
                 id={item.id}
