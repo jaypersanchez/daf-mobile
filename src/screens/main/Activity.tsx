@@ -117,8 +117,15 @@ const Activity: React.FC<Props> = ({ navigation }) => {
         {identitiesResponse &&
           identitiesResponse.data &&
           identitiesResponse.data.identities &&
-          identitiesResponse.data.identities.map(
-            (identity: Typings.Identity) => {
+          identitiesResponse.data.identities
+            .filter(
+              (identity: Typings.Identity) =>
+                identity.did !==
+                (viewerResponse &&
+                  viewerResponse.data &&
+                  viewerResponse.data.viewer.did),
+            )
+            .map((identity: Typings.Identity) => {
               const displayDid = identity.shortId.startsWith('did:ethr:')
                 ? identity.shortId.slice(9, -4)
                 : identity.shortId
@@ -138,6 +145,8 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                     onPress={() =>
                       navigation.navigate('Profile', {
                         did: identity.did,
+                        isViewer:
+                          identity.did === viewerResponse.data.viewer.did,
                       })
                     }
                   >
@@ -155,8 +164,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   </TouchableOpacity>
                 </Container>
               )
-            },
-          )}
+            })}
       </Container>
     </ScrollView>
   )
