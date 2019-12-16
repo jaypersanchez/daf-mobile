@@ -129,6 +129,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   viewerResponse.data.viewer.did),
             )
             .map((identity: Typings.Identity) => {
+              /**
+               * Need to extract some of this parsing logic somewhere. DAF perhaps?
+               * */
               const displayDid = identity.shortId.startsWith('did:ethr:')
                 ? identity.shortId.slice(9, -4)
                 : identity.shortId
@@ -136,6 +139,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                 identity && identity.profileImage
                   ? { source: { uri: identity.profileImage } }
                   : {}
+              const gravatar: any = identity.shortId.startsWith('did:ethr:')
+                ? { gravatarType: 'retro' }
+                : {}
 
               return (
                 <Container
@@ -158,11 +164,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                     <Container alignItems={'center'}>
                       <Container marginBottom={10}>
                         <Avatar
-                          address={identity.did}
                           size={60}
+                          address={identity.did}
                           title={identity.shortId}
-                          gravatarType={'retro'}
                           {...source}
+                          {...gravatar}
                         />
                       </Container>
                       <Text textStyle={{ fontSize: 14 }}>{displayDid}</Text>
