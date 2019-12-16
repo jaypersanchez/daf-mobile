@@ -71,29 +71,32 @@ const Profile: React.FC<Props> = ({ navigation }) => {
             <Text type={Constants.TextTypes.H2} bold>
               {identity && identity.shortId}
             </Text>
-            <Container paddingTop flexDirection={'row'} alignItems={'center'}>
-              <Container
-                alignItems={'center'}
-                justifyContent={'center'}
-                br={10}
-                w={25}
-                h={25}
-                marginRight={5}
-                backgroundColor={Colors.WHITE}
-              >
-                <Icon
-                  size={25}
-                  color={Colors.CONFIRM}
-                  icon={{
-                    name: 'ios-checkmark-circle',
-                    iconFamily: 'Ionicons',
-                  }}
-                />
+            {identity && identity.isManaged && (
+              <Container paddingTop flexDirection={'row'} alignItems={'center'}>
+                <Container
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                  br={10}
+                  w={25}
+                  h={25}
+                  marginRight={5}
+                  backgroundColor={Colors.WHITE}
+                >
+                  <Icon
+                    size={25}
+                    color={Colors.CONFIRM}
+                    icon={{
+                      name: 'ios-checkmark-circle',
+                      iconFamily: 'Ionicons',
+                    }}
+                  />
+                </Container>
+                <Text selectable type={Constants.TextTypes.SubTitle}>
+                  This <Text bold>did</Text> is managed on this device
+                </Text>
               </Container>
-              <Text selectable type={Constants.TextTypes.SubTitle}>
-                This <Text bold>did</Text> is managed on this device
-              </Text>
-            </Container>
+            )}
+
             <Container marginTop>
               <Container
                 backgroundColor={hexToRgba(Colors.CONFIRM, 0.3)}
