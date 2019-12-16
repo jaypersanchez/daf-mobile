@@ -127,7 +127,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   viewerResponse.data &&
                   viewerResponse.data.viewer.did),
             )
-            .map((identity: Typings.Identity) => {
+            .map((identity: Typings.Identity & { isManaged: boolean }) => {
               /**
                * Need to extract some of this parsing logic somewhere. DAF perhaps?
                * */
@@ -162,29 +162,31 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   >
                     <Container alignItems={'center'}>
                       <Container marginBottom={10}>
-                        <Container
-                          alignItems={'center'}
-                          justifyContent={'center'}
-                          backgroundColor={Colors.WHITE}
-                          viewStyle={{
-                            width: 23,
-                            height: 23,
-                            borderRadius: 12,
-                            position: 'absolute',
-                            zIndex: 100,
-                            top: 0,
-                            right: 0,
-                          }}
-                        >
-                          <Icon
-                            size={25}
-                            color={Colors.CONFIRM}
-                            icon={{
-                              name: 'ios-checkmark-circle',
-                              iconFamily: 'Ionicons',
+                        {identity.isManaged && (
+                          <Container
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            backgroundColor={Colors.WHITE}
+                            viewStyle={{
+                              width: 23,
+                              height: 23,
+                              borderRadius: 12,
+                              position: 'absolute',
+                              zIndex: 100,
+                              top: 0,
+                              right: 0,
                             }}
-                          />
-                        </Container>
+                          >
+                            <Icon
+                              size={25}
+                              color={Colors.CONFIRM}
+                              icon={{
+                                name: 'ios-checkmark-circle',
+                                iconFamily: 'Ionicons',
+                              }}
+                            />
+                          </Container>
+                        )}
                         <Avatar
                           size={60}
                           address={identity.did}
