@@ -5,13 +5,9 @@ import {
   Screen,
   Avatar,
   Constants,
-  Button,
-  BottomSnap,
-  Credential,
   Icon,
 } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { SharedElement } from 'react-navigation-shared-element'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_IDENTITY } from '../../lib/graphql/queries'
 import { ActivityIndicator } from 'react-native'

@@ -10,7 +10,7 @@ import {
   Credential,
   Icon,
 } from '@kancha/kancha-ui'
-import TabAvatar from '../../navigators/TabAvatar'
+import TabAvatar from '../../navigators/components/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_VIEWER_CREDENTIALS } from '../../lib/graphql/queries'
@@ -23,7 +23,7 @@ const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
 interface Props extends NavigationStackScreenProps {}
 
-const Profile: React.FC<Props> & {
+const ViewerProfile: React.FC<Props> & {
   navigationOptions: any
 } = ({ navigation }) => {
   const { data, loading } = useQuery(GET_VIEWER_CREDENTIALS)
@@ -90,27 +90,29 @@ const Profile: React.FC<Props> & {
         </Container>
       )}
       <Container padding>
-        <Container flexDirection={'row'}>
-          <Text type={Constants.TextTypes.H3} bold>
-            Credentials
-          </Text>
-          <Container marginLeft>
-            <Button
-              iconButton
-              icon={
-                <Icon
-                  color={Colors.BRAND}
-                  icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
-                />
-              }
-              onPress={() =>
-                navigation.navigate('IssueCredential', {
-                  viewer: viewer,
-                })
-              }
-            />
+        {!loading && viewer && (
+          <Container flexDirection={'row'}>
+            <Text type={Constants.TextTypes.H3} bold>
+              Credentials
+            </Text>
+            <Container marginLeft>
+              <Button
+                iconButton
+                icon={
+                  <Icon
+                    color={Colors.BRAND}
+                    icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
+                  />
+                }
+                onPress={() =>
+                  navigation.navigate('IssueCredential', {
+                    viewer: viewer,
+                  })
+                }
+              />
+            </Container>
           </Container>
-        </Container>
+        )}
         {!loading && viewer && viewer.credentialsReceived.length === 0 && (
           <Container marginTop>
             <Text type={Constants.TextTypes.Body}>
@@ -143,6 +145,7 @@ const Profile: React.FC<Props> & {
                       onPress={() =>
                         navigation.navigate('Credential', {
                           credentials: [credential],
+                          transitionIds: [credential.hash + credential.rowId],
                         })
                       }
                       background={'secondary'}
@@ -161,11 +164,7 @@ const Profile: React.FC<Props> & {
   )
 }
 
-Profile.navigationOptions = ({ navigation }: any) => {
-  /**
-   * Conditionally show elements depending on profile type
-   */
-  const params = navigation.state.params || {}
+ViewerProfile.navigationOptions = ({ navigation }: any) => {
   return {
     headerRight: (
       <Button
@@ -177,4 +176,4 @@ Profile.navigationOptions = ({ navigation }: any) => {
   }
 }
 
-export default Profile
+export default ViewerProfile

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   Container,
   Text,
@@ -8,11 +8,10 @@ import {
   Device,
   Constants,
   Credential,
-  Avatar,
+  Loader,
   Typings,
-  Icon,
+  Connection,
 } from '@kancha/kancha-ui'
-import { ActivityIndicator } from 'react-native'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery, useLazyQuery } from 'react-apollo'
@@ -24,7 +23,7 @@ import {
 } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -56,11 +55,15 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     fetchMessages()
   }, [])
 
-  const viewAttachments = (credentials: any[], credentialIndex: number) => {
+  const viewAttachments = (
+    credentials: any[],
+    credentialIndex: number,
+    transitionIds: string[],
+  ) => {
     navigation.navigate('CredentialDetail', {
       credentials,
       credentialIndex,
-      credentialStyle: { background: 'primary', shadow: 1.5 },
+      transitionIds,
     })
   }
 
@@ -73,7 +76,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   const syncAndRefetch = async () => {
     await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-    identitiesResponse.refetch()
+    identitiesResponse && identitiesResponse.refetch()
     fetchMessages()
   }
 
@@ -84,31 +87,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     })
   }
 
-  const loader = (
-    <Container
-      flexDirection={'row'}
-      alignItems={'center'}
-      padding={10}
-      br={20}
-      viewStyle={{
-        position: 'absolute',
-        bottom: 50,
-        zIndex: 100,
-        left: Device.width / 2 - 100,
-        width: 200,
-        backgroundColor: 'rgba(0,0,0,0.8)',
-      }}
-    >
-      <Container marginRight={10}>
-        <ActivityIndicator />
-      </Container>
-      <Text textColor={Colors.WHITE}>Loading activity...</Text>
-    </Container>
-  )
-
-  /**
-   * Moving to kancha when better defined
-   * */
   const ContactsHeader = (
     <ScrollView
       horizontal
@@ -120,87 +98,27 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           identitiesResponse.data &&
           identitiesResponse.data.identities &&
           identitiesResponse.data.identities
+            .map((identity: Typings.Identity & { isManaged: boolean }) => {
+              return (
+                <Connection
+                  key={identity.did}
+                  onPress={() =>
+                    navigation.navigate('Profile', { did: identity.did })
+                  }
+                  shortId={identity.shortId}
+                  did={identity.did}
+                  profileImage={identity.profileImage}
+                  isManaged={identity.isManaged}
+                />
+              )
+            })
             .filter(
               (identity: Typings.Identity) =>
                 identity.did !==
                 (viewerResponse &&
                   viewerResponse.data &&
                   viewerResponse.data.viewer.did),
-            )
-            .map((identity: Typings.Identity & { isManaged: boolean }) => {
-              /**
-               * Need to extract some of this parsing logic somewhere. DAF perhaps?
-               * */
-              const displayDid = identity.shortId.startsWith('did:ethr:')
-                ? identity.shortId.slice(9, -4)
-                : identity.shortId
-              const source =
-                identity && identity.profileImage
-                  ? { source: { uri: identity.profileImage } }
-                  : {}
-              const gravatar: any = identity.shortId.startsWith('did:ethr:')
-                ? { gravatarType: 'retro' }
-                : {}
-
-              return (
-                <Container
-                  key={identity.did}
-                  w={90}
-                  padding={10}
-                  alignItems={'center'}
-                  justifyContent={'center'}
-                  br={10}
-                >
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate('Profile', {
-                        did: identity.did,
-                        isViewer:
-                          identity.did === viewerResponse.data.viewer.did,
-                      })
-                    }
-                  >
-                    <Container alignItems={'center'}>
-                      <Container marginBottom={10}>
-                        {identity.isManaged && (
-                          <Container
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                            backgroundColor={Colors.WHITE}
-                            viewStyle={{
-                              width: 23,
-                              height: 23,
-                              borderRadius: 12,
-                              position: 'absolute',
-                              zIndex: 100,
-                              top: 0,
-                              right: 0,
-                            }}
-                          >
-                            <Icon
-                              size={25}
-                              color={Colors.CONFIRM}
-                              icon={{
-                                name: 'ios-checkmark-circle',
-                                iconFamily: 'Ionicons',
-                              }}
-                            />
-                          </Container>
-                        )}
-                        <Avatar
-                          size={60}
-                          address={identity.did}
-                          title={identity.shortId}
-                          {...source}
-                          {...gravatar}
-                        />
-                      </Container>
-                      <Text textStyle={{ fontSize: 14 }}>{displayDid}</Text>
-                    </Container>
-                  </TouchableOpacity>
-                </Container>
-              )
-            })}
+            )}
       </Container>
     </ScrollView>
   )
@@ -208,7 +126,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   return (
     <Screen background={'secondary'} safeArea={true}>
       <Container flex={1}>
-        {loading && loader}
+        {loading && <Loader width={180} text={'Loading activity...'} />}
         {error ? (
           <Text>Error</Text>
         ) : (
@@ -218,46 +136,53 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             data={data && data.viewer && data.viewer.messagesAll}
             onRefresh={syncAndRefetch}
             refreshing={loading || identitiesResponse.loading}
-            renderItem={({ item }: { item: any }) => (
-              <ActivityItem
-                id={item.id}
-                type={item.type}
-                message={item}
-                profileAction={viewProfile}
-                date={item.timestamp * 1000}
-                viewer={viewerResponse && viewerResponse.data.viewer}
-                sender={item.sender}
-                receiver={item.receiver}
-                confirm={confirmRequest}
-                attachments={item.vc}
-                renderAttachment={(
-                  credential: any,
-                  credentialIndex: number,
-                ) => (
-                  <Container
-                    w={Device.width - 40}
-                    padding
-                    paddingRight={0}
-                    key={credential.hash + credential.rowId}
-                  >
-                    <SharedElement id={credential.hash + credential.rowId}>
-                      <Credential
-                        onPress={() =>
-                          viewAttachments(item.vc, credentialIndex)
-                        }
-                        exp={credential.exp}
-                        fields={credential.fields}
-                        subject={credential.sub}
-                        issuer={credential.iss}
-                        shadow={1.5}
-                        background={'primary'}
-                      />
-                    </SharedElement>
-                  </Container>
-                )}
-                actions={['Share']}
-              />
-            )}
+            renderItem={({ item }: { item: any }) => {
+              const animationIds = item.vc.map((vc: any) => vc.hash + vc.rowId)
+
+              return (
+                <ActivityItem
+                  id={item.id}
+                  type={item.type}
+                  profileAction={viewProfile}
+                  date={item.timestamp * 1000}
+                  viewer={viewerResponse && viewerResponse.data.viewer}
+                  sender={item.sender}
+                  receiver={item.receiver}
+                  confirm={() => confirmRequest(item)}
+                  attachments={item.vc}
+                  renderAttachment={(
+                    credential: any,
+                    credentialIndex: number,
+                  ) => (
+                    <Container
+                      w={Device.width - 40}
+                      padding
+                      paddingRight={0}
+                      key={credential.hash + credential.rowId}
+                    >
+                      <SharedElement id={credential.hash + credential.rowId}>
+                        <Credential
+                          onPress={() =>
+                            viewAttachments(
+                              item.vc,
+                              credentialIndex,
+                              animationIds,
+                            )
+                          }
+                          exp={credential.exp}
+                          fields={credential.fields}
+                          subject={credential.sub}
+                          issuer={credential.iss}
+                          shadow={1.5}
+                          background={'primary'}
+                        />
+                      </SharedElement>
+                    </Container>
+                  )}
+                  actions={['Share']}
+                />
+              )
+            }}
             keyExtractor={(item, index) => item.id + index}
             ListEmptyComponent={
               <Container>
