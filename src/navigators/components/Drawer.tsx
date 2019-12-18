@@ -13,7 +13,7 @@ import {
 import { Colors } from '../../theme'
 
 // tslint:disable-next-line:no-var-requires
-const profileImage = require('../assets/images/kitten-avatar.jpg')
+const profileImage = require('../../assets/images/kitten-avatar.jpg')
 
 interface DrawerProps {
   onItemPress: (scene: any) => void
