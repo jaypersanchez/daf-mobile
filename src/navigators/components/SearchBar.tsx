@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { TextInput } from 'react-native'
 import { Container } from '@kancha/kancha-ui'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 import { Transitioning, Transition } from 'react-native-reanimated'
 
 interface SearchBarProps {

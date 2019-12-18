@@ -8,15 +8,16 @@ import {
   Container,
   Button,
   Icon,
+  Overlay,
 } from '@kancha/kancha-ui'
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
-import { Theme, Colors } from '../theme'
+import { Theme, Colors } from '../../theme'
 import {
   GET_MANAGED_IDENTITIES,
   SET_VIEWER,
-  IMPORT_IDENTITY,
   CREATE_IDENTITY,
-} from '../lib/graphql/queries'
+} from '../../lib/graphql/queries'
+import AppConstants from '../../constants'
 
 interface Identity {
   did: string
@@ -39,6 +40,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
       type: 'rnEthr',
     },
   })
+  const { title, message, icon, delay } = AppConstants.modals.SWITCHED_IDENTITY
 
   const managedIdentities =
     data && data.managedIdentities && data.managedIdentities
@@ -51,12 +53,15 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
         did: identity.did,
       },
     })
+
     client.reFetchObservableQueries()
+
+    Overlay.show(title, message, icon, delay)
   }
 
   return (
     <BottomSheet
-      snapPoints={[-10, 350]}
+      snapPoints={[-15, 350]}
       initialSnap={0}
       id={id}
       enabledInnerScrolling
@@ -80,24 +85,39 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
                   ? { source: { uri: identity.profileImage } }
                   : {}
                 return (
-                  <ListItem
-                    key={identity.did}
-                    hideForwardArrow
-                    onPress={() => switchIdentity(identity)}
-                    selected={identity.isSelected}
-                    last
-                    iconLeft={
-                      <Avatar
-                        {...source}
-                        size={45}
-                        address={identity.did}
-                        type={'circle'}
-                        gravatarType={'retro'}
-                      />
-                    }
-                  >
-                    {identity.shortId}
-                  </ListItem>
+                  <Container key={identity.did}>
+                    <ListItem
+                      hideForwardArrow
+                      onPress={() => switchIdentity(identity)}
+                      selected={identity.isSelected}
+                      last
+                      iconLeft={
+                        <Avatar
+                          {...source}
+                          size={45}
+                          address={identity.did}
+                          type={'circle'}
+                          gravatarType={'retro'}
+                        />
+                      }
+                    >
+                      {identity.shortId}
+                    </ListItem>
+                    {/* {identity.isSelected && (
+                      <Container flexDirection={'row'} paddingLeft={75}>
+                        <Container
+                          borderWidth={1}
+                          borderColor={Colors.LIGHT_GREY}
+                          padding={6}
+                          br={5}
+                        >
+                          <Text textStyle={{ fontSize: 12 }}>
+                            34 Credentials received
+                          </Text>
+                        </Container>
+                      </Container>
+                    )} */}
+                  </Container>
                 )
               })}
           <Container padding alignItems={'center'} dividerTop>
