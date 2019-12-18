@@ -27,6 +27,7 @@ export const GET_ALL_IDENTITIES = gql`
   query GetAllIdentities {
     identities {
       isManaged
+      isSelected
       did
       shortId
       firstName

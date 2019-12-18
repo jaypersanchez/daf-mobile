@@ -48,7 +48,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const switchIdentity = async (identity: Identity) => {
     BottomSnap.to(0, id)
 
-    await setViewer({
+    setViewer({
       variables: {
         did: identity.did,
       },
