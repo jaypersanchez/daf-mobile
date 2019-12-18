@@ -10,10 +10,10 @@ import {
   Section,
   Constants,
 } from '@kancha/kancha-ui'
-import { Colors } from '../theme'
+import { Colors } from '../../theme'
 
 // tslint:disable-next-line:no-var-requires
-const profileImage = require('../assets/images/kitten-avatar.jpg')
+const profileImage = require('../../assets/images/kitten-avatar.jpg')
 
 interface DrawerProps {
   onItemPress: (scene: any) => void

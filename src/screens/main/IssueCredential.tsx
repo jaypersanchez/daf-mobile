@@ -10,7 +10,9 @@ import {
   Constants,
   Button,
   Icon,
+  Overlay,
 } from '@kancha/kancha-ui'
+import AppConstants from '../../constants'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
@@ -111,6 +113,13 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
     onCompleted: response => {
       if (response && response.actionSendJwt) {
         setSending(false)
+        const {
+          title,
+          message,
+          icon,
+          delay,
+        } = AppConstants.modals.CREDENTIAL_SENT
+        Overlay.show(title, message, icon, delay)
 
         navigation.dismiss()
       }

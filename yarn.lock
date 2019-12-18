@@ -1032,10 +1032,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kancha/kancha-ui@^1.0.0-beta.40":
-  version "1.0.0-beta.40"
-  resolved "https://registry.npmjs.org/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.40.tgz#9fc5ffdc84bf110ea938d1f960b325c21bfb9cd8"
-  integrity sha512-MwmlLBEmc1XcKzExCKVLept9VLpsY4nMBa/q3KRiIPVvgVg3wyVqAnocxjukwATQ/VK1NvNu+OvEitWdUqIuFg==
+"@kancha/kancha-ui@^1.0.0-beta.41":
+  version "1.0.0-beta.41"
+  resolved "https://registry.npmjs.org/@kancha/kancha-ui/-/kancha-ui-1.0.0-beta.41.tgz#eb768db430bd02ccb649f32e895ff6831acdbde9"
+  integrity sha512-k7DSo1sq59YXE6wIWhLtDh2ZlAvA1/SKQigW6OnCMl9Xcjbug9ef2NRwgy/6N2M5DSpyjN07N5EZxsw5KQwNkw==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.0"
     date-fns "^2.5.0"
@@ -1049,9 +1049,6 @@
     react-native-qrcode-svg "^5.3.2"
     react-native-reanimated "^1.3.0"
     react-native-vector-icons "^6.6.0"
-    react-navigation "^4.0.10"
-    react-navigation-drawer "^2.2.2"
-    react-navigation-stack "^1.9.4"
     reanimated-bottom-sheet "^1.0.0-alpha.14"
     string "^3.3.3"
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
   Container,
-  Screen,
   Credential,
   Device,
   Text,
@@ -28,7 +27,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
 } = ({ navigation }) => {
   const credentials = navigation.getParam('credentials')
   const initialCredential = navigation.getParam('credentialIndex', 0)
-  const [sharingMode, toggleSharingMode] = useState(false)
+  const [sharingMode, toggleSharingMode] = useState<boolean>(false)
   const [selected, updateSelected] = useState<number[]>([])
 
   const isSelected = (index: number) => {
@@ -37,7 +36,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
 
   const selectedStyle = (index: number): CredentialStyle => {
     return {
-      background: isSelected(index) ? 'primary' : 'secondary',
+      background: isSelected(index) ? 'primary' : 'primary',
       shadow: 0,
     }
   }
@@ -50,12 +49,46 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
     }
   }
 
+  const initailOffset = { x: (Device.width - 15) * initialCredential, y: 0 }
+
   useEffect(() => {
     navigation.setParams({ sharingMode, toggleSharingMode })
   }, [sharingMode])
 
+  const renderCredential = ({
+    item,
+    index,
+  }: {
+    item: Typings.VerifiableCredential & { rowId: number }
+    index: number
+  }) => (
+    <Container w={Device.width - 10} padding paddingRight={10}>
+      <ScrollView scrollEventThrottle={16}>
+        <SharedElement id={item.hash + item.rowId}>
+          <Credential
+            onPress={() => sharingMode && selectCredential(index)}
+            detailMode
+            jwt={item.jwt}
+            issuer={item.iss}
+            subject={item.sub}
+            fields={item.fields}
+            exp={item.exp}
+            {...selectedStyle(index)}
+          />
+          {sharingMode && (
+            <RadioBtn
+              selected={isSelected(index)}
+              onPress={() => selectCredential(index)}
+            >
+              {isSelected(index) && 'Sharing'}
+            </RadioBtn>
+          )}
+        </SharedElement>
+      </ScrollView>
+    </Container>
+  )
+
   return (
-    // <Screen scrollEnabled background={'primary'}>
     <Container flex={1} backgroundColor={Colors.BLACK}>
       {sharingMode && (
         <Container padding>
@@ -65,61 +98,16 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
         </Container>
       )}
       <FlatList
-        contentOffset={{
-          x: (Device.width - 15) * initialCredential,
-          y: 0,
-        }}
         horizontal
         pagingEnabled
+        contentOffset={initailOffset}
         showsHorizontalScrollIndicator={false}
         snapToAlignment={'center'}
-        keyExtractor={(item: any) => item.hash}
+        keyExtractor={(item: Typings.VerifiableCredential) => item.hash}
         data={credentials}
-        renderItem={({ item, index }: any) => {
-          return (
-            <Container w={Device.width - 10} padding paddingRight={10}>
-              <ScrollView scrollEventThrottle={16}>
-                <SharedElement id={item.hash + item.rowId}>
-                  <Credential
-                    onPress={() => sharingMode && selectCredential(index)}
-                    detailMode
-                    jwt={item.jwt}
-                    issuer={item.iss}
-                    subject={item.sub}
-                    fields={item.fields}
-                    exp={item.exp}
-                    {...selectedStyle(index)}
-                  />
-                  {sharingMode && (
-                    <RadioBtn
-                      selected={isSelected(index)}
-                      onPress={() => selectCredential(index)}
-                    >
-                      {isSelected(index) && 'Sharing'}
-                    </RadioBtn>
-                  )}
-                </SharedElement>
-              </ScrollView>
-            </Container>
-          )
-        }}
+        renderItem={renderCredential}
       ></FlatList>
-      {/* <Container flexDirection={'row'} justifyContent={'center'}>
-        {credentials.map((dot: any) => {
-          return (
-            <Container
-              key={dot.hash}
-              br={5}
-              w={10}
-              h={10}
-              backgroundColor={Colors.MEDIUM_GREY}
-              margin={4}
-            />
-          )
-        })}
-      </Container> */}
     </Container>
-    // </Screen>
   )
 }
 
@@ -161,10 +149,12 @@ CredentialDetail.navigationOptions = ({ navigation }: any) => {
 }
 
 CredentialDetail.sharedElements = (navigation: any) => {
-  const credentials = navigation.getParam('credentials')
-  return credentials.map((item: any) => {
-    return { id: item.hash + item.rowId, animation: 'fade', resize: 'clip' }
-  })
+  const transitionIds = navigation.getParam('transitionIds')
+  return transitionIds.map((id: string) => ({
+    id,
+    animation: 'fade',
+    resize: 'clip',
+  }))
 }
 
 export default CredentialDetail

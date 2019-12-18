@@ -1,10 +1,12 @@
 import React from 'react'
 import Navigation from './navigators'
+import NavigationEvents from './navigators/components/NavigationEvents'
 import Provider from './lib/ApolloProvider'
 import './lib/I18n'
 
-import { ThemeProvider, Toast } from '@kancha/kancha-ui'
-import IDSwitcher from './navigators/Switcher'
+import { ThemeProvider, Toast, OverlaySign } from '@kancha/kancha-ui'
+import IDSwitcher from './navigators/components/Switcher'
+import NavigationService from './navigators/navigationService'
 import { Theme } from './theme'
 
 const App = () => {
@@ -12,7 +14,12 @@ const App = () => {
     <Provider>
       <ThemeProvider theme={Theme}>
         <Toast />
-        <Navigation />
+        <OverlaySign />
+        <Navigation
+          ref={navigatorRef =>
+            NavigationService.setTopLevelNavigator(navigatorRef)
+          }
+        />
         <IDSwitcher id={'SWITCH_IDENTITY'} />
       </ThemeProvider>
     </Provider>

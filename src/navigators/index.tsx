@@ -15,7 +15,7 @@ import {
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { Icon } from '@kancha/kancha-ui'
-import TabAvatar from './TabAvatar'
+import TabAvatar from './components/TabAvatar'
 import { Colors, Icons } from '../theme'
 import { Screens } from './screens'
 

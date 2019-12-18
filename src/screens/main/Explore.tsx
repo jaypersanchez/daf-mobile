@@ -10,7 +10,7 @@ import {
   Device,
 } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import SearchBar from '../../navigators/SearchBar'
+import SearchBar from '../../navigators/components/SearchBar'
 
 // tslint:disable-next-line:no-var-requires
 const avatar1 = require('../../assets/images/space-x-logo.jpg')
