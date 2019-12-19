@@ -213,7 +213,9 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
                 onSelectItem={onSelectItem}
                 onPressVC={() =>
                   props.navigation.navigate('Credential', {
+                    sharingModeEnabled: false,
                     credentials: sdrRequestField.vc,
+                    credentialIndex: 0,
                   })
                 }
               />
