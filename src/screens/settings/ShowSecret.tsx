@@ -11,24 +11,19 @@ import { useQuery, useLazyQuery } from 'react-apollo'
 import { GET_VIEWER, GET_SECRET_KEY } from '../../lib/graphql/queries'
 
 const ShowSecret: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
-  const [show, setShow] = useState(false)
-  const isSeedPhrase = navigation.getParam('seedPhrase', false)
-
-  const keyType = isSeedPhrase ? 'seed phrase' : 'private key'
-
-  const { data, loading } = useQuery(GET_VIEWER)
+  const { data } = useQuery(GET_VIEWER)
   const [getSecretKey, secret] = useLazyQuery(GET_SECRET_KEY)
 
   return (
     <Screen scrollEnabled={true} background={'primary'}>
       <Container padding>
         <Text type={Constants.TextTypes.H2} bold>
-          Backup {isSeedPhrase ? 'Seed Phrase' : 'Private Key'}
+          Seed Phrase
         </Text>
         <Container marginTop>
           <Text type={Constants.TextTypes.Body}>
-            Backup your {keyType} in a safe place. You will need it to recover
-            this identity. Without this {keyType} you will not be able to
+            Backup your seed phrase in a safe place. You will need it to recover
+            this identity. Without this seed phrase you will not be able to
             recover your identity if your device is lost or stolen.
           </Text>
         </Container>
@@ -57,14 +52,14 @@ const ShowSecret: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         </Container>
         <Container marginTop>
           <Text bold type={Constants.TextTypes.Body}>
-            {isSeedPhrase ? 'Seed Phrase' : 'Private Key'}
+            Seed Phrase
           </Text>
         </Container>
         <Container marginTop>
           {data && data.viewer && (
             <Button
               fullWidth
-              buttonText={`Show ${keyType}`}
+              buttonText={`Show Seed Phrase`}
               type={'warning'}
               block={'outlined'}
               onPress={() =>
@@ -98,7 +93,7 @@ const ShowSecret: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
                   warn
                   textAlign={'center'}
                 >
-                  Do not share this {keyType} with anyone.
+                  Do not share this seed phrase with anyone.
                 </Text>
               </Container>
             </Container>

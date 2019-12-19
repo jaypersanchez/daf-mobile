@@ -382,7 +382,7 @@ exports[`renders correctly 1`] = `
                             }
                           }
                         >
-                          Security
+                          Show Seed Phrase
                         </Text>
                       </View>
                     </View>
