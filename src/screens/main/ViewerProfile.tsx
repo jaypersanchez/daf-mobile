@@ -114,6 +114,7 @@ const ViewerProfile: React.FC<Props> & {
             </Container>
           </Container>
         )}
+
         {!loading && viewer && viewer.credentialsReceived.length === 0 && (
           <Container marginTop>
             <Text type={Constants.TextTypes.Body}>

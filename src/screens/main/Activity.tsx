@@ -58,10 +58,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    fetchMessages()
-  }, [])
-
   const viewAttachments = (credentials: any[], credentialIndex: number) => {
     navigation.navigate('CredentialDetail', {
       credentials,
@@ -78,9 +74,17 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   const syncAndRefetch = async () => {
     await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-    identitiesResponse && identitiesResponse.refetch()
+
     fetchMessages()
   }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [])
+
+  useEffect(() => {
+    identitiesResponse && identitiesResponse.refetch()
+  }, [data])
 
   const confirmRequest = (msg: any) => {
     navigation.navigate('Request', {

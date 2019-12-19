@@ -17,4 +17,13 @@ export default {
     },
     delay: 1500,
   },
+  SWITCHING_IDENTITY: {
+    title: 'Switching identity',
+    message: '',
+    icon: {
+      name: 'ios-checkmark',
+      iconFamily: 'Ionicons',
+    },
+    delay: 2000,
+  },
 }
