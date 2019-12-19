@@ -151,7 +151,12 @@ const SettingsNavigator = createStackNavigator(
 const ProfileNavigator = createSharedElementStackNavigator(
   createStackNavigator,
   {
-    [Screens.ViewerProfile.screen]: ViewerProfile,
+    [Screens.ViewerProfile.screen]: {
+      screen: ViewerProfile,
+      navigationOptions: {
+        title: i18n.t('My Profile'),
+      },
+    },
   },
 )
 
