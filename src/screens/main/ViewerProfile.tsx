@@ -9,6 +9,7 @@ import {
   BottomSnap,
   Credential,
   Icon,
+  Typings,
 } from '@kancha/kancha-ui'
 import TabAvatar from '../../navigators/components/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
@@ -113,6 +114,7 @@ const ViewerProfile: React.FC<Props> & {
             </Container>
           </Container>
         )}
+
         {!loading && viewer && viewer.credentialsReceived.length === 0 && (
           <Container marginTop>
             <Text type={Constants.TextTypes.Body}>
@@ -135,28 +137,29 @@ const ViewerProfile: React.FC<Props> & {
             </Container>
             {viewer &&
               viewer.credentialsReceived &&
-              viewer.credentialsReceived.map((credential: any) => {
-                return (
-                  <SharedElement
-                    key={credential.hash + credential.rowId}
-                    id={credential.hash + credential.rowId}
-                  >
-                    <Credential
-                      onPress={() =>
-                        navigation.navigate('Credential', {
-                          credentials: [credential],
-                          transitionIds: [credential.hash + credential.rowId],
-                        })
-                      }
-                      background={'secondary'}
-                      exp={credential.exp}
-                      issuer={credential.iss}
-                      subject={credential.sub}
-                      fields={credential.fields}
-                    />
-                  </SharedElement>
-                )
-              })}
+              viewer.credentialsReceived.map(
+                (vc: Typings.VerifiableCredential) => {
+                  return (
+                    <SharedElement
+                      key={vc.hash + vc.rowId}
+                      id={vc.hash + vc.rowId}
+                    >
+                      <Credential
+                        onPress={() =>
+                          navigation.navigate('Credential', {
+                            credentials: [vc],
+                          })
+                        }
+                        background={'secondary'}
+                        exp={vc.exp}
+                        issuer={vc.iss}
+                        subject={vc.sub}
+                        fields={vc.fields}
+                      />
+                    </SharedElement>
+                  )
+                },
+              )}
           </Container>
         )}
       </Container>
@@ -164,7 +167,7 @@ const ViewerProfile: React.FC<Props> & {
   )
 }
 
-ViewerProfile.navigationOptions = ({ navigation }: any) => {
+ViewerProfile.navigationOptions = () => {
   return {
     headerRight: (
       <Button

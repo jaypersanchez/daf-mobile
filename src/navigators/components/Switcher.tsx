@@ -40,7 +40,8 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
       type: 'rnEthr',
     },
   })
-  const { title, message, icon, delay } = AppConstants.modals.SWITCHED_IDENTITY
+  const { SWITCHED_IDENTITY } = AppConstants.modals
+  const { SWITCHING_IDENTITY } = AppConstants.modals
 
   const managedIdentities =
     data && data.managedIdentities && data.managedIdentities
@@ -48,15 +49,20 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const switchIdentity = async (identity: Identity) => {
     BottomSnap.to(0, id)
 
-    await setViewer({
+    setViewer({
       variables: {
         did: identity.did,
       },
     })
 
-    client.reFetchObservableQueries()
+    Overlay.show(
+      SWITCHING_IDENTITY.title,
+      SWITCHING_IDENTITY.message,
+      SWITCHING_IDENTITY.icon,
+      SWITCHING_IDENTITY.delay,
+    )
 
-    Overlay.show(title, message, icon, delay)
+    client.reFetchObservableQueries()
   }
 
   return (

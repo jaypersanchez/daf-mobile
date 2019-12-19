@@ -16,6 +16,7 @@ import { Colors } from '../../theme'
 import { useMutation } from 'react-apollo'
 import { SIGN_VP, SEND_JWT_MUTATION } from '../../lib/graphql/queries'
 import { ActivityIndicator, ActivityIndicatorBase } from 'react-native'
+import navigationService from 'Serto/src/navigators/navigationService'
 
 // tslint:disable-next-line:no-var-requires
 const bannerImage = require('../../assets/images/abstract-blurred-gradient.jpg')
@@ -109,7 +110,6 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
     }
 
     updateSelected(updatedSelection)
-    console.log(updatedSelection)
   }
 
   useEffect(() => {
@@ -211,6 +211,13 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
                 credentials={sdrRequestField.vc}
                 required={sdrRequestField.essential}
                 onSelectItem={onSelectItem}
+                onPressVC={() =>
+                  props.navigation.navigate('Credential', {
+                    sharingModeEnabled: false,
+                    credentials: sdrRequestField.vc,
+                    credentialIndex: 0,
+                  })
+                }
               />
             )
           })}

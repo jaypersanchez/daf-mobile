@@ -113,6 +113,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
 
 CredentialDetail.navigationOptions = ({ navigation }: any) => {
   const { sharingMode, toggleSharingMode } = navigation.state.params || {}
+  const sharingModeEnabled = navigation.getParam('sharingModeEnabled', true)
 
   return {
     title: 'Credential',
@@ -130,31 +131,32 @@ CredentialDetail.navigationOptions = ({ navigation }: any) => {
     ),
     headerRight: (
       <HeaderButtons>
-        {sharingMode ? (
+        {sharingMode && sharingModeEnabled ? (
           <Item
             title={'Cancel'}
             onPress={() => toggleSharingMode(false)}
             color={Colors.WHITE}
           />
-        ) : (
+        ) : sharingModeEnabled ? (
           <Item
             title={'Share'}
             onPress={() => toggleSharingMode(true)}
             color={Colors.WHITE}
           />
-        )}
+        ) : null}
       </HeaderButtons>
     ),
   }
 }
 
 CredentialDetail.sharedElements = (navigation: any) => {
-  const transitionIds = navigation.getParam('transitionIds')
-  return transitionIds.map((id: string) => ({
-    id,
-    animation: 'fade',
-    resize: 'clip',
-  }))
+  return navigation
+    .getParam('credentials')
+    .map((vc: Typings.VerifiableCredential) => ({
+      id: vc.hash + vc.rowId,
+      animation: 'fade',
+      resize: 'clip',
+    }))
 }
 
 export default CredentialDetail

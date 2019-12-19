@@ -25,6 +25,13 @@ import { FlatList } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
 import { ScrollView } from 'react-native-gesture-handler'
 
+interface Identity {
+  did: string
+  shortId: string
+  isSelected: boolean
+  profileImage?: string
+}
+
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
@@ -51,19 +58,10 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    fetchMessages()
-  }, [])
-
-  const viewAttachments = (
-    credentials: any[],
-    credentialIndex: number,
-    transitionIds: string[],
-  ) => {
+  const viewAttachments = (credentials: any[], credentialIndex: number) => {
     navigation.navigate('CredentialDetail', {
       credentials,
       credentialIndex,
-      transitionIds,
     })
   }
 
@@ -76,9 +74,17 @@ const Activity: React.FC<Props> = ({ navigation }) => {
 
   const syncAndRefetch = async () => {
     await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-    identitiesResponse && identitiesResponse.refetch()
+
     fetchMessages()
   }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [])
+
+  useEffect(() => {
+    identitiesResponse && identitiesResponse.refetch()
+  }, [data])
 
   const confirmRequest = (msg: any) => {
     navigation.navigate('Request', {
@@ -98,27 +104,22 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           identitiesResponse.data &&
           identitiesResponse.data.identities &&
           identitiesResponse.data.identities
+            .sort(
+              (id1: Identity, id2: Identity) =>
+                (id2.isSelected ? 1 : 0) - (id1.isSelected ? 1 : 0),
+            )
             .map((identity: Typings.Identity & { isManaged: boolean }) => {
               return (
                 <Connection
                   key={identity.did}
-                  onPress={() =>
-                    navigation.navigate('Profile', { did: identity.did })
-                  }
+                  onPress={() => viewProfile(identity.did)}
                   shortId={identity.shortId}
                   did={identity.did}
                   profileImage={identity.profileImage}
                   isManaged={identity.isManaged}
                 />
               )
-            })
-            .filter(
-              (identity: Typings.Identity) =>
-                identity.did !==
-                (viewerResponse &&
-                  viewerResponse.data &&
-                  viewerResponse.data.viewer.did),
-            )}
+            })}
       </Container>
     </ScrollView>
   )
@@ -137,8 +138,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
             onRefresh={syncAndRefetch}
             refreshing={loading || identitiesResponse.loading}
             renderItem={({ item }: { item: any }) => {
-              const animationIds = item.vc.map((vc: any) => vc.hash + vc.rowId)
-
               return (
                 <ActivityItem
                   id={item.id}
@@ -163,11 +162,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                       <SharedElement id={credential.hash + credential.rowId}>
                         <Credential
                           onPress={() =>
-                            viewAttachments(
-                              item.vc,
-                              credentialIndex,
-                              animationIds,
-                            )
+                            viewAttachments(item.vc, credentialIndex)
                           }
                           exp={credential.exp}
                           fields={credential.fields}

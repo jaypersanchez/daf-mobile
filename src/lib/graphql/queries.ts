@@ -10,6 +10,12 @@ export const GET_VIEWER = gql`
   }
 `
 
+export const GET_SECRET_KEY = gql`
+  query managedIdentitySecret($did: String, $type: String) {
+    managedIdentitySecret(did: $did, type: $type)
+  }
+`
+
 export const GET_IDENTITY = gql`
   query getIdentity($did: ID!) {
     identity(did: $did) {
@@ -27,6 +33,7 @@ export const GET_ALL_IDENTITIES = gql`
   query GetAllIdentities {
     identities {
       isManaged
+      isSelected
       did
       shortId
       firstName
