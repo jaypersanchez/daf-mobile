@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Container,
   Text,
@@ -11,6 +11,7 @@ import {
   Icon,
   Typings,
 } from '@kancha/kancha-ui'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import TabAvatar from '../../navigators/components/TabAvatar'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useQuery } from '@apollo/react-hooks'
@@ -33,6 +34,12 @@ const ViewerProfile: React.FC<Props> & {
     viewer && data.viewer.profileImage
       ? { source: { uri: viewer.profileImage } }
       : {}
+
+  useEffect(() => {
+    if (viewer) {
+      navigation.setParams({ viewer })
+    }
+  }, [data])
 
   return (
     <Screen scrollEnabled background={'primary'}>
@@ -96,22 +103,6 @@ const ViewerProfile: React.FC<Props> & {
             <Text type={Constants.TextTypes.H3} bold>
               Credentials
             </Text>
-            <Container marginLeft>
-              <Button
-                iconButton
-                icon={
-                  <Icon
-                    color={Colors.BRAND}
-                    icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
-                  />
-                }
-                onPress={() =>
-                  navigation.navigate('IssueCredential', {
-                    viewer: viewer,
-                  })
-                }
-              />
-            </Container>
           </Container>
         )}
 
@@ -167,8 +158,25 @@ const ViewerProfile: React.FC<Props> & {
   )
 }
 
-ViewerProfile.navigationOptions = () => {
+ViewerProfile.navigationOptions = ({ navigation }: any) => {
+  const { viewer } = navigation.state.params || {}
+
   return {
+    headerLeft: (
+      <Container paddingLeft>
+        <Button
+          iconButton
+          onPress={() => navigation.navigate('IssueCredential', { viewer })}
+          icon={
+            <Icon
+              color={Colors.BRAND}
+              icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
+              size={35}
+            />
+          }
+        />
+      </Container>
+    ),
     headerRight: (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
