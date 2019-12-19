@@ -169,9 +169,9 @@ ViewerProfile.navigationOptions = ({ navigation }: any) => {
           onPress={() => navigation.navigate('IssueCredential', { viewer })}
           icon={
             <Icon
-              color={Colors.BRAND}
-              icon={{ name: 'ios-add-circle', iconFamily: 'Ionicons' }}
-              size={35}
+              color={Colors.CHARCOAL}
+              icon={{ name: 'ios-create', iconFamily: 'Ionicons' }}
+              size={30}
             />
           }
         />

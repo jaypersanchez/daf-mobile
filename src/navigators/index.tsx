@@ -38,7 +38,6 @@ import IssueCredentialScreen from '../screens/main/IssueCredential'
 
 // Settings
 import Settings from '../screens/settings/Settings'
-import Security from '../screens/settings/Security'
 import ShowSecret from '../screens/settings/ShowSecret'
 
 // Developer tooling.  * == Deprecated. Will be removed soon.
@@ -68,12 +67,6 @@ const SettingsNavigator = createStackNavigator(
       screen: Settings,
       navigationOptions: {
         title: i18n.t('Settings'),
-      },
-    },
-    [Screens.Security.screen]: {
-      screen: Security,
-      navigationOptions: {
-        title: i18n.t('Security'),
       },
     },
     [Screens.ShowSecret.screen]: {
