@@ -166,7 +166,9 @@ ViewerProfile.navigationOptions = ({ navigation }: any) => {
       <Container paddingLeft>
         <Button
           iconButton
-          onPress={() => navigation.navigate('IssueCredential', { viewer })}
+          onPress={() =>
+            viewer && navigation.navigate('IssueCredential', { viewer })
+          }
           icon={
             <Icon
               color={Colors.CHARCOAL}
