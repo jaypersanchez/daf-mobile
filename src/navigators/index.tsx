@@ -36,22 +36,21 @@ import CreatingWallet from '../screens/main/CreateIdentity'
 import CreateFirstCredential from '../screens/main/CreateFirstCredential'
 import IssueCredentialScreen from '../screens/main/IssueCredential'
 
-// Settings & Internal Demo Screens
+// Settings
 import Settings from '../screens/settings/Settings'
-import Codepush from '../screens/settings/Codepush'
+import Security from '../screens/settings/Security'
+import ShowSecret from '../screens/settings/ShowSecret'
+
+// Developer tooling.  * == Deprecated. Will be removed soon.
 import Signer from '../screens/settings/Signer'
-import Config from '../screens/settings/Config'
-import Crash from '../screens/settings/Crash'
+import Config from '../screens/settings/Config' // *
 import Messages from '../screens/settings/Messages'
 import MessageDetail from '../screens/settings/MessageDetail'
-import CreateCredential from '../screens/settings/CreateCredential'
+import CreateCredential from '../screens/settings/CreateCredential' // *
 import CreateRequest from '../screens/settings/CreateRequest'
 import SendRequest from '../screens/settings/SendRequest'
 import ShareCredential from '../screens/settings/ShareCredential'
-import Connections from '../screens/settings/Connections'
-import CredentialField from '../screens/settings/CredentialField'
-import DidViewer from '../screens/settings/DidViewer'
-import Credentials from '../screens/settings/Credentials'
+import Connections from '../screens/settings/Connections' // *
 
 import { Animated, Easing } from 'react-native'
 
@@ -69,6 +68,18 @@ const SettingsNavigator = createStackNavigator(
       screen: Settings,
       navigationOptions: {
         title: i18n.t('Settings'),
+      },
+    },
+    [Screens.Security.screen]: {
+      screen: Security,
+      navigationOptions: {
+        title: i18n.t('Security'),
+      },
+    },
+    [Screens.ShowSecret.screen]: {
+      screen: ShowSecret,
+      navigationOptions: {
+        title: i18n.t('Reveal Secret'),
       },
     },
     [Screens.Messages.screen]: {
@@ -113,18 +124,6 @@ const SettingsNavigator = createStackNavigator(
         title: i18n.t('Connections'),
       },
     },
-    [Screens.CredentialField.screen]: {
-      screen: CredentialField,
-      navigationOptions: {
-        title: i18n.t(Screens.CredentialField.title),
-      },
-    },
-    [Screens.Codepush.screen]: {
-      screen: Codepush,
-      navigationOptions: {
-        title: i18n.t('Codepush'),
-      },
-    },
     [Screens.Signer.screen]: {
       screen: Signer,
       navigationOptions: {
@@ -135,30 +134,6 @@ const SettingsNavigator = createStackNavigator(
       screen: Config,
       navigationOptions: {
         title: i18n.t('Configuration'),
-      },
-    },
-    [Screens.Crash.screen]: {
-      screen: Crash,
-      navigationOptions: {
-        title: i18n.t('CrashReporting'),
-      },
-    },
-    [Screens.Config.screen]: {
-      screen: Config,
-      navigationOptions: {
-        title: i18n.t('Configuration'),
-      },
-    },
-    [Screens.DidViewer.screen]: {
-      screen: DidViewer,
-      navigationOptions: {
-        title: i18n.t('Did Viewer'),
-      },
-    },
-    [Screens.Credentials.screen]: {
-      screen: Credentials,
-      navigationOptions: {
-        title: i18n.t('Credentials'),
       },
     },
   },

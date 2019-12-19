@@ -1,16 +1,40 @@
-export const Screens = {
-  Home: { screen: 'Home', title: 'Serto' },
+const OnboardingScreens = {
+  Restore: { screen: 'Restore', title: 'Restore' },
+  Intro: { screen: 'Intro', title: 'Intro' },
+  CreatingWallet: { screen: 'CreatingWallet', title: 'Creating Wallet' },
+  Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
+}
+
+const MainScreens = {
+  Activity: { screen: 'Activity', title: 'Activity' },
+  Explore: { screen: 'Explore', title: 'Explore' },
   Settings: { screen: 'Settings', title: 'Settings' },
+  ViewerProfile: { screen: 'ViewerProfile', title: 'Profile' },
+  Profile: { screen: 'Profile', title: 'Profile' },
+  Scanner: { screen: 'Scanner', title: 'Scanner' },
+  IssueCredential: { screen: 'IssueCredential', title: 'Issue Credential' },
+  Request: { screen: 'Request', title: 'Request' },
+  CreateFirstCredential: {
+    screen: 'CreateFirstCredential',
+    title: 'Create First Credential',
+  },
+  Credential: { screen: 'Credential', title: 'Credential' },
+}
+
+const UserSettingScreens = {
+  Security: { screen: 'Security', title: 'Security' },
+  ShowSecret: { screen: 'ShowSecret', title: 'Reveal Secret' },
+}
+
+const DeveloperSettingsScreens = {
   Codepush: { screen: 'Codepush', title: 'Codepush' },
   Signer: { screen: 'Signer', title: 'Signer' },
   Config: { screen: 'Config', title: 'Config' },
   Crash: { screen: 'Crash', title: 'Crash Reporting' },
-  Scanner: { screen: 'Scanner', title: 'Scanner' },
   MessageProcess: { screen: 'MessageProcess', title: 'Message Process' },
   Messages: { screen: 'Messages', title: 'Messages' },
   MessageDetail: { screen: 'MessageDetail', title: 'Message Detail' },
   CreateCredential: { screen: 'CreateCredential', title: 'Create Credential' },
-  IssueCredential: { screen: 'IssueCredential', title: 'Issue Credential' },
   CreateRequest: { screen: 'CreateRequest', title: 'Create Request' },
   ShareCredential: { screen: 'ShareCredential', title: 'Share Credential' },
   SendRequest: { screen: 'SendRequest', title: 'Send Request' },
@@ -24,23 +48,12 @@ export const Screens = {
     screen: 'DisclosureRequest',
     title: 'Disclosure Request',
   },
-  Request: {
-    screen: 'Request',
-    title: 'Request',
-  },
   Credentials: { screen: 'Credentials', title: 'Credentials' },
-  Onboarding: { screen: 'Onboarding', title: 'Onboarding' },
-  CreateFirstCredential: {
-    screen: 'CreateFirstCredential',
-    title: 'Create First Credential',
-  },
-  Restore: { screen: 'Restore', title: 'Restore' },
-  Intro: { screen: 'Intro', title: 'Intro' },
-  CreatingWallet: { screen: 'CreatingWallet', title: 'Creating Wallet' },
-  IdentityCheck: { screen: 'IdentityCheck', title: 'Identity Check' },
-  Credential: { screen: 'Credential', title: 'Credential' },
-  Activity: { screen: 'Activity', title: 'Activity' },
-  Explore: { screen: 'Explore', title: 'Explore' },
-  ViewerProfile: { screen: 'ViewerProfile', title: 'Profile' },
-  Profile: { screen: 'Profile', title: 'Profile' },
+}
+
+export const Screens = {
+  ...MainScreens,
+  ...OnboardingScreens,
+  ...UserSettingScreens,
+  ...DeveloperSettingsScreens,
 }
