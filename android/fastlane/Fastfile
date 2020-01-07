@@ -28,7 +28,7 @@ lane :assemble_android_build do
     task: "bundle",
     build_type: "Release",
     print_command: false,
-    properties: production_properties,
+    properties: production_properties
     # flags: "-x bundleReleaseJsAndAssets" # use this if you build the JS bundle separately
   )
 end
