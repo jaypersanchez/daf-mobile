@@ -24,7 +24,13 @@ lane :assemble_android_build do
     "android.injected.signing.key.password" => ENV['ANDROID_STORE_PASSWORD']
   }
 
-  gradle(task: "bundle", build_type: "Release", print_command: false, properties: production_properties)
+  gradle(
+    task: "bundle",
+    build_type: "Release",
+    print_command: false,
+    properties: production_properties
+    # flags: "-x bundleReleaseJsAndAssets" # use this if you build the JS bundle separately
+  )
 end
 
 desc "Build and deploy Android bundle to Google Play"

@@ -197,15 +197,17 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
-      - deploy_android:
-          requires:
-            - verify_unit_tests
-            - build_android_prod
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+#### DISABLED for package name changes
+#### TODO: re-enable after certs are setup
+#      - deploy_android:
+#          requires:
+#            - verify_unit_tests
+#            - build_android_prod
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
 
 ###############################################################
 # Jobs
@@ -257,6 +259,7 @@ jobs:
         default: false
     docker:
       - image: circleci/android:api-28-node8-alpha
+    resource_class: medium+
     steps:
       - checkout:
           path: ~/project
