@@ -16,4 +16,4 @@
 #   public *;
 #}
 
--keep class com.serto.BuildConfig { *; }
+-keep class com.dafmobile.BuildConfig { *; }
