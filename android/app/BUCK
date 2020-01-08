@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.serto",
+    package = "com.dafmobile",
 )
 
 android_resource(
     name = "res",
-    package = "com.serto",
+    package = "com.dafmobile",
     res = "src/main/res",
 )
 

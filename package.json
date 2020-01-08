@@ -1,6 +1,6 @@
 {
-  "name": "serto-mobile",
-  "description": "Serto identity plaform",
+  "name": "daf-mobile",
+  "description": "Native mobile client for DAF",
   "version": "1.28.1",
   "private": true,
   "scripts": {
@@ -228,8 +228,8 @@
         "@semantic-release/git",
         {
           "assets": [
-            "ios/Serto/Info.plist",
-            "ios/Serto.xcodeproj/project.pbxproj",
+            "ios/DafMobile/Info.plist",
+            "ios/DafMobile.xcodeproj/project.pbxproj",
             "android/app/build.gradle",
             "package.json"
           ],

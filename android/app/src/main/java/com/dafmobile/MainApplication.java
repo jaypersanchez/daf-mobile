@@ -1,4 +1,4 @@
-package com.serto;
+package com.dafmobile;
 
 import android.app.Application;
 
