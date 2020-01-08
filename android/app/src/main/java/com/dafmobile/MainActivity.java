@@ -1,4 +1,4 @@
-package com.serto;
+package com.dafmobile;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -20,7 +20,7 @@ public class MainActivity extends ReactFragmentActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "Serto";
+        return "DafMobile";
     }
 
     @Override

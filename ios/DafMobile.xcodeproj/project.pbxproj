@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* SertoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SertoTests.m */; };
+		00E356F31AD99517003FC87E /* DafMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DafMobileTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -16,12 +16,12 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* SertoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SertoTests.m */; };
-		6202299C5B8AF25C911B0680 /* libPods-SertoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */; };
-		6FFC947AF33A22842454458A /* libPods-Serto-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DC82EF27203DCBE22CDB55 /* libPods-Serto-tvOSTests.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* DafMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DafMobileTests.m */; };
+		6202299C5B8AF25C911B0680 /* libPods-DafMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */; };
+		6FFC947AF33A22842454458A /* libPods-DafMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */; };
 		7010C9ED227B270200642EEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9EC227B270200642EEA /* libz.tbd */; };
-		84FFE451259573812909632C /* libPods-Serto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4AF996CBB07408E11EA97B /* libPods-Serto.a */; };
-		8AE30E16640DD2B6431245CD /* libPods-Serto-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC7C7FD0DE8AB3E21DE1A0B /* libPods-Serto-tvOS.a */; };
+		84FFE451259573812909632C /* libPods-DafMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */; };
+		8AE30E16640DD2B6431245CD /* libPods-DafMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */; };
 		96889E46234B4373006EAA84 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96889E43234B4343006EAA84 /* libReactNativeConfig.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
@@ -33,14 +33,14 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = Serto;
+			remoteInfo = DafMobile;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "Serto-tvOS";
+			remoteInfo = "DafMobile-tvOS";
 		};
 		965788972342531A00111496 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -74,31 +74,31 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* SertoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SertoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* DafMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DafMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* SertoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SertoTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Serto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serto.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Serto/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Serto/AppDelegate.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* DafMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DafMobileTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* uPort Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uPort Open.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DafMobile/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = DafMobile/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Serto/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Serto/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Serto/main.m; sourceTree = "<group>"; };
-		23AA44BF063B311A1291A24A /* Pods-Serto-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Serto-tvOS/Pods-Serto-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		26DC82EF27203DCBE22CDB55 /* libPods-Serto-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BC7C7FD0DE8AB3E21DE1A0B /* libPods-Serto-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E47B1E0B4A5D006451C7 /* Serto-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Serto-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* Serto-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Serto-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DafMobile/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DafMobile/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DafMobile/main.m; sourceTree = "<group>"; };
+		23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* DafMobile-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DafMobile-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* DafMobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DafMobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.release.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.release.xcconfig"; sourceTree = "<group>"; };
-		503A3E581252778FCFF2ABD3 /* Pods-Serto-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Serto-tvOS/Pods-Serto-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.release.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.release.xcconfig"; sourceTree = "<group>"; };
-		5A4AF996CBB07408E11EA97B /* libPods-Serto.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serto.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.release.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.release.xcconfig"; sourceTree = "<group>"; };
+		503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7010C9EC227B270200642EEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		7077030522B8FF8E002885B6 /* Serto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Serto.entitlements; path = Serto/Serto.entitlements; sourceTree = "<group>"; };
+		7077030522B8FF8E002885B6 /* DafMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DafMobile.entitlements; path = DafMobile/DafMobile.entitlements; sourceTree = "<group>"; };
 		70AFD2B522C3C10B00C7808E /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
-		8CA6F10DFC109F11A24DFC18 /* Pods-Serto-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Serto-tvOSTests/Pods-Serto-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SertoTests.debug.xcconfig"; path = "Target Support Files/Pods-SertoTests/Pods-SertoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9685348222BD26A300EED8BB /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		9685348322BD26A300EED8BB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		9685348422BD26A300EED8BB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -116,11 +116,11 @@
 		9685349022BD26A300EED8BB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		96889E3D234B4343006EAA84 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		968D41182346149C00720469 /* libRNUportSigner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNUportSigner.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SertoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto.debug.xcconfig"; path = "Target Support Files/Pods-Serto/Pods-Serto.debug.xcconfig"; sourceTree = "<group>"; };
+		C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F9F701D8BB243BA4977D159A /* Pods-Serto-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serto-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Serto-tvOSTests/Pods-Serto-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6202299C5B8AF25C911B0680 /* libPods-SertoTests.a in Frameworks */,
+				6202299C5B8AF25C911B0680 /* libPods-DafMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +139,7 @@
 				96889E46234B4373006EAA84 /* libReactNativeConfig.a in Frameworks */,
 				7010C9ED227B270200642EEA /* libz.tbd in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				84FFE451259573812909632C /* libPods-Serto.a in Frameworks */,
+				84FFE451259573812909632C /* libPods-DafMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +149,7 @@
 			files = (
 				ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */,
-				8AE30E16640DD2B6431245CD /* libPods-Serto-tvOS.a in Frameworks */,
+				8AE30E16640DD2B6431245CD /* libPods-DafMobile-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,20 +157,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FFC947AF33A22842454458A /* libPods-Serto-tvOSTests.a in Frameworks */,
+				6FFC947AF33A22842454458A /* libPods-DafMobile-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* SertoTests */ = {
+		00E356EF1AD99517003FC87E /* DafMobileTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* SertoTests.m */,
+				00E356F21AD99517003FC87E /* DafMobileTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = SertoTests;
+			path = DafMobileTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -181,10 +181,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* Serto */ = {
+		13B07FAE1A68108700A75B9A /* DafMobile */ = {
 			isa = PBXGroup;
 			children = (
-				7077030522B8FF8E002885B6 /* Serto.entitlements */,
+				7077030522B8FF8E002885B6 /* DafMobile.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -193,7 +193,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = Serto;
+			name = DafMobile;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -204,10 +204,10 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				5A4AF996CBB07408E11EA97B /* libPods-Serto.a */,
-				C93AA83E7BB226BC57E78094 /* libPods-SertoTests.a */,
-				2BC7C7FD0DE8AB3E21DE1A0B /* libPods-Serto-tvOS.a */,
-				26DC82EF27203DCBE22CDB55 /* libPods-Serto-tvOSTests.a */,
+				5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */,
+				C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */,
+				2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */,
+				26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -240,9 +240,9 @@
 			isa = PBXGroup;
 			children = (
 				9685348122BD25DD00EED8BB /* Icons */,
-				13B07FAE1A68108700A75B9A /* Serto */,
+				13B07FAE1A68108700A75B9A /* DafMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* SertoTests */,
+				00E356EF1AD99517003FC87E /* DafMobileTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				701980502278611000372518 /* Recovered References */,
@@ -256,10 +256,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Serto.app */,
-				00E356EE1AD99517003FC87E /* SertoTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* Serto-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* Serto-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* uPort Open.app */,
+				00E356EE1AD99517003FC87E /* DafMobileTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* DafMobile-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* DafMobile-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,14 +298,14 @@
 		D46C82B1ABA8F7023B562381 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */,
-				35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */,
-				924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */,
-				55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */,
-				503A3E581252778FCFF2ABD3 /* Pods-Serto-tvOS.debug.xcconfig */,
-				23AA44BF063B311A1291A24A /* Pods-Serto-tvOS.release.xcconfig */,
-				8CA6F10DFC109F11A24DFC18 /* Pods-Serto-tvOSTests.debug.xcconfig */,
-				F9F701D8BB243BA4977D159A /* Pods-Serto-tvOSTests.release.xcconfig */,
+				C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */,
+				35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */,
+				924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */,
+				55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */,
+				503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */,
+				23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */,
+				8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */,
+				F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -313,9 +313,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* SertoTests */ = {
+		00E356ED1AD99517003FC87E /* DafMobileTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SertoTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DafMobileTests" */;
 			buildPhases = (
 				1E6E3CFB40CE44E8D3B081A8 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -327,14 +327,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = SertoTests;
-			productName = SertoTests;
-			productReference = 00E356EE1AD99517003FC87E /* SertoTests.xctest */;
+			name = DafMobileTests;
+			productName = DafMobileTests;
+			productReference = 00E356EE1AD99517003FC87E /* DafMobileTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* Serto */ = {
+		13B07F861A680F5B00A75B9A /* DafMobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Serto" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DafMobile" */;
 			buildPhases = (
 				59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */,
 				9657889B2342533800111496 /* Start Packager */,
@@ -348,14 +348,14 @@
 			);
 			dependencies = (
 			);
-			name = Serto;
+			name = DafMobile;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Serto.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* uPort Open.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* Serto-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* DafMobile-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Serto-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOS" */;
 			buildPhases = (
 				E67F964BE518BD763F78168E /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
@@ -367,14 +367,14 @@
 			);
 			dependencies = (
 			);
-			name = "Serto-tvOS";
-			productName = "Serto-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* Serto-tvOS.app */;
+			name = "DafMobile-tvOS";
+			productName = "DafMobile-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* DafMobile-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* Serto-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* DafMobile-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Serto-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOSTests" */;
 			buildPhases = (
 				223C7025E6D89034301552D5 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -386,9 +386,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "Serto-tvOSTests";
-			productName = "Serto-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* Serto-tvOSTests.xctest */;
+			name = "DafMobile-tvOSTests";
+			productName = "DafMobile-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* DafMobile-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -429,7 +429,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Serto" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DafMobile" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -453,10 +453,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Serto */,
-				00E356ED1AD99517003FC87E /* SertoTests */,
-				2D02E47A1E0B4A5D006451C7 /* Serto-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* Serto-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* DafMobile */,
+				00E356ED1AD99517003FC87E /* DafMobileTests */,
+				2D02E47A1E0B4A5D006451C7 /* DafMobile-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* DafMobile-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -556,7 +556,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SertoTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DafMobileTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -578,7 +578,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Serto-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DafMobile-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -605,7 +605,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Serto/Pods-Serto-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DafMobile/Pods-DafMobile-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -644,7 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Serto/Pods-Serto-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DafMobile/Pods-DafMobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */ = {
@@ -662,7 +662,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Serto-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DafMobile-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -702,7 +702,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Serto-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DafMobile-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -716,7 +716,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* SertoTests.m in Sources */,
+				00E356F31AD99517003FC87E /* DafMobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +742,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* SertoTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* DafMobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,12 +751,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* Serto */;
+			target = 13B07F861A680F5B00A75B9A /* DafMobile */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* Serto-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* DafMobile-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -768,7 +768,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = Serto;
+			path = DafMobile;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -776,7 +776,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 924CBA1E7D150BB9B69F4B65 /* Pods-SertoTests.debug.xcconfig */;
+			baseConfigurationReference = 924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -790,7 +790,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = SertoTests/Info.plist;
+				INFOPLIST_FILE = DafMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -802,13 +802,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Serto.app/Serto";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DafMobile.app/DafMobile";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55EA68A4CE16D728A5528203 /* Pods-SertoTests.release.xcconfig */;
+			baseConfigurationReference = 55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -818,7 +818,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = SertoTests/Info.plist;
+				INFOPLIST_FILE = DafMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -830,23 +830,23 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Serto.app/Serto";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DafMobile.app/DafMobile";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9DB890BE634A84EEF76D395 /* Pods-Serto.debug.xcconfig */;
+			baseConfigurationReference = C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Serto/Serto.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DafMobile/DafMobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Serto/Info.plist;
+				INFOPLIST_FILE = DafMobile/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -857,7 +857,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.serto.wallet;
-				PRODUCT_NAME = Serto;
+				PRODUCT_NAME = "uPort Open";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development co.serto.wallet";
 				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/EthCore ${PODS_ROOT}/EthCore/openssl/include";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -866,16 +866,16 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35501A84E00E1BFC8D0EBDC0 /* Pods-Serto.release.xcconfig */;
+			baseConfigurationReference = 35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Serto/Serto.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DafMobile/DafMobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Serto/Info.plist;
+				INFOPLIST_FILE = DafMobile/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -886,7 +886,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.serto.wallet;
-				PRODUCT_NAME = Serto;
+				PRODUCT_NAME = "uPort Open";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore co.serto.wallet";
 				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/EthCore ${PODS_ROOT}/EthCore/openssl/include";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -895,7 +895,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 503A3E581252778FCFF2ABD3 /* Pods-Serto-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -911,14 +911,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = "Serto-tvOS/Info.plist";
+				INFOPLIST_FILE = "DafMobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Serto-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DafMobile-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -928,7 +928,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23AA44BF063B311A1291A24A /* Pods-Serto-tvOS.release.xcconfig */;
+			baseConfigurationReference = 23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -944,14 +944,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = "Serto-tvOS/Info.plist";
+				INFOPLIST_FILE = "DafMobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Serto-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DafMobile-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -961,7 +961,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CA6F10DFC109F11A24DFC18 /* Pods-Serto-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -975,24 +975,24 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = "Serto-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "DafMobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Serto-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DafMobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Serto-tvOS.app/Serto-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DafMobile-tvOS.app/DafMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9F701D8BB243BA4977D159A /* Pods-Serto-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1006,17 +1006,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
 				);
-				INFOPLIST_FILE = "Serto-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "DafMobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Serto-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DafMobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Serto-tvOS.app/Serto-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DafMobile-tvOS.app/DafMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1123,7 +1123,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SertoTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DafMobileTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1132,7 +1132,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Serto" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DafMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1141,7 +1141,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Serto-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1150,7 +1150,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Serto-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1159,7 +1159,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Serto" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DafMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

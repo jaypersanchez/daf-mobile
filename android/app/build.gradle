@@ -139,7 +139,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.serto"
+        applicationId "com.dafmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4194351
