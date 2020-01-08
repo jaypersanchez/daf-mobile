@@ -1,2 +1,2 @@
 json_key_file("android-developer-creds.json")
-package_name("com.serto")
+package_name("com.dafmobile")
