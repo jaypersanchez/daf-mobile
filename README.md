@@ -3,26 +3,26 @@
 
 # Daf mobile
 
-Daf mobile is a refernece implentation for [Daf](https://github.com/uport-project/daf) framework
+Daf mobile is a reference implementation for [Daf](https://github.com/uport-project/daf) framework and also the source code for `uPort Open` mobile app. `uPort Open` mobile app along with `Daf` will replace the current `uPort` app and legacy architecture.
 
 ## Setup
 
-```
-yarn
-cd ios && pod install
+```bash
+$ yarn
+$ cd ios && pod install
 ```
 
 ## Running locally
 
-```
+```bash
 yarn start
 ```
 
 in another terminal
 
-```
-react-native run-ios OR
-react-native run-android
+```bash
+$ react-native run-ios OR
+$ react-native run-android
 ```
 
 ## Environment variables
@@ -38,10 +38,10 @@ TGE_WS_URI=wss://custom.my-tgserver.com
 
 In code:
 
-```
+```jsx
 import Config from 'react-native-config'
 
-console.log(Config.ENV)  // dev
+console.log(Config.ENV) // dev
 ```
 
 To use a different env file set `ENVFILE` variable:
