@@ -7,6 +7,35 @@ Daf mobile is a reference implementation for [Daf](https://github.com/uport-proj
 
 ## Setup
 
+### Longer - Contributors (iOS)
+
+If you will be contributing to this project you will need to install [bundler](https://bundler.io/) to manage ruby gems so the versions installed in the project stay consistent with our CI
+
+Install Bundler (You do not need to be in the project directory for this command)
+
+```bash
+$ gem install bundler
+```
+
+From the root of the project directory run:
+
+```bash
+$ bundle install
+```
+
+This installs cocopods and fastlane into your project. From here we will always use the local version. The Gems are shared accross both iOS and Android so no need to install twice.
+
+To install pods use:
+
+```bash
+$ yarn
+$ cd ios && bundle exec pod install
+```
+
+### Quick - Non Contributors (iOS)
+
+You can safely install pods directly without bundler. You will need to have cocopods installed globally on your machine.
+
 ```bash
 $ yarn
 $ cd ios && pod install
