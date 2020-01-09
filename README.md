@@ -1,9 +1,9 @@
 [![CircleCI](https://circleci.com/gh/uport-project/daf-mobile/tree/master.svg?style=svg&circle-token=20f8c7ddb44368e4eaa3cf5219a605c431384831)](https://circleci.com/gh/uport-project/daf-mobile/tree/master)
 [![codecov](https://codecov.io/gh/uport-project/daf-mobile/branch/master/graph/badge.svg?token=ClBiPSu9Wu)](https://codecov.io/gh/uport-project/daf-mobile)
 
-# Serto mobile
+# Daf mobile
 
-Serto React Native Mobile App
+Daf mobile is a refernece implentation for [Daf](https://github.com/uport-project/daf) framework
 
 ## Setup
 
@@ -21,43 +21,19 @@ yarn start
 in another terminal
 
 ```
+react-native run-ios OR
 react-native run-android
-```
-
-## Codepush
-
-Releases that do not involve changes to the native code, can be pushed to mobile devices using [codepush](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/)
-
-### Initial setup
-
-```
-npm install -g appcenter-cli
-appcenter login
-```
-
-Download `./codepush-privatekey.pem` from 1Password.
-
-### Releasing hot-fix to production
-
-```
-yarn codepush-production
-```
-
-### Releasing hot-fix to staging
-
-```
-yarn codepush-staging
 ```
 
 ## Environment variables
 
-We are using [react-native-config](https://github.com/luggit/react-native-config)
+[React-native-config](https://github.com/luggit/react-native-config) is being used for environment variables
 
-Add variables to `.env` or `.env.production`:
+Add variables to `.env`. You may want to replace your `.env` file during build time.
 
 ```
-ENV=dev
-API_URL=https://localhost:3000
+TGE_URI=https://custom.my-tgserver.com
+TGE_WS_URI=wss://custom.my-tgserver.com
 ```
 
 In code:
@@ -76,10 +52,4 @@ $ ENVFILE=.env.production react-native run-android
 
 ## Sentry
 
-If you are using `nvm` you may need to run this command to enable iOS builds. Use correct `VERSION`
-
-```
-ln -s $HOME/.nvm/versions/node/{VERSION}/bin/node /usr/local/bin/node
-```
-
-`SENTRY_DSN` needs to be in `.env` and `.env.production` files.
+Sentry is set up. Add the correct configs to .env
