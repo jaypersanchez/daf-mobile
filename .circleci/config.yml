@@ -327,6 +327,9 @@ jobs:
       - *save_yarn_cache_macos
       - *restore_gems_cache_ios
       - run:
+          name: Set Ruby Version
+          command: echo "ruby-2.4" > ~/.ruby-version # Replace 2.4 with the specific version of Ruby here.
+      - run:
           name: Bundle install
           command: bundle install
       - *save_gems_cache_ios
@@ -373,6 +376,9 @@ jobs:
       - attach_workspace:
           at: ~/project
       - *restore_gems_cache_ios
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-2.4" > ~/.ruby-version # Replace 2.4 with the specific version of Ruby here.
       - run:
           name: Bundle install
           command: bundle install
