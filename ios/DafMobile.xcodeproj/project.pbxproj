@@ -17,14 +17,14 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* DafMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DafMobileTests.m */; };
-		6202299C5B8AF25C911B0680 /* libPods-DafMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */; };
-		6FFC947AF33A22842454458A /* libPods-DafMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */; };
+		6D27C00F2E8A9BE0DF3C79AA /* libPods-DafMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DECCCE326F43132A904E12 /* libPods-DafMobileTests.a */; };
 		7010C9ED227B270200642EEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7010C9EC227B270200642EEA /* libz.tbd */; };
-		84FFE451259573812909632C /* libPods-DafMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */; };
-		8AE30E16640DD2B6431245CD /* libPods-DafMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */; };
 		96889E46234B4373006EAA84 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96889E43234B4343006EAA84 /* libReactNativeConfig.a */; };
+		D25D594E501F2E00E6916F25 /* libPods-DafMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEE661503113C7BD8FF6F19 /* libPods-DafMobile-tvOS.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
+		F03C021136739D7F6ADF9C52 /* libPods-DafMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0700AF344D50C550AA10E55 /* libPods-DafMobile-tvOSTests.a */; };
+		F1103CFE547C55B1157EE497 /* libPods-DafMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC85E9052E5AD40FA86DE27 /* libPods-DafMobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +77,7 @@
 		00E356EE1AD99517003FC87E /* DafMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DafMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* DafMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DafMobileTests.m; sourceTree = "<group>"; };
+		11E9804F02AF0E732D0E22ED /* Pods-DafMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* DafMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DafMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DafMobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = DafMobile/AppDelegate.m; sourceTree = "<group>"; };
@@ -84,21 +85,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DafMobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DafMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DafMobile/main.m; sourceTree = "<group>"; };
-		23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* DafMobile-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DafMobile-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DafMobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DafMobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.release.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.release.xcconfig"; sourceTree = "<group>"; };
-		503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DA5CF1259309BFABCCE7173 /* Pods-DafMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7010C9EC227B270200642EEA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		7077030522B8FF8E002885B6 /* DafMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DafMobile.entitlements; path = DafMobile/DafMobile.entitlements; sourceTree = "<group>"; };
 		70AFD2B522C3C10B00C7808E /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
-		8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7FBD2D21B3B1C2EDD4BBAB3A /* Pods-DafMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		924ABD49744AF22892B40E78 /* Pods-DafMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9685348222BD26A300EED8BB /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		9685348322BD26A300EED8BB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		9685348422BD26A300EED8BB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -116,11 +111,16 @@
 		9685349022BD26A300EED8BB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		96889E3D234B4343006EAA84 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		968D41182346149C00720469 /* libRNUportSigner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNUportSigner.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		A790B15AB706002380B90922 /* Pods-DafMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.release.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.release.xcconfig"; sourceTree = "<group>"; };
+		BFC85E9052E5AD40FA86DE27 /* libPods-DafMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DECCCE326F43132A904E12 /* libPods-DafMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9E0906A2D6B9E7D0BCA9C39 /* Pods-DafMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobileTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobileTests/Pods-DafMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		CDAA8A0F5C7A54F975DD6112 /* Pods-DafMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOS/Pods-DafMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DC6ACD3D32F2E1B1EB33F892 /* Pods-DafMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile.debug.xcconfig"; path = "Target Support Files/Pods-DafMobile/Pods-DafMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DafMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DafMobile-tvOSTests/Pods-DafMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F0700AF344D50C550AA10E55 /* libPods-DafMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBEE661503113C7BD8FF6F19 /* libPods-DafMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DafMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6202299C5B8AF25C911B0680 /* libPods-DafMobileTests.a in Frameworks */,
+				6D27C00F2E8A9BE0DF3C79AA /* libPods-DafMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +139,7 @@
 				96889E46234B4373006EAA84 /* libReactNativeConfig.a in Frameworks */,
 				7010C9ED227B270200642EEA /* libz.tbd in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				84FFE451259573812909632C /* libPods-DafMobile.a in Frameworks */,
+				F1103CFE547C55B1157EE497 /* libPods-DafMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +149,7 @@
 			files = (
 				ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */,
-				8AE30E16640DD2B6431245CD /* libPods-DafMobile-tvOS.a in Frameworks */,
+				D25D594E501F2E00E6916F25 /* libPods-DafMobile-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FFC947AF33A22842454458A /* libPods-DafMobile-tvOSTests.a in Frameworks */,
+				F03C021136739D7F6ADF9C52 /* libPods-DafMobile-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,10 +204,10 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				5A4AF996CBB07408E11EA97B /* libPods-DafMobile.a */,
-				C93AA83E7BB226BC57E78094 /* libPods-DafMobileTests.a */,
-				2BC7C7FD0DE8AB3E21DE1A0B /* libPods-DafMobile-tvOS.a */,
-				26DC82EF27203DCBE22CDB55 /* libPods-DafMobile-tvOSTests.a */,
+				BFC85E9052E5AD40FA86DE27 /* libPods-DafMobile.a */,
+				FBEE661503113C7BD8FF6F19 /* libPods-DafMobile-tvOS.a */,
+				F0700AF344D50C550AA10E55 /* libPods-DafMobile-tvOSTests.a */,
+				C4DECCCE326F43132A904E12 /* libPods-DafMobileTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -298,14 +298,14 @@
 		D46C82B1ABA8F7023B562381 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */,
-				35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */,
-				924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */,
-				55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */,
-				503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */,
-				23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */,
-				8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */,
-				F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */,
+				DC6ACD3D32F2E1B1EB33F892 /* Pods-DafMobile.debug.xcconfig */,
+				A790B15AB706002380B90922 /* Pods-DafMobile.release.xcconfig */,
+				CDAA8A0F5C7A54F975DD6112 /* Pods-DafMobile-tvOS.debug.xcconfig */,
+				11E9804F02AF0E732D0E22ED /* Pods-DafMobile-tvOS.release.xcconfig */,
+				924ABD49744AF22892B40E78 /* Pods-DafMobile-tvOSTests.debug.xcconfig */,
+				7FBD2D21B3B1C2EDD4BBAB3A /* Pods-DafMobile-tvOSTests.release.xcconfig */,
+				2DA5CF1259309BFABCCE7173 /* Pods-DafMobileTests.debug.xcconfig */,
+				C9E0906A2D6B9E7D0BCA9C39 /* Pods-DafMobileTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DafMobileTests" */;
 			buildPhases = (
-				1E6E3CFB40CE44E8D3B081A8 /* [CP] Check Pods Manifest.lock */,
+				B6E769CD50872E6FE84BD1E9 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -336,13 +336,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DafMobile" */;
 			buildPhases = (
-				59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */,
+				6804CC9135BF548BABE5DBD1 /* [CP] Check Pods Manifest.lock */,
 				9657889B2342533800111496 /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				38A8DC55F043904C9074F291 /* [CP] Copy Pods Resources */,
+				61FF52A7200AA3DFF9936BB2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -357,7 +357,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOS" */;
 			buildPhases = (
-				E67F964BE518BD763F78168E /* [CP] Check Pods Manifest.lock */,
+				DA07C518F0C79C1D24F19E5E /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -376,7 +376,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DafMobile-tvOSTests" */;
 			buildPhases = (
-				223C7025E6D89034301552D5 /* [CP] Check Pods Manifest.lock */,
+				CC652D70D5835BF874D3BB31 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -541,50 +541,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		1E6E3CFB40CE44E8D3B081A8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DafMobileTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		223C7025E6D89034301552D5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DafMobile-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,7 +555,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		38A8DC55F043904C9074F291 /* [CP] Copy Pods Resources */ = {
+		61FF52A7200AA3DFF9936BB2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -647,7 +603,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DafMobile/Pods-DafMobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		59883191F65450F702B598F7 /* [CP] Check Pods Manifest.lock */ = {
+		6804CC9135BF548BABE5DBD1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -687,7 +643,51 @@
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 		};
-		E67F964BE518BD763F78168E /* [CP] Check Pods Manifest.lock */ = {
+		B6E769CD50872E6FE84BD1E9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DafMobileTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC652D70D5835BF874D3BB31 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DafMobile-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA07C518F0C79C1D24F19E5E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -776,7 +776,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 924CBA1E7D150BB9B69F4B65 /* Pods-DafMobileTests.debug.xcconfig */;
+			baseConfigurationReference = 2DA5CF1259309BFABCCE7173 /* Pods-DafMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -808,7 +808,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55EA68A4CE16D728A5528203 /* Pods-DafMobileTests.release.xcconfig */;
+			baseConfigurationReference = C9E0906A2D6B9E7D0BCA9C39 /* Pods-DafMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -836,7 +836,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9DB890BE634A84EEF76D395 /* Pods-DafMobile.debug.xcconfig */;
+			baseConfigurationReference = DC6ACD3D32F2E1B1EB33F892 /* Pods-DafMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DafMobile/DafMobile.entitlements;
@@ -866,7 +866,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35501A84E00E1BFC8D0EBDC0 /* Pods-DafMobile.release.xcconfig */;
+			baseConfigurationReference = A790B15AB706002380B90922 /* Pods-DafMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DafMobile/DafMobile.entitlements;
@@ -895,7 +895,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 503A3E581252778FCFF2ABD3 /* Pods-DafMobile-tvOS.debug.xcconfig */;
+			baseConfigurationReference = CDAA8A0F5C7A54F975DD6112 /* Pods-DafMobile-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -928,7 +928,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23AA44BF063B311A1291A24A /* Pods-DafMobile-tvOS.release.xcconfig */;
+			baseConfigurationReference = 11E9804F02AF0E732D0E22ED /* Pods-DafMobile-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -961,7 +961,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CA6F10DFC109F11A24DFC18 /* Pods-DafMobile-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 924ABD49744AF22892B40E78 /* Pods-DafMobile-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -992,7 +992,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9F701D8BB243BA4977D159A /* Pods-DafMobile-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 7FBD2D21B3B1C2EDD4BBAB3A /* Pods-DafMobile-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
