@@ -76,6 +76,11 @@ references:
       command: rm .env && echo $STAGING_ENV | base64 --decode | tee .env >/dev/null
       working_directory: ~/project
 
+  set_ruby_version: &set_ruby_version
+    run:
+      name: Set Ruby Version
+      command: echo "ruby-2.5.3" > ~/.ruby-version
+
   gems_cache_key_android: &gems_cache_key_android android-bundle-v1-{{ checksum "../Gemfile.lock" }}-{{ arch }}
 
   gradle_cache_key: &gradle_cache_key jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
@@ -303,6 +308,7 @@ jobs:
   build_ios:
     macos:
       xcode: '10.1.0'
+    resource_class: medium
     working_directory: ~/project
     parameters:
       production:
@@ -326,9 +332,7 @@ jobs:
           command: yarn --frozen-lockfile
       - *save_yarn_cache_macos
       - *restore_gems_cache_ios
-      - run:
-          name: Set Ruby Version
-          command: echo "ruby-2.4" > ~/.ruby-version # Replace 2.4 with the specific version of Ruby here.
+      - *set_ruby_version
       - run:
           name: Bundle install
           command: bundle install
@@ -365,7 +369,7 @@ jobs:
   # ...
   deploy_ios:
     macos:
-      xcode: '10.3.0'
+      xcode: '10.1.0'
     working_directory: ~/project
     environment:
       FL_OUTPUT_DIR: output
@@ -376,9 +380,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - *restore_gems_cache_ios
-      - run:
-          name: Set Ruby Version
-          command: echo "ruby-2.4" > ~/.ruby-version # Replace 2.4 with the specific version of Ruby here.
+      - *set_ruby_version
       - run:
           name: Bundle install
           command: bundle install
