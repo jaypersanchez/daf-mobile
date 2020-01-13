@@ -231,6 +231,9 @@ jobs:
       - run:
           name: Run unit tests
           command: yarn test --maxWorkers=2
+      - run:
+          name: Upload coverage report
+          command: npx codecov
       - persist_to_workspace:
           root: ~/project
           paths:
