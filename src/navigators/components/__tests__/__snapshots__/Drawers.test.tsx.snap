@@ -62,14 +62,19 @@ exports[`Navigation renders right drawer correctly 1`] = `
             }
           }
           style={
-            Object {
-              "backgroundColor": "#0078ff",
-              "borderColor": "#FFFFFF",
-              "borderRadius": 5,
-              "borderWidth": 2,
-              "height": 48,
-              "width": 48,
-            }
+            Array [
+              Object {
+                "backgroundColor": "#0078ff",
+                "borderColor": "#FFFFFF",
+                "borderRadius": 5,
+                "borderWidth": 2,
+                "height": 48,
+                "width": 48,
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+            ]
           }
         />
         <View
