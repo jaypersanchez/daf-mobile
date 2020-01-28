@@ -61,7 +61,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         </Container>
       )}
       {hasNoIdentityAndNotLoading && (
-        <Container>
+        <Container testID={'ONBOARDING_WELCOME_TOP'}>
           <Container padding alignItems={'center'} marginTop={50}>
             <Text type={Constants.TextTypes.H2} bold>
               Welcome to uPort
