@@ -146,6 +146,8 @@ workflows:
             branches:
               ignore:
                 - master
+
+      - test-ios-e2e
       - build_ios:
           name: build_ios_staging
           staging: true
@@ -253,6 +255,52 @@ jobs:
       - run:
           name: Semantic release
           command: yarn release
+
+  # e2e tests with detox
+  test-ios-e2e:
+    working_directory: ~/project
+    macos:
+      xcode: '10.1.0'
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Install AppleSim Utils
+          command: |
+            brew update
+            brew tap wix/brew
+            brew install --HEAD applesimutils
+      - run:
+          name: Install Detox CLI
+          command: npm install -g detox-cli
+      - run:
+          name: Fetch CocoaPods Specs
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - *restore_yarn_cache_macos
+      - run:
+          name: Install node modules
+          command: yarn --frozen-lockfile
+      - *save_yarn_cache_macos
+      - *restore_gems_cache_ios
+      - *set_ruby_version
+      - run:
+          name: Bundle install
+          command: bundle install
+      - *save_gems_cache_ios
+      - *restore_pods_cache_ios
+      - run:
+          name: Install Pods
+          command: bundle exec pod install --verbose
+          working_directory: ios
+      - *save_pods_cache_ios
+      - *create_production_env_file
+      - run:
+          name: Detox e2e build
+          command: detox build -c ios.sim.release
+      - run:
+          name: Detox e2e test
+          command: detox test -c ios.sim.release --cleanup
 
   build_android:
     working_directory: ~/project/android
