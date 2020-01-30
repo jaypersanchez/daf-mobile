@@ -1,35 +1,25 @@
 {
   "name": "daf-mobile",
   "description": "Native mobile client for DAF",
-  "version": "1.28.3",
+  "version": "1.28.8",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --verbose --coverage",
     "format": "prettier --config prettier.json --write \"./src/**/*.{jsx,ts,tsx}\" && git status",
     "coverage": "jest --coverage",
+    "test:ios:release": "detox build -c ios.sim.release && detox test -c ios.sim.release --cleanup",
+    "test:ios:debug": "detox build -c ios.sim.debug && detox test -c ios.sim.debug",
     "package-android": "mkdir -p android/app/build/jsbundle/assets/ && mkdir -p android/app/build/jsbundle/res && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/jsbundle/assets/index.android.bundle --assets-dest android/app/build/jsbundle/res",
-    "codepush-production": "npm run codepush-ios-production && npm run codepush-android-production",
-    "codepush-ios-production": "ENVFILE=.env.production appcenter codepush release-react --private-key-path ./codepush-privatekey.pem -a Serto/Serto -d Production --plist-file ios/Serto/Info.plist --output-dir ./build/ios && npm run sentry-ios-codepush-production",
-    "codepush-android-production": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Production --private-key-path ./codepush-privatekey.pem --output-dir ./build/android && npm run sentry-android-codepush-production",
-    "codepush-staging": "npm run codepush-ios-staging && npm run codepush-android-staging",
-    "codepush-ios-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto -d Staging --private-key-path ./codepush-privatekey.pem --plist-file ios/Serto/Info.plist --output-dir ./build/ios/CodePush && npm run sentry-ios-codepush-staging",
-    "codepush-android-staging": "ENVFILE=.env.production appcenter codepush release-react -a Serto/Serto-Android -d Staging --private-key-path ./codepush-privatekey.pem --output-dir ./build/android && npm run sentry-android-codepush-staging",
-    "sentry-ios-codepush-production": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto ios ./build/ios/CodePush --deployment Production",
-    "sentry-android-codepush-production": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Production",
-    "sentry-ios-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto ios ./build/ios/CodePush --deployment Staging",
-    "sentry-android-codepush-staging": "SENTRY_PROPERTIES=./sentry.properties sentry-cli react-native appcenter Serto/Serto-Android android ./build/android/CodePush --deployment Staging",
-    "fastlane-testflight": "cd ios/ && ENVFILE=.env.production fastlane buildAndUploadToTestflight",
     "release": "semantic-release",
     "postversion": "react-native-version --never-amend",
-    "encode-env": "openssl base64 -A -in .env_template",
     "update-daf": "yarn add daf-core daf-data-store daf-debug daf-did-jwt daf-selective-disclosure daf-trust-graph daf-w3c daf-react-native-sqlite3 daf-ethr-did-react-native daf-url"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
-    "@kancha/kancha-ui": "^1.0.0-beta.41",
+    "@kancha/kancha-ui": "^1.0.0-beta.42",
     "@react-native-community/async-storage": "^1.6.1",
     "@segment/analytics-react-native": "^1.1.0-beta.2",
     "@sentry/react-native": "^1.0.4",
@@ -124,6 +114,7 @@
     "@types/ws": "^6.0.3",
     "babel-jest": "^24.9.0",
     "cross-fetch": "^3.0.4",
+    "detox": "^15.1.4",
     "hermes-engine": "^0.2.1",
     "husky": "^1.3.1",
     "jest": "^24.9.0",
@@ -215,6 +206,23 @@
   "jest-junit": {
     "outputDirectory": "./test-results/jest/",
     "outputName": "results.xml"
+  },
+  "detox": {
+    "test-runner": "jest",
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/DerivedData/DafMobile/Build/Products/Debug-iphonesimulator/DafMobile.app",
+        "build": "xcodebuild -workspace ios/DafMobile.xcworkspace -scheme DafMobile -configuration Debug -sdk iphonesimulator -derivedDataPath ios/DerivedData/DafMobile -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/DerivedData/DafMobile/Build/Products/Release-iphonesimulator/DafMobile.app",
+        "build": "xcodebuild -workspace ios/DafMobile.xcworkspace -scheme DafMobile -configuration Release -sdk iphonesimulator -derivedDataPath ios/DerivedData/DafMobile -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    }
   },
   "release": {
     "branch": "master",

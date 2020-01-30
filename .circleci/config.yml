@@ -76,6 +76,11 @@ references:
       command: rm .env && echo $STAGING_ENV | base64 --decode | tee .env >/dev/null
       working_directory: ~/project
 
+  set_ruby_version: &set_ruby_version
+    run:
+      name: Set Ruby Version
+      command: echo "ruby-2.5.3" > ~/.ruby-version
+
   gems_cache_key_android: &gems_cache_key_android android-bundle-v1-{{ checksum "../Gemfile.lock" }}-{{ arch }}
 
   gradle_cache_key: &gradle_cache_key jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
@@ -141,6 +146,8 @@ workflows:
             branches:
               ignore:
                 - master
+
+      - test-ios-e2e
       - build_ios:
           name: build_ios_staging
           staging: true
@@ -197,17 +204,15 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
-#### DISABLED for package name changes
-#### TODO: re-enable after certs are setup
-#      - deploy_android:
-#          requires:
-#            - verify_unit_tests
-#            - build_android_prod
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
+      - deploy_android:
+          requires:
+            - verify_unit_tests
+            - build_android_prod
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
 
 ###############################################################
 # Jobs
@@ -228,6 +233,9 @@ jobs:
       - run:
           name: Run unit tests
           command: yarn test --maxWorkers=2
+      - run:
+          name: Upload coverage report
+          command: npx codecov
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -247,6 +255,52 @@ jobs:
       - run:
           name: Semantic release
           command: yarn release
+
+  # e2e tests with detox
+  test-ios-e2e:
+    working_directory: ~/project
+    macos:
+      xcode: '10.1.0'
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Install AppleSim Utils
+          command: |
+            brew update
+            brew tap wix/brew
+            brew install --HEAD applesimutils
+      - run:
+          name: Install Detox CLI
+          command: npm install -g detox-cli
+      - run:
+          name: Fetch CocoaPods Specs
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - *restore_yarn_cache_macos
+      - run:
+          name: Install node modules
+          command: yarn --frozen-lockfile
+      - *save_yarn_cache_macos
+      - *restore_gems_cache_ios
+      - *set_ruby_version
+      - run:
+          name: Bundle install
+          command: bundle install
+      - *save_gems_cache_ios
+      - *restore_pods_cache_ios
+      - run:
+          name: Install Pods
+          command: bundle exec pod install --verbose
+          working_directory: ios
+      - *save_pods_cache_ios
+      - *create_production_env_file
+      - run:
+          name: Detox e2e build
+          command: detox build -c ios.sim.release
+      - run:
+          name: Detox e2e test
+          command: detox test -c ios.sim.release --cleanup
 
   build_android:
     working_directory: ~/project/android
@@ -305,6 +359,7 @@ jobs:
   build_ios:
     macos:
       xcode: '10.1.0'
+    resource_class: medium
     working_directory: ~/project
     parameters:
       production:
@@ -328,6 +383,7 @@ jobs:
           command: yarn --frozen-lockfile
       - *save_yarn_cache_macos
       - *restore_gems_cache_ios
+      - *set_ruby_version
       - run:
           name: Bundle install
           command: bundle install
@@ -364,7 +420,7 @@ jobs:
   # ...
   deploy_ios:
     macos:
-      xcode: '10.3.0'
+      xcode: '10.1.0'
     working_directory: ~/project
     environment:
       FL_OUTPUT_DIR: output
@@ -375,6 +431,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - *restore_gems_cache_ios
+      - *set_ruby_version
       - run:
           name: Bundle install
           command: bundle install
