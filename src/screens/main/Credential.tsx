@@ -63,9 +63,10 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
     index: number
   }) => (
     <Container w={Device.width - 10} padding paddingRight={10}>
-      <ScrollView scrollEventThrottle={16}>
+      <ScrollView testID={'SCROLLVIEW'} scrollEventThrottle={16}>
         <SharedElement id={item.hash}>
           <Credential
+            testID={'CREDENTIAL'}
             onPress={() => sharingMode && selectCredential(index)}
             detailMode
             jwt={item.jwt}
@@ -77,6 +78,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
           />
           {sharingMode && (
             <RadioBtn
+              testID={'RADIO_BTN'}
               selected={isSelected(index)}
               onPress={() => selectCredential(index)}
             >
@@ -98,6 +100,7 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
         </Container>
       )}
       <FlatList
+        testID={'FLATLIST'}
         horizontal
         pagingEnabled
         contentOffset={initailOffset}
@@ -123,6 +126,7 @@ CredentialDetail.navigationOptions = ({ navigation }: any) => {
     headerLeft: (
       <HeaderButtons>
         <Item
+          testID={'DONE_BTN'}
           title={'Done'}
           onPress={navigation.dismiss}
           color={Colors.WHITE}
@@ -133,12 +137,14 @@ CredentialDetail.navigationOptions = ({ navigation }: any) => {
       <HeaderButtons>
         {sharingMode && sharingModeEnabled ? (
           <Item
+            testID={'CANCEL_BTN'}
             title={'Cancel'}
             onPress={() => toggleSharingMode(false)}
             color={Colors.WHITE}
           />
         ) : sharingModeEnabled ? (
           <Item
+            testID={'SHARE_BTN'}
             title={'Share'}
             onPress={() => toggleSharingMode(true)}
             color={Colors.WHITE}
