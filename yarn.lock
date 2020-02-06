@@ -3435,75 +3435,75 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-daf-core@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-core/-/daf-core-1.2.0.tgz#8ac72c036402eb7f55c07f3ee8da1ad4a4f9f6ff"
-  integrity sha512-NeAkHi+/nGGiKGwwZk6ZW/MU/mFHYkK0mFsNz5BUtMvh8KTRJwFDFNSc8GRHrfzJH7z/X90X9zR+3lLjVyjYvA==
+daf-core@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-core/-/daf-core-1.4.1.tgz#bc91897d39d510996ebe1699961e2df852d47ab9"
+  integrity sha512-19oAASqlfhpddRqeM9WZe6XRGwRqoAiBNaVHrr3OKN5ZeBwcwFP8eCPI004+peg2QlHYyDGKUSnMXiLtVmPsKg==
   dependencies:
     blakejs "^1.1.0"
     debug "^4.1.1"
     events "^3.0.0"
 
-daf-data-store@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-data-store/-/daf-data-store-1.2.0.tgz#5e06630a28032cf650de03aaea3c182e5106bd1e"
-  integrity sha512-iSGWA155MMPyOcCF4iWDCbmFc+UgK03OHW9kuyp62S4jh/EyeFwMnvowfUkjOa3djnlBk5+ExbfMmyYbyglFpQ==
+daf-data-store@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/daf-data-store/-/daf-data-store-1.5.0.tgz#dbd37a9d9be024eab76cc3a5531cfca654dbbf66"
+  integrity sha512-CngWn+G4Qd9HIsJAPOOMlNBlkDUbOmmL9+jF2iOHb33JIOiJ9MhSsAgNvofJq0G17EgxHLZ0dD6z4qP/GgZf/g==
   dependencies:
     blakejs "^1.1.0"
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
     sql-bricks-sqlite "^0.1.0"
 
-daf-debug@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-debug/-/daf-debug-1.2.0.tgz#eb557605946b644d8a94fbc603938090493e663b"
-  integrity sha512-P9VWvVCphFvLQ39D7Wl++hPJiPJJ9mXxTKjG2cuRziAzjUwkZ64Jx6IlfYpges+VySKqfqlZkeMFIgY5BQbr/Q==
+daf-debug@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-debug/-/daf-debug-1.4.1.tgz#16e8677e4d066a71ed2509be3affef23038fb181"
+  integrity sha512-mgUgjj/6txwwMnHO4N5cuV+hrkOv3ysFeQt2qj5eUHMRdHzYoxdDHXPRdJHEzeZ9GDRN1ALRndJDSQpnphpWng==
   dependencies:
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
 
-daf-did-jwt@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-did-jwt/-/daf-did-jwt-1.2.0.tgz#87e199786cdfdc92f1a2457d97535b9c141cedeb"
-  integrity sha512-7/Yr5m3z75bkYom0T5MZOXTk5wYT3jR2feMUh6ATFM/WllGLnKmbrFKZzdEuhrqUK3KpT1MtrH8FdpLEq+3WtA==
+daf-did-jwt@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-did-jwt/-/daf-did-jwt-1.4.1.tgz#6db9311a93b3f768d94848a1204b69da8fa3c2bb"
+  integrity sha512-8qfSXmPYkZklpisXpORFpr7B89DQlY64oM+JOIDnH1K2EoMOcL5+8cdFc3x0IV82Hhd8BQK4fMpt4R+jxzshtA==
   dependencies:
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
-    did-jwt "^3.0.0"
+    did-jwt "^4.0.0"
     did-resolver "^1.1.0"
 
-daf-ethr-did-react-native@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-ethr-did-react-native/-/daf-ethr-did-react-native-1.2.0.tgz#7c742a1b99cbe7e271ca053a9573d2ab60cf19f0"
-  integrity sha512-Qtdq+4C6+161pQXE3eXt4GZIkShIOkOPddWkzBPHSOa0EG7gJZUnyk0U0VaqU8/PzECwKIAZx4n5NWHON3dDuQ==
+daf-ethr-did-react-native@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-ethr-did-react-native/-/daf-ethr-did-react-native-1.4.1.tgz#0b72d6683cc591641c8c4e5210ba902e4839ce9c"
+  integrity sha512-JuF3D+hzZpZVTkIKbMLj3sZjcl8XLwQ608tesKU657N6yevRkdK9dij41vOhfjqJVhlJDFVxUxNP9QQX7EKkCw==
   dependencies:
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
     react-native-uport-signer "^1.6.1"
 
-daf-react-native-sqlite3@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-react-native-sqlite3/-/daf-react-native-sqlite3-1.2.0.tgz#7cfe03964423dff1d8a7012c741d5b87534f0932"
-  integrity sha512-NFOeIAcN2mTl+YNzb/2W8L+2/396HIZ9e+8XAJIy8Y0u+osZlZ29fi4MqBz0TOeJmalRHOFeD3Ogt+1YRFIbWw==
+daf-react-native-sqlite3@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/daf-react-native-sqlite3/-/daf-react-native-sqlite3-1.5.0.tgz#7e3671369dbb73a7abbbbfb088639eb8fa7c289f"
+  integrity sha512-s89gi7Gh9zgSGF16+LILCfivSuzkILgs4NzrefZIhL+MVAk44GygqDqmvHuvV7qFhgA/RAHiBKc+QWM+mCZEYw==
   dependencies:
-    daf-data-store "^1.2.0"
+    daf-data-store "^1.5.0"
     debug "^4.1.1"
     react-native-sqlite-storage "^4.1.0"
 
-daf-selective-disclosure@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-selective-disclosure/-/daf-selective-disclosure-1.2.0.tgz#08d7accf591efa7ceee92ead9be614fb89de9c69"
-  integrity sha512-TExktsGhvrUKhYTb2rHAudCdYi1lhZ1jBVB/ozos1IR6GmkRtZSqtlVEwAhIkLhHKYrsL66Zi+ox80WH5EkSkg==
+daf-selective-disclosure@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/daf-selective-disclosure/-/daf-selective-disclosure-1.5.1.tgz#16047e591e72c6c817f47e57a951edbd2e274fc1"
+  integrity sha512-qER29+TBf/+NCUkmgXr+nTFrHYViSexZmw5J0bjnY/QHwvARxHzRXBbZqH27utwMlz4QEHJBY+534K9uyxBdWQ==
   dependencies:
-    daf-core "^1.2.0"
-    daf-did-jwt "^1.2.0"
+    daf-core "^1.4.1"
+    daf-did-jwt "^1.4.1"
     debug "^4.1.1"
-    did-jwt "^3.0.0"
+    did-jwt "^4.0.0"
 
-daf-trust-graph@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-trust-graph/-/daf-trust-graph-1.2.0.tgz#7b3e3fdd2b0495cfb7a3b52df446660001e0ba6c"
-  integrity sha512-/cfg062gjVl903wXcGN0Kp1NJXLxz2NLB55oQ9Es79FBW3QwgeaX/Ge99BtpH36rAUISNTRGRuA6CqiXgJPpKw==
+daf-trust-graph@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-trust-graph/-/daf-trust-graph-1.4.1.tgz#6f067f71ad51a72da2378d60839edf5dfc6118d7"
+  integrity sha512-BkpC/c1pkwIFLZ0hMVD3imGzX2sifpkbwOqs3BcOr/+1vH+U8bxVtbI0iEqO9NA1m0ILFq1udwEIq61iQTp7iw==
   dependencies:
     apollo-cache-inmemory "^1.6.3"
     apollo-client "^2.6.4"
@@ -3512,29 +3512,29 @@ daf-trust-graph@^1.2.0:
     apollo-link-ws "^1.0.19"
     apollo-utilities "^1.3.2"
     cross-fetch "^3.0.4"
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
-    did-jwt "^3.0.0"
+    did-jwt "^4.0.0"
     graphql "^14.0.0"
     graphql-tag "^2.10.1"
     subscriptions-transport-ws "^0.9.0"
 
-daf-url@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-url/-/daf-url-1.2.0.tgz#ab22b8ffad301264bbfaf3a8dab497ad1e563b35"
-  integrity sha512-1xHoXSyTNJ4TqX1893c7ZBXoOBYaXrscuCZoFtQbEYzR2Uuf6ZudqhREcRpPIJTn36uNerhIPp/DiNZDoUbLLQ==
+daf-url@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-url/-/daf-url-1.4.1.tgz#655707205a968627bceaf82e5bf1a4191f596e0f"
+  integrity sha512-whiqz7K3do7W0QeoMQKNO23K1X8SZCWfldgM+rWs4c4S7S7n8zMxPZ30eZTDwk/8ku49L/ve9B1DuXrPQUN12Q==
   dependencies:
-    daf-core "^1.2.0"
+    daf-core "^1.4.1"
     debug "^4.1.1"
     url-parse "^1.4.7"
 
-daf-w3c@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/daf-w3c/-/daf-w3c-1.2.0.tgz#818c870152c320a279c236cedb52d33574c67a14"
-  integrity sha512-yWebRghalNerLtRap7t4HMTmEO9+4lwkT04Q3fyPcDMcoFRyqRDNR/E7NUEfsOROmzjYkQEiQ8YNHmgjaqYW8Q==
+daf-w3c@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/daf-w3c/-/daf-w3c-1.4.1.tgz#91a0cf90ae499f66d696b605ea50bdc0fb61f804"
+  integrity sha512-9O5QAgVsk1oPDxsfGXmfkASULLkHWJWHa2L00BG+eokJtsBcYpzdAvQpZQuNhajCetl99LPzraJUpws61bHfBw==
   dependencies:
-    daf-core "^1.2.0"
-    daf-did-jwt "^1.2.0"
+    daf-core "^1.4.1"
+    daf-did-jwt "^1.4.1"
     debug "^4.1.1"
     did-jwt-vc "^0.1.2"
     did-resolver "^1.1.0"
@@ -3811,6 +3811,21 @@ did-jwt@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/did-jwt/-/did-jwt-3.0.0.tgz#5e11f1d6e5c9e2d8bdcba0d391f1fcec7c58a07d"
   integrity sha512-/zHwoUN6eA+zTpV4HjTVMrVXOGfcfh8le4s9ibvv53ammMwdPj3RnLpw539JtnHm7dCXLq7rpjBkoX3lbbxoPQ==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    "@stablelib/utf8" "^0.10.1"
+    buffer "^5.2.1"
+    did-resolver "^1.0.0"
+    elliptic "^6.4.0"
+    js-sha256 "^0.9.0"
+    js-sha3 "^0.8.0"
+    tweetnacl "^1.0.1"
+    uport-base64url "3.0.2-alpha.0"
+
+did-jwt@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/did-jwt/-/did-jwt-4.0.0.tgz#243bf1da82d5a67ce4d742afb10f5f63169f5b4e"
+  integrity sha512-esCR3mVngXQhV2Q1NjdVdkzirgxHpuzqnn4Ga4mNwXFbvYNj9fHD2/oTJXaLZeXxImJmHJQwFEr0TPMoQAlcwg==
   dependencies:
     "@babel/runtime" "^7.3.1"
     "@stablelib/utf8" "^0.10.1"

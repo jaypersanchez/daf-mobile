@@ -25,23 +25,25 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
             {t('Show Seed Phrase')}
           </ListItem>
         </Section>
-        <Section title={'Developer tooling'}>
-          <ListItem onPress={() => navigation.navigate('Messages')}>
-            {t('Messages')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('CreateCredential')}>
-            {t('Create Credential')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('CreateRequest')}>
-            {t('Request Data')}
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate('Connections')}>
-            {t('Connections')}
-          </ListItem>
-          <ListItem last onPress={() => navigation.navigate('Signer')}>
-            {t('Identities')}
-          </ListItem>
-        </Section>
+        {__DEV__ && (
+          <Section title={'Developer tooling'}>
+            <ListItem onPress={() => navigation.navigate('Messages')}>
+              {t('Messages')}
+            </ListItem>
+            <ListItem onPress={() => navigation.navigate('CreateCredential')}>
+              {t('Create Credential')}
+            </ListItem>
+            <ListItem onPress={() => navigation.navigate('CreateRequest')}>
+              {t('Request Data')}
+            </ListItem>
+            <ListItem onPress={() => navigation.navigate('Connections')}>
+              {t('Connections')}
+            </ListItem>
+            <ListItem last onPress={() => navigation.navigate('Signer')}>
+              {t('Identities')}
+            </ListItem>
+          </Section>
+        )}
         <Section title={'Language'}>
           <ListItem
             last
