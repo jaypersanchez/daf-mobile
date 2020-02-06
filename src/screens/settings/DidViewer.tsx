@@ -39,9 +39,6 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
             <Mutation
               mutation={SET_VIEWER}
               refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
-              onError={(error: any) => {
-                console.log(error)
-              }}
             >
               {(mutate: any) => (
                 <Button
