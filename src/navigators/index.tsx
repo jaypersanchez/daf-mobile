@@ -42,6 +42,7 @@ import ShowSecret from '../screens/settings/ShowSecret'
 
 // Developer tooling.  * == Deprecated. Will be removed soon.
 import Signer from '../screens/settings/Signer'
+import DidViewer from '../screens/settings/DidViewer'
 import Config from '../screens/settings/Config' // *
 import Messages from '../screens/settings/Messages'
 import MessageDetail from '../screens/settings/MessageDetail'
@@ -113,6 +114,12 @@ const SettingsNavigator = createStackNavigator(
     },
     [Screens.Connections.screen]: {
       screen: Connections,
+      navigationOptions: {
+        title: i18n.t('Connections'),
+      },
+    },
+    [Screens.DidViewer.screen]: {
+      screen: DidViewer,
       navigationOptions: {
         title: i18n.t('Connections'),
       },

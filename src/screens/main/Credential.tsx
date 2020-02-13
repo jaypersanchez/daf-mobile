@@ -59,12 +59,12 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
     item,
     index,
   }: {
-    item: Typings.VerifiableCredential & { rowId: number }
+    item: Typings.VerifiableCredential & {}
     index: number
   }) => (
     <Container w={Device.width - 10} padding paddingRight={10}>
       <ScrollView scrollEventThrottle={16}>
-        <SharedElement id={item.hash + item.rowId}>
+        <SharedElement id={item.hash}>
           <Credential
             onPress={() => sharingMode && selectCredential(index)}
             detailMode
@@ -153,7 +153,7 @@ CredentialDetail.sharedElements = (navigation: any) => {
   return navigation
     .getParam('credentials')
     .map((vc: Typings.VerifiableCredential) => ({
-      id: vc.hash + vc.rowId,
+      id: vc.hash,
       animation: 'fade',
       resize: 'clip',
     }))

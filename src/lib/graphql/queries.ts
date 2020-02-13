@@ -55,7 +55,6 @@ export const GET_VIEWER_CREDENTIALS = gql`
       credentialsReceived {
         jwt
         hash
-        rowId
         iss {
           did
           shortId
@@ -156,7 +155,6 @@ export const VIEWER_MESSAGES = gql`
         }
         vc {
           hash
-          rowId
           jwt
           iss {
             did
@@ -175,7 +173,6 @@ export const VIEWER_MESSAGES = gql`
           }
         }
         metaData {
-          rowId
           type
           id
           data
@@ -193,7 +190,6 @@ export const VIEWER_MESSAGES = gql`
           essential
           vc {
             hash
-            rowId
             iss {
               did
               shortId
