@@ -52,7 +52,7 @@
     "did-jwt": "^3.0.0",
     "did-jwt-vc": "^0.1.2",
     "did-resolver": "^1.1.0",
-    "ethr-did-resolver": "^1.0.1",
+    "ethr-did-resolver": "2.1.0",
     "faker": "^4.1.0",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",

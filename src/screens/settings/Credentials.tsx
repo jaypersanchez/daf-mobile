@@ -23,7 +23,6 @@ import gql from 'graphql-tag'
 export const GET_CREDENTIALS = gql`
   query FindCredentials($iss: ID, $sub: ID) {
     credentials(iss: $iss, sub: $sub) {
-      rowId
       hash
       iss {
         did
@@ -103,7 +102,7 @@ export const Credentials: React.FC<Props> = props => {
                 )
               })
             }}
-            keyExtractor={(item, index) => item.rowId + index}
+            keyExtractor={(item, index) => item.hash}
             onRefresh={refetch}
             refreshing={loading}
             ListEmptyComponent={

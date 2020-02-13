@@ -157,9 +157,9 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                       w={Device.width - 40}
                       padding
                       paddingRight={0}
-                      key={credential.hash + credential.rowId}
+                      key={credential.hash}
                     >
-                      <SharedElement id={credential.hash + credential.rowId}>
+                      <SharedElement id={credential.hash}>
                         <Credential
                           onPress={() =>
                             viewAttachments(item.vc, credentialIndex)

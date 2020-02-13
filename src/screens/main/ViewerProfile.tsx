@@ -131,10 +131,7 @@ const ViewerProfile: React.FC<Props> & {
               viewer.credentialsReceived.map(
                 (vc: Typings.VerifiableCredential) => {
                   return (
-                    <SharedElement
-                      key={vc.hash + vc.rowId}
-                      id={vc.hash + vc.rowId}
-                    >
+                    <SharedElement key={vc.hash} id={vc.hash}>
                       <Credential
                         onPress={() =>
                           navigation.navigate('Credential', {

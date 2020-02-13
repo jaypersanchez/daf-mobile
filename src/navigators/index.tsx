@@ -42,6 +42,7 @@ import ShowSecret from '../screens/settings/ShowSecret'
 
 // Developer tooling.  * == Deprecated. Will be removed soon.
 import Signer from '../screens/settings/Signer'
+import DidViewer from '../screens/settings/DidViewer'
 import Config from '../screens/settings/Config' // *
 import Messages from '../screens/settings/Messages'
 import MessageDetail from '../screens/settings/MessageDetail'
@@ -55,8 +56,8 @@ import { Animated, Easing } from 'react-native'
 
 const headerLogo = () => (
   <Image
-    source={require('../assets/images/uport_black_horizontal.png')}
-    style={{ height: 45 }}
+    source={require('../assets/images/daf-black-icon.png')}
+    style={{ height: 41 }}
     resizeMode={'contain'}
   />
 )
@@ -117,6 +118,12 @@ const SettingsNavigator = createStackNavigator(
         title: i18n.t('Connections'),
       },
     },
+    [Screens.DidViewer.screen]: {
+      screen: DidViewer,
+      navigationOptions: {
+        title: i18n.t('Connections'),
+      },
+    },
     [Screens.Signer.screen]: {
       screen: Signer,
       navigationOptions: {
@@ -159,7 +166,7 @@ const ActivityNavigator = createSharedElementStackNavigator(
     [Screens.Activity.screen]: {
       screen: Activity,
       navigationOptions: {
-        headerTitle: headerLogo,
+        title: i18n.t('Activity'),
       },
     },
     [Screens.Profile.screen]: {
