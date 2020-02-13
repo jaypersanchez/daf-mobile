@@ -56,8 +56,8 @@ import { Animated, Easing } from 'react-native'
 
 const headerLogo = () => (
   <Image
-    source={require('../assets/images/uport_black_horizontal.png')}
-    style={{ height: 45 }}
+    source={require('../assets/images/daf-black-icon.png')}
+    style={{ height: 41 }}
     resizeMode={'contain'}
   />
 )
@@ -166,7 +166,7 @@ const ActivityNavigator = createSharedElementStackNavigator(
     [Screens.Activity.screen]: {
       screen: Activity,
       navigationOptions: {
-        headerTitle: headerLogo,
+        title: i18n.t('Activity'),
       },
     },
     [Screens.Profile.screen]: {
