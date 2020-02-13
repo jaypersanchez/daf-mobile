@@ -68,7 +68,7 @@ exports[`renders correctly 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#5952ff",
+            "backgroundColor": "#0F9ED3",
             "borderRadius": undefined,
             "flex": undefined,
             "flexDirection": undefined,
