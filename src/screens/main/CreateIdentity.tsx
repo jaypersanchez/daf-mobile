@@ -32,7 +32,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       if (!importingSeed) {
         createDid({
           variables: {
-            type: 'rnEthr',
+            type: 'rinkeby-ethr-did',
           },
         })
       } else {

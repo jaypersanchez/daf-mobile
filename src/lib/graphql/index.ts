@@ -24,11 +24,11 @@ const viewer = async (_: any, args: any, ctx: Context) => {
   } else {
     // Check if there are any identities in the core.
     // Set the first one as viewer by default
-    const dids = await ctx.core.identityManager.listDids()
-    if (dids.length > 0) {
-      await AsyncStorage.setItem('selectedDid', dids[0])
+    const identities = await ctx.core.identityManager.getIdentities()
+    if (identities.length > 0) {
+      await AsyncStorage.setItem('selectedDid', identities[0].did)
       return {
-        did: dids[0],
+        did: identities[0].did,
         __typename: 'Identity',
       }
     }

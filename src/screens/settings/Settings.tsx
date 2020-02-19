@@ -20,11 +20,11 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         </Text>
       </Container>
       <Container>
-        <Section title={'Security'}>
+        {/* <Section title={'Security'}>
           <ListItem last onPress={() => navigation.navigate('ShowSecret')}>
             {t('Show Seed Phrase')}
           </ListItem>
-        </Section>
+        </Section> */}
         {__DEV__ && (
           <Section title={'Developer tooling'}>
             <ListItem onPress={() => navigation.navigate('Messages')}>

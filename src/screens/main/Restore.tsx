@@ -77,7 +77,7 @@ const Restore: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
               onPress={() =>
                 importSeed({
                   variables: {
-                    type: 'rnEthr',
+                    type: 'rinkeby-ethr-did',
                     secret: seed,
                   },
                 })

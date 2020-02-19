@@ -66,7 +66,7 @@ const ShowSecret: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
                 getSecretKey({
                   variables: {
                     did: data.viewer.did,
-                    type: 'rnEthr',
+                    type: 'rinkeby-ethr-did',
                   },
                 })
               }

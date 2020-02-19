@@ -93,7 +93,7 @@ export const IMPORT_IDENTITY = gql`
 
 export const CREATE_IDENTITY = gql`
   mutation createIdentity($type: String!) {
-    createIdentity(type: $type, secret: $secret) {
+    createIdentity(type: $type) {
       did
     }
   }

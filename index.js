@@ -1,4 +1,4 @@
-global.Buffer = global.Buffer || require('buffer/').Buffer
+import './shim'
 
 // Temporary to stop crashes
 import 'react-native-gesture-handler'
