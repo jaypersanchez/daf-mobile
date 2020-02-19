@@ -106,6 +106,13 @@ references:
         - ~/.gradle
         - ~/.m2
 
+  android_licenses: &android_licenses
+    run:
+      name: SDK Licenses
+      command: |
+        yes | sdkmanager --licenses || exit 0
+        yes | sdkmanager --update || exit 0
+
   android_dependencies: &android_dependencies
     run:
       name: Download Android Dependencies
@@ -324,6 +331,7 @@ jobs:
           at: ~/project
 
       - *restore_gradle_cache
+      - *android_licenses
       - *android_dependencies
       - *save_gradle_cache
 

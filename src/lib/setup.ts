@@ -5,7 +5,9 @@ import { getResolver as webDidResolver } from 'web-did-resolver'
 
 import * as Daf from 'daf-core'
 import * as DidJwt from 'daf-did-jwt'
-import EthrDidRnController from 'daf-ethr-did-react-native'
+import { IdentityProvider } from 'daf-ethr-did'
+import { KeyManagementSystem } from 'daf-react-native-libsodium'
+import { KeyStore, IdentityStore } from 'daf-react-native-async-storage'
 
 import * as W3c from 'daf-w3c'
 import * as SD from 'daf-selective-disclosure'
@@ -22,7 +24,6 @@ import Config from 'react-native-config'
 
 import Debug from 'debug'
 Debug.enable('*')
-const debug = Debug('main')
 
 import * as LocalGql from './graphql'
 
@@ -56,14 +57,31 @@ export const resolvers = merge(
 const web = webDidResolver()
 const didResolver = new Resolver({
   ...ethrDidResolver({
-    rpcUrl: 'https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+    networks: [
+      {
+        name: 'mainnet',
+        rpcUrl: 'https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+      },
+      {
+        name: 'rinkeby',
+        rpcUrl: 'https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+      },
+    ],
   }),
   ...web,
   https: web.web,
   // nacl: naclDidResolver
 })
 
-const identityControllers = [new EthrDidRnController()]
+const identityProviders = [
+  new IdentityProvider({
+    identityStore: new IdentityStore('rinkeby-identity-store'),
+    kms: new KeyManagementSystem(new KeyStore('rinkeby-keystore')),
+    network: 'rinkeby',
+    rpcUrl: 'https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+    resolver: didResolver,
+  }),
+]
 
 const messageValidator = new DBG.MessageValidator()
 messageValidator
@@ -82,7 +100,7 @@ actionHandler
 const serviceControllers = [TG.ServiceController]
 
 export const core = new Daf.Core({
-  identityControllers,
+  identityProviders,
   serviceControllers,
   didResolver,
   messageValidator,

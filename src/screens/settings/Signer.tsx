@@ -61,7 +61,7 @@ const Signer: React.FC<SignerProps> = props => {
                     onPress={() => {
                       mutate({
                         variables: {
-                          type: 'rnEthr',
+                          type: 'rinkeby-ethr-did',
                           secret: seed,
                         },
                       })
@@ -88,7 +88,7 @@ const Signer: React.FC<SignerProps> = props => {
                 onPress={() => {
                   mutate({
                     variables: {
-                      type: 'rnEthr',
+                      type: 'rinkeby-ethr-did',
                     },
                   })
                 }}

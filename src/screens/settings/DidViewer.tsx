@@ -71,7 +71,7 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
                   onPress={() => {
                     mutate({
                       variables: {
-                        type: 'rnEthr',
+                        type: 'rinkeby-ethr-did',
                         did,
                       },
                     }).then(() => props.navigation.goBack())

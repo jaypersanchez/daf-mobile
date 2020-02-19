@@ -15,7 +15,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
             Get started!
           </Text>
         </Container>
-        <Container marginTop={30}>
+        {/* <Container marginTop={30}>
           <Text type={Constants.TextTypes.Body} textAlign={'center'}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -29,7 +29,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
             buttonText={t('Restore seed')}
             onPress={() => navigation.navigate('Restore')}
           />
-        </Container>
+        </Container> */}
         <Container marginTop={30}>
           <Text type={Constants.TextTypes.Body} textAlign={'center'}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

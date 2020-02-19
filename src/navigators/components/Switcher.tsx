@@ -37,7 +37,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const [createIdentity] = useMutation(CREATE_IDENTITY, {
     refetchQueries: [{ query: GET_MANAGED_IDENTITIES }],
     variables: {
-      type: 'rnEthr',
+      type: 'rinkeby-ethr-did',
     },
   })
   const { SWITCHED_IDENTITY } = AppConstants.modals
