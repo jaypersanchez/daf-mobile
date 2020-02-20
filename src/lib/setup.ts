@@ -14,6 +14,7 @@ import * as SD from 'daf-selective-disclosure'
 import * as TG from 'daf-trust-graph'
 import * as DBG from 'daf-debug'
 import * as URL from 'daf-url'
+import * as DIDComm from 'daf-did-comm'
 
 import RnSqlite from 'daf-react-native-sqlite3'
 import { DataStore, Gql as DataGql } from 'daf-data-store'
@@ -35,7 +36,7 @@ export const typeDefs = [
   Daf.Gql.Core.typeDefs,
   Daf.Gql.IdentityManager.typeDefs,
   DataGql.typeDefs,
-  // DIDComm.Gql.typeDefs,
+  DIDComm.Gql.typeDefs,
   TG.Gql.typeDefs,
   W3c.Gql.typeDefs,
   SD.Gql.typeDefs,
@@ -45,7 +46,7 @@ export const typeDefs = [
 export const resolvers = merge(
   Daf.Gql.Core.resolvers,
   DataGql.resolvers,
-  // DIDComm.Gql.resolvers,
+  DIDComm.Gql.resolvers,
   TG.Gql.resolvers,
   Daf.Gql.IdentityManager.resolvers,
   W3c.Gql.resolvers,
@@ -86,13 +87,14 @@ const identityProviders = [
 const messageValidator = new DBG.MessageValidator()
 messageValidator
   .setNext(new URL.MessageValidator())
+  .setNext(new DIDComm.MessageValidator())
   .setNext(new DidJwt.MessageValidator())
   .setNext(new W3c.MessageValidator())
   .setNext(new SD.MessageValidator())
 
 const actionHandler = new DBG.ActionHandler()
 actionHandler
-  // .setNext(new DIDComm.ActionHandler())
+  .setNext(new DIDComm.ActionHandler())
   .setNext(new TG.ActionHandler())
   .setNext(new W3c.ActionHandler())
   .setNext(new SD.ActionHandler())

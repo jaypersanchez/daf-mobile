@@ -3610,6 +3610,15 @@ daf-debug@^2.1.0:
     daf-core "^2.1.0"
     debug "^4.1.1"
 
+daf-did-comm@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/daf-did-comm/-/daf-did-comm-2.1.0.tgz#6f2ca469e1dbe8a4e157f26234e950aaa8474ac3"
+  integrity sha512-0xSNWnLbt3nVl28u//kCBlpxJuJW5chzgEGU0/3x3z+iHTf3wa8hcBswJExB7O/WDwINDrR19ghyV7/6K/RkRw==
+  dependencies:
+    daf-core "^2.1.0"
+    debug "^4.1.1"
+    uuid "^3.3.3"
+
 daf-did-jwt@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/daf-did-jwt/-/daf-did-jwt-2.1.0.tgz#f4ac3d2520a592e9e59d95aa3259ff25d1a2a241"
