@@ -43,6 +43,7 @@
     "daf-core": "^2.1.0",
     "daf-data-store": "^2.1.0",
     "daf-debug": "^2.1.0",
+    "daf-did-comm": "^2.1.0",
     "daf-did-jwt": "^2.1.0",
     "daf-ethr-did": "^2.3.2",
     "daf-react-native-async-storage": "^2.3.7",
