@@ -88,7 +88,7 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
             tag: requestMessage.threadId,
             vp: {
               context: ['https://www.w3.org/2018/credentials/v1'],
-              type: ['VerifiableCredential'],
+              type: ['VerifiablePresentation'],
               verifiableCredential: selectedVp,
             },
           },
