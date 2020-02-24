@@ -3706,15 +3706,15 @@ daf-url@^2.1.0:
     debug "^4.1.1"
     url-parse "^1.4.7"
 
-daf-w3c@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-2.1.0.tgz#4506e411ef473d68f34f14fed7a73f5e7508ef00"
-  integrity sha512-PFFO9IwL+JilOmeERaOsFL4lrHpemKRk9c+7A5u9dp3W1Y4tG+WddIXUjo84RJKdAODkSx/p4wkIB0xmGPPgPw==
+daf-w3c@^2.3.9:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/daf-w3c/-/daf-w3c-2.3.9.tgz#80088701f4dc97f49a6486e23f65f93bf147a60a"
+  integrity sha512-653arSwACSOeUnAHE+K3R+4xwac2uyj0tzOqRbLKSRoGDiZT4eH3M+r3iuTVEVXSYxPDlOzj3kPsvjcamE8YKA==
   dependencies:
     daf-core "^2.1.0"
     daf-did-jwt "^2.1.0"
     debug "^4.1.1"
-    did-jwt-vc "^0.1.2"
+    did-jwt-vc "^0.1.3"
     did-resolver "^1.1.0"
 
 dargs@^4.0.1:
@@ -4002,6 +4002,13 @@ did-jwt-vc@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/did-jwt-vc/-/did-jwt-vc-0.1.2.tgz#bcaea103316b4fa48433100b93295c2f284e9593"
   integrity sha512-NwTt0g9t1eA/x5LT9zvFmo6EWRJvDKAQGjv+bcXKrr3ri6gq1IwUHsBEHgl9LPMFdfSr1dsK3bUdjwTraBebRw==
+  dependencies:
+    did-jwt "^3.0.0"
+
+did-jwt-vc@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/did-jwt-vc/-/did-jwt-vc-0.1.3.tgz#2b7631d961406f1f2c10c5b7bb4a121fd1db5d71"
+  integrity sha512-rYVlFOr93+88sdgXGcfbYb5nCKDjqznwOOArJas5Vyad46is8jqfKhdeSlQcMefzD/JMxiR+E0diPS6MitA4CQ==
   dependencies:
     did-jwt "^3.0.0"
 
