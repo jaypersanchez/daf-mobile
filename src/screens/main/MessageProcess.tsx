@@ -67,7 +67,7 @@ const MessageProcess: React.FC<MessageProcess> = () => {
           <Text type={Constants.TextTypes.Body} textAlign={'center'}>
             {parsingMessage
               ? 'Hang on for just a moment'
-              : 'All done. Do other stuff...'}
+              : 'Check your activity feed for new messages containing credentials or selective disclosure requests'}
           </Text>
         </Container>
       </Container>
