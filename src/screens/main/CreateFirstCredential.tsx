@@ -30,7 +30,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
         setSending(false)
 
         fetchMessages()
-        navigation.goBack()
+        navigation.dismiss()
       }
     },
   })

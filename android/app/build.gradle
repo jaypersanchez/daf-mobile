@@ -90,7 +90,6 @@ project.ext.sentryCli = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -166,12 +165,6 @@ android {
     }
     buildTypes {
 
-        debug {
-            // Set an empty key for codepush in debug mode. This env variable will different for staging and production
-            buildConfigField "String", "CODE_PUSH_ANDROID", '""'
-            buildConfigField "String", "CODE_PUSH_PUBLIC_KEY", '""'
-        }
-
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -184,7 +177,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation project(':react-native-code-push')
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 

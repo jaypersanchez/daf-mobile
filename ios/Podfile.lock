@@ -1,12 +1,6 @@
 PODS:
   - Analytics (3.6.10)
-  - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
-  - CodePush (5.7.0):
-    - Base64 (~> 1.1)
-    - JWT (~> 3.0.0-beta.7)
-    - React
-    - SSZipArchive (~> 2.1)
   - DoubleConversion (1.1.6)
   - EthCore (1.0.9):
     - ISO8601DateFormatter
@@ -29,8 +23,6 @@ PODS:
     - glog
   - glog (0.3.5)
   - ISO8601DateFormatter (0.8)
-  - JWT (3.0.0-beta.11):
-    - Base64 (~> 1.1.2)
   - RCTRequired (0.61.1)
   - RCTTypeSafety (0.61.1):
     - FBLazyVector (= 0.61.1)
@@ -271,7 +263,6 @@ PODS:
   - Sentry (4.4.0):
     - Sentry/Core (= 4.4.0)
   - Sentry/Core (4.4.0)
-  - SSZipArchive (2.2.2)
   - UPTEthereumSigner (1.1.5):
     - EthCore (~> 1.0.9)
     - Valet (~> 2.4.2)
@@ -279,7 +270,6 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -327,19 +317,14 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Analytics
-    - Base64
     - boost-for-react-native
     - EthCore
     - ISO8601DateFormatter
-    - JWT
     - Sentry
-    - SSZipArchive
     - UPTEthereumSigner
     - Valet
 
 EXTERNAL SOURCES:
-  CodePush:
-    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -423,9 +408,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
-  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  CodePush: d2e54ad42df82a8db65b2d23d8191b950ba945e1
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   EthCore: f30384fa193fbb5f1ce1cff1fa4a7f5f93408d01
   FBLazyVector: 0846affdb2924b01093eb696766ecb0104e409e0
@@ -433,7 +416,6 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   ISO8601DateFormatter: 4551b6ce4f83185425f583b0b3feb3c7b59b942c
-  JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   RCTRequired: 53825815218847d3e9c7b6d92ad2d197a926d51e
   RCTTypeSafety: d886540c518e53064dfa081bf7693fd650699b92
   React: 5dea58967c421bd1fdf6b94c18b9ed0f5134683c
@@ -469,7 +451,6 @@ SPEC CHECKSUMS:
   RNUportSigner: 6f4968dd61b4e856bc6e93fa216b2a7268561923
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
-  SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   UPTEthereumSigner: a14eb8bc74a2094499682f8c374bfd6066ce7440
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   Yoga: d8c572ddec8d05b7dba08e4e5f1924004a177078
