@@ -27,7 +27,6 @@ const UserSettingScreens = {
 }
 
 const DeveloperSettingsScreens = {
-  Codepush: { screen: 'Codepush', title: 'Codepush' },
   Signer: { screen: 'Signer', title: 'Signer' },
   Config: { screen: 'Config', title: 'Config' },
   Crash: { screen: 'Crash', title: 'Crash Reporting' },

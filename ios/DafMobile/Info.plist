@@ -22,10 +22,6 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>67</string>
-	<key>CodePushDeploymentKey</key>
-	<string>__RN_CONFIG_CODE_PUSH_IOS</string>
-	<key>CodePushPublicKey</key>
-	<string>__RN_CONFIG_CODE_PUSH_PUBLIC_KEY</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false />
 	<key>LSRequiresIPhoneOS</key>
