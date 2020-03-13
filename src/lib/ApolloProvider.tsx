@@ -9,7 +9,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen } from '@kancha/kancha-ui'
 import {} from 'react-navigation'
 import * as Daf from 'daf-core'
-import { core, dataStore, db, resolvers, typeDefs } from './setup'
+import { core, dataStore, initializeDB, resolvers, typeDefs } from './setup'
 import Debug from 'debug'
 Debug.enable('*')
 const debug = Debug('Provider')
@@ -47,8 +47,7 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
   const [isRunningMigrations, setIsRuning] = useState(true)
 
   const syncDaf = async () => {
-    await db.initialize()
-    await dataStore.initialize()
+    await initializeDB()
     await core.setupServices()
     await core.listen()
 

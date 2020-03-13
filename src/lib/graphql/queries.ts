@@ -49,7 +49,6 @@ export const GET_VIEWER_CREDENTIALS = gql`
       did
       shortId
       profileImage
-      interactionCount
       url
       description
       credentialsReceived {
@@ -174,8 +173,7 @@ export const VIEWER_MESSAGES = gql`
         }
         metaData {
           type
-          id
-          data
+          value
         }
         sdr(sub: $selectedDid) {
           iss {
