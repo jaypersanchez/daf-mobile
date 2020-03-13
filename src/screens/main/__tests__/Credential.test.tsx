@@ -10,6 +10,7 @@ import {
   fireEvent,
   waitForElement,
   shallow,
+  act,
 } from 'react-native-testing-library'
 
 const sertoVerifiableCredential = {
@@ -99,7 +100,10 @@ describe('Credential', () => {
       },
     }
     const header = Credential.navigationOptions({ navigation: navigation })
-    header.headerRight.props.children.props.onPress()
+    act(() => {
+      header.headerRight.props.children.props.onPress()
+    })
+
     expect(header).toMatchSnapshot()
     expect(navigation.state.params.toggleSharingMode).toHaveBeenCalled()
   })
@@ -121,7 +125,9 @@ describe('Credential', () => {
     }
 
     const header = Credential.navigationOptions({ navigation: navigation })
-    header.headerRight.props.children.props.onPress()
+    act(() => {
+      header.headerRight.props.children.props.onPress()
+    })
 
     expect(header).toMatchSnapshot()
     expect(navigation.state.params.toggleSharingMode).toHaveBeenCalled()
@@ -143,7 +149,10 @@ describe('Credential', () => {
       },
     }
     const header = Credential.navigationOptions({ navigation: navigation })
-    header.headerLeft.props.children.props.onPress()
+    act(() => {
+      header.headerLeft.props.children.props.onPress()
+    })
+
     expect(header).toMatchSnapshot()
     expect(navigation.dismiss).toHaveBeenCalled()
   })

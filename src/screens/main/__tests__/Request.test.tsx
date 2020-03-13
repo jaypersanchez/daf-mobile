@@ -58,7 +58,7 @@ const mockSigningPayload = {
       tag: null,
       vp: {
         context: ['https://www.w3.org/2018/credentials/v1'],
-        type: ['VerifiableCredential'],
+        type: ['VerifiablePresentation'],
         verifiableCredential: ['test'],
       },
     },
@@ -143,9 +143,8 @@ describe('Request Component', () => {
     await act(async () => {
       fireEvent.press(getByText('Share'))
       await wait(500)
+      fireEvent.press(getByText('Later'))
     })
-
-    fireEvent.press(getByText('Later'))
 
     expect(signMutationCalled).toBeTruthy()
     expect(sendMutationCalled).toBeTruthy()

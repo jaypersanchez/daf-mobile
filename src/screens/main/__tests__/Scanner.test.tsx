@@ -1,7 +1,7 @@
 import 'react-native'
 import React from 'react'
 import Scanner from '../Scanner'
-import { render, fireEvent } from 'react-native-testing-library'
+import { render, fireEvent, act } from 'react-native-testing-library'
 
 const navigation = {
   goBack: jest.fn(),
@@ -21,7 +21,9 @@ describe('Scanner', () => {
     const { getByTestId } = render(<Scanner navigation={navigation} />)
     expect(getByTestId('CANCEL_SCAN_BTN')).toBeDefined()
 
-    fireEvent.press(getByTestId('CANCEL_SCAN_BTN'))
+    act(() => {
+      fireEvent.press(getByTestId('CANCEL_SCAN_BTN'))
+    })
 
     expect(navigation.dismiss).toBeCalled()
   })
@@ -29,7 +31,11 @@ describe('Scanner', () => {
   it('scanner handler', () => {
     const component = render(<Scanner navigation={navigation} />)
     expect(component.getByTestId('CAMERA')).toBeDefined()
-    fireEvent(component.getByTestId('CAMERA'), 'barCodeRead', { data: 'test' })
+    act(() => {
+      fireEvent(component.getByTestId('CAMERA'), 'barCodeRead', {
+        data: 'test',
+      })
+    })
     expect(navigation.navigate).toBeCalled()
   })
 
@@ -37,7 +43,9 @@ describe('Scanner', () => {
     const component = render(<Scanner navigation={navigation} />)
     expect(component.getByTestId('ENABLE_PASTE')).toBeDefined()
     //expect(component.getByTestId('JWT_INPUT')).toThrowError()
-    fireEvent(component.getByTestId('ENABLE_PASTE'), 'press')
+    act(() => {
+      fireEvent(component.getByTestId('ENABLE_PASTE'), 'press')
+    })
     expect(component.getByTestId('JWT_INPUT')).toBeDefined()
   })
 })
