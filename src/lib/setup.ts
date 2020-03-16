@@ -7,7 +7,6 @@ import * as Daf from 'daf-core'
 import * as DidJwt from 'daf-did-jwt'
 import { IdentityProvider } from 'daf-ethr-did'
 import { KeyManagementSystem } from 'daf-react-native-libsodium'
-import { KeyStore, IdentityStore } from 'daf-react-native-async-storage'
 
 import * as W3c from 'daf-w3c'
 import * as SD from 'daf-selective-disclosure'
@@ -15,8 +14,7 @@ import * as TG from 'daf-trust-graph'
 import * as DBG from 'daf-debug'
 import * as URL from 'daf-url'
 import * as DIDComm from 'daf-did-comm'
-
-import RnSqlite from 'daf-react-native-sqlite3'
+import { createConnection } from 'typeorm'
 import { DataStore, Gql as DataGql } from 'daf-data-store'
 
 import merge from 'lodash.merge'
@@ -76,8 +74,8 @@ const didResolver = new Resolver({
 
 const identityProviders = [
   new IdentityProvider({
-    identityStore: new IdentityStore('rinkeby-identity-store'),
-    kms: new KeyManagementSystem(new KeyStore('rinkeby-keystore')),
+    identityStore: new Daf.IdentityStore('rinkeby'),
+    kms: new KeyManagementSystem(new Daf.KeyStore()),
     network: 'rinkeby',
     rpcUrl: 'https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
   }),
@@ -108,5 +106,14 @@ export const core = new Daf.Core({
   actionHandler,
 })
 
-export const db = new RnSqlite('database.sqlite3')
-export const dataStore = new DataStore(db)
+export const dataStore = new DataStore()
+
+export const initializeDB = async () => {
+  await createConnection({
+    type: 'react-native',
+    database: 'daf.sqlite',
+    location: 'default',
+    synchronize: true,
+    entities: Daf.Entities,
+  })
+}
