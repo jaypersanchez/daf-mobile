@@ -1,7 +1,7 @@
 {
   "name": "daf-mobile",
   "description": "Native mobile client for DAF",
-  "version": "1.30.3",
+  "version": "1.30.4",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
