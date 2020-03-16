@@ -43,6 +43,7 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
               {(mutate: any) => (
                 <Button
                   fullWidth
+                  testID={'MAKE_DEFAULT_BUTTON'}
                   type={Constants.BrandOptions.Primary}
                   block={Constants.ButtonBlocks.Filled}
                   buttonText={'Make default'}
@@ -65,6 +66,7 @@ export const DidViewer: React.FC<DidViewerProps> = props => {
               {(mutate: any) => (
                 <Button
                   fullWidth
+                  testID={'DELETE_SEED_BUTTON'}
                   type={Constants.BrandOptions.Warning}
                   block={Constants.ButtonBlocks.Outlined}
                   buttonText={'Delete Seed'}

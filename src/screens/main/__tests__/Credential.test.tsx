@@ -1,13 +1,24 @@
-import 'react-native'
+import { View, FlatList } from 'react-native'
 import React from 'react'
 import Credential from '../Credential'
-import { render } from 'react-native-testing-library'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
+
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  shallow,
+  act,
+} from 'react-native-testing-library'
 
 const sertoVerifiableCredential = {
   iss: 'Serto Identity Platform',
   sub: 'did:ethr:0xf3beac30c498d9e26865f34fcaa57dbb935b0d74',
   iat: 1562769371,
   exp: 1579478400,
+  hash: 'testHash',
   claim: {
     'Serto ID': {
       name: 'Sarah Adamson',
@@ -28,32 +39,38 @@ const sertoVerifiableCredential = {
   vc: [],
 }
 
+export const renderWithNavigation = (component: any, options: any) => {
+  const Navigator = createAppContainer(
+    createSharedElementStackNavigator(createStackNavigator, {
+      CredentialDetail: createStackNavigator({
+        Root: () => component,
+      }),
+    }),
+  )
+  return render(<Navigator />, options)
+}
+
 describe('Credential', () => {
-  // it('renders correctly with data', () => {
-  //   const navigation = {
-  //     navigate: jest.fn(),
-  //     getParam: jest
-  //       .fn()
-  //       .mockReturnValue({ ...sertoVerifiableCredential, type: 'Some VC' }),
-  //   }
-  //   //@ts-ignore
-  //   const tree = render(<Credential navigation={navigation} />).toJSON()
+  it('renders correctly with data', async () => {
+    const navigation = {
+      navigate: jest.fn(),
+      getParam: jest
+        .fn()
+        .mockReturnValue({ ...sertoVerifiableCredential, type: 'Some VC' }),
+      setParams: jest.fn(),
+      state: {
+        params: {
+          sharingMode: false,
+          toggleSharingMode: jest.fn(),
+        },
+      },
+    }
+    //@ts-ignore
+    const tree = render(<Credential navigation={navigation} />)
 
-  //   expect(navigation.getParam).toBeCalled()
-  //   expect(tree).toMatchSnapshot()
-  // })
-
-  // it('renders correctly without a type', () => {
-  //   const navigation = {
-  //     navigate: jest.fn(),
-  //     getParam: jest.fn().mockReturnValue(sertoVerifiableCredential),
-  //   }
-  //   //@ts-ignore
-  //   const tree = render(<Credential navigation={navigation} />).toJSON()
-
-  //   expect(navigation.getParam).toBeCalled()
-  //   expect(tree).toMatchSnapshot()
-  // })
+    expect(navigation.getParam).toBeCalled()
+    expect(tree).toMatchSnapshot()
+  })
 
   it('renders correctly without data', () => {
     const navigation = {
@@ -66,5 +83,77 @@ describe('Credential', () => {
 
     expect(navigation.getParam).toBeCalled()
     expect(tree).toMatchSnapshot()
+  })
+
+  it('test sharing button', async () => {
+    const navigation = {
+      navigate: jest.fn(),
+      getParam: jest
+        .fn()
+        .mockReturnValue({ ...sertoVerifiableCredential, type: 'Some VC' }),
+      setParams: jest.fn(),
+      state: {
+        params: {
+          sharingMode: false,
+          toggleSharingMode: jest.fn(),
+        },
+      },
+    }
+    const header = Credential.navigationOptions({ navigation: navigation })
+    act(() => {
+      header.headerRight.props.children.props.onPress()
+    })
+
+    expect(header).toMatchSnapshot()
+    expect(navigation.state.params.toggleSharingMode).toHaveBeenCalled()
+  })
+
+  it('test cancel sharing', async () => {
+    const navigation = {
+      navigate: jest.fn(),
+      getParam: jest
+        .fn()
+        .mockReturnValue({ ...sertoVerifiableCredential, type: 'Some VC' }),
+      setParams: jest.fn(),
+      state: {
+        params: {
+          sharingMode: true,
+          toggleSharingMode: jest.fn(),
+          updateSelected: jest.fn(),
+        },
+      },
+    }
+
+    const header = Credential.navigationOptions({ navigation: navigation })
+    act(() => {
+      header.headerRight.props.children.props.onPress()
+    })
+
+    expect(header).toMatchSnapshot()
+    expect(navigation.state.params.toggleSharingMode).toHaveBeenCalled()
+  })
+
+  it('test done button', async () => {
+    const navigation = {
+      navigate: jest.fn(),
+      getParam: jest
+        .fn()
+        .mockReturnValue({ ...sertoVerifiableCredential, type: 'Some VC' }),
+      setParams: jest.fn(),
+      dismiss: jest.fn(),
+      state: {
+        params: {
+          sharingMode: false,
+          toggleSharingMode: jest.fn(),
+        },
+      },
+    }
+    const header = Credential.navigationOptions({ navigation: navigation })
+    act(() => {
+      header.headerLeft.props.children.props.onPress()
+    })
+
+    expect(header).toMatchSnapshot()
+    expect(navigation.dismiss).toHaveBeenCalled()
   })
 })

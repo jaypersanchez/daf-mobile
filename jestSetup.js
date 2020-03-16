@@ -18,3 +18,16 @@ jest.mock('react-native-reanimated', () => {
     set: jest.fn(),
   }
 })
+
+jest.mock('react-i18next', () => {
+  return {
+    useTranslation: () => {
+      return {
+        t: jest.fn(translation => translation),
+        i18n: {
+          changeLanguage: jest.fn(lng => lng),
+        },
+      }
+    },
+  }
+})

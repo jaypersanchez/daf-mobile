@@ -9,7 +9,6 @@ import { Switch } from 'react-native'
 import { Container, Text, Screen, ListItem, Section } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import Config from 'react-native-config'
-
 const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const { t, i18n } = useTranslation()
   return (
@@ -27,19 +26,35 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         </Section> */}
         {__DEV__ && (
           <Section title={'Developer tooling'}>
-            <ListItem onPress={() => navigation.navigate('Messages')}>
+            <ListItem
+              testID={'MESSAGES_BTN'}
+              onPress={() => navigation.navigate('Messages')}
+            >
               {t('Messages')}
             </ListItem>
-            <ListItem onPress={() => navigation.navigate('CreateCredential')}>
+            <ListItem
+              testID={'CREATE_CREDENTIAL_BTN'}
+              onPress={() => navigation.navigate('CreateCredential')}
+            >
               {t('Create Credential')}
             </ListItem>
-            <ListItem onPress={() => navigation.navigate('CreateRequest')}>
+            <ListItem
+              testID={'CREATE_REQUEST_BTN'}
+              onPress={() => navigation.navigate('CreateRequest')}
+            >
               {t('Request Data')}
             </ListItem>
-            <ListItem onPress={() => navigation.navigate('Connections')}>
+            <ListItem
+              testID={'CONNECTIONS_BTN'}
+              onPress={() => navigation.navigate('Connections')}
+            >
               {t('Connections')}
             </ListItem>
-            <ListItem last onPress={() => navigation.navigate('Signer')}>
+            <ListItem
+              last
+              testID={'SIGNER_BTN'}
+              onPress={() => navigation.navigate('Signer')}
+            >
               {t('Identities')}
             </ListItem>
           </Section>
@@ -49,7 +64,7 @@ const Settings: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
             last
             iconLeft={
               <Switch
-                testID={'language_switch'}
+                testID={'LANGUAGE_SWITCH_BTN'}
                 value={i18n.language === 'es'}
                 onValueChange={() =>
                   i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')

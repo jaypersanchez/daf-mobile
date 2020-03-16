@@ -57,6 +57,7 @@ export default (props: any) => {
         {inputMode ? (
           <Container justifyContent={'center'} flex={1} padding>
             <TextInput
+              testID={'JWT_INPUT'}
               autoCapitalize={'none'}
               autoCorrect={false}
               autoCompleteType={'off'}
@@ -74,6 +75,7 @@ export default (props: any) => {
           </Container>
         ) : (
           <RNCamera
+            testID={'CAMERA'}
             captureAudio={false}
             style={{ flex: 1 }}
             onBarCodeRead={onBarCodeRead}

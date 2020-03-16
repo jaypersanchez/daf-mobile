@@ -225,6 +225,7 @@ exports[`renders correctly 1`] = `
             }
           >
             <View
+              accessibilityLabel="MESSAGES_BTN"
               accessible={true}
               focusable={true}
               isTVSelectable={true}
@@ -241,6 +242,7 @@ exports[`renders correctly 1`] = `
                   "flexDirection": "row",
                 }
               }
+              testID="MESSAGES_BTN"
             >
               <View
                 pointerEvents="auto"
@@ -466,6 +468,7 @@ exports[`renders correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityLabel="CREATE_CREDENTIAL_BTN"
               accessible={true}
               focusable={true}
               isTVSelectable={true}
@@ -482,6 +485,7 @@ exports[`renders correctly 1`] = `
                   "flexDirection": "row",
                 }
               }
+              testID="CREATE_CREDENTIAL_BTN"
             >
               <View
                 pointerEvents="auto"
@@ -707,6 +711,7 @@ exports[`renders correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityLabel="CREATE_REQUEST_BTN"
               accessible={true}
               focusable={true}
               isTVSelectable={true}
@@ -723,6 +728,7 @@ exports[`renders correctly 1`] = `
                   "flexDirection": "row",
                 }
               }
+              testID="CREATE_REQUEST_BTN"
             >
               <View
                 pointerEvents="auto"
@@ -948,6 +954,7 @@ exports[`renders correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityLabel="CONNECTIONS_BTN"
               accessible={true}
               focusable={true}
               isTVSelectable={true}
@@ -964,6 +971,7 @@ exports[`renders correctly 1`] = `
                   "flexDirection": "row",
                 }
               }
+              testID="CONNECTIONS_BTN"
             >
               <View
                 pointerEvents="auto"
@@ -1189,6 +1197,7 @@ exports[`renders correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityLabel="SIGNER_BTN"
               accessible={true}
               focusable={true}
               isTVSelectable={true}
@@ -1205,6 +1214,7 @@ exports[`renders correctly 1`] = `
                   "flexDirection": "row",
                 }
               }
+              testID="SIGNER_BTN"
             >
               <View
                 pointerEvents="auto"
@@ -1605,7 +1615,7 @@ exports[`renders correctly 1`] = `
                         "width": 51,
                       }
                     }
-                    testID="language_switch"
+                    testID="LANGUAGE_SWITCH_BTN"
                     value={false}
                   />
                 </View>

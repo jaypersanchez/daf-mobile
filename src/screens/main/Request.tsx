@@ -57,12 +57,14 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
         props.navigation.goBack()
       }
     },
+    onError: error => {
+      console.log(error)
+    },
   })
   const [actionSignVp] = useMutation(SIGN_VP, {
     onCompleted: response => {
       if (response.actionSignVp) {
         updateSending(true)
-
         actionSendJwt({
           variables: {
             to: requestMessage.sender.did,
@@ -71,6 +73,9 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
           },
         })
       }
+    },
+    onError: error => {
+      console.log(error)
     },
   })
 
@@ -94,7 +99,6 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
           },
         },
       }
-
       actionSignVp(payload)
     }
   }
@@ -135,8 +139,6 @@ const Component: React.FC<NavigationStackScreenProps> = props => {
       }
     })
     updateSelected(defaultSelected)
-
-    console.log(defaultSelected)
   }, [])
 
   return (
