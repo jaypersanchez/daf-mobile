@@ -106,6 +106,8 @@ export const core = new Daf.Core({
   actionHandler,
 })
 
+export const Message = Daf.Message
+
 export const dataStore = new DataStore()
 
 export const initializeDB = async () => {

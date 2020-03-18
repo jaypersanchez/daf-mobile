@@ -7,29 +7,35 @@ import {
 } from '../utils/asyncStorage'
 import { IWalletConnectRequest } from '../types'
 import { EventEmitter } from 'events'
+import Debug from 'debug'
+import AppConstants from '../constants'
+
+const debug = Debug('daf-provider:wallet-connect')
 
 export const wcEventHub = new EventEmitter()
-export const AppContext = createContext<AppState | any>({})
+export const WalletConnectContext = createContext<WalletConnectState | any>({})
 
-interface AppState {
+interface WalletConnectState {
   loading: false
   connectors: any[]
   pending: any[]
   requests: any[]
 }
 
-export const AppProvider = (props: any) => {
+export const WalletConnectProvider = (props: any) => {
   const [connectors, updateConnectors] = useState<any[]>([])
   const [pending, updatePending] = useState<any[]>([])
   const [requests, updateRequests] = useState<any[]>([])
   const [peerId, updatePeerId] = useState<string | null>()
 
   useEffect(() => {
+    debug('Initialising wallet connect')
     walletConnectInit()
   }, [])
 
   useEffect(() => {
     if (peerId) {
+      debug(`Subscribing to events for peerId ${peerId}`)
       walletConnectSubscribeToEvents(peerId)
     }
   }, [peerId])
@@ -37,6 +43,7 @@ export const AppProvider = (props: any) => {
   useEffect(() => {
     if (connectors.length > 0) {
       connectors.forEach((connector: any) => {
+        debug(`Subscribing to events for peerId ${connector.peerId}`)
         walletConnectSubscribeToEvents(connector.peerId)
       })
     }
@@ -82,23 +89,30 @@ export const AppProvider = (props: any) => {
 
   // Called from UI to estanlis a connection
   const walletConnectOnSessionRequest = async (uri: string) => {
+    debug('onSessionRequest')
     const nativeOptions = await getNativeOptions()
     const connector = new WalletConnect({ uri }, nativeOptions)
 
-    connector.on('session_request', (error: any, payload: any) => {
-      if (error) {
-        throw error
-      }
+    connector.on(
+      AppConstants.events.WALLET_CONNECT.SESSION_REQUEST,
+      (error: any, payload: any) => {
+        debug('Session requested')
+        if (error) {
+          debug(error)
+          throw error
+        }
+        const { peerId, peerMeta } = payload.params[0]
+        const updatedPending = pending.concat([connector])
 
-      const { peerId, peerMeta } = payload.params[0]
-      //   const sdr = payload.params[1]
-      const updatedPending = pending.concat([connector])
+        updatePending(updatedPending)
 
-      updatePending(updatedPending)
-
-      // Send everythign to UI to handle
-      wcEventHub.emit('wc_session_request', { peerId, peerMeta, payload })
-    })
+        // Send everythign internal event listener to handle
+        wcEventHub.emit(
+          AppConstants.events.WALLET_CONNECT.SESSION_REQUEST_INT,
+          { peerId, peerMeta, payload },
+        )
+      },
+    )
   }
 
   // Called from UI
@@ -161,47 +175,55 @@ export const AppProvider = (props: any) => {
       (connector: WalletConnect) => connector.peerId === peerId,
     )[0]
 
-    connector.on('call_request', (error: any, payload: any) => {
-      if (error) {
-        throw error
-      }
+    connector.on(
+      AppConstants.events.WALLET_CONNECT.CALL_REQUEST,
+      (error: any, payload: any) => {
+        if (error) {
+          throw error
+        }
 
-      const updatedconnector = connectors.filter(
-        (connector: WalletConnect) => connector.peerId === peerId,
-      )[0]
+        const updatedconnector = connectors.filter(
+          (connector: WalletConnect) => connector.peerId === peerId,
+        )[0]
 
-      let updatedRequests = requests.concat([
-        {
-          connector: updatedconnector,
-          payload: payload,
-        },
-      ])
+        let updatedRequests = requests.concat([
+          {
+            connector: updatedconnector,
+            payload: payload,
+          },
+        ])
 
-      updateRequests(updatedRequests)
+        updateRequests(updatedRequests)
 
-      wcEventHub.emit('wc_call_request', {
-        peerId,
-        payload,
-        peerMeta: connector.peerMeta,
-      })
-    })
+        wcEventHub.emit(AppConstants.events.WALLET_CONNECT.CALL_REQUEST_INT, {
+          peerId,
+          payload,
+          peerMeta: connector.peerMeta,
+        })
+      },
+    )
 
-    connector.on('disconnect', (error: any) => {
-      if (error) {
-        throw error
-      }
-      const updatedConnectors = connectors.filter(
-        (connector: WalletConnect) => {
-          if (connector.peerId === peerId) {
-            asyncStorageDeleteSession(connector.session)
-            return false
-          }
-          return true
-        },
-      )
+    connector.on(
+      AppConstants.events.WALLET_CONNECT.DISCONNECT,
+      (error: any) => {
+        if (error) {
+          throw error
+        }
+        const updatedConnectors = connectors.filter(
+          (connector: WalletConnect) => {
+            if (connector.peerId === peerId) {
+              asyncStorageDeleteSession(connector.session)
+              return false
+            }
+            return true
+          },
+        )
 
-      updateConnectors(updatedConnectors)
-    })
+        updateConnectors(updatedConnectors)
+
+        wcEventHub.emit(AppConstants.events.WALLET_CONNECT.DISCONNECT_INT)
+      },
+    )
 
     updatePeerId(null)
   }
@@ -248,7 +270,7 @@ export const AppProvider = (props: any) => {
   }
 
   return (
-    <AppContext.Provider
+    <WalletConnectContext.Provider
       value={{
         state,
         walletConnectInit,
@@ -262,6 +284,6 @@ export const AppProvider = (props: any) => {
       }}
     >
       {props.children}
-    </AppContext.Provider>
+    </WalletConnectContext.Provider>
   )
 }

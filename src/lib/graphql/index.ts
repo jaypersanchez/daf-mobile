@@ -25,6 +25,7 @@ const viewer = async (_: any, args: any, ctx: Context) => {
     // Check if there are any identities in the core.
     // Set the first one as viewer by default
     const identities = await ctx.core.identityManager.getIdentities()
+
     if (identities.length > 0) {
       await AsyncStorage.setItem('selectedDid', identities[0].did)
       return {
