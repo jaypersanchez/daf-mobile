@@ -1,28 +1,28 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import Navigation from './navigators'
-import NavigationEvents from './navigators/components/NavigationEvents'
-import Provider from './lib/ApolloProvider'
-import './lib/I18n'
-
-import { ThemeProvider, Toast, OverlaySign } from '@kancha/kancha-ui'
-import IDSwitcher from './navigators/components/Switcher'
 import NavigationService from './navigators/navigationService'
-import { Theme } from './theme'
+import Providers from './providers'
+import WalletConnect from './components/WalletConnect'
+import { core, Message } from './lib/setup'
+import { wcEventHub } from './providers/WalletConnect'
+import { Toast, OverlaySign } from '@kancha/kancha-ui'
+import IDSwitcher from './navigators/components/Switcher'
+
+import './lib/I18n'
 
 const App = () => {
   return (
-    <Provider>
-      <ThemeProvider theme={Theme}>
-        <Toast />
-        <OverlaySign />
-        <Navigation
-          ref={navigatorRef =>
-            NavigationService.setTopLevelNavigator(navigatorRef)
-          }
-        />
-        <IDSwitcher id={'SWITCH_IDENTITY'} />
-      </ThemeProvider>
-    </Provider>
+    <Providers>
+      <WalletConnect navigate={NavigationService.navigate} />
+      <Toast />
+      <OverlaySign />
+      <Navigation
+        ref={navigatorRef =>
+          NavigationService.setTopLevelNavigator(navigatorRef)
+        }
+      />
+      <IDSwitcher id={'SWITCH_IDENTITY'} />
+    </Providers>
   )
 }
 

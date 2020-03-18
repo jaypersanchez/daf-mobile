@@ -2,7 +2,8 @@
  * Serto Mobile App
  *
  */
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { WalletConnectContext } from '../../providers/WalletConnect'
 import { Container, FabButton, Screen } from '@kancha/kancha-ui'
 import { RNCamera } from 'react-native-camera'
 import { Colors, Icons } from '../../theme'
@@ -11,18 +12,28 @@ import { TextInput } from 'react-native-gesture-handler'
 export default (props: any) => {
   const [scannerActive, toggleScanner] = useState(true)
   const [inputMode, toggleInputMode] = useState(false)
+  const { walletConnectOnSessionRequest } = useContext(WalletConnectContext)
 
   const onPasteJWT = (text: string) => {
+    onBarCodeRead({ data: text })
+  }
+
+  const processDafMessage = (message: string) => {
     props.navigation.navigate('MessageProcess', {
-      message: text,
+      message,
     })
   }
+
   const onBarCodeRead = (e: any) => {
     if (scannerActive) {
-      props.navigation.navigate('MessageProcess', {
-        message: e.data,
-      })
+      if (e.data.startsWith('wc:')) {
+        walletConnectOnSessionRequest(e.data)
+        props.navigation.dismiss()
+      } else {
+        processDafMessage(e.data)
+      }
     }
+
     toggleScanner(false)
   }
 
