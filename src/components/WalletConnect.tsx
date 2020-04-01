@@ -42,13 +42,16 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
           : null
 
         const requestType = AppConstants.requests.CREDENTIAL
-        navigate(Screens.Requests.screen, {
-          requestType,
-          peerId,
-          peerMeta,
-          payload,
-          messageId: message ? message.id : message,
-        })
+
+        if (payload.method === 'issue_credential_callback') {
+          navigate(Screens.Requests.screen, {
+            requestType,
+            peerId,
+            peerMeta,
+            payload,
+            messageId: message ? message.id : message,
+          })
+        }
       },
     )
   }, [])
