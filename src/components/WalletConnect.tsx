@@ -28,29 +28,27 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
     )
 
     wcEventHub.addListener(
-      'wc_call_request',
+      AppConstants.events.WALLET_CONNECT.CALL_REQUEST_INT,
       async ({ peerId, peerMeta, payload }) => {
-        const saveMessage = async () => {
-          if (payload.params[0]) {
-            return await core.validateMessage(
+        const message = payload.params[0]
+          ? await core.validateMessage(
               new Message({
                 raw: payload.params[0],
                 meta: {
-                  type: 'qrCode',
+                  type: 'walletConnect',
                 },
               }),
             )
-          }
-          return false
-        }
-        const message = await saveMessage()
+          : null
 
-        // NavigationService.navigate('Request', {
-        //   peerId,
-        //   peerMeta,
-        //   payload,
-        //   messageId: message ? message.id : message,
-        // })
+        const requestType = AppConstants.requests.CREDENTIAL
+        navigate(Screens.Requests.screen, {
+          requestType,
+          peerId,
+          peerMeta,
+          payload,
+          messageId: message ? message.id : message,
+        })
       },
     )
   }, [])
