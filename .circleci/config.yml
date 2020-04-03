@@ -154,7 +154,7 @@ workflows:
               ignore:
                 - master
 
-      - test-ios-e2e
+      # - test-ios-e2e
       - build_ios:
           name: build_ios_staging
           staging: true

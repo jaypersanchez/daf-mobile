@@ -31,6 +31,7 @@ import Intro from '../screens/main/Intro'
 import Scanner from '../screens/main/Scanner'
 import MessageProcess from '../screens/main/MessageProcess'
 import Request from '../screens/main/Request'
+import Requests from '../screens/main/Requests/Requests'
 import Credential from '../screens/main/Credential'
 import CreatingWallet from '../screens/main/CreateIdentity'
 import CreateFirstCredential from '../screens/main/CreateFirstCredential'
@@ -338,6 +339,7 @@ const App = createSharedElementStackNavigator(
   {
     Tabs: TabNavigator,
     Request: Request,
+    Requests: Requests,
     Scanner: ScannerNavigator,
     IssueFirstCredential,
     IssueCredential,

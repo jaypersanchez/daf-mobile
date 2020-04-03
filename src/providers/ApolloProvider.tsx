@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ReactApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
@@ -9,10 +9,16 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen } from '@kancha/kancha-ui'
 import {} from 'react-navigation'
 import * as Daf from 'daf-core'
-import { core, dataStore, initializeDB, resolvers, typeDefs } from './setup'
+import {
+  core,
+  dataStore,
+  initializeDB,
+  resolvers,
+  typeDefs,
+} from '../lib/setup'
 import Debug from 'debug'
-Debug.enable('*')
-const debug = Debug('Provider')
+
+const debug = Debug('daf-provider:graphql')
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -43,7 +49,7 @@ core.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
 
 interface Props {}
 
-const CustomProvider: React.FC<Props> = ({ children }) => {
+export const ApolloProvider: React.FC<Props> = ({ children }) => {
   const [isRunningMigrations, setIsRuning] = useState(true)
 
   const syncDaf = async () => {
@@ -89,10 +95,8 @@ const CustomProvider: React.FC<Props> = ({ children }) => {
       <Container h={50} dividerTop background={'primary'} />
     </Screen>
   ) : (
-    <ApolloProvider client={client}>
+    <ReactApolloProvider client={client}>
       <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
-    </ApolloProvider>
+    </ReactApolloProvider>
   )
 }
-
-export default CustomProvider

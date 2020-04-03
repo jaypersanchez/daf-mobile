@@ -14,6 +14,7 @@ const MainScreens = {
   Scanner: { screen: 'Scanner', title: 'Scanner' },
   IssueCredential: { screen: 'IssueCredential', title: 'Issue Credential' },
   Request: { screen: 'Request', title: 'Request' },
+  Requests: { screen: 'Requests', title: 'Request' },
   CreateFirstCredential: {
     screen: 'CreateFirstCredential',
     title: 'Create First Credential',
