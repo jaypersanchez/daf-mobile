@@ -50,7 +50,6 @@
     "daf-ethr-did": "^3.4.0",
     "daf-react-native-libsodium": "^3.4.0",
     "daf-selective-disclosure": "^3.4.0",
-    "daf-trust-graph": "^3.4.0",
     "daf-url": "^3.4.0",
     "daf-w3c": "^3.4.0",
     "debug": "^4.1.1",

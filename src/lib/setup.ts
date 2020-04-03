@@ -10,7 +10,7 @@ import { KeyManagementSystem } from 'daf-react-native-libsodium'
 
 import * as W3c from 'daf-w3c'
 import * as SD from 'daf-selective-disclosure'
-import * as TG from 'daf-trust-graph'
+
 import * as DBG from 'daf-debug'
 import * as URL from 'daf-url'
 import * as DIDComm from 'daf-did-comm'
@@ -26,16 +26,12 @@ Debug.enable('*')
 
 import * as LocalGql from './graphql'
 
-if (Config.TGE_URI) TG.ServiceController.defaultUri = Config.TGE_URI
-if (Config.TGE_WS_URI) TG.ServiceController.defaultWsUri = Config.TGE_WS_URI
-
 export const typeDefs = [
   Daf.Gql.baseTypeDefs,
   Daf.Gql.Core.typeDefs,
   Daf.Gql.IdentityManager.typeDefs,
   DataGql.typeDefs,
   DIDComm.Gql.typeDefs,
-  TG.Gql.typeDefs,
   W3c.Gql.typeDefs,
   SD.Gql.typeDefs,
   LocalGql.typeDefs,
@@ -45,7 +41,6 @@ export const resolvers = merge(
   Daf.Gql.Core.resolvers,
   DataGql.resolvers,
   DIDComm.Gql.resolvers,
-  TG.Gql.resolvers,
   Daf.Gql.IdentityManager.resolvers,
   W3c.Gql.resolvers,
   SD.Gql.resolvers,
@@ -92,11 +87,10 @@ messageValidator
 const actionHandler = new DBG.ActionHandler()
 actionHandler
   .setNext(new DIDComm.ActionHandler())
-  .setNext(new TG.ActionHandler())
   .setNext(new W3c.ActionHandler())
   .setNext(new SD.ActionHandler())
 
-const serviceControllers = [TG.ServiceController]
+const serviceControllers: any = []
 
 export const core = new Daf.Core({
   identityProviders,
