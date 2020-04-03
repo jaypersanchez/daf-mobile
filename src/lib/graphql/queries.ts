@@ -131,6 +131,50 @@ export const GET_MESSAGE = gql`
     }
   }
 `
+
+export const GET_MESSAGE_SDR = gql`
+  query GetMessageSDR($id: ID!, $selectedDid: String!) {
+    message(id: $id) {
+      threadId
+      id
+      sender {
+        did
+      }
+      sdr(sub: $selectedDid) {
+        iss {
+          did {
+            did
+            shortId
+          }
+          url
+        }
+        claimType
+        reason
+        essential
+        vc {
+          hash
+          iss {
+            did
+            shortId
+            profileImage
+          }
+          sub {
+            did
+            shortId
+            profileImage
+          }
+          jwt
+          fields {
+            type
+            value
+            isObj
+          }
+        }
+      }
+    }
+  }
+`
+
 export const VIEWER_MESSAGES = gql`
   query ViewerMessages($selectedDid: String!) {
     viewer {

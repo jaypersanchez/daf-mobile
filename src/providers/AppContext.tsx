@@ -31,8 +31,8 @@ export const AppProvider = (props: any) => {
           setSelectedIdentity(identities[0].did)
         }
       } else {
-        console.log('Selected Identity', JSON.parse(storedSelectedIdentity))
-        setSelectedIdentity(JSON.parse(storedSelectedIdentity))
+        const storedIdentity = JSON.parse(storedSelectedIdentity)
+        setSelectedIdentity(storedIdentity.did)
       }
     }
 

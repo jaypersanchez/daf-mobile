@@ -1,7 +1,7 @@
 /**
  *
  */
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { Container, Text, Screen, Constants } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
@@ -11,8 +11,10 @@ import {
   GET_MANAGED_IDENTITIES,
   GET_VIEWER,
 } from '../../lib/graphql/queries'
+import { AppContext } from '../../providers/AppContext'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
+  const [selectedIdentity, setSelectedIdentity] = useContext(AppContext)
   const refetchQueries = [
     { query: GET_MANAGED_IDENTITIES },
     { query: GET_VIEWER },
@@ -20,6 +22,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const [createDid] = useMutation(CREATE_IDENTITY, {
     onCompleted({ createIdentity }) {
       if (createIdentity) {
+        setSelectedIdentity(createIdentity.did)
         navigation.navigate('App')
       }
     },
