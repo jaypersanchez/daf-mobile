@@ -41,7 +41,6 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
               }),
             )
           : null
-        console.log(message)
 
         if (payload.method === 'request_credentials') {
           const requestType = AppConstants.requests.DISCLOSURE

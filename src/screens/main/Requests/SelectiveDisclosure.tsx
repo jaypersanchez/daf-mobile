@@ -17,6 +17,7 @@ import {
 import { useMutation, useQuery } from 'react-apollo'
 import { useNavigation } from 'react-navigation-hooks'
 import { WalletConnectContext } from '../../../providers/WalletConnect'
+import { core, Message } from '../../../lib/setup'
 
 interface RequestProps {
   peerId: string
@@ -81,12 +82,18 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
     },
   })
   const [actionSignVp] = useMutation(SIGN_VP, {
-    onCompleted: response => {
+    onCompleted: async response => {
       if (response.actionSignVp) {
         updateSending(true)
-        approveCallRequest(response.actionSignVp)
-
-        navigation.goBack()
+        await approveCallRequest(response.actionSignVp)
+        await core.validateMessage(
+          new Message({
+            raw: response.actionSignVp,
+            meta: {
+              type: 'walletConnect',
+            },
+          }),
+        )
 
         // actionSendJwt({
         //   variables: {
@@ -95,6 +102,8 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
         //     jwt: response.actionSignVp,
         //   },
         // })
+
+        navigation.goBack()
       }
     },
     onError: error => {
