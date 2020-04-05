@@ -27,6 +27,8 @@ import { useTranslation } from 'react-i18next'
 import { TouchableHighlight } from 'react-native-gesture-handler'
 import { Identity } from '@kancha/kancha-ui/dist/types'
 import hexToRgba from 'hex-to-rgba'
+import { core } from '../../lib/setup'
+import { Message } from 'daf-core'
 
 interface Field {
   type: string
@@ -110,9 +112,8 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   }
 
   const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
-    onCompleted: response => {
+    onCompleted: async response => {
       if (response && response.actionSendJwt) {
-        setSending(false)
         const {
           title,
           message,
@@ -120,16 +121,24 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
           delay,
         } = AppConstants.modals.CREDENTIAL_SENT
         Overlay.show(title, message, icon, delay)
-
-        navigation.dismiss()
       }
+      setSending(false)
+      navigation.dismiss()
     },
     refetchQueries: [{ query: GET_VIEWER_CREDENTIALS }],
   })
 
   const [actionSignVc] = useMutation(SIGN_VC_MUTATION, {
-    onCompleted: response => {
+    onCompleted: async response => {
       if (response && response.actionSignVc) {
+        await core.validateMessage(
+          new Message({
+            raw: response.actionSignVc,
+            meta: {
+              type: 'selfSigned',
+            },
+          }),
+        )
         setSending(true)
         actionSendJwt({
           variables: {

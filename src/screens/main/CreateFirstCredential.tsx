@@ -15,6 +15,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useMutation } from '@apollo/react-hooks'
 import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
+import { core } from '../../lib/setup'
+import { Message } from 'daf-core'
 
 const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
   navigationOptions: any
@@ -28,16 +30,23 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
     onCompleted: response => {
       if (response && response.actionSendJwt) {
         setSending(false)
-
         fetchMessages()
-        navigation.dismiss()
       }
+      navigation.dismiss()
     },
   })
   const [actionSignVc] = useMutation(SIGN_VC_MUTATION, {
-    onCompleted: response => {
+    onCompleted: async response => {
       if (response && response.actionSignVc) {
         setSending(true)
+        await core.validateMessage(
+          new Message({
+            raw: response.actionSignVc,
+            meta: {
+              type: 'selfSigned',
+            },
+          }),
+        )
         actionSendJwt({
           variables: {
             from: did,
