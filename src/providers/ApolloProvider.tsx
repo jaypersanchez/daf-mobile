@@ -43,60 +43,60 @@ export const client = new ApolloClient({
 core.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
   debug('New message %O', message)
   await dataStore.saveMessage(message)
-
   client.reFetchObservableQueries()
 })
 
 interface Props {}
 
 export const ApolloProvider: React.FC<Props> = ({ children }) => {
-  const [isRunningMigrations, setIsRuning] = useState(true)
-
-  const syncDaf = async () => {
-    await initializeDB()
-    await core.setupServices()
-    await core.listen()
-
-    setIsRuning(false)
-
-    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-  }
-
-  useEffect(() => {
-    syncDaf()
-  }, [])
-
-  return isRunningMigrations ? (
-    <Screen safeArea background={'secondary'}>
-      <Container h={45} dividerBottom background={'primary'} />
-      <Container flex={1}>
-        <Container>
-          {[1, 2, 3, 4].map((fakeItem: number) => (
-            <Container
-              background={'primary'}
-              padding
-              marginBottom={5}
-              key={fakeItem}
-            >
-              <Container
-                background={'secondary'}
-                viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
-              ></Container>
-              <Container
-                background={'secondary'}
-                h={90}
-                br={10}
-                marginTop={20}
-              ></Container>
-            </Container>
-          ))}
-        </Container>
-      </Container>
-      <Container h={50} dividerTop background={'primary'} />
-    </Screen>
-  ) : (
+  return (
     <ReactApolloProvider client={client}>
       <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
     </ReactApolloProvider>
   )
+
+  // const [dbConnected, setDbConnected] = useState(false)
+  // const syncDaf = async () => {
+  //   const { isConnected } = await initializeDB()
+
+  //   setDbConnected(isConnected)
+  // }
+
+  // useEffect(() => {
+  //   syncDaf()
+  // }, [])
+
+  // return !dbConnected ? (
+  //   <Screen safeArea background={'secondary'}>
+  //     <Container h={45} dividerBottom background={'primary'} />
+  //     <Container flex={1}>
+  //       <Container>
+  //         {[1, 2, 3, 4].map((fakeItem: number) => (
+  //           <Container
+  //             background={'primary'}
+  //             padding
+  //             marginBottom={5}
+  //             key={fakeItem}
+  //           >
+  //             <Container
+  //               background={'secondary'}
+  //               viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
+  //             ></Container>
+  //             <Container
+  //               background={'secondary'}
+  //               h={90}
+  //               br={10}
+  //               marginTop={20}
+  //             ></Container>
+  //           </Container>
+  //         ))}
+  //       </Container>
+  //     </Container>
+  //     <Container h={50} dividerTop background={'primary'} />
+  //   </Screen>
+  // ) : (
+  //   <ReactApolloProvider client={client}>
+  //     <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
+  //   </ReactApolloProvider>
+  // )
 }

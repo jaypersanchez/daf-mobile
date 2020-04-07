@@ -18,8 +18,6 @@ const Requests: React.FC<RequestsProps> = props => {
   const messageId = useNavigationParam('messageId')
   const payload = useNavigationParam('payload')
 
-  console.log('SELECTED_IDENTITY', selectedIdentity)
-
   const RequestScreen = () => {
     switch (requestType) {
       case AppConstants.requests.SESSION:

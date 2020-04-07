@@ -21,7 +21,7 @@ export const AppProvider = (props: any) => {
       )
       if (!storedSelectedIdentity) {
         const identities = await core.identityManager.getIdentities()
-        console.log(identities)
+        console.log('Identities', identities)
 
         if (identities.length > 0) {
           await AsyncStorage.setItem(

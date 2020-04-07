@@ -42,7 +42,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
             )
           : null
 
-        if (payload.method === 'request_credentials') {
+        if (message && payload.method === 'request_credentials') {
           const requestType = AppConstants.requests.DISCLOSURE
           navigate(Screens.Requests.screen, {
             requestType,
@@ -52,7 +52,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
             messageId: message ? message.id : message,
           })
         }
-        if (payload.method === 'issue_credential_callback') {
+        if (message && payload.method === 'issue_credential_callback') {
           const requestType = AppConstants.requests.CREDENTIAL
           navigate(Screens.Requests.screen, {
             requestType,

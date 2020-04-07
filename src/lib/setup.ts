@@ -105,11 +105,12 @@ export const Message = Daf.Message
 export const dataStore = new DataStore()
 
 export const initializeDB = async () => {
-  await createConnection({
+  return await createConnection({
     type: 'react-native',
     database: 'daf.sqlite',
     location: 'default',
     synchronize: true,
-    entities: Daf.Entities,
+    logging: ['query', 'error'],
+    entities: [...Daf.Entities],
   })
 }

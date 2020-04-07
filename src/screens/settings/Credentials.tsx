@@ -6,7 +6,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { useQuery } from 'react-apollo'
-import { Types } from 'daf-data-store'
 import {
   Container,
   Screen,
@@ -57,7 +56,7 @@ export const Credentials: React.FC<Props> = props => {
     },
   })
 
-  console.log(data)
+  console.log('DATA', data)
 
   return (
     <Screen safeArea={true}>
