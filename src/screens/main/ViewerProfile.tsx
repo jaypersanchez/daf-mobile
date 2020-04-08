@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import {
   Container,
   Text,
@@ -25,9 +25,9 @@ const SWITCH_IDENTITY = 'SWITCH_IDENTITY'
 
 interface Props extends NavigationStackScreenProps {}
 
-const ViewerProfile: React.FC<Props> & {
-  navigationOptions: any
-} = ({ navigation }) => {
+const ViewerProfile: React.FC<Props> & { navigationOptions: any } = ({
+  navigation,
+}) => {
   const { data, loading } = useQuery(GET_VIEWER_CREDENTIALS)
   const viewer = data && data.viewer
   const source =
@@ -39,6 +39,8 @@ const ViewerProfile: React.FC<Props> & {
     if (viewer) {
       navigation.setParams({ viewer })
     }
+
+    console.log('viewer', data)
   }, [data])
 
   return (
@@ -106,7 +108,7 @@ const ViewerProfile: React.FC<Props> & {
           </Container>
         )}
 
-        {!loading && viewer && viewer.credentialsReceived.length === 0 && (
+        {!loading && viewer && viewer.receivedCredentials.length === 0 && (
           <Container marginTop>
             <Text type={Constants.TextTypes.Body}>
               Start issuing credentials to yourself and others. Try starting
@@ -115,7 +117,7 @@ const ViewerProfile: React.FC<Props> & {
             </Text>
           </Container>
         )}
-        {!loading && viewer && viewer.credentialsReceived.length > 0 && (
+        {!loading && viewer && viewer.receivedCredentials.length > 0 && (
           <Container>
             <Container marginBottom>
               <Container marginTop>
@@ -127,27 +129,25 @@ const ViewerProfile: React.FC<Props> & {
               </Container>
             </Container>
             {viewer &&
-              viewer.credentialsReceived &&
-              viewer.credentialsReceived.map(
-                (vc: Typings.VerifiableCredential) => {
-                  return (
-                    <SharedElement key={vc.hash} id={vc.hash}>
-                      <Credential
-                        onPress={() =>
-                          navigation.navigate('Credential', {
-                            credentials: [vc],
-                          })
-                        }
-                        background={'secondary'}
-                        exp={vc.exp}
-                        issuer={vc.iss}
-                        subject={vc.sub}
-                        fields={vc.fields}
-                      />
-                    </SharedElement>
-                  )
-                },
-              )}
+              viewer.receivedCredentials &&
+              viewer.receivedCredentials.map((vc: any) => {
+                return (
+                  <SharedElement key={vc.hash} id={vc.hash}>
+                    <Credential
+                      onPress={() =>
+                        navigation.navigate('Credential', {
+                          credentials: [vc],
+                        })
+                      }
+                      background={'secondary'}
+                      exp={vc.expirationDate}
+                      issuer={vc.issuer}
+                      subject={vc.subject}
+                      fields={vc.claims}
+                    />
+                  </SharedElement>
+                )
+              })}
           </Container>
         )}
       </Container>
@@ -179,8 +179,8 @@ ViewerProfile.navigationOptions = ({ navigation }: any) => {
     headerRight: (
       <Button
         onPress={() => BottomSnap.to(1, SWITCH_IDENTITY)}
-        icon={<TabAvatar />}
         iconButton
+        icon={<TabAvatar />}
       />
     ),
   }

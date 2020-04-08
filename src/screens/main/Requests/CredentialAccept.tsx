@@ -7,7 +7,6 @@ import {
   Credential,
   Screen,
 } from '@kancha/kancha-ui'
-import { dataStore } from '../../../lib/setup'
 import { WalletConnectContext } from '../../../providers/WalletConnect'
 import { useNavigation } from 'react-navigation-hooks'
 

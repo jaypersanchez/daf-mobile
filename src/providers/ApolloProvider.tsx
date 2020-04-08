@@ -9,13 +9,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { Container, Screen } from '@kancha/kancha-ui'
 import {} from 'react-navigation'
 import * as Daf from 'daf-core'
-import {
-  core,
-  dataStore,
-  initializeDB,
-  resolvers,
-  typeDefs,
-} from '../lib/setup'
+import { agent, initializeDB, resolvers, typeDefs } from '../lib/setup'
 import Debug from 'debug'
 
 const debug = Debug('daf-provider:graphql')
@@ -27,22 +21,20 @@ export const schema = makeExecutableSchema({
 
 const contextLink = new SchemaLink({
   schema,
-  context: { core, dataStore },
+  context: { agent },
 })
-
 const link = from([contextLink])
 
 export const cache = new InMemoryCache({})
-
 export const client = new ApolloClient({
   connectToDevTools: true,
   cache,
   link,
 })
 
-core.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
+agent.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
   debug('New message %O', message)
-  await dataStore.saveMessage(message)
+  await message.save()
   client.reFetchObservableQueries()
 })
 

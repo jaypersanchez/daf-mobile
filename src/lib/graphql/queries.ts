@@ -1,15 +1,5 @@
 import gql from 'graphql-tag'
 
-export const GET_VIEWER = gql`
-  query getViewer {
-    viewer {
-      did
-      shortId
-      profileImage
-    }
-  }
-`
-
 export const GET_SECRET_KEY = gql`
   query managedIdentitySecret($did: String, $type: String) {
     managedIdentitySecret(did: $did, type: $type)
@@ -21,10 +11,11 @@ export const GET_IDENTITY = gql`
     identity(did: $did) {
       isManaged
       did
-      firstName
-      lastName
-      shortId
-      profileImage
+      shortId: shortDid
+      shortDid
+      firstName: latestClaimValue(type: "firstName")
+      lastName: latestClaimValue(type: "lastName")
+      profileImage: latestClaimValue(type: "profileImage")
     }
   }
 `
@@ -35,36 +26,84 @@ export const GET_ALL_IDENTITIES = gql`
       isManaged
       isSelected
       did
-      shortId
-      firstName
-      lastName
-      profileImage
+      shortId: shortDid
+      shortDid
+      firstName: latestClaimValue(type: "firstName")
+      lastName: latestClaimValue(type: "lastName")
+      profileImage: latestClaimValue(type: "profileImage")
+    }
+  }
+`
+
+export const GET_CREDENTIALS_FOR_IDENTITY = gql`
+  fragment ShortProfile on Identity {
+    did
+    shortId: shortDid
+    shortDid
+    firstName: latestClaimValue(type: "firstName")
+    lastName: latestClaimValue(type: "lastName")
+    profileImage: latestClaimValue(type: "profileImage")
+  }
+
+  query Credentials($selectedIdentity: ID!) {
+    identity(did: $selectedIdentity) {
+      isManaged
+      isSelected
+      ...ShortProfile
+      receivedCredentials {
+        hash
+        issuer {
+          ...ShortProfile
+        }
+        subject {
+          ...ShortProfile
+        }
+        credentialSubject
+        claims {
+          type
+          value
+          isObj
+        }
+      }
+    }
+  }
+`
+
+export const GET_VIEWER = gql`
+  query getViewer {
+    viewer {
+      did
+      shortId: shortDid
+      shortDid
+      profileImage: latestClaimValue(type: "profileImage")
     }
   }
 `
 
 export const GET_VIEWER_CREDENTIALS = gql`
+  fragment ShortProfile on Identity {
+    did
+    shortId: shortDid
+    shortDid
+    firstName: latestClaimValue(type: "firstName")
+    lastName: latestClaimValue(type: "lastName")
+    profileImage: latestClaimValue(type: "profileImage")
+  }
   query getViewer {
     viewer {
-      did
-      shortId
-      profileImage
-      url
-      description
-      credentialsReceived {
-        jwt
+      ...ShortProfile
+      isManaged
+      isSelected
+      receivedCredentials {
         hash
-        iss {
-          did
-          shortId
-          profileImage
+        issuer {
+          ...ShortProfile
         }
-        sub {
-          did
-          shortId
-          profileImage
+        subject {
+          ...ShortProfile
         }
-        fields {
+        credentialSubject
+        claims {
           type
           value
           isObj
@@ -105,10 +144,13 @@ export const DELETE_IDENTITY = gql`
 `
 
 export const NEW_MESSAGE = gql`
-  mutation newMessage($raw: String!, $sourceType: String!, $sourceId: String) {
-    newMessage(raw: $raw, sourceType: $sourceType, sourceId: $sourceId) {
-      id
-      type
+  mutation handleMessage(
+    $raw: String!
+    $meta: [MetaDataInput]
+    $save: Boolean
+  ) {
+    handleMessage(raw: $raw, meta: $meta, save: $save) {
+      raw
     }
   }
 `
@@ -118,8 +160,9 @@ export const GET_MANAGED_IDENTITIES = gql`
     managedIdentities {
       did
       isSelected
-      shortId
-      profileImage
+      shortId: shortDid
+      shortDid
+      profileImage: latestClaimValue(type: "profileImage")
     }
   }
 `
@@ -144,7 +187,8 @@ export const GET_MESSAGE_SDR = gql`
         iss {
           did {
             did
-            shortId
+            shortId: shortDid
+            shortDid
           }
           url
         }
@@ -155,16 +199,131 @@ export const GET_MESSAGE_SDR = gql`
           hash
           iss {
             did
-            shortId
-            profileImage
+            shortId: shortDid
+            shortDid
+            profileImage: latestClaimValue(type: "profileImage")
           }
           sub {
             did
-            shortId
-            profileImage
+            shortId: shortDid
+            shortDid
+            profileImage: latestClaimValue(type: "profileImage")
           }
           jwt
           fields {
+            type
+            value
+            isObj
+          }
+        }
+      }
+    }
+  }
+`
+export const ALL_MESSAGES = gql`
+  fragment ShortProfile on Identity {
+    did
+    shortId: shortDid
+    name: latestClaimValue(type: "name")
+    firstName: latestClaimValue(type: "firstName")
+    lastName: latestClaimValue(type: "lastName")
+    profileImage: latestClaimValue(type: "profileImage")
+  }
+  query AllMessages {
+    messages {
+      id
+      saveDate
+      updateDate
+      createdAt
+      expiresAt
+      threadId
+      type
+      raw
+      data
+      replyTo
+      replyUrl
+      presentations {
+        hash
+        raw
+      }
+      credentials {
+        hash
+        raw
+        issuer {
+          ...ShortProfile
+        }
+        subject {
+          ...ShortProfile
+        }
+        issuanceDate
+        expirationDate
+        credentialSubject
+        claims {
+          type
+          value
+          isObj
+        }
+      }
+      from {
+        ...ShortProfile
+      }
+      to {
+        ...ShortProfile
+      }
+    }
+  }
+`
+export const ALL_MESSAGES_OLD = gql`
+  fragment Profile on Identity {
+    did
+    shortId: shortDid
+    name: latestClaimValue(type: "name")
+    profileImage: latestClaimValue(type: "profileImage")
+  }
+
+  query AllMessages($selectedIdentity: String!) {
+    messages {
+      id
+      saveDate
+      updateDate
+      createdAt
+      expiresAt
+      threadId
+      type
+      raw
+      data
+      replyTo
+      replyUrl
+      from {
+        ...Profile
+      }
+      to {
+        ...Profile
+      }
+      sdr(sub: $selectedIdentity) {
+        issuers {
+          did
+          url
+        }
+        credentialType
+        credentialContext
+        claimType
+        essential
+        credentials {
+          hash
+          raw
+          issuer {
+            ...Profile
+          }
+          subject {
+            ...Profile
+          }
+          issuanceDate
+          expirationDate
+          context
+          type
+          credentialSubject
+          claims {
             type
             value
             isObj
@@ -179,35 +338,38 @@ export const VIEWER_MESSAGES = gql`
   query ViewerMessages($selectedDid: String!) {
     viewer {
       did
-      messagesAll {
+      receivedMessages {
         id
         raw
         data
         threadId
         type
-        timestamp
-        sender {
+        createdAt
+        to {
           did
-          shortId
-          profileImage
+          shortId: shortDid
+          shortDid
+          profileImage: latestClaimValue(type: "profileImage")
         }
-        receiver {
+        from {
           did
-          shortId
-          profileImage
+          shortId: shortDid
+          shortDid
+          profileImage: latestClaimValue(type: "profileImage")
         }
-        vc {
+        credentials {
           hash
           jwt
           iss {
             did
-            profileImage
-            shortId
+            shortId: shortDid
+            profileImage: latestClaimValue(type: "profileImage")
+            shortDid
           }
           sub {
             did
-            profileImage
-            shortId
+            profileImage: latestClaimValue(type: "profileImage")
+            shortDid
           }
           fields {
             type
@@ -223,7 +385,8 @@ export const VIEWER_MESSAGES = gql`
           iss {
             did {
               did
-              shortId
+              shortId: shortDid
+              shortDid
             }
             url
           }
@@ -234,13 +397,15 @@ export const VIEWER_MESSAGES = gql`
             hash
             iss {
               did
-              shortId
-              profileImage
+              shortDid
+              shortId: shortDid
+              profileImage: latestClaimValue(type: "profileImage")
             }
             sub {
               did
-              shortId
-              profileImage
+              shortId: shortDid
+              shortDid
+              profileImage: latestClaimValue(type: "profileImage")
             }
             jwt
             fields {
@@ -262,8 +427,10 @@ export const SIGN_VP = gql`
 `
 
 export const SIGN_VC_MUTATION = gql`
-  mutation sign($did: String!, $data: VerifiableCredentialInput!) {
-    actionSignVc(did: $did, data: $data)
+  mutation sign($data: SignCredentialInput!, $save: Boolean) {
+    signCredentialJwt(data: $data, save: $save) {
+      raw
+    }
   }
 `
 
@@ -275,6 +442,8 @@ export const SIGN_SDR_MUTATION = gql`
 
 export const SEND_JWT_MUTATION = gql`
   mutation send($from: String!, $to: String!, $jwt: String!) {
-    actionSendJwt(from: $from, to: $to, jwt: $jwt)
+    actionSendJwt(from: $from, to: $to, jwt: $jwt) {
+      id
+    }
   }
 `

@@ -3,15 +3,7 @@ import Navigation from './navigators'
 import NavigationService from './navigators/navigationService'
 import Providers from './providers'
 import WalletConnect from './components/WalletConnect'
-import {
-  core,
-  dataStore,
-  initializeDB,
-  resolvers,
-  typeDefs,
-  Message,
-} from './lib/setup'
-import { wcEventHub } from './providers/WalletConnect'
+import { initializeDB } from './lib/setup'
 import { Toast, OverlaySign } from '@kancha/kancha-ui'
 import IDSwitcher from './navigators/components/Switcher'
 import './lib/I18n'

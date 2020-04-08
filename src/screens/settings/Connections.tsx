@@ -7,7 +7,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Image } from 'react-native'
 import { Query, QueryResult } from 'react-apollo'
-import { Types } from 'daf-data-store'
 import {
   Container,
   Screen,
@@ -33,7 +32,7 @@ export const getAllIdentities = gql`
 `
 
 interface Result extends QueryResult {
-  data: { identities: Types.Identity[] }
+  data: { identities: any[] }
 }
 
 interface Props extends NavigationStackScreenProps {}

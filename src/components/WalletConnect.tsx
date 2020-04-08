@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { core, Message } from '../lib/setup'
+import { agent, Message } from '../lib/setup'
 import { wcEventHub } from '../providers/WalletConnect'
 import { Screens } from '../navigators/screens'
 import AppConstants from '../constants/index'
@@ -32,7 +32,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
       async ({ peerId, peerMeta, payload }) => {
         console.log(peerId, peerMeta, payload)
         const message = payload.params[0]
-          ? await core.validateMessage(
+          ? await agent.handleMessage(
               new Message({
                 raw: payload.params[0],
                 meta: {

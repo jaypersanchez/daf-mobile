@@ -15,6 +15,8 @@ export default ({ tintColor }: TabAvatarProps) => {
       ? { source: { uri: data.viewer.profileImage } }
       : {}
 
+  console.log(data)
+
   return loading ? (
     <ActivityIndicator />
   ) : (

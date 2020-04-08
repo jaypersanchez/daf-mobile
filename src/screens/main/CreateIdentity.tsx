@@ -26,7 +26,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
         navigation.navigate('App')
       }
     },
-    refetchQueries,
+    // refetchQueries,
   })
   const importingSeed = navigation.getParam('import', false)
 
