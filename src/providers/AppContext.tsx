@@ -12,7 +12,7 @@ interface AppState {
 export const AppContext = createContext<AppState | any>({})
 
 export const AppProvider = (props: any) => {
-  const [selectedIdentity, setSelectedDid] = useState()
+  const [selectedIdentity, setSelectedDid] = useState<string | null>(null)
   const setSelectedIdentity = async (did: string) => {
     await AsyncStorage.setItem('selectedIdentity', did)
     setSelectedDid(did)
