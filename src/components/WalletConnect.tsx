@@ -3,6 +3,7 @@ import { agent, Message } from '../lib/setup'
 import { wcEventHub } from '../providers/WalletConnect'
 import { Screens } from '../navigators/screens'
 import AppConstants from '../constants/index'
+import { useApolloClient } from '@apollo/react-hooks'
 
 interface WalletConnectProps {
   navigate: (routeName: any, params: any) => void
@@ -12,6 +13,8 @@ interface WalletConnectProps {
  * Top level component to house all the event handlers coming from wallet connect provider
  **/
 const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
+  const client = useApolloClient()
+
   useEffect(() => {
     wcEventHub.addListener(
       AppConstants.events.WALLET_CONNECT.SESSION_REQUEST_INT,
@@ -35,11 +38,13 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
           ? await agent.handleMessage({
               raw: payload.params[0],
               metaData: [{ type: 'walletConnect' }],
+              save: false,
             })
           : null
 
         if (message && payload.method === 'issue_credential') {
           await message.save()
+          client.reFetchObservableQueries()
         }
 
         if (message && payload.method === 'request_credentials') {
