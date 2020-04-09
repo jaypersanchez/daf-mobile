@@ -242,6 +242,9 @@ export const ALL_MESSAGES = gql`
       data
       replyTo
       replyUrl
+      viewer {
+        ...ShortProfile
+      }
       presentations {
         hash
         raw

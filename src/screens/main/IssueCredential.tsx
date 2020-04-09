@@ -10,9 +10,7 @@ import {
   Constants,
   Button,
   Icon,
-  Overlay,
 } from '@kancha/kancha-ui'
-import AppConstants from '../../constants'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
@@ -57,7 +55,6 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   )
   const [handleMessage] = useMutation(NEW_MESSAGE, {
     onCompleted: async response => {
-      console.log(response)
       if (response && response.handleMessage && response.handleMessage.raw) {
         actionSendJwt({
           variables: {
@@ -126,34 +123,16 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
 
   const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
     onCompleted: async response => {
-      console.log(response)
-      if (response && response.actionSendJwt && response.actionSendJwt.id) {
-        const {
-          title,
-          message,
-          icon,
-          delay,
-        } = AppConstants.modals.CREDENTIAL_SENT
-        Overlay.show(title, message, icon, delay)
+      if (response && response.actionSendJwt) {
+        console.log('jwt sent', response.actionSendJwt)
       }
       navigation.dismiss()
     },
     refetchQueries: [{ query: GET_VIEWER_CREDENTIALS }],
   })
 
-  const saveMessage = () => {
-    handleMessage({
-      variables: {
-        raw:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOjE1ODYzNTAxNzIsInN1YiI6ImRpZDpldGhyOnJpbmtlYnk6MHg4NDA3YWNlMTFiOWQxOTUwM2RiMTY4OTQxYjAxM2YxNDY3MDY0Y2JjIiwidmMiOnsiQGNvbnRleHQiOlsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3JlZGVudGlhbHMvdjEiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJjcmVkZW50aWFsU3ViamVjdCI6eyJuYW1lIjoiSmFjayJ9fSwiaXNzIjoiZGlkOmV0aHI6cmlua2VieToweDg0MDdhY2UxMWI5ZDE5NTAzZGIxNjg5NDFiMDEzZjE0NjcwNjRjYmMifQ.RiG_5XX-9uTn44hySahJ1wM34XAH77ODWbv-buprUtGfr-3YpqqSCUhY7XLdwnt9_cDsLy2PMLBR34CYI_UCDQA',
-        meta: [{ type: 'selfSigned' }],
-      },
-    })
-  }
-
   const [signCredentialJwt] = useMutation(SIGN_VC_MUTATION, {
     onCompleted: async response => {
-      console.log(response)
       if (
         response &&
         response.signCredentialJwt &&
@@ -170,6 +149,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   })
 
   const signVc = (claimFields: Field[]) => {
+    setSending(true)
     signCredentialJwt({
       variables: {
         data: {
@@ -188,7 +168,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   return (
     <Screen scrollEnabled background={'primary'}>
       <Container padding>
-        <Text type={Constants.TextTypes.H2} bold onPress={saveMessage}>
+        <Text type={Constants.TextTypes.H2} bold>
           {t('Issue Credential')}
         </Text>
         <Container marginTop={10}>

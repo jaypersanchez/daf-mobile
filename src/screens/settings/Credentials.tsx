@@ -56,8 +56,6 @@ export const Credentials: React.FC<Props> = props => {
     },
   })
 
-  console.log('DATA', data)
-
   return (
     <Screen safeArea={true}>
       <Container flex={1}>

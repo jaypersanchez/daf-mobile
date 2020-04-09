@@ -9,7 +9,6 @@ import {
   Typings,
 } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { SharedElement } from 'react-navigation-shared-element'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { FlatList } from 'react-native'
 import { Colors } from '../../theme'
@@ -59,33 +58,37 @@ const CredentialDetail: React.FC<Props> & { sharedElements: any } & {
     item,
     index,
   }: {
-    item: Typings.VerifiableCredential & {}
+    item: Typings.VerifiableCredential & {
+      raw: string
+      issuer: any
+      subject: any
+      claims: any[]
+      expirationDate: any
+    }
     index: number
   }) => (
     <Container w={Device.width - 10} padding paddingRight={10}>
       <ScrollView testID={'SCROLLVIEW'} scrollEventThrottle={16}>
-        <SharedElement id={item.hash}>
-          <Credential
-            testID={'CREDENTIAL'}
-            onPress={() => sharingMode && selectCredential(index)}
-            detailMode
-            jwt={item.jwt}
-            issuer={item.iss}
-            subject={item.sub}
-            fields={item.fields}
-            exp={item.exp}
-            {...selectedStyle(index)}
-          />
-          {sharingMode && (
-            <RadioBtn
-              testID={'RADIO_BTN'}
-              selected={isSelected(index)}
-              onPress={() => selectCredential(index)}
-            >
-              {isSelected(index) && 'Sharing'}
-            </RadioBtn>
-          )}
-        </SharedElement>
+        <Credential
+          testID={'CREDENTIAL'}
+          onPress={() => sharingMode && selectCredential(index)}
+          detailMode
+          jwt={item.raw}
+          issuer={item.issuer}
+          subject={item.subject}
+          fields={item.claims}
+          exp={item.expirationDate}
+          {...selectedStyle(index)}
+        />
+        {sharingMode && (
+          <RadioBtn
+            testID={'RADIO_BTN'}
+            selected={isSelected(index)}
+            onPress={() => selectCredential(index)}
+          >
+            {isSelected(index) && 'Sharing'}
+          </RadioBtn>
+        )}
       </ScrollView>
     </Container>
   )

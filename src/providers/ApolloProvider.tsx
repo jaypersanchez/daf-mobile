@@ -6,25 +6,21 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { from } from 'apollo-link'
 import { SchemaLink } from 'apollo-link-schema'
 import { makeExecutableSchema } from 'graphql-tools'
-import { Container, Screen } from '@kancha/kancha-ui'
-import {} from 'react-navigation'
+import { agent, resolvers, typeDefs } from '../lib/setup'
 import * as Daf from 'daf-core'
-import { agent, initializeDB, resolvers, typeDefs } from '../lib/setup'
 import Debug from 'debug'
 
-const debug = Debug('daf-provider:graphql')
+const debug = Debug('daf-provider:apollo')
 
-export const schema = makeExecutableSchema({
+const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 })
-
 const contextLink = new SchemaLink({
   schema,
   context: { agent },
 })
 const link = from([contextLink])
-
 export const cache = new InMemoryCache({})
 export const client = new ApolloClient({
   connectToDevTools: true,
@@ -32,63 +28,19 @@ export const client = new ApolloClient({
   link,
 })
 
-agent.on(Daf.EventTypes.validatedMessage, async (message: Daf.Message) => {
-  debug('New message %O', message)
-  await message.save()
-  client.reFetchObservableQueries()
-})
-
 interface Props {}
 
 export const ApolloProvider: React.FC<Props> = ({ children }) => {
+  useEffect(() => {
+    agent.on(Daf.EventTypes.savedMessage, async (message: Daf.Message) => {
+      debug('New message %O', message)
+      client.reFetchObservableQueries()
+    })
+  }, [])
+
   return (
     <ReactApolloProvider client={client}>
       <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
     </ReactApolloProvider>
   )
-
-  // const [dbConnected, setDbConnected] = useState(false)
-  // const syncDaf = async () => {
-  //   const { isConnected } = await initializeDB()
-
-  //   setDbConnected(isConnected)
-  // }
-
-  // useEffect(() => {
-  //   syncDaf()
-  // }, [])
-
-  // return !dbConnected ? (
-  //   <Screen safeArea background={'secondary'}>
-  //     <Container h={45} dividerBottom background={'primary'} />
-  //     <Container flex={1}>
-  //       <Container>
-  //         {[1, 2, 3, 4].map((fakeItem: number) => (
-  //           <Container
-  //             background={'primary'}
-  //             padding
-  //             marginBottom={5}
-  //             key={fakeItem}
-  //           >
-  //             <Container
-  //               background={'secondary'}
-  //               viewStyle={{ borderRadius: 20, width: 40, height: 40 }}
-  //             ></Container>
-  //             <Container
-  //               background={'secondary'}
-  //               h={90}
-  //               br={10}
-  //               marginTop={20}
-  //             ></Container>
-  //           </Container>
-  //         ))}
-  //       </Container>
-  //     </Container>
-  //     <Container h={50} dividerTop background={'primary'} />
-  //   </Screen>
-  // ) : (
-  //   <ReactApolloProvider client={client}>
-  //     <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
-  //   </ReactApolloProvider>
-  // )
 }

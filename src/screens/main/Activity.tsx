@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { ALL_MESSAGES, GET_ALL_IDENTITIES } from '../../lib/graphql/queries'
 import { FlatList } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import {
   Container,
@@ -13,19 +12,11 @@ import {
   Constants,
   Credential,
   Loader,
-  Typings,
-  Connection,
 } from '@kancha/kancha-ui'
+import ContactsHeader from '../../navigators/components/ContactsHeader'
 import { Colors } from '../../theme'
 import { useQuery } from 'react-apollo'
 import { AppContext } from '../../providers/AppContext'
-
-interface Identity {
-  did: string
-  shortId: string
-  isSelected: boolean
-  profileImage?: string
-}
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -44,13 +35,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
       selectedIdentity: selectedIdentity,
     },
   })
-
-  useEffect(() => {
-    console.log('Messages', allMessages)
-    console.log('Identities', allIdentities)
-
-    console.log('Refetch', refetchAllMessages)
-  }, [allMessages, allIdentities])
 
   const showFirstLoadModal = () => {
     navigation.navigate('CreateFirstCredential', {
@@ -80,35 +64,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
     })
   }
 
-  const ContactsHeader = (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={{ backgroundColor: Colors.WHITE, marginBottom: 1 }}
-    >
-      <Container flexDirection={'row'}>
-        {allIdentities &&
-          allIdentities.identities
-            .sort(
-              (id1: Identity, id2: Identity) =>
-                (id2.isSelected ? 1 : 0) - (id1.isSelected ? 1 : 0),
-            )
-            .map((identity: Typings.Identity & { isManaged: boolean }) => {
-              return (
-                <Connection
-                  key={identity.did}
-                  onPress={() => viewProfile(identity.did)}
-                  shortId={identity.shortId}
-                  did={identity.did}
-                  profileImage={''}
-                  isManaged={identity.isManaged}
-                />
-              )
-            })}
-      </Container>
-    </ScrollView>
-  )
-
   return (
     <Screen background={'secondary'} safeArea={true}>
       <Container flex={1}>
@@ -119,21 +74,25 @@ const Activity: React.FC<Props> = ({ navigation }) => {
           <Text>Error</Text>
         ) : (
           <FlatList
-            ListHeaderComponent={ContactsHeader}
+            ListHeaderComponent={
+              <ContactsHeader
+                viewProfile={viewProfile}
+                identities={allIdentities && allIdentities.identities}
+              />
+            }
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
             data={allMessages && allMessages.messages && allMessages.messages}
             onRefresh={() => refetchAllMessages()}
             refreshing={allMessagesLoading || allIdentitiesLoading}
             renderItem={({ item }: { item: any }) => {
               return (
-                // <Container />
                 <ActivityItem
                   id={item.id}
                   type={item.type}
                   date={item.saveDate}
                   sender={item.from}
                   receiver={item.to}
-                  viewer={{ did: '', shortId: '', profileImage: '' }}
+                  viewer={item.viewer}
                   confirm={() => {}}
                   profileAction={() => {}}
                   actions={['Share']}
@@ -150,7 +109,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                     >
                       <Credential
                         onPress={() =>
-                          viewAttachments(item.vc, credentialIndex)
+                          viewAttachments(item.credentials, credentialIndex)
                         }
                         exp={credential.expirationDate}
                         fields={credential.claims}

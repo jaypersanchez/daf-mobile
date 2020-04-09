@@ -22,7 +22,6 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   useEffect(() => {
     if (selectedIdentity !== null) {
       navigation.navigate('App')
-      console.log('selectedIdentity', selectedIdentity)
     }
     if (selectedIdentity === null) {
       setLoading(false)

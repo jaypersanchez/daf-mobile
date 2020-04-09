@@ -39,8 +39,6 @@ const ViewerProfile: React.FC<Props> & { navigationOptions: any } = ({
     if (viewer) {
       navigation.setParams({ viewer })
     }
-
-    console.log('viewer', data)
   }, [data])
 
   return (

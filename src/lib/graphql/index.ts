@@ -6,7 +6,7 @@ export interface Context {
 }
 
 const isSelected = async (identity: any, args: any, ctx: Context) => {
-  const did = await AsyncStorage.getItem('selectedDid')
+  const did = await AsyncStorage.getItem('selectedIdentity')
   return identity.did === did
 }
 
@@ -27,7 +27,6 @@ const request = async (_: any, args: any, ctx: Context) => {
 
 const viewer = async (_: any, args: any, ctx: Context) => {
   const did = await AsyncStorage.getItem('selectedIdentity')
-  console.log('checking did', did)
 
   if (did !== null) {
     return {
@@ -35,16 +34,8 @@ const viewer = async (_: any, args: any, ctx: Context) => {
       __typename: 'Identity',
     }
   } else {
-    // Check if there are any identities in the core.
-    // Set the first one as viewer by default
-    // @Todo Remove this setter and leave the context state manage it
-    const identities = await ctx.agent.identityManager.getIdentities()
-    if (identities.length > 0) {
-      await AsyncStorage.setItem('selectedIdentity', identities[0].did)
-      return {
-        did: identities[0].did,
-        __typename: 'Identity',
-      }
+    return {
+      did: null,
     }
   }
 }
@@ -59,11 +50,17 @@ export const resolvers = {
   Mutation: {
     setViewer,
   },
+  Message: {
+    viewer,
+  },
 }
 
 export const typeDefs = `
   extend type Identity {
     isSelected: Boolean
+  }
+  extend type Message {
+    viewer: Identity
   }
   extend type Query {
     viewer: Identity

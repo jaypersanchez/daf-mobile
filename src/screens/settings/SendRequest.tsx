@@ -49,8 +49,6 @@ export default () => {
   })
 
   useEffect(() => {
-    console.log(request)
-
     actionSignSDR({
       variables: {
         did: request.issuer,
