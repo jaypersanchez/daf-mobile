@@ -16,6 +16,7 @@ const Requests: React.FC<RequestsProps> = props => {
   const peerMeta = useNavigationParam('peerMeta')
   const peerId = useNavigationParam('peerId')
   const messageId = useNavigationParam('messageId')
+  const message = useNavigationParam('message')
   const payload = useNavigationParam('payload')
 
   const RequestScreen = () => {
@@ -33,7 +34,7 @@ const Requests: React.FC<RequestsProps> = props => {
           <CredentialAccept
             peerMeta={peerMeta}
             peerId={peerId}
-            messageId={messageId}
+            message={message}
             payloadId={payload.id}
           />
         )

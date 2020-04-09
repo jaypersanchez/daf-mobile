@@ -13,7 +13,6 @@ import {
   StackViewTransitionConfigs,
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { Icon } from '@kancha/kancha-ui'
 import TabAvatar from './components/TabAvatar'
 import { Colors, Icons } from '../theme'

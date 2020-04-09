@@ -14,14 +14,14 @@ interface RequestProps {
   peerId: string
   payloadId: number
   peerMeta: any
-  messageId: string
+  message: any
 }
 
 const AcceptCredential: React.FC<RequestProps> = ({
   peerId,
   payloadId,
   peerMeta,
-  messageId,
+  message,
 }) => {
   const {
     walletConnectRejectCallRequest,
@@ -30,27 +30,8 @@ const AcceptCredential: React.FC<RequestProps> = ({
   const [vcs, updateVcs] = useState()
   const navigation = useNavigation()
 
-  const getCredentialsFromMessage = async () => {
-    const vcs = await dataStore.credentialsForMessageId(messageId)
-    const vcsWithFields = await Promise.all(
-      vcs.map(async vc => ({
-        ...vc,
-        iss: {
-          did: vc.iss.did,
-          shortId: await dataStore.shortId(vc.iss.did),
-        },
-        sub: {
-          did: vc.sub.did,
-          shortId: await dataStore.shortId(vc.iss.did),
-        },
-        fields: await dataStore.credentialsFieldsForClaimHash(vc.hash),
-      })),
-    )
-
-    updateVcs(vcsWithFields)
-  }
-
   const approveCallRequest = async () => {
+    message.save()
     await walletConnectApproveCallRequest(peerId, {
       id: payloadId,
       result: 'CREDENTIAL_ACCEPTED',
@@ -67,9 +48,8 @@ const AcceptCredential: React.FC<RequestProps> = ({
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      getCredentialsFromMessage()
-    }, 300)
+    console.log(message.credentials)
+    updateVcs(message.credentials)
   }, [])
 
   return (
@@ -120,11 +100,11 @@ const AcceptCredential: React.FC<RequestProps> = ({
                   shadow={1.5}
                   background={'primary'}
                   key={vc.hash}
-                  exp={vc.exp}
-                  issuer={vc.iss}
-                  subject={vc.sub}
-                  fields={vc.fields}
-                  jwt={vc.jwt}
+                  exp={vc.expirationDate}
+                  issuer={vc.issuer}
+                  subject={vc.subject}
+                  fields={vc.claims}
+                  jwt={vc.raw}
                 />
               )
             })}

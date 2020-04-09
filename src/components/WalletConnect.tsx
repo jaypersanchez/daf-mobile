@@ -32,15 +32,15 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
       async ({ peerId, peerMeta, payload }) => {
         console.log(peerId, peerMeta, payload)
         const message = payload.params[0]
-          ? await agent.handleMessage(
-              new Message({
-                raw: payload.params[0],
-                meta: {
-                  type: 'walletConnect',
-                },
-              }),
-            )
+          ? await agent.handleMessage({
+              raw: payload.params[0],
+              metaData: [{ type: 'walletConnect' }],
+            })
           : null
+
+        if (message && payload.method === 'issue_credential') {
+          await message.save()
+        }
 
         if (message && payload.method === 'request_credentials') {
           const requestType = AppConstants.requests.DISCLOSURE
@@ -59,7 +59,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
             peerId,
             peerMeta,
             payload,
-            messageId: message ? message.id : message,
+            message,
           })
         }
       },
