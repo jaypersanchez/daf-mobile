@@ -1,8 +1,4 @@
-// import { Resolver } from 'did-resolver'
-// import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
-// import { getResolver as webDidResolver } from 'web-did-resolver'
 import { DafResolver } from 'daf-resolver'
-
 import * as Daf from 'daf-core'
 import * as DidJwt from 'daf-did-jwt'
 import { IdentityProvider } from 'daf-ethr-did'
@@ -41,27 +37,17 @@ export const resolvers = merge(
   LocalGql.resolvers,
 )
 
-// DID Document Resolver
-// const web = webDidResolver()
-// const didResolver = new Resolver({
-//   ...ethrDidResolver({
-//     networks: [
-//       {
-//         name: 'mainnet',
-//         rpcUrl: 'https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
-//       },
-//       {
-//         name: 'rinkeby',
-//         rpcUrl: 'https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
-//       },
-//     ],
-//   }),
-//   ...web,
-//   https: web.web,
-// })
+const dbConnection = createConnection({
+  type: 'react-native',
+  database: 'daf.sqlite',
+  location: 'default',
+  synchronize: true,
+  logging: ['error'],
+  entities: [...Daf.Entities],
+})
 
-const keyStore = new Daf.KeyStore()
-const identityStore = new Daf.IdentityStore('rinkeby')
+const keyStore = new Daf.KeyStore(dbConnection)
+const identityStore = new Daf.IdentityStore('rinkeby', dbConnection)
 const kms = new KeyManagementSystem(keyStore)
 const infuraProjectId = '5ffc47f65c4042ce847ef66a3fa70d4c'
 const didResolver = new DafResolver({ infuraProjectId })
@@ -85,6 +71,7 @@ actionHandler
   .setNext(new DIDComm.DIDCommActionHandler())
 
 export const agent = new Daf.Agent({
+  dbConnection,
   didResolver,
   identityProviders: [rinkebyIdentityProvider],
   actionHandler,
@@ -92,14 +79,3 @@ export const agent = new Daf.Agent({
 })
 
 export const Message = Daf.Message
-
-export const initializeDB = async () => {
-  return await createConnection({
-    type: 'react-native',
-    database: 'daf.sqlite',
-    location: 'default',
-    synchronize: true,
-    logging: ['error'],
-    entities: [...Daf.Entities],
-  })
-}
