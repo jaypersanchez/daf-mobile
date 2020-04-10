@@ -273,6 +273,7 @@ export const ALL_MESSAGES = gql`
       to {
         ...ShortProfile
       }
+      metaData
     }
   }
 `

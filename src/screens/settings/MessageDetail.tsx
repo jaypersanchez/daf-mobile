@@ -18,12 +18,12 @@ import QRCode from 'react-native-qrcode-svg'
 const Component: React.FC<NavigationScreen> = () => {
   const message = useNavigationParam('message')
 
-  const issProfileSource = message.sender.profileImage
-    ? { source: { uri: message.sender.profileImage } }
+  const issProfileSource = message.from.profileImage
+    ? { source: { uri: message.from.profileImage } }
     : {}
   const subProfileSource =
-    message.receiver && message.receiver.profileImage
-      ? { source: { uri: message.receiver.profileImage } }
+    message.to && message.to.profileImage
+      ? { source: { uri: message.to.profileImage } }
       : {}
 
   return (
@@ -34,9 +34,8 @@ const Component: React.FC<NavigationScreen> = () => {
         </Text>
         <Container marginTop={5} marginBottom>
           <Text type={Constants.TextTypes.ActivitySubTitle}>
-            {(message.timestamp &&
-              formatDistanceToNow(message.timestamp * 1000)) + ' ago' ||
-              'Some time ago'}
+            {(message.saveDate && formatDistanceToNow(message.saveDate)) +
+              ' ago' || 'Some time ago'}
             {' • '}
             Message type: {message.type}
             {' • '}
@@ -49,7 +48,7 @@ const Component: React.FC<NavigationScreen> = () => {
               Identities
             </Text>
           </Container>
-          <Container
+          {/* <Container
             background={'secondary'}
             paddingTop={32}
             br={10}
@@ -67,16 +66,16 @@ const Component: React.FC<NavigationScreen> = () => {
                 {...issProfileSource}
                 type={'circle'}
                 gravatarType={'retro'}
-                address={message.sender.did}
+                address={message.from.did}
                 size={50}
               />
               <Container paddingTop={8}>
                 <Text type={Constants.TextTypes.ActivityTitle}>
-                  {message.sender.shortId}
+                  {message.from.shortId}
                 </Text>
               </Container>
             </Container>
-            {message.receiver && (
+            {message.to && (
               <Container>
                 <Container
                   flexDirection={'row'}
@@ -93,42 +92,67 @@ const Component: React.FC<NavigationScreen> = () => {
                     {...subProfileSource}
                     type={'circle'}
                     gravatarType={'retro'}
-                    address={message.receiver.did}
+                    address={message.to.did}
                     size={50}
                   />
                   <Container paddingTop={8}>
                     <Text type={Constants.TextTypes.ActivityTitle}>
-                      {message.receiver.shortId}
+                      {message.to.shortId}
                     </Text>
                   </Container>
                 </Container>
               </Container>
             )}
-          </Container>
+          </Container> */}
           <Container
             background={'secondary'}
             br={10}
             padding
             marginBottom
-            marginLeft
+            flexDirection={'row'}
+            alignItems={'center'}
           >
-            <Text selectable>
-              <Text type={Constants.TextTypes.SubTitle}>from: </Text>
-              {message.sender.did}
-            </Text>
+            <Avatar
+              {...issProfileSource}
+              type={'circle'}
+              gravatarType={'retro'}
+              address={message.from.did}
+              size={50}
+            />
+            <Container paddingLeft flex={1}>
+              <Text selectable>
+                <Text
+                  textStyle={{ flexWrap: 'wrap' }}
+                  type={Constants.TextTypes.SubTitle}
+                >
+                  from:
+                </Text>
+                {message.from.did}
+              </Text>
+            </Container>
           </Container>
-          {message.receiver && (
+          {message.to && (
             <Container
               background={'secondary'}
               br={10}
               padding
               marginBottom
-              marginLeft
+              flexDirection={'row'}
+              alignItems={'center'}
             >
-              <Text selectable>
-                <Text type={Constants.TextTypes.SubTitle}>to:</Text>
-                {message.receiver.did}
-              </Text>
+              <Avatar
+                {...subProfileSource}
+                type={'circle'}
+                gravatarType={'retro'}
+                address={message.to.did}
+                size={50}
+              />
+              <Container paddingLeft flex={1}>
+                <Text selectable>
+                  <Text type={Constants.TextTypes.SubTitle}>to:</Text>
+                  {message.to.did}
+                </Text>
+              </Container>
             </Container>
           )}
         </Container>
@@ -138,7 +162,7 @@ const Component: React.FC<NavigationScreen> = () => {
               Attachments (Credentials)
             </Text>
           </Container>
-          {message.vc.map((vc: any, index: number) => {
+          {message.credentials.map((vc: any, index: number) => {
             return (
               <Container
                 key={index}
@@ -149,7 +173,7 @@ const Component: React.FC<NavigationScreen> = () => {
               >
                 <JSONTree
                   hideRoot={true}
-                  data={vc.fields}
+                  data={vc.claims}
                   invertTheme={false}
                   theme={{
                     scheme: 'brewer',
@@ -221,13 +245,13 @@ const Component: React.FC<NavigationScreen> = () => {
         <Container>
           <Container marginBottom>
             <Text type={Constants.TextTypes.H5} bold>
-              Message JWT
+              Raw Message
             </Text>
           </Container>
           <Container background={'secondary'} br={10} padding marginBottom>
             <JSONTree
               hideRoot={true}
-              data={JSON.parse(message.data)}
+              data={message.data}
               invertTheme={false}
               theme={{
                 scheme: 'brewer',
@@ -254,7 +278,7 @@ const Component: React.FC<NavigationScreen> = () => {
         <Container>
           <Container marginBottom>
             <Text type={Constants.TextTypes.H5} bold>
-              Raw Message
+              Message JWT
             </Text>
           </Container>
           <Container background={'secondary'} br={10} padding marginBottom>
