@@ -65,10 +65,10 @@ messageHandler
   .setNext(new W3c.W3cMessageHandler())
   .setNext(new SD.SdrMessageHandler())
 
-const actionHandler = new W3c.W3cActionHandler()
+const actionHandler = new DIDComm.DIDCommActionHandler()
 actionHandler
+  .setNext(new W3c.W3cActionHandler())
   .setNext(new SD.SdrActionHandler())
-  .setNext(new DIDComm.DIDCommActionHandler())
 
 export const agent = new Daf.Agent({
   dbConnection,

@@ -8,7 +8,11 @@ import { useNavigationParam } from 'react-navigation-hooks'
 import { useMutation } from 'react-apollo'
 import QRCode from 'react-native-qrcode-svg'
 import { ActivityIndicator } from 'react-native'
-import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
+import {
+  SEND_JWT_MUTATION,
+  SIGN_VC_MUTATION,
+  NEW_MESSAGE,
+} from '../../lib/graphql/queries'
 
 const claimToObject = (arr: any[]) => {
   return arr.reduce(
@@ -26,23 +30,39 @@ export default () => {
   const [jwt, setJwt] = useState()
   const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
     onCompleted: response => {
-      if (response && response.actionSendJwt) {
-        setSending(false)
-        setSent(true)
-      }
+      setSending(false)
+      setSent(true)
     },
   })
-  const [actionSignVc] = useMutation(SIGN_VC_MUTATION, {
-    onCompleted: response => {
-      if (response && response.actionSignVc) {
-        setJwt(response.actionSignVc)
+
+  const [handleMessage] = useMutation(NEW_MESSAGE, {
+    onCompleted: async response => {
+      if (response && response.handleMessage && response.handleMessage.raw) {
+        setJwt(response.handleMessage.raw)
         setLoading(false)
         setSending(true)
         actionSendJwt({
           variables: {
             from: claim.issuer,
             to: claim.subject,
-            jwt: response.actionSignVc,
+            jwt: response.handleMessage.raw,
+          },
+        })
+      }
+    },
+  })
+
+  const [signCredentialJwt] = useMutation(SIGN_VC_MUTATION, {
+    onCompleted: async response => {
+      if (
+        response &&
+        response.signCredentialJwt &&
+        response.signCredentialJwt.raw
+      ) {
+        handleMessage({
+          variables: {
+            raw: response.signCredentialJwt.raw,
+            meta: [{ type: 'selfSigned' }],
           },
         })
       }
@@ -50,17 +70,15 @@ export default () => {
   })
 
   useEffect(() => {
-    actionSignVc({
+    signCredentialJwt({
       variables: {
-        did: claim.issuer,
         data: {
-          sub: claim.subject,
-          vc: {
-            context: ['https://www.w3.org/2018/credentials/v1'],
-            type: ['VerifiableCredential'],
-            credentialSubject: {
-              ...claimFields,
-            },
+          issuer: claim.issuer,
+          context: ['https://www.w3.org/2018/credentials/v1'],
+          type: ['VerifiableCredential'],
+          credentialSubject: {
+            id: claim.subject,
+            ...claimFields,
           },
         },
       },
