@@ -35,13 +35,7 @@ export const WalletConnectProvider = (props: any) => {
   }, [])
 
   useEffect(() => {
-    if (peerId) {
-      debug(`Subscribing to events for peerId ${peerId}`)
-      walletConnectSubscribeToEvents(peerId)
-    }
-  }, [peerId])
-
-  useEffect(() => {
+    console.log('Connectors=', connectors)
     if (connectors.length > 0) {
       connectors.forEach((connector: any) => {
         if (!subscribed.includes(connector.peerId)) {
@@ -52,7 +46,7 @@ export const WalletConnectProvider = (props: any) => {
         }
       })
     }
-  }, [subscribed])
+  }, [connectors])
 
   const getNativeOptions = async () => {
     // Wait for push token
@@ -233,7 +227,9 @@ export const WalletConnectProvider = (props: any) => {
     const _subscribed = [...subscribed]
     _subscribed.push(peerId)
 
-    // updateSubscribed(_subscribed)
+    console.log('Updating subscribed...')
+    updateSubscribed(_subscribed)
+
     updatePeerId(null)
   }
 

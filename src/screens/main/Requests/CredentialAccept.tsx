@@ -9,6 +9,7 @@ import {
 } from '@kancha/kancha-ui'
 import { WalletConnectContext } from '../../../providers/WalletConnect'
 import { useNavigation } from 'react-navigation-hooks'
+import { useApolloClient } from '@apollo/react-hooks'
 
 interface RequestProps {
   peerId: string
@@ -27,15 +28,17 @@ const AcceptCredential: React.FC<RequestProps> = ({
     walletConnectRejectCallRequest,
     walletConnectApproveCallRequest,
   } = useContext(WalletConnectContext)
-  const [vcs, updateVcs] = useState()
+  const [vcs] = useState(message.credentials)
   const navigation = useNavigation()
+  const client = useApolloClient()
 
   const approveCallRequest = async () => {
-    message.save()
+    await message.save()
     await walletConnectApproveCallRequest(peerId, {
       id: payloadId,
       result: 'CREDENTIAL_ACCEPTED',
     })
+    client.reFetchObservableQueries()
     navigation.goBack()
   }
 
@@ -46,11 +49,6 @@ const AcceptCredential: React.FC<RequestProps> = ({
     })
     navigation.goBack()
   }
-
-  useEffect(() => {
-    console.log(message.credentials)
-    updateVcs(message.credentials)
-  }, [])
 
   return (
     <Screen
@@ -95,6 +93,7 @@ const AcceptCredential: React.FC<RequestProps> = ({
         <Container padding flex={1} background={'primary'}>
           {vcs &&
             vcs.map((vc: any) => {
+              console.log('VC', vc)
               return (
                 <Credential
                   shadow={1.5}
