@@ -28,7 +28,7 @@ const AcceptCredential: React.FC<RequestProps> = ({
     walletConnectRejectCallRequest,
     walletConnectApproveCallRequest,
   } = useContext(WalletConnectContext)
-  const [vcs] = useState(message.credentials)
+  const [vcs, updateVcs] = useState()
   const navigation = useNavigation()
   const client = useApolloClient()
 
@@ -49,6 +49,30 @@ const AcceptCredential: React.FC<RequestProps> = ({
     })
     navigation.goBack()
   }
+
+  const shortId = (did: string) => {
+    return `${did.slice(0, 15)}...${did.slice(-4)}`
+  }
+
+  useEffect(() => {
+    const credentials = message.credentials.map((vc: any) => {
+      return {
+        ...vc,
+        issuer: {
+          did: vc.issuer.did,
+          shortId: shortId(vc.issuer.did),
+          profileImage: '',
+        },
+        subject: {
+          did: vc.subject.did,
+          shortId: shortId(vc.subject.did),
+          profileImage: '',
+        },
+      }
+    })
+
+    updateVcs(credentials)
+  }, [])
 
   return (
     <Screen

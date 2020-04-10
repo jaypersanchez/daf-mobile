@@ -25,6 +25,15 @@ const request = async (_: any, args: any, ctx: Context) => {
   }
 }
 
+const credentialView = async (_: any, args: any, ctx: Context) => {
+  console.log(args.credential)
+  const credential = args.credential
+  return {
+    credential,
+    __typename: 'Credential',
+  }
+}
+
 const viewer = async (_: any, args: any, ctx: Context) => {
   const did = await AsyncStorage.getItem('selectedIdentity')
 
