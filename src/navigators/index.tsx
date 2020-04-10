@@ -51,6 +51,7 @@ import CreateRequest from '../screens/settings/CreateRequest'
 import SendRequest from '../screens/settings/SendRequest'
 import ShareCredential from '../screens/settings/ShareCredential'
 import Connections from '../screens/settings/Connections' // *
+import Credentials from '../screens/settings/Credentials' // *
 
 import { Animated, Easing } from 'react-native'
 
@@ -116,6 +117,12 @@ const SettingsNavigator = createStackNavigator(
       screen: Connections,
       navigationOptions: {
         title: i18n.t('Connections'),
+      },
+    },
+    [Screens.Credentials.screen]: {
+      screen: Credentials,
+      navigationOptions: {
+        title: i18n.t('Credentials'),
       },
     },
     [Screens.DidViewer.screen]: {

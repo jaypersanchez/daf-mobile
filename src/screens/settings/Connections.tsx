@@ -17,19 +17,7 @@ import {
 } from '@kancha/kancha-ui'
 import { Colors } from '../../theme'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
-import gql from 'graphql-tag'
-
-export const getAllIdentities = gql`
-  query GetAllIdentities {
-    identities {
-      did
-      shortId
-      firstName
-      lastName
-      profileImage
-    }
-  }
-`
+import { GET_ALL_IDENTITIES } from '../../lib/graphql/queries'
 
 interface Result extends QueryResult {
   data: { identities: any[] }
@@ -41,7 +29,7 @@ const Connections: React.FC<Props> = props => {
   return (
     <Screen safeArea={true}>
       <Container flex={1}>
-        <Query query={getAllIdentities} onError={console.log}>
+        <Query query={GET_ALL_IDENTITIES} onError={console.log}>
           {({ data, loading, refetch, error }: Result) =>
             error ? (
               <Text>{error.message}</Text>
@@ -63,11 +51,11 @@ const Connections: React.FC<Props> = props => {
                           gravatarType={'retro'}
                         />
                       }
-                      onPress={() => {
-                        props.navigation.push('Credentials', {
-                          did: item.did,
-                        })
-                      }}
+                      // onPress={() => {
+                      //   props.navigation.push('Credentials', {
+                      //     did: item.did,
+                      //   })
+                      // }}
                       last={index === data.identities.length - 1}
                     >
                       {item.shortId}
