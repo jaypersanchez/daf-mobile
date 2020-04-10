@@ -439,8 +439,8 @@ export const SIGN_VC_MUTATION = gql`
 `
 
 export const SIGN_SDR_MUTATION = gql`
-  mutation signSDR($did: String!, $data: SDRInput!) {
-    actionSignSDR(did: $did, data: $data)
+  mutation signSdrJwt($data: SDRInput!) {
+    signSdrJwt(data: $data)
   }
 `
 
