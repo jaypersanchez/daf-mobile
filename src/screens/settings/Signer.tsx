@@ -43,7 +43,7 @@ const Signer: React.FC<SignerProps> = props => {
       safeArea={true}
       footerComponent={
         <Container padding>
-          <Mutation
+          {/* <Mutation
             mutation={IMPORT_IDENTITY}
             refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
             // tslint:disable-next-line:no-console
@@ -74,7 +74,7 @@ const Signer: React.FC<SignerProps> = props => {
                 </Container>
               )
             }}
-          </Mutation>
+          </Mutation> */}
           <Mutation
             mutation={CREATE_IDENTITY}
             refetchQueries={[{ query: GET_MANAGED_IDENTITIES }]}
