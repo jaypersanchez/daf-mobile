@@ -27,6 +27,7 @@ export const WalletConnectProvider = (props: any) => {
   const [pending, updatePending] = useState<any[]>([])
   const [requests, updateRequests] = useState<any[]>([])
   const [peerId, updatePeerId] = useState<string | null>()
+  const [subscribed, updateSubscribed] = useState<string[]>([])
 
   useEffect(() => {
     debug('Initialising wallet connect')
@@ -43,11 +44,15 @@ export const WalletConnectProvider = (props: any) => {
   useEffect(() => {
     if (connectors.length > 0) {
       connectors.forEach((connector: any) => {
-        debug(`Subscribing to events for peerId ${connector.peerId}`)
-        walletConnectSubscribeToEvents(connector.peerId)
+        if (!subscribed.includes(connector.peerId)) {
+          debug(`Subscribing to events for peerId ${connector.peerId}`)
+          walletConnectSubscribeToEvents(connector.peerId)
+        } else {
+          debug(`Already subscribed to events from peerId ${connector.peerId}`)
+        }
       })
     }
-  }, [connectors])
+  }, [subscribed])
 
   const getNativeOptions = async () => {
     // Wait for push token
@@ -74,14 +79,14 @@ export const WalletConnectProvider = (props: any) => {
   const walletConnectInit = async () => {
     try {
       const sessions = await asyncStorageLoadSessions()
-      const connectors = await Promise.all(
+      const _connectors = await Promise.all(
         Object.values(sessions).map(async session => {
           const nativeOptions = await getNativeOptions()
           return new WalletConnect({ session }, nativeOptions)
         }),
       )
 
-      updateConnectors(connectors)
+      updateConnectors(_connectors)
     } catch (error) {
       // console.error()
     }
@@ -225,6 +230,10 @@ export const WalletConnectProvider = (props: any) => {
       },
     )
 
+    const _subscribed = [...subscribed]
+    _subscribed.push(peerId)
+
+    // updateSubscribed(_subscribed)
     updatePeerId(null)
   }
 
