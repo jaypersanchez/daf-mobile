@@ -47,6 +47,8 @@ const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const managedIdentities =
     data && data.managedIdentities && data.managedIdentities
 
+  console.log(managedIdentities)
+
   const switchIdentity = async (identity: Identity) => {
     BottomSnap.to(0, id)
 
