@@ -85,7 +85,10 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
       if (response.signPresentationJwt) {
         updateSending(true)
 
-        if (!isWalletConnect) {
+        if (isWalletConnect) {
+          console.log('APPROVE')
+          await approveCallRequest(response.signPresentationJwt.raw)
+        } else {
           await actionSendJwt({
             variables: {
               to: message.from.did,
@@ -93,8 +96,6 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
               jwt: response.signPresentationJwt.raw,
             },
           })
-        } else {
-          await approveCallRequest(response.signPresentationJwt.raw)
         }
         navigation.goBack()
       }
@@ -206,7 +207,7 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
           <Container flex={2}>
             <Button
               type={'primary'}
-              disabled={false}
+              disabled={!formValid}
               fullWidth
               buttonText={'Share'}
               onPress={accept}
@@ -223,7 +224,7 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
           issuer={{
             did: '',
             shortId: '',
-            profileImage: peerMeta && peerMeta.icons[0],
+            profileImage: peerMeta ? peerMeta.icons[0] : 'http://',
           }}
         />
         <Indicator

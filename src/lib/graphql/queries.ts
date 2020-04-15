@@ -207,6 +207,7 @@ export const GET_MESSAGE_SDR = gql`
         credentials {
           hash
           raw
+          jwt: raw
           issuanceDate
           expirationDate
           credentialSubject
@@ -280,92 +281,6 @@ export const ALL_MESSAGES = gql`
         ...ShortProfile
       }
       metaData
-    }
-  }
-`
-
-export const VIEWER_MESSAGES = gql`
-  query ViewerMessages($selectedIdentity: ID!) {
-    viewer {
-      did
-      receivedMessages {
-        id
-        raw
-        data
-        threadId
-        type
-        createdAt
-        to {
-          did
-          shortId: shortDid
-          shortDid
-          profileImage: latestClaimValue(type: "profileImage")
-        }
-        from {
-          did
-          shortId: shortDid
-          shortDid
-          profileImage: latestClaimValue(type: "profileImage")
-        }
-        credentials {
-          hash
-          jwt
-          iss {
-            did
-            shortId: shortDid
-            profileImage: latestClaimValue(type: "profileImage")
-            shortDid
-          }
-          sub {
-            did
-            profileImage: latestClaimValue(type: "profileImage")
-            shortDid
-          }
-          fields {
-            type
-            value
-            isObj
-          }
-        }
-        metaData {
-          type
-          value
-        }
-        sdr(did: $selectedIdentity) {
-          iss {
-            did {
-              did
-              shortId: shortDid
-              shortDid
-            }
-            url
-          }
-          claimType
-          reason
-          essential
-          vc {
-            hash
-            iss {
-              did
-              shortDid
-              shortId: shortDid
-              profileImage: latestClaimValue(type: "profileImage")
-            }
-            sub {
-              did
-              shortId: shortDid
-              shortDid
-              profileImage: latestClaimValue(type: "profileImage")
-            }
-            jwt
-            fields {
-              type
-              value
-              isObj
-            }
-          }
-        }
-      }
     }
   }
 `

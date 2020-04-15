@@ -89,7 +89,11 @@ const Activity: React.FC<Props> = ({ navigation }) => {
               />
             }
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={allMessages && allMessages.messages && allMessages.messages}
+            data={
+              allMessages &&
+              allMessages.messages &&
+              allMessages.messages.reverse()
+            }
             onRefresh={() => refetchAllMessages()}
             refreshing={allMessagesLoading || allIdentitiesLoading}
             renderItem={({ item }: { item: any }) => {
