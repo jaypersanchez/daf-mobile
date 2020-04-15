@@ -48,6 +48,7 @@ export const WalletConnectProvider = (props: any) => {
     }
   }, [connectors])
 
+  // Move to props so this can be configured
   const getNativeOptions = async () => {
     // Wait for push token
     const nativeOptions = {
@@ -105,6 +106,7 @@ export const WalletConnectProvider = (props: any) => {
 
         updatePending(updatedPending)
 
+        console.log(peerId, peerMeta)
         // Send everythign internal event listener to handle
         wcEventHub.emit(
           AppConstants.events.WALLET_CONNECT.SESSION_REQUEST_INT,

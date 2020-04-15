@@ -18,6 +18,7 @@ const Requests: React.FC<RequestsProps> = props => {
   const messageId = useNavigationParam('messageId')
   const message = useNavigationParam('message')
   const payload = useNavigationParam('payload')
+  const isWalletConnect = useNavigationParam('isWalletConnect')
 
   const RequestScreen = () => {
     switch (requestType) {
@@ -35,7 +36,7 @@ const Requests: React.FC<RequestsProps> = props => {
             peerMeta={peerMeta}
             peerId={peerId}
             message={message}
-            payloadId={payload.id}
+            payloadId={payload && payload.id}
           />
         )
       case AppConstants.requests.DISCLOSURE:
@@ -44,8 +45,8 @@ const Requests: React.FC<RequestsProps> = props => {
             peerMeta={peerMeta}
             messageId={messageId}
             peerId={peerId}
-            payloadId={payload.id}
-            isWalletConnect
+            payloadId={payload && payload.id}
+            isWalletConnect={isWalletConnect}
             selectedIdentity={selectedIdentity}
           />
         )

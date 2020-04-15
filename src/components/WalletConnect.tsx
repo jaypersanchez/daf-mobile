@@ -48,8 +48,11 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
         }
 
         if (message && payload.method === 'request_credentials') {
+          await message.save()
+
           const requestType = AppConstants.requests.DISCLOSURE
           navigate(Screens.Requests.screen, {
+            isWalletConnect: true,
             requestType,
             peerId,
             peerMeta,
@@ -60,6 +63,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
         if (message && payload.method === 'issue_credential_callback') {
           const requestType = AppConstants.requests.CREDENTIAL
           navigate(Screens.Requests.screen, {
+            isWalletConnect: true,
             requestType,
             peerId,
             peerMeta,

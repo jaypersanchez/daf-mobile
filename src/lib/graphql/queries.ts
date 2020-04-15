@@ -176,41 +176,47 @@ export const GET_MESSAGE = gql`
 `
 
 export const GET_MESSAGE_SDR = gql`
-  query GetMessageSDR($id: ID!, $selectedDid: String!) {
+  fragment ShortProfile on Identity {
+    did
+    shortId: shortDid
+    shortDid
+    firstName: latestClaimValue(type: "firstName")
+    lastName: latestClaimValue(type: "lastName")
+    profileImage: latestClaimValue(type: "profileImage")
+  }
+  query GetMessageSDR($id: ID!, $selectedIdentity: ID!) {
     message(id: $id) {
       threadId
       id
-      sender {
+      replyTo
+      replyUrl
+      from {
         did
+        shortId: shortDid
       }
-      sdr(sub: $selectedDid) {
-        iss {
+      sdr(id: $selectedIdentity) {
+        claimType
+        claimValue
+        credentialType
+        essential
+        issuers {
           did {
             did
-            shortId: shortDid
-            shortDid
           }
-          url
         }
-        claimType
-        reason
-        essential
-        vc {
+        credentials {
           hash
-          iss {
-            did
-            shortId: shortDid
-            shortDid
-            profileImage: latestClaimValue(type: "profileImage")
+          raw
+          issuanceDate
+          expirationDate
+          credentialSubject
+          iss: issuer {
+            ...ShortProfile
           }
-          sub {
-            did
-            shortId: shortDid
-            shortDid
-            profileImage: latestClaimValue(type: "profileImage")
+          sub: subject {
+            ...ShortProfile
           }
-          jwt
-          fields {
+          fields: claims {
             type
             value
             isObj
@@ -277,69 +283,9 @@ export const ALL_MESSAGES = gql`
     }
   }
 `
-export const ALL_MESSAGES_OLD = gql`
-  fragment Profile on Identity {
-    did
-    shortId: shortDid
-    name: latestClaimValue(type: "name")
-    profileImage: latestClaimValue(type: "profileImage")
-  }
-
-  query AllMessages($selectedIdentity: String!) {
-    messages {
-      id
-      saveDate
-      updateDate
-      createdAt
-      expiresAt
-      threadId
-      type
-      raw
-      data
-      replyTo
-      replyUrl
-      from {
-        ...Profile
-      }
-      to {
-        ...Profile
-      }
-      sdr(sub: $selectedIdentity) {
-        issuers {
-          did
-          url
-        }
-        credentialType
-        credentialContext
-        claimType
-        essential
-        credentials {
-          hash
-          raw
-          issuer {
-            ...Profile
-          }
-          subject {
-            ...Profile
-          }
-          issuanceDate
-          expirationDate
-          context
-          type
-          credentialSubject
-          claims {
-            type
-            value
-            isObj
-          }
-        }
-      }
-    }
-  }
-`
 
 export const VIEWER_MESSAGES = gql`
-  query ViewerMessages($selectedDid: String!) {
+  query ViewerMessages($selectedIdentity: ID!) {
     viewer {
       did
       receivedMessages {
@@ -385,7 +331,7 @@ export const VIEWER_MESSAGES = gql`
           type
           value
         }
-        sdr(sub: $selectedDid) {
+        sdr(did: $selectedIdentity) {
           iss {
             did {
               did
@@ -425,8 +371,10 @@ export const VIEWER_MESSAGES = gql`
 `
 
 export const SIGN_VP = gql`
-  mutation signVp($did: String!, $data: VerifiablePresentationInput!) {
-    actionSignVp(did: $did, data: $data)
+  mutation signPresentationJwt($data: SignPresentationInput!, $save: Boolean) {
+    signPresentationJwt(data: $data, save: $save) {
+      raw
+    }
   }
 `
 

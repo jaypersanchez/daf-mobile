@@ -17,6 +17,7 @@ import ContactsHeader from '../../navigators/components/ContactsHeader'
 import { Colors } from '../../theme'
 import { useQuery } from 'react-apollo'
 import { AppContext } from '../../providers/AppContext'
+import AppConstants from '../../constants'
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -58,9 +59,16 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   }
 
   const confirmRequest = (msg: any) => {
-    navigation.navigate('Request', {
-      requestMessage: msg,
-      viewerDid: selectedIdentity,
+    const requestType = AppConstants.requests.DISCLOSURE
+
+    console.log(msg)
+
+    navigation.navigate('Requests', {
+      requestType,
+      peerId: null,
+      peerMeta: null,
+      payload: null,
+      messageId: msg && msg.id,
     })
   }
 
@@ -93,7 +101,7 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                   sender={item.from}
                   receiver={item.to}
                   viewer={item.viewer}
-                  confirm={() => {}}
+                  confirm={() => confirmRequest(item)}
                   profileAction={() => {}}
                   actions={['Share']}
                   attachments={item.credentials}
