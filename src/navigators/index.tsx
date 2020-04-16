@@ -13,7 +13,6 @@ import {
   StackViewTransitionConfigs,
 } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { Icon } from '@kancha/kancha-ui'
 import TabAvatar from './components/TabAvatar'
 import { Colors, Icons } from '../theme'
@@ -52,6 +51,7 @@ import CreateRequest from '../screens/settings/CreateRequest'
 import SendRequest from '../screens/settings/SendRequest'
 import ShareCredential from '../screens/settings/ShareCredential'
 import Connections from '../screens/settings/Connections' // *
+import Credentials from '../screens/settings/Credentials' // *
 
 import { Animated, Easing } from 'react-native'
 
@@ -119,6 +119,12 @@ const SettingsNavigator = createStackNavigator(
         title: i18n.t('Connections'),
       },
     },
+    [Screens.Credentials.screen]: {
+      screen: Credentials,
+      navigationOptions: {
+        title: i18n.t('Credentials'),
+      },
+    },
     [Screens.DidViewer.screen]: {
       screen: DidViewer,
       navigationOptions: {
@@ -149,20 +155,16 @@ const SettingsNavigator = createStackNavigator(
   },
 )
 
-const ProfileNavigator = createSharedElementStackNavigator(
-  createStackNavigator,
-  {
-    [Screens.ViewerProfile.screen]: {
-      screen: ViewerProfile,
-      navigationOptions: {
-        title: i18n.t('My Profile'),
-      },
+const ProfileNavigator = createStackNavigator({
+  [Screens.ViewerProfile.screen]: {
+    screen: ViewerProfile,
+    navigationOptions: {
+      title: i18n.t('My Profile'),
     },
   },
-)
+})
 
-const ActivityNavigator = createSharedElementStackNavigator(
-  createStackNavigator,
+const ActivityNavigator = createStackNavigator(
   {
     [Screens.Activity.screen]: {
       screen: Activity,
@@ -283,7 +285,7 @@ const TabNavigator = createBottomTabNavigator(
 /**
  * Remove modal animation from these screens
  */
-const FADE_IN_MODALS = ['CredentialDetail']
+const FADE_IN_MODALS = ['']
 
 let dynamicModalTransition = (
   transitionProps: any,
@@ -321,21 +323,17 @@ export function fadeIn(duration = 400) {
   }
 }
 
-const CredentialDetail = createSharedElementStackNavigator(
-  createStackNavigator,
-  {
-    Credential: {
-      screen: Credential,
-      navigationOptions: {
-        headerStyle: { borderBottomWidth: 0, backgroundColor: '#000000' },
-      },
+const CredentialDetail = createStackNavigator({
+  Credential: {
+    screen: Credential,
+    navigationOptions: {
+      headerStyle: { borderBottomWidth: 0, backgroundColor: '#000000' },
     },
-    SettingsDetail: Settings,
   },
-)
+  SettingsDetail: Settings,
+})
 
-const App = createSharedElementStackNavigator(
-  createStackNavigator,
+const App = createStackNavigator(
   {
     Tabs: TabNavigator,
     Request: Request,

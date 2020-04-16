@@ -16,9 +16,9 @@ const Requests: React.FC<RequestsProps> = props => {
   const peerMeta = useNavigationParam('peerMeta')
   const peerId = useNavigationParam('peerId')
   const messageId = useNavigationParam('messageId')
+  const message = useNavigationParam('message')
   const payload = useNavigationParam('payload')
-
-  console.log('SELECTED_IDENTITY', selectedIdentity)
+  const isWalletConnect = useNavigationParam('isWalletConnect')
 
   const RequestScreen = () => {
     switch (requestType) {
@@ -35,8 +35,8 @@ const Requests: React.FC<RequestsProps> = props => {
           <CredentialAccept
             peerMeta={peerMeta}
             peerId={peerId}
-            messageId={messageId}
-            payloadId={payload.id}
+            message={message}
+            payloadId={payload && payload.id}
           />
         )
       case AppConstants.requests.DISCLOSURE:
@@ -45,8 +45,8 @@ const Requests: React.FC<RequestsProps> = props => {
             peerMeta={peerMeta}
             messageId={messageId}
             peerId={peerId}
-            payloadId={payload.id}
-            isWalletConnect
+            payloadId={payload && payload.id}
+            isWalletConnect={isWalletConnect}
             selectedIdentity={selectedIdentity}
           />
         )

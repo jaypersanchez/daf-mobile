@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { core, Message } from '../lib/setup'
+import { agent, Message } from '../lib/setup'
 import { wcEventHub } from '../providers/WalletConnect'
 import { Screens } from '../navigators/screens'
 import AppConstants from '../constants/index'
+import { useApolloClient } from '@apollo/react-hooks'
 
 interface WalletConnectProps {
   navigate: (routeName: any, params: any) => void
@@ -12,6 +13,8 @@ interface WalletConnectProps {
  * Top level component to house all the event handlers coming from wallet connect provider
  **/
 const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
+  const client = useApolloClient()
+
   useEffect(() => {
     wcEventHub.addListener(
       AppConstants.events.WALLET_CONNECT.SESSION_REQUEST_INT,
@@ -32,19 +35,24 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
       async ({ peerId, peerMeta, payload }) => {
         console.log(peerId, peerMeta, payload)
         const message = payload.params[0]
-          ? await core.validateMessage(
-              new Message({
-                raw: payload.params[0],
-                meta: {
-                  type: 'walletConnect',
-                },
-              }),
-            )
+          ? await agent.handleMessage({
+              raw: payload.params[0],
+              metaData: [{ type: 'walletConnect' }],
+              save: false,
+            })
           : null
 
-        if (payload.method === 'request_credentials') {
+        if (message && payload.method === 'issue_credential') {
+          await message.save()
+          client.reFetchObservableQueries()
+        }
+
+        if (message && payload.method === 'request_credentials') {
+          await message.save()
+
           const requestType = AppConstants.requests.DISCLOSURE
           navigate(Screens.Requests.screen, {
+            isWalletConnect: true,
             requestType,
             peerId,
             peerMeta,
@@ -52,14 +60,15 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ navigate }) => {
             messageId: message ? message.id : message,
           })
         }
-        if (payload.method === 'issue_credential_callback') {
+        if (message && payload.method === 'issue_credential_callback') {
           const requestType = AppConstants.requests.CREDENTIAL
           navigate(Screens.Requests.screen, {
+            isWalletConnect: true,
             requestType,
             peerId,
             peerMeta,
             payload,
-            messageId: message ? message.id : message,
+            message,
           })
         }
       },

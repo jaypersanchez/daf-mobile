@@ -11,7 +11,7 @@ const MessageProcess: React.FC<MessageProcess> = () => {
   const [parsingMessage, setParsing] = useState(true)
   const raw = useNavigationParam('message')
   const navigation = useNavigation()
-  const [parseMessage] = useMutation(NEW_MESSAGE, {
+  const [handleMessage] = useMutation(NEW_MESSAGE, {
     onCompleted(resp) {
       setParsing(false)
       console.log('Success', resp)
@@ -26,7 +26,7 @@ const MessageProcess: React.FC<MessageProcess> = () => {
 
   useEffect(() => {
     if (raw) {
-      parseMessage({
+      handleMessage({
         variables: {
           raw,
           sourceType: 'qrCode',

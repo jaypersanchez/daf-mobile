@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import {
   BottomSheet,
@@ -18,6 +18,9 @@ import {
   CREATE_IDENTITY,
 } from '../../lib/graphql/queries'
 import AppConstants from '../../constants'
+import { AppContext } from '../../providers/AppContext'
+
+const { SWITCHING_IDENTITY } = AppConstants.modals
 
 interface Identity {
   did: string
@@ -32,28 +35,24 @@ interface SwitcherProps {
 
 const Switcher: React.FC<SwitcherProps> = ({ id }) => {
   const client = useApolloClient()
+  const [selectedIdentity, setSelectedIdentity] = useContext(AppContext)
   const { data } = useQuery(GET_MANAGED_IDENTITIES)
-  const [setViewer] = useMutation(SET_VIEWER)
   const [createIdentity] = useMutation(CREATE_IDENTITY, {
     refetchQueries: [{ query: GET_MANAGED_IDENTITIES }],
     variables: {
       type: 'rinkeby-ethr-did',
     },
   })
-  const { SWITCHED_IDENTITY } = AppConstants.modals
-  const { SWITCHING_IDENTITY } = AppConstants.modals
 
   const managedIdentities =
     data && data.managedIdentities && data.managedIdentities
 
+  console.log(managedIdentities)
+
   const switchIdentity = async (identity: Identity) => {
     BottomSnap.to(0, id)
 
-    setViewer({
-      variables: {
-        did: identity.did,
-      },
-    })
+    setSelectedIdentity(identity.did)
 
     Overlay.show(
       SWITCHING_IDENTITY.title,

@@ -7,22 +7,22 @@ import {
   Credential,
   Screen,
 } from '@kancha/kancha-ui'
-import { dataStore } from '../../../lib/setup'
 import { WalletConnectContext } from '../../../providers/WalletConnect'
 import { useNavigation } from 'react-navigation-hooks'
+import { useApolloClient } from '@apollo/react-hooks'
 
 interface RequestProps {
   peerId: string
   payloadId: number
   peerMeta: any
-  messageId: string
+  message: any
 }
 
 const AcceptCredential: React.FC<RequestProps> = ({
   peerId,
   payloadId,
   peerMeta,
-  messageId,
+  message,
 }) => {
   const {
     walletConnectRejectCallRequest,
@@ -30,32 +30,15 @@ const AcceptCredential: React.FC<RequestProps> = ({
   } = useContext(WalletConnectContext)
   const [vcs, updateVcs] = useState()
   const navigation = useNavigation()
-
-  const getCredentialsFromMessage = async () => {
-    const vcs = await dataStore.credentialsForMessageId(messageId)
-    const vcsWithFields = await Promise.all(
-      vcs.map(async vc => ({
-        ...vc,
-        iss: {
-          did: vc.iss.did,
-          shortId: await dataStore.shortId(vc.iss.did),
-        },
-        sub: {
-          did: vc.sub.did,
-          shortId: await dataStore.shortId(vc.iss.did),
-        },
-        fields: await dataStore.credentialsFieldsForClaimHash(vc.hash),
-      })),
-    )
-
-    updateVcs(vcsWithFields)
-  }
+  const client = useApolloClient()
 
   const approveCallRequest = async () => {
+    await message.save()
     await walletConnectApproveCallRequest(peerId, {
       id: payloadId,
       result: 'CREDENTIAL_ACCEPTED',
     })
+    client.reFetchObservableQueries()
     navigation.goBack()
   }
 
@@ -67,10 +50,28 @@ const AcceptCredential: React.FC<RequestProps> = ({
     navigation.goBack()
   }
 
+  const shortId = (did: string) => {
+    return `${did.slice(0, 15)}...${did.slice(-4)}`
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      getCredentialsFromMessage()
-    }, 300)
+    const credentials = message.credentials.map((vc: any) => {
+      return {
+        ...vc,
+        issuer: {
+          did: vc.issuer.did,
+          shortId: shortId(vc.issuer.did),
+          profileImage: '',
+        },
+        subject: {
+          did: vc.subject.did,
+          shortId: shortId(vc.subject.did),
+          profileImage: '',
+        },
+      }
+    })
+
+    updateVcs(credentials)
   }, [])
 
   return (
@@ -116,16 +117,17 @@ const AcceptCredential: React.FC<RequestProps> = ({
         <Container padding flex={1} background={'primary'}>
           {vcs &&
             vcs.map((vc: any) => {
+              console.log('VC', vc)
               return (
                 <Credential
                   shadow={1.5}
                   background={'primary'}
                   key={vc.hash}
-                  exp={vc.exp}
-                  issuer={vc.iss}
-                  subject={vc.sub}
-                  fields={vc.fields}
-                  jwt={vc.jwt}
+                  exp={vc.expirationDate}
+                  issuer={vc.issuer}
+                  subject={vc.subject}
+                  fields={vc.claims}
+                  jwt={vc.raw}
                 />
               )
             })}

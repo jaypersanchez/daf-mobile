@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
+import { ALL_MESSAGES, GET_ALL_IDENTITIES } from '../../lib/graphql/queries'
+import { FlatList } from 'react-native'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import {
   Container,
   Text,
@@ -9,55 +12,36 @@ import {
   Constants,
   Credential,
   Loader,
-  Typings,
-  Connection,
 } from '@kancha/kancha-ui'
+import ContactsHeader from '../../navigators/components/ContactsHeader'
 import { Colors } from '../../theme'
-import { NavigationStackScreenProps } from 'react-navigation-stack'
-import { useQuery, useLazyQuery } from 'react-apollo'
-import { core, dataStore } from '../../lib/setup'
-import {
-  VIEWER_MESSAGES,
-  GET_VIEWER,
-  GET_ALL_IDENTITIES,
-} from '../../lib/graphql/queries'
-import { FlatList } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
-import { ScrollView } from 'react-native-gesture-handler'
-
-interface Identity {
-  did: string
-  shortId: string
-  isSelected: boolean
-  profileImage?: string
-}
+import { useQuery } from 'react-apollo'
+import { AppContext } from '../../providers/AppContext'
+import AppConstants from '../../constants'
 
 interface Props extends NavigationStackScreenProps {}
 
 const Activity: React.FC<Props> = ({ navigation }) => {
-  const viewerResponse = useQuery(GET_VIEWER)
-  const identitiesResponse = useQuery(GET_ALL_IDENTITIES)
-  const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
-
-  console.log(error)
-
-  const fetchMessages = () => {
-    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
-      getMessages({
-        variables: {
-          selectedDid: viewerResponse.data.viewer.did,
-        },
-      })
-    }
-  }
+  const [selectedIdentity] = useContext(AppContext)
+  const { data: allIdentities, loading: allIdentitiesLoading } = useQuery(
+    GET_ALL_IDENTITIES,
+  )
+  const {
+    data: allMessages,
+    loading: allMessagesLoading,
+    error: allMessagesError,
+    refetch: refetchAllMessages,
+  } = useQuery(ALL_MESSAGES, {
+    variables: {
+      selectedIdentity: selectedIdentity,
+    },
+  })
 
   const showFirstLoadModal = () => {
-    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
-      navigation.navigate('CreateFirstCredential', {
-        did: viewerResponse.data.viewer.did,
-        fetchMessages,
-      })
-    }
+    navigation.navigate('CreateFirstCredential', {
+      did: selectedIdentity,
+      fetchMessages: refetchAllMessages,
+    })
   }
 
   const viewAttachments = (credentials: any[], credentialIndex: number) => {
@@ -70,87 +54,61 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   const viewProfile = (did: any) => {
     navigation.navigate('Profile', {
       did,
-      isViewer: viewerResponse.data.viewer.did === did,
+      isViewer: selectedIdentity === did,
     })
   }
-
-  const syncAndRefetch = async () => {
-    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-
-    fetchMessages()
-  }
-
-  useEffect(() => {
-    fetchMessages()
-  }, [])
-
-  useEffect(() => {
-    identitiesResponse && identitiesResponse.refetch()
-  }, [data])
 
   const confirmRequest = (msg: any) => {
-    navigation.navigate('Request', {
-      requestMessage: msg,
-      viewerDid: data.viewer.did,
+    const requestType = AppConstants.requests.DISCLOSURE
+
+    console.log(msg)
+
+    navigation.navigate('Requests', {
+      requestType,
+      peerId: null,
+      peerMeta: null,
+      payload: null,
+      messageId: msg && msg.id,
     })
   }
-
-  const ContactsHeader = (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={{ backgroundColor: Colors.WHITE, marginBottom: 1 }}
-    >
-      <Container flexDirection={'row'}>
-        {identitiesResponse &&
-          identitiesResponse.data &&
-          identitiesResponse.data.identities &&
-          identitiesResponse.data.identities
-            .sort(
-              (id1: Identity, id2: Identity) =>
-                (id2.isSelected ? 1 : 0) - (id1.isSelected ? 1 : 0),
-            )
-            .map((identity: Typings.Identity & { isManaged: boolean }) => {
-              return (
-                <Connection
-                  key={identity.did}
-                  onPress={() => viewProfile(identity.did)}
-                  shortId={identity.shortId}
-                  did={identity.did}
-                  profileImage={identity.profileImage}
-                  isManaged={identity.isManaged}
-                />
-              )
-            })}
-      </Container>
-    </ScrollView>
-  )
 
   return (
     <Screen background={'secondary'} safeArea={true}>
       <Container flex={1}>
-        {loading && <Loader width={180} text={'Loading activity...'} />}
-        {error ? (
+        {allMessagesLoading && (
+          <Loader width={180} text={'Loading activity...'} />
+        )}
+        {allMessagesError ? (
           <Text>Error</Text>
         ) : (
           <FlatList
-            ListHeaderComponent={ContactsHeader}
+            ListHeaderComponent={
+              <ContactsHeader
+                viewProfile={viewProfile}
+                identities={allIdentities && allIdentities.identities}
+              />
+            }
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={data && data.viewer && data.viewer.messagesAll}
-            onRefresh={syncAndRefetch}
-            refreshing={loading || identitiesResponse.loading}
+            data={
+              allMessages &&
+              allMessages.messages &&
+              allMessages.messages.reverse()
+            }
+            onRefresh={() => refetchAllMessages()}
+            refreshing={allMessagesLoading || allIdentitiesLoading}
             renderItem={({ item }: { item: any }) => {
               return (
                 <ActivityItem
                   id={item.id}
                   type={item.type}
-                  profileAction={viewProfile}
-                  date={item.timestamp * 1000}
-                  viewer={viewerResponse && viewerResponse.data.viewer}
-                  sender={item.sender}
-                  receiver={item.receiver}
+                  date={item.saveDate}
+                  sender={item.from}
+                  receiver={item.to}
+                  viewer={item.viewer}
                   confirm={() => confirmRequest(item)}
-                  attachments={item.vc}
+                  profileAction={() => {}}
+                  actions={['Share']}
+                  attachments={item.credentials}
                   renderAttachment={(
                     credential: any,
                     credentialIndex: number,
@@ -161,29 +119,26 @@ const Activity: React.FC<Props> = ({ navigation }) => {
                       paddingRight={0}
                       key={credential.hash}
                     >
-                      <SharedElement id={credential.hash}>
-                        <Credential
-                          onPress={() =>
-                            viewAttachments(item.vc, credentialIndex)
-                          }
-                          exp={credential.exp}
-                          fields={credential.fields}
-                          subject={credential.sub}
-                          issuer={credential.iss}
-                          shadow={1.5}
-                          background={'primary'}
-                        />
-                      </SharedElement>
+                      <Credential
+                        onPress={() =>
+                          viewAttachments(item.credentials, credentialIndex)
+                        }
+                        exp={credential.expirationDate}
+                        fields={credential.claims}
+                        subject={credential.subject}
+                        issuer={credential.issuer}
+                        shadow={1.5}
+                        background={'primary'}
+                      />
                     </Container>
                   )}
-                  actions={['Share']}
                 />
               )
             }}
             keyExtractor={(item, index) => item.id + index}
             ListEmptyComponent={
               <Container>
-                {!loading && (
+                {!allMessagesLoading && (
                   <Container padding background={'secondary'}>
                     <Text bold type={Constants.TextTypes.H3}>
                       Hey there,

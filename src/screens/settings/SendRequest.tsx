@@ -19,18 +19,16 @@ export default () => {
   const [sent, setSent] = useState(false)
   const [jwt, setJwt] = useState()
   const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
-    onCompleted: response => {
-      if (response && response.actionSendJwt) {
-        setSending(false)
-        setSent(true)
-      }
+    onCompleted: () => {
+      setSending(false)
+      setSent(true)
     },
   })
 
-  const [actionSignSDR] = useMutation(SIGN_SDR_MUTATION, {
+  const [signSdrJwt] = useMutation(SIGN_SDR_MUTATION, {
     onCompleted: response => {
-      if (response && response.actionSignSDR) {
-        setJwt(response.actionSignSDR)
+      if (response && response.signSdrJwt) {
+        setJwt(response.signSdrJwt)
         setLoading(false)
 
         if (request.subject) {
@@ -40,7 +38,7 @@ export default () => {
             variables: {
               from: request.issuer,
               to: request.subject,
-              jwt: response.actionSignSDR,
+              jwt: response.signSdrJwt,
             },
           })
         }
@@ -49,14 +47,12 @@ export default () => {
   })
 
   useEffect(() => {
-    console.log(request)
-
-    actionSignSDR({
+    signSdrJwt({
       variables: {
-        did: request.issuer,
         data: {
+          issuer: request.issuer,
           tag: request.tag,
-          sub: request.subject || null,
+          subject: request.subject || null,
           claims: request.claims,
         },
       },

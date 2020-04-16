@@ -15,10 +15,7 @@ import { AppContext } from '../../providers/AppContext'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
   const [selectedIdentity, setSelectedIdentity] = useContext(AppContext)
-  const refetchQueries = [
-    { query: GET_MANAGED_IDENTITIES },
-    { query: GET_VIEWER },
-  ]
+  const refetchQueries = [{ query: GET_MANAGED_IDENTITIES }]
   const [createDid] = useMutation(CREATE_IDENTITY, {
     onCompleted({ createIdentity }) {
       if (createIdentity) {

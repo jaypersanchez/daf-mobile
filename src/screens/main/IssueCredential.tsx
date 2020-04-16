@@ -1,7 +1,7 @@
 /**
  *
  */
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect, createRef, useContext } from 'react'
 import { TextInput, ActivityIndicator } from 'react-native'
 import {
   Container,
@@ -10,9 +10,7 @@ import {
   Constants,
   Button,
   Icon,
-  Overlay,
 } from '@kancha/kancha-ui'
-import AppConstants from '../../constants'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
@@ -22,13 +20,12 @@ import {
   SIGN_VC_MUTATION,
   GET_VIEWER_CREDENTIALS,
   GET_ALL_IDENTITIES,
+  NEW_MESSAGE,
 } from '../../lib/graphql/queries'
 import { useTranslation } from 'react-i18next'
 import { TouchableHighlight } from 'react-native-gesture-handler'
 import { Identity } from '@kancha/kancha-ui/dist/types'
 import hexToRgba from 'hex-to-rgba'
-import { core } from '../../lib/setup'
-import { Message } from 'daf-core'
 
 interface Field {
   type: string
@@ -56,6 +53,19 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   const [getKnownIdentities, { data, loading }] = useLazyQuery(
     GET_ALL_IDENTITIES,
   )
+  const [handleMessage] = useMutation(NEW_MESSAGE, {
+    onCompleted: async response => {
+      if (response && response.handleMessage && response.handleMessage.raw) {
+        actionSendJwt({
+          variables: {
+            from: viewer.did,
+            to: subject.did,
+            jwt: response.handleMessage.raw,
+          },
+        })
+      }
+    },
+  })
   const [identitySelectOpen, setIdentitySelect] = useState(false)
 
   const inputSubject = (did: string) => {
@@ -114,37 +124,24 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
     onCompleted: async response => {
       if (response && response.actionSendJwt) {
-        const {
-          title,
-          message,
-          icon,
-          delay,
-        } = AppConstants.modals.CREDENTIAL_SENT
-        Overlay.show(title, message, icon, delay)
+        console.log('jwt sent', response.actionSendJwt)
       }
-      setSending(false)
       navigation.dismiss()
     },
     refetchQueries: [{ query: GET_VIEWER_CREDENTIALS }],
   })
 
-  const [actionSignVc] = useMutation(SIGN_VC_MUTATION, {
+  const [signCredentialJwt] = useMutation(SIGN_VC_MUTATION, {
     onCompleted: async response => {
-      if (response && response.actionSignVc) {
-        await core.validateMessage(
-          new Message({
-            raw: response.actionSignVc,
-            meta: {
-              type: 'selfSigned',
-            },
-          }),
-        )
-        setSending(true)
-        actionSendJwt({
+      if (
+        response &&
+        response.signCredentialJwt &&
+        response.signCredentialJwt.raw
+      ) {
+        handleMessage({
           variables: {
-            from: viewer.did,
-            to: subject.did,
-            jwt: response.actionSignVc,
+            raw: response.signCredentialJwt.raw,
+            meta: [{ type: 'selfSigned' }],
           },
         })
       }
@@ -152,17 +149,16 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   })
 
   const signVc = (claimFields: Field[]) => {
-    actionSignVc({
+    setSending(true)
+    signCredentialJwt({
       variables: {
-        did: viewer.did,
         data: {
-          sub: subject.did,
-          vc: {
-            context: ['https://www.w3.org/2018/credentials/v1'],
-            type: ['VerifiableCredential'],
-            credentialSubject: {
-              ...claimToObject(claimFields),
-            },
+          issuer: viewer.did,
+          context: ['https://www.w3.org/2018/credentials/v1'],
+          type: ['VerifiableCredential'],
+          credentialSubject: {
+            id: viewer.did,
+            ...claimToObject(claimFields),
           },
         },
       },

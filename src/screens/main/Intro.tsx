@@ -1,7 +1,7 @@
 /**
  *
  */
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Container,
   Text,
@@ -12,21 +12,21 @@ import {
 } from '@kancha/kancha-ui'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { Colors } from '../../theme'
-import { Image } from 'react-native'
-import { useQuery } from '@apollo/react-hooks'
-import { GET_VIEWER } from '../../lib/graphql/queries'
-import { ActivityIndicator } from 'react-native'
+import { Image, ActivityIndicator } from 'react-native'
+import { AppContext } from '../../providers/AppContext'
 
 const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
-  const { data, loading } = useQuery(GET_VIEWER, {
-    onCompleted(response) {
-      if (response.viewer !== null) {
-        navigation.navigate('App')
-      }
-    },
-  })
+  const [selectedIdentity] = useContext(AppContext)
+  const [loading, setLoading] = useState(true)
 
-  const hasNoIdentityAndNotLoading = !loading && data && data.viewer === null
+  useEffect(() => {
+    if (selectedIdentity !== null) {
+      navigation.navigate('App')
+    }
+    if (selectedIdentity === null) {
+      setLoading(false)
+    }
+  }, [selectedIdentity])
 
   return (
     <Screen
@@ -34,7 +34,8 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
       safeAreaBottomBackground={Colors.WHITE}
       background={'primary'}
       footerComponent={
-        hasNoIdentityAndNotLoading && (
+        !selectedIdentity &&
+        !loading && (
           <Container
             paddingHorizontal={true}
             paddingBottom={true}
@@ -60,7 +61,7 @@ const Intro: React.FC<NavigationStackScreenProps> = ({ navigation }) => {
           <ActivityIndicator size={'large'} />
         </Container>
       )}
-      {hasNoIdentityAndNotLoading && (
+      {!selectedIdentity && !loading && (
         <Container testID={'ONBOARDING_WELCOME_TOP'}>
           <Container padding alignItems={'center'} marginTop={50}>
             <Text type={Constants.TextTypes.H2} bold>

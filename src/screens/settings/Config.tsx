@@ -10,7 +10,7 @@ export default () => {
   const configs = Object.keys(Config.getConstants())
 
   // tslint:disable-next-line:no-console
-  console.log(configs)
+  console.log('Configs', configs)
 
   return (
     <Screen scrollEnabled={true}>

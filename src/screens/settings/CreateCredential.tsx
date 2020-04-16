@@ -35,10 +35,8 @@ interface Field {
  */
 export default () => {
   const navigation = useNavigation()
-
   const { data } = useQuery(GET_VIEWER)
   const getAllIdentitiesResp = useQuery(GET_ALL_IDENTITIES)
-
   const [identities, setIdentities] = useState<any[]>([])
   const [subject, updateSubject] = useState<any>({})
   const [claimValue, updateClaimValue] = useState('')

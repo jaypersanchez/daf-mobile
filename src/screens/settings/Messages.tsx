@@ -13,30 +13,16 @@ import {
   Constants,
 } from '@kancha/kancha-ui'
 import { FlatList } from 'react-native'
-import { useQuery, useLazyQuery } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import { Colors } from '../../theme'
-import { core, dataStore } from '../../lib/setup'
 import { useNavigation } from 'react-navigation-hooks'
 import { Screens } from '../../navigators/screens'
-import { VIEWER_MESSAGES, GET_VIEWER } from '../../lib/graphql/queries'
+import { ALL_MESSAGES } from '../../lib/graphql/queries'
 
 export default () => {
   const navigation = useNavigation()
-  const viewerResponse = useQuery(GET_VIEWER)
-  const [getMessages, { loading, data, error }] = useLazyQuery(VIEWER_MESSAGES)
-  const fetchMessages = () => {
-    if (viewerResponse && viewerResponse.data && viewerResponse.data.viewer) {
-      getMessages({
-        variables: {
-          selectedDid: viewerResponse.data.viewer.did,
-        },
-      })
-    }
-  }
 
-  useEffect(() => {
-    fetchMessages()
-  }, [])
+  const { loading, data, error, refetch } = useQuery(ALL_MESSAGES)
 
   const viewProfile = (did: string) => {
     navigation.navigate(Screens.Credentials.screen, {
@@ -50,10 +36,7 @@ export default () => {
     })
   }
 
-  const syncAndRefetch = async () => {
-    await core.getMessagesSince(await dataStore.latestMessageTimestamps())
-    fetchMessages()
-  }
+  console.log(data)
 
   return (
     <Screen safeArea={true}>
@@ -63,7 +46,7 @@ export default () => {
         ) : (
           <FlatList
             style={{ backgroundColor: Colors.LIGHTEST_GREY, flex: 1 }}
-            data={data && data.viewer && data.viewer.messagesAll}
+            data={data && data.messages && data.messages && data.messages}
             renderItem={({ item }: { item: any }) => {
               /**
                * Temporary until messageItem is refactored
@@ -71,10 +54,10 @@ export default () => {
               const msg = {
                 id: item.id,
                 type: item.type,
-                nbf: item.timestamp,
+                nbf: item.saveDate,
                 jwt: item.raw,
-                iss: item.sender,
-                sub: item.receiver,
+                iss: item.from,
+                sub: item.to,
               }
 
               return (
@@ -86,8 +69,8 @@ export default () => {
                 />
               )
             }}
-            keyExtractor={(item, index) => item.id + index}
-            onRefresh={syncAndRefetch}
+            keyExtractor={item => item.id}
+            onRefresh={() => refetch()}
             refreshing={loading}
             ListEmptyComponent={
               <Container padding>

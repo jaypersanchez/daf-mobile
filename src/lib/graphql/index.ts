@@ -1,12 +1,12 @@
-import { Core } from 'daf-core'
+import { Agent } from 'daf-core'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export interface Context {
-  core: Core
+  agent: Agent
 }
 
 const isSelected = async (identity: any, args: any, ctx: Context) => {
-  const did = await AsyncStorage.getItem('selectedDid')
+  const did = await AsyncStorage.getItem('selectedIdentity')
   return identity.did === did
 }
 
@@ -14,24 +14,37 @@ const setViewer = async (_: any, args: { did: string }, ctx: Context) => {
   return await AsyncStorage.setItem('selectedDid', args.did)
 }
 
+const request = async (_: any, args: any, ctx: Context) => {
+  const did = await AsyncStorage.getItem('selectedIdentity')
+
+  if (did !== null) {
+    return {
+      did,
+      __typename: 'Identity',
+    }
+  }
+}
+
+const credentialView = async (_: any, args: any, ctx: Context) => {
+  console.log(args.credential)
+  const credential = args.credential
+  return {
+    credential,
+    __typename: 'Credential',
+  }
+}
+
 const viewer = async (_: any, args: any, ctx: Context) => {
-  const did = await AsyncStorage.getItem('selectedDid')
+  const did = await AsyncStorage.getItem('selectedIdentity')
+
   if (did !== null) {
     return {
       did,
       __typename: 'Identity',
     }
   } else {
-    // Check if there are any identities in the core.
-    // Set the first one as viewer by default
-    const identities = await ctx.core.identityManager.getIdentities()
-
-    if (identities.length > 0) {
-      await AsyncStorage.setItem('selectedDid', identities[0].did)
-      return {
-        did: identities[0].did,
-        __typename: 'Identity',
-      }
+    return {
+      did: null,
     }
   }
 }
@@ -46,11 +59,17 @@ export const resolvers = {
   Mutation: {
     setViewer,
   },
+  Message: {
+    viewer,
+  },
 }
 
 export const typeDefs = `
   extend type Identity {
     isSelected: Boolean
+  }
+  extend type Message {
+    viewer: Identity
   }
   extend type Query {
     viewer: Identity
