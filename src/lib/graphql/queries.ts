@@ -47,10 +47,11 @@ export const GET_CREDENTIALS_FOR_IDENTITY = gql`
 
   query Credentials($selectedIdentity: ID!) {
     identity(did: $selectedIdentity) {
-      isManaged
       isSelected
       ...ShortProfile
-      receivedCredentials {
+      receivedCredentials: credentials(
+        input: { subject: [$selectedIdentity] }
+      ) {
         hash
         issuer {
           ...ShortProfile
@@ -89,25 +90,25 @@ export const GET_VIEWER_CREDENTIALS = gql`
     lastName: latestClaimValue(type: "lastName")
     profileImage: latestClaimValue(type: "profileImage")
   }
-  query getViewer {
+  query getViewer($selectedIdentity: ID!) {
     viewer {
       ...ShortProfile
       isManaged
       isSelected
-      receivedCredentials {
-        hash
-        issuer {
-          ...ShortProfile
-        }
-        subject {
-          ...ShortProfile
-        }
-        credentialSubject
-        claims {
-          type
-          value
-          isObj
-        }
+    }
+    credentials(input: { subject: [$selectedIdentity] }) {
+      hash
+      issuer {
+        ...ShortProfile
+      }
+      subject {
+        ...ShortProfile
+      }
+      credentialSubject
+      claims {
+        type
+        value
+        isObj
       }
     }
   }
