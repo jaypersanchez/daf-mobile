@@ -11,13 +11,12 @@ import {
 } from '@kancha/kancha-ui'
 import {
   SIGN_VP,
-  SEND_JWT_MUTATION,
+  SEND_DIDCOMM_MUTATION,
   GET_MESSAGE_SDR,
 } from '../../../lib/graphql/queries'
 import { useMutation, useQuery } from 'react-apollo'
 import { useNavigation } from 'react-navigation-hooks'
 import { WalletConnectContext } from '../../../providers/WalletConnect'
-import { agent, Message } from '../../../lib/setup'
 
 interface RequestProps {
   peerId: string
@@ -67,11 +66,10 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
     setValid(valid)
   }
 
-  const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
+  const [actionSendDidComm] = useMutation(SEND_DIDCOMM_MUTATION, {
     onCompleted: response => {
-      if (response.actionSendJwt) {
+      if (response) {
         updateSending(false)
-        navigation.goBack()
       }
     },
     onError: error => {
@@ -80,20 +78,20 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
   })
   const [actionSignVp] = useMutation(SIGN_VP, {
     onCompleted: async response => {
-      console.log(response)
-
       if (response.signPresentationJwt) {
         updateSending(true)
 
         if (isWalletConnect) {
-          console.log('APPROVE')
           await approveCallRequest(response.signPresentationJwt.raw)
         } else {
-          await actionSendJwt({
+          await actionSendDidComm({
             variables: {
-              to: message.from.did,
-              from: selectedIdentity,
-              jwt: response.signPresentationJwt.raw,
+              data: {
+                to: message.from.did,
+                from: selectedIdentity,
+                body: response.signPresentationJwt.raw,
+              },
+              url: requestMessage.replyUrl,
             },
           })
         }
@@ -189,7 +187,6 @@ const SelectiveDisclosure: React.FC<RequestProps> = ({
     }
   }, [requestMessage])
 
-  // return <Container />
   return (
     <Screen
       scrollEnabled

@@ -53,19 +53,7 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   const [getKnownIdentities, { data, loading }] = useLazyQuery(
     GET_ALL_IDENTITIES,
   )
-  const [handleMessage] = useMutation(NEW_MESSAGE, {
-    onCompleted: async response => {
-      if (response && response.handleMessage && response.handleMessage.raw) {
-        actionSendJwt({
-          variables: {
-            from: viewer.did,
-            to: subject.did,
-            jwt: response.handleMessage.raw,
-          },
-        })
-      }
-    },
-  })
+  const [handleMessage] = useMutation(NEW_MESSAGE)
   const [identitySelectOpen, setIdentitySelect] = useState(false)
 
   const inputSubject = (did: string) => {
@@ -121,16 +109,6 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
     updateFields(updatedClaims)
   }
 
-  const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
-    onCompleted: async response => {
-      if (response && response.actionSendJwt) {
-        console.log('jwt sent', response.actionSendJwt)
-      }
-      navigation.dismiss()
-    },
-    refetchQueries: [{ query: GET_VIEWER_CREDENTIALS }],
-  })
-
   const [signCredentialJwt] = useMutation(SIGN_VC_MUTATION, {
     onCompleted: async response => {
       if (
@@ -149,7 +127,6 @@ const IssueCredential: React.FC<NavigationStackScreenProps> & {
   })
 
   const signVc = (claimFields: Field[]) => {
-    setSending(true)
     signCredentialJwt({
       variables: {
         data: {

@@ -315,3 +315,14 @@ export const SEND_JWT_MUTATION = gql`
     }
   }
 `
+
+export const SEND_DIDCOMM_MUTATION = gql`
+  mutation sendMessageDidCommAlpha1(
+    $data: SendMessageDidCommAlpha1Input!
+    $url: String
+  ) {
+    sendMessageDidCommAlpha1(data: $data, url: $url, save: true) {
+      id
+    }
+  }
+`
