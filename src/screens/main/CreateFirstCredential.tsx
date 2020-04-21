@@ -14,9 +14,7 @@ import {
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { useMutation } from '@apollo/react-hooks'
-import { SEND_JWT_MUTATION, SIGN_VC_MUTATION } from '../../lib/graphql/queries'
-import { agent } from '../../lib/setup'
-import { Message } from 'daf-core'
+import { SIGN_VC_MUTATION, NEW_MESSAGE } from '../../lib/graphql/queries'
 
 const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
   navigationOptions: any
@@ -24,30 +22,21 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
   const did = navigation.getParam('did')
   const fetchMessages = navigation.getParam('fetchMessages')
   const [name, setName] = useState()
-  const [sending, setSending] = useState(false)
 
-  const [actionSendJwt] = useMutation(SEND_JWT_MUTATION, {
-    onCompleted: response => {
-      if (response && response.actionSendJwt) {
-        setSending(false)
-        fetchMessages()
-      }
+  const [handleMessage] = useMutation(NEW_MESSAGE, {
+    onCompleted: () => {
+      fetchMessages()
       navigation.dismiss()
     },
   })
+
   const [actionSignVc] = useMutation(SIGN_VC_MUTATION, {
     onCompleted: async response => {
-      if (response && response.actionSignVc) {
-        setSending(true)
-        await agent.handleMessage({
-          raw: response.actionSignVc,
-          metaData: [{ type: 'selfSigned' }],
-        })
-        actionSendJwt({
+      if (response && response.signCredentialJwt) {
+        handleMessage({
           variables: {
-            from: did,
-            to: did,
-            jwt: response.actionSignVc,
+            raw: response.signCredentialJwt.raw,
+            meta: [{ type: 'selfSigned' }],
           },
         })
       }
@@ -57,15 +46,13 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
   const signVc = () => {
     actionSignVc({
       variables: {
-        did,
         data: {
-          sub: did,
-          vc: {
-            context: ['https://www.w3.org/2018/credentials/v1'],
-            type: ['VerifiableCredential'],
-            credentialSubject: {
-              name,
-            },
+          issuer: did,
+          context: ['https://www.w3.org/2018/credentials/v1'],
+          type: ['VerifiableCredential'],
+          credentialSubject: {
+            id: did,
+            name,
           },
         },
       },
@@ -88,33 +75,18 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
           <Text textStyle={{ fontFamily: 'menlo' }}>{did}</Text>
         </Container>
         <Container marginTop marginBottom>
-          {sending ? (
-            <Container
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'center'}
-            >
-              <ActivityIndicator />
-              <Container marginLeft>
-                <Text type={Constants.TextTypes.Body}>
-                  Issuing your credential
-                </Text>
-              </Container>
-            </Container>
-          ) : (
-            <Text type={Constants.TextTypes.Body}>
-              Let's create your first credential by issuing a{' '}
-              <Text textStyle={{ fontStyle: 'italic' }} bold>
-                name
-              </Text>{' '}
-              credential to yourself...
+          <Text type={Constants.TextTypes.Body}>
+            Let's create your first credential by issuing a{' '}
+            <Text textStyle={{ fontStyle: 'italic' }} bold>
+              name
             </Text>
-          )}
+            credential to yourself...
+          </Text>
         </Container>
         <Container marginTop marginBottom>
           <Text type={Constants.TextTypes.Body}>Enter your name</Text>
         </Container>
-        <Container disabled={sending} background={'secondary'} padding br={5}>
+        <Container background={'secondary'} padding br={5}>
           <TextInput
             value={name}
             onChangeText={setName}
@@ -127,7 +99,7 @@ const CreateFirstCredential: React.FC<NavigationStackScreenProps> & {
         <Container marginTop={50}>
           <Container>
             <Button
-              disabled={sending || !name}
+              disabled={!name}
               fullWidth
               block={Constants.ButtonBlocks.Filled}
               type={Constants.BrandOptions.Primary}

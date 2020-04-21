@@ -61,8 +61,6 @@ const Activity: React.FC<Props> = ({ navigation }) => {
   const confirmRequest = (msg: any) => {
     const requestType = AppConstants.requests.DISCLOSURE
 
-    console.log(msg)
-
     navigation.navigate('Requests', {
       requestType,
       peerId: null,
